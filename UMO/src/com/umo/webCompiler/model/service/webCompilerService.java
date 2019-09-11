@@ -1,60 +1,51 @@
 package com.umo.webCompiler.model.service;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
+import static common.record.RecordFile.recordFile;
 
 public class webCompilerService {
 
-	public void compile(String lang, File f) {
+	public List<File> compile(String lang, File f) {
 		switch (lang) {
 		case "Java":
-			javaCompile(f);
-			break;
+			return javaCompile(f);
 		case "HTML":
 			break;
 		case "JavaScript":
 			break;
 		}
-		
-		
+		return null;
 	}
 	
-	public void javaCompile(File f) {
-		try {
-			Runtime.getRuntime().exec("javac "+f.getPath());
+	public List<File> javaCompile(File f) {
+		List<File> files = new ArrayList();
+		String path = f.getParentFile().getParent()+"/outputCode/";
+		String fileName = f.getName().substring(0, f.getName().lastIndexOf('.'));
+		try {			
+			Process compilepro = Runtime.getRuntime().exec("javac "+f.getPath());
 			
-			String fileName = f.getName().substring(0, f.getName().lastIndexOf('.'));
+			files.add(recordFile(compilepro,"compile_message",path));
+			files.add(recordFile(compilepro,"compile_error_message",path));
+			//execute시작
 			
-			Thread.sleep(2000);
+			Thread.sleep(1000);
 			
-			Process pro = Runtime.getRuntime().exec("java "+fileName, null, new File(f.getParent()));
+			if(new File(f.getParent()+"/"+fileName+".class").exists()) {
 			
-			InputStream is = pro.getInputStream();
-			InputStreamReader isr = new InputStreamReader(is,"MS949");
-			BufferedReader bs = new BufferedReader(isr);
-			String line;
-			while((line = bs.readLine())!=null) {
-				System.out.println(line);
+				Process executepro = Runtime.getRuntime().exec("java "+fileName, null, new File(f.getParent()));	
+
+				files.add(recordFile(executepro,"execute_message",path));
+				files.add(recordFile(executepro,"execute_error_message",path));
 			}
-			
-			InputStream eis = pro.getErrorStream();
-			InputStreamReader eisr = new InputStreamReader(eis);
-			BufferedReader ebs = new BufferedReader(eisr);
-			String line2;
-			while((line2 = ebs.readLine())!=null) {
-				System.out.println(line2);
-			}
-			
-			
 		}
 		catch (Exception e) {
 				e.printStackTrace();// TODO: handle exception
 		}
-	}
 
+		return files;
+	}
+	
 }

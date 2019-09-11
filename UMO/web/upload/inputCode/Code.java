@@ -1,1 +1,1 @@
-public class Code { public static void main(String args[]){	System.out.println("照括");	} }
+public class Code { public static void main(String args[]){ System.out.println("せせせせ");		} }
