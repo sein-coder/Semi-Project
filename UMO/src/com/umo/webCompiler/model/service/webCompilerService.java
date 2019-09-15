@@ -31,12 +31,10 @@ public class webCompilerService {
 			files.add(recordFile(compilepro,"compile_error_message",path));
 			//execute시작
 			
-			Thread.sleep(1000);
+			Thread.sleep(2000);
 			
-			if(new File(f.getParent()+"/"+fileName+".class").exists()) {
-			
+			if(new File(f.getParent()+"/"+fileName+".class").exists()) {				
 				Process executepro = Runtime.getRuntime().exec("java "+fileName, null, new File(f.getParent()));	
-
 				files.add(recordFile(executepro,"execute_message",path));
 				files.add(recordFile(executepro,"execute_error_message",path));
 			}

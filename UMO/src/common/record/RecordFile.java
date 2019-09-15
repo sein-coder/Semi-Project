@@ -35,6 +35,7 @@ public class RecordFile {
 			String line;
 			while((line=bs.readLine())!=null) {
 					message+=line+"\n";
+					System.out.println(line);
 			}
 		
 		//파일에 메세지 쓰기
