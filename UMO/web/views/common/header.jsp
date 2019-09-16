@@ -47,7 +47,7 @@
                                 <a href="<%=request.getContextPath() %>/index.jsp"><button id="dropdown-btn" class="dropdown gecipan3"   style="color: black">자극방</button></a>
                                 <a href="<%=request.getContextPath() %>/index.jsp"><button id="dropdown-btn" class="dropdown gecipan4"   style="color: black">게임방</button></a>
                                 <a href="<%=request.getContextPath() %>/index.jsp"><button id="dropdown-btn" class="dropdown gecipan5"   style="color: black">랭킹방</button></a>
-                                <a href="<%=request.getContextPath() %>/food/foodboard"><button id="dropdown-btn" class="dropdown gecipan6"   style="color: black">맛집추천</button></a>
+                                <a href="<%=request.getContextPath() %>/food/foodList"><button id="dropdown-btn" class="dropdown gecipan6"   style="color: black">맛집추천</button></a>
                                 <a href="<%=request.getContextPath() %>/webCopiler/webCopilerView"><button id="dropdown-btn" class="dropdown gecipan7"   style="color: black">코드방</button></a>
                             </div>
                             <div class="right-menu">
