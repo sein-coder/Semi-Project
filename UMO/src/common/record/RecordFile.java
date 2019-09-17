@@ -35,11 +35,10 @@ public class RecordFile {
 			String line;
 			while((line=bs.readLine())!=null) {
 					message+=line+"\n";
-					System.out.println(line);
 			}
 		
 		//파일에 메세지 쓰기
-		BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f),"MS949"));
+		BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f),"UTF-8"));
 		writer.write(message);
 		writer.close();
 		}catch (IOException e) {

@@ -48,7 +48,6 @@ public class FoodListServlet extends HttpServlet {
 		int totalPage = (int)Math.ceil((double)totalData/numPerPage);
 		int pageBarSize=5;
 		int pageNo =((cPage-1)/pageBarSize)*pageBarSize+1;
-		System.out.println(pageNo);
 		int pageEnd=pageNo+pageBarSize -1;
 		
 		if(pageNo==1) {
