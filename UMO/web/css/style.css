@@ -3,17 +3,15 @@ body{
     margin:0;
 }
 #header {
+    z-index: 4;
     position: fixed;
     left: 0;
     top: 0;
     width: 100%;
     background: rgba(255, 255, 255, 0.95);
-    height: 6em;
+    height: 95px;
     line-height: 3em;
     box-shadow: 0 0 0.15em 0 rgba(0, 0, 0, 0.1);
-}
-.header{
-    z-index: 10000;
 }
 
 #header h2 {
@@ -28,16 +26,33 @@ body{
 #header h2 a {
     font-size: 1.3em;
 }
+#calendar td {
+    width: 25%;
+    height: 20%;
+    text-align: center;
+    font-size: 70%;
+    font-family: 굴림;
+    border: 2px;
+    border-color: #3333FF;
+    border-radius: 8px;
+}
 .menu{
     display: block;
 }
+.menu2{
+    display: flex;
+}
 .center-menu{
+	width: 100%;
 	text-align : center;
-    margin-left:24%;
     margin-right: auto; 
 }
 .right-menu{
-    margin-left:auto;display: flex;
+	text-align: center;
+    width: 10%;
+    margin-left:auto;
+    display: inline-block;
+    font-size:72%;
 }
 #dropdown-btn{
 background:none;
@@ -45,7 +60,7 @@ color:inherit;
 border:none;
 position:relative;
 height:38px;
-font-size:1em;
+font-size:80%;
 padding:0 2em;
 cursor:pointer;
 transition:800ms ease all;
@@ -79,14 +94,13 @@ margin-top: 0;
     margin-left:30px;
 }
 .menuview{
+	z-index: 3;
 	background: url(../images/menuview.jpg);
     position: fixed;
     display:none;
     float:left; 
-    width:10%; 
+    width:150px; 
     height:100%; 
-    z-index: 100;
-    /* border:1px solid black;  */
     left: 0;
     top: 0;
     background-color: #ffffff;
@@ -142,6 +156,7 @@ ul :hover .menuLink {
 /* intro */
 	
 #intro {
+	z-index: 1;
     background: url("../images/overlay.png"), url("../images/intro.jpg");
     background-size: 256px 256px, cover;
     background-attachment: fixed, fixed;
@@ -271,10 +286,14 @@ textarea {
     text-align: right;
 }
 .subcenter-menu{
+    z-index: 2;
+    /* height: 5%; */
+    top: 95px;
     width: 100%;
     background-color: rgb(204, 201, 201);
     display: block;
-    margin-top:6.2%;
+    position: fixed;
+    /* margin-top:0.5%; */
     text-align: center;
     font-size: 0.8em;
     box-shadow: 0 0 0.15em 0 rgba(0, 0, 0, 0.1);
