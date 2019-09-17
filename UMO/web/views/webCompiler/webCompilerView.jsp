@@ -16,8 +16,9 @@
 		select#language-choice option { font-size: 18px; }
 		input#btn-compiler{ font-size: 20px; color: red; padding-left: 16%; padding-right: 16%;}
 		div.title { font-size: 1.67em; font-weight: bold; text-align: center; }
-	    div#editor { margin-top:20px; margin-left: auto; margin-right: auto; font-size: 15px; height: 500px; width: 750px;}
+	    div#editor,div#result { margin-top:20px; margin-left: auto; margin-right: auto; font-size: 15px; height: 500px; width: 750px;}
 	    .as-console-wrapper { display: none !important; }
+	    div.result { text-align: left; margin-left: 30%;}
 	</style>
 	
 	<section id="webCompiler-container">
@@ -26,7 +27,7 @@
 		<div id="language-container">
 		언어 선택 :
 		<select name="language-choice" id="language-choice">
-			<option value="Java">Java</option>
+			<option value="Java" selected>Java</option>
 			<option value="HTML">HTML</option>
 			<option value="javaScript">javaScript</option>
 		</select>
@@ -36,11 +37,10 @@
   		<div id="editor"></div>
 		<br>
 		<input type="hidden" id="inputCode" name="inputCode" value="">
-		<input id="btn-compiler" type="submit" value="C o m p i l e r">
 		
 		</form>
-		
-		
+		<button id="btn" onclick="compile();">C o m p i l e r</button>
+		<div id="result" class="result"></div>
 	</section>
 	<script>
 	//Ace Editor Logic
@@ -55,7 +55,11 @@
 	    editor.setTheme("ace/theme/monokai");
 	    editor.getSession().setMode("ace/mode/java");
 	    syncEditor();
-	
+	    commitChanges();
+	    
+	    var resulteditor = ace.edit('result');
+	    resulteditor.getSession().setMode("ace/mode/java");
+	    
 	    // Main Logic
 	    setTimeout(formatCode, 500); // Format sample Java after 1 second.
 	
@@ -85,6 +89,28 @@
 				commitChanges();				
 			});
 		});
+    
+    	function compile(){
+    		console.log($("#inputCode").val());
+    		$.ajax({
+    			url:"<%=request.getContextPath()%>/webCompiler/codeInput",
+				type:"post", //get이든 post든 무상관
+				data:{"inputCode":$("#inputCode").val(),
+					"language-choice":$("#language-choice").val()},
+				dataType:"text",
+				success:function(data){
+					var CodeResult = data.split(",");
+					var result = $("#result");
+					for(var i = 0 ; i<CodeResult.length-1; i++){
+						var rs = $("<p>").html(CodeResult[i].split(","));
+						result.append(rs);
+					}
+					console.log(result);
+					/* resulteditor.getSession().setValue(result); */
+				}
+    		});
+    	}
+    
 	</script>
 
 <%@ include file = "/views/common/footer.jsp" %>
