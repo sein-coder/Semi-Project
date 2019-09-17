@@ -22,7 +22,6 @@
 	</style>
 	
 	<section id="webCompiler-container">
-		<h2>Web Compiler</h2>
 		<form action="<%= request.getContextPath() %>/webCompiler/codeInput" method="post">
 		<div id="language-container">
 		언어 선택 :
@@ -40,7 +39,7 @@
 		
 		</form>
 		<button id="btn" onclick="compile();">C o m p i l e r</button>
-		<div id="result" class="result"></div>
+		<div id="result" class="result" style="display: none;"></div>
 	</section>
 	<script>
 	//Ace Editor Logic
@@ -48,6 +47,7 @@
 		var code = 'public class Test {public static void main(String[] args) throws Exception {System.out.print("Hello world");}}';
 	    var inputCode = $("#inputCode");
 	    inputCode.val(code);
+	    var result = "";
 		var jsbOpts = {
 	        indent_size : 4
 	    };
@@ -99,14 +99,15 @@
 					"language-choice":$("#language-choice").val()},
 				dataType:"text",
 				success:function(data){
-					var CodeResult = data.split(",");
-					var result = $("#result");
-					for(var i = 0 ; i<CodeResult.length-1; i++){
-						var rs = $("<p>").html(CodeResult[i].split(","));
-						result.append(rs);
+					if($("#result").css("display") == "none") {
+						$("#result").show('slow');
+						$("html").animate({scrollTop : ($("#result").offset().top)}, 500);
 					}
-					console.log(result);
-					/* resulteditor.getSession().setValue(result); */
+					var CodeResult = data.substring(1,data.length-1).split(",");
+					for(var i = 0 ; i<CodeResult.length-1; i++){
+						result += CodeResult[i].split(",")+"\n";
+					}
+					resulteditor.getSession().setValue(result);
 				}
     		});
     	}

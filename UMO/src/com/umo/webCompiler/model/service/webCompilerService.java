@@ -31,7 +31,7 @@ public class webCompilerService {
 			files.add(recordFile(compilepro,"compile_error_message",path));
 			//execute시작
 			
-			Thread.sleep(2000);
+			Thread.sleep(1000);
 			
 			if(new File(f.getParent()+"/"+fileName+".class").exists()) {				
 				Process executepro = Runtime.getRuntime().exec("java "+fileName, null, new File(f.getParent()));	
