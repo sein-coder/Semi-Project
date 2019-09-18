@@ -78,7 +78,7 @@ String saveId=null;
                             src="https://www.iei.or.kr/resources/images/common/menu_open.png"></a>
                 </div>
                 <div class="center-menu">
-                    <a href="index.html"><button id="dropdown-btn" class="dropdown gecipan1"
+                    <a href="#"><button id="dropdown-btn" class="dropdown gecipan1"
                             style="color: black">공지</button></a>
                     <a href="index.html"><button id="dropdown-btn" class="dropdown gecipan2"
                             style="color: black">게시판</button></a>
@@ -107,7 +107,7 @@ String saveId=null;
         </header>
         <div class="subcenter-menu">
             <div id="subcenter-menu1">
-                <a href="index.html"><button id="dropdown-btn" class="dropdown" style="color: black">새로운소식</button></a>
+                <a href="<%=request.getContextPath() %>/noticeBoard"><button id="dropdown-btn" class="dropdown" style="color: black">새로운소식</button></a>
                 <a href="오시는길.html"><button id="dropdown-btn" class="dropdown" style="color: black">오시는길</button></a>
             </div>
             <div id="subcenter-menu2">
