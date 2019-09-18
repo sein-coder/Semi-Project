@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ page import="com.umo.model.vo.Member" %>
+ <%Member loginMember=(Member)session.getAttribute("loginMember");
+Cookie[] cookies=request.getCookies();
+String saveId=null;
+%>
 
    
 <!DOCTYPE html>
@@ -17,8 +21,12 @@
     <div class="menuview">
         <br><br><br>
         <br><br><br>
-        <a href="">회원가입</a>
-        <a href="">로그인</a>
+        <%if(loginMember==null) {%>
+            <a href="<%=request.getContextPath()%>/memberJoin">회원가입</a>&nbsp;&nbsp;
+            <a href="<%=request.getContextPath()%>/memberLogin">로그인</a>
+            <%}else{ %>
+            <a href="<%=request.getContextPath() %>/index.jsp">마이페이지</a>
+            <%} %>
         <br>
         <p>출석일은 ~일</p>
         <button class="calendarbutton" onclick="calendarbutton();">달력</button>
@@ -62,7 +70,7 @@
     </div>
     <div>
         <header id="header">
-            <h2><a href="index.html" style="color:inherit;text-decoration: none;">kh</a></h2>
+            <h2><a href="<%=request.getContextPath() %>/index.jsp" style="color:inherit;text-decoration: none;">kh</a></h2>
             <div class="menu2">
                 <div class="left-menu">
                     <a href="javascript:doDisplay();"><img id="guidebutton"
@@ -82,11 +90,18 @@
                     <a href="<%=request.getContextPath()%>/webCopiler/webCopilerView"><button id="dropdown-btn" class="dropdown gecipan7"
                             style="color: black">코드방</button></a>
                 </div>
-                <div class="right-menu">
-                    <a href="#" style="color:inherit;text-decoration: none;">회원가입</a>
-                    <a href="#" style="color:inherit;text-decoration: none;">로그인</a>
-                </div>
-            </div>
+                  <% if(loginMember==null){ %>
+                            <div class="right-menu">
+                                <a href="<%=request.getContextPath() %>/memberJoin" style="color:inherit;text-decoration: none;">회원가입</a>
+                                <a href="<%=request.getContextPath() %>/memberLogin" style="color:inherit;text-decoration: none;">로그인</a>
+                            </div>	
+                            <%}else{ %>
+                            <div class="right-menu">
+                            
+                            <a href="<%=request.getContextPath() %>/index.jsp" style="color:inherit; text-decoration: none;">마이페이지</a>;
+                            </div>
+                            <%} %>
+                            </div>
         </header>
         <div class="subcenter-menu">
             <div id="subcenter-menu1">
