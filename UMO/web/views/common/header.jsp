@@ -25,7 +25,8 @@ String saveId=null;
             <a href="<%=request.getContextPath()%>/memberJoin">회원가입</a>&nbsp;&nbsp;
             <a href="<%=request.getContextPath()%>/memberLogin">로그인</a>
             <%}else{ %>
-            <a href="<%=request.getContextPath() %>/index.jsp">마이페이지</a>
+            <a href="<%=request.getContextPath() %>/myPage?userId=<%=request.getContextPath()%>">마이페이지</a>
+            <a href="<%=request.getContextPath() %>/logout">로그아웃</a>
             <%} %>
         <br>
         <p>출석일은 ~일</p>
@@ -98,7 +99,8 @@ String saveId=null;
                             <%}else{ %>
                             <div class="right-menu">
                             
-                            <a href="<%=request.getContextPath() %>/index.jsp" style="color:inherit; text-decoration: none;">마이페이지</a>;
+                            <a href="<%=request.getContextPath() %>/myPage?userId=<%=request.getContextPath()%>" style="color:inherit; text-decoration: none;">마이페이지</a>
+                            <a href="<%=request.getContextPath() %>/logout">로그아웃</a>
                             </div>
                             <%} %>
                             </div>

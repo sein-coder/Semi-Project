@@ -48,8 +48,9 @@ body{
     margin-right: auto; 
 }
 .right-menu{
+	
 	text-align: center;
-    width: 10%;
+    width: 15%;
     margin-left:auto;
     display: inline-block;
     font-size:72%;
@@ -311,5 +312,14 @@ textarea {
 .image-fit{
 	width: 440px;
 	height: 276px;
+}
+.mypagediv{
+    display: grid;
+    margin-left:10%;width: 75%;
+}
+.main.style12 {
+    /* text-align: center; */
+    padding: 5% 0 10% 0;
+    margin-top:6.3%;   
 }
 
