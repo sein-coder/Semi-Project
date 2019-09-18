@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import com.umo.food.model.vo.Food;
+import com.umo.model.vo.Food;
 
 import static common.template.JDBCTemplate.close;
 

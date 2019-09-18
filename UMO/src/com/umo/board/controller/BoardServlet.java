@@ -1,27 +1,23 @@
-package com.umo.member.controller;
+package com.umo.board.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.umo.member.model.service.MemberService;
-import com.umo.model.vo.Member;
-
 /**
- * Servlet implementation class MemberJoinEndServlet
+ * Servlet implementation class ClassBoardListServlet
  */
-@WebServlet("/memberJoinEnd")
-public class MemberJoinEndServlet extends HttpServlet {
+@WebServlet("/board")
+public class BoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberJoinEndServlet() {
+    public BoardServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,24 +27,10 @@ public class MemberJoinEndServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.setCharacterEncoding("UTF-8");
-		String id=request.getParameter("id");
-		String pw=request.getParameter("password");
-		String name=request.getParameter("name");
-		String email=request.getParameter("email");
-		String phone=request.getParameter("phone");
-		String address=request.getParameter("address");
 		
+		request.getRequestDispatcher("/views/board/board.jsp").forward(request, response);
 		
-		Member m=new Member(id,pw,name,email,phone,address);
-		
-		int result=new MemberService().registMember(m);
-		String msg=result>0?"���ԿϷ�":"���Խ���";
-		String loc="/";
-		request.setAttribute("msg", msg);
-		request.setAttribute("loc",loc);
-		request.getRequestDispatcher("views/common/msg.jsp")
-		.forward(request, response);
+	    
 	}
 
 	/**

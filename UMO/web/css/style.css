@@ -207,15 +207,14 @@ ul :hover .menuLink {
 }
 .main.style3 {
     text-align: center;
-    padding: 6em 0 6em 0;
+    padding: 12em 0 0em 0;
 }
 .main.style3.primary {
     background: #ffffff;
 }
 .gallery {
-    display: flex;
-    flex-wrap: wrap;
-    margin-left:15%; 
+    display: inline-flex;
+    flex-wrap: wrap; 
 }
 .main.style3.secondary {
     background: #f5f6f7;
@@ -309,9 +308,9 @@ textarea {
     display: none;
 }
 
-.image-fit{
-	width: 440px;
-	height: 276px;
+.galleryimage{
+	width: 250px;
+	height: 250px;
 }
 .mypagediv{
     display: grid;

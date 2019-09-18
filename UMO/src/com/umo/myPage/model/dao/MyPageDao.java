@@ -8,7 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 import static common.template.JDBCTemplate.close;
-import com.umo.memberDao.MemberDao;
+
+import com.umo.member.model.dao.MemberDao;
 import com.umo.model.vo.Member;
 
 public class MyPageDao {

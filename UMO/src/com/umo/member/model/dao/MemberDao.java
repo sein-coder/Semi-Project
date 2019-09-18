@@ -1,4 +1,4 @@
-package com.umo.memberDao;
+package com.umo.member.model.dao;
 
 
 import java.io.FileReader;
