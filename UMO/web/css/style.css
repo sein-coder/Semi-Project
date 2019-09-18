@@ -213,9 +213,8 @@ ul :hover .menuLink {
     background: #ffffff;
 }
 .gallery {
-    display: flex;
-    flex-wrap: wrap;
-    margin-left:15%; 
+    display: inline-block;
+    flex-wrap: wrap; 
 }
 .main.style3.secondary {
     background: #f5f6f7;
