@@ -60,9 +60,6 @@ public class NoticeBoardDao {
 		ResultSet rs=null;
 		List<NoticeBoard> list=new ArrayList<NoticeBoard>();
 		String sql=prop.getProperty("selectNoticeBoardList");
-		System.out.println("sql:"+sql);
-		System.out.println("cPage:"+cPage);
-		System.out.println("numPer:"+numPerPage);
 		try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1, cPage);

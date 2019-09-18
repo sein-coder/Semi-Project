@@ -41,8 +41,6 @@ public class NoticeBoardServlet extends HttpServlet {
 		int numPerPage=3;
 	    NoticeBoardService service=new NoticeBoardService();
 	    int totalData=service.countNoticeList();
-	  
-	    System.out.println("noticeListTotal : "+totalData);
 	    
 	    List<NoticeBoard> list =service.selectNoticeBoardList(cPage, numPerPage);
 	    

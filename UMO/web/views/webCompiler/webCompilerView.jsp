@@ -12,17 +12,19 @@
 		section#webCompiler-container{ width: 100%; text-align: center; margin-bottom: 20px;}
 		section#webCompiler-container textarea#inputcode{ resize: none; width: 730px; font-size: 25px; margin-left: auto; margin-right: auto;}
 		div#language-container { text-align:left; margin-right: 62%; margin-left: 31%; margin-top: 7%;}
-		select#language-choice { position: relative; margin-left: auto; font-size: 18px; }
+		select#language-choice { position: relative; margin-top: 5px; margin-left: auto; padding-top: 5px; padding-bottom: 5px;}
 		select#language-choice option { font-size: 18px; }
-		input#btn-compiler{ font-size: 20px; color: red; padding-left: 16%; padding-right: 16%;}
+		button#btn-compiler{ font-size: 20px; color: red; padding-left: 15%; padding-right: 15%;}
 		div.title { font-size: 1.67em; font-weight: bold; text-align: center; }
 	    div#editor,div#result { margin-top:20px; margin-left: auto; margin-right: auto; font-size: 15px; height: 500px; width: 700px; border: 1px solid black;}
 	    .as-console-wrapper { display: none !important; }
 	    div.result { text-align: left; margin-left: 30%;}
 	    div.ace_scroller { width: 680px; }
+	    button#question { position: absolute; top: 10em; right: 38.5em; }
 	</style>
 	
 	<section id="webCompiler-container">
+		<button id="question" onclick="fn_question()">질의하기</button>
 		<form action="<%= request.getContextPath() %>/webCompiler/codeInput" method="post">
 		<div id="language-container">
 		언어 선택 :
@@ -39,12 +41,21 @@
 		<input type="hidden" id="inputCode" name="inputCode" value="">
 		
 		</form>
-		<button id="btn" onclick="compile();">C o m p i l e r</button>
+		<button id="btn-compiler" onclick="compile();">C o m p i l e r</button>
 		
 		<div id="result" class="result" style="display: none;"></div>
 		
 	</section>
 	<script>
+	//btn event
+		function fn_question() {
+			if($("#result").css("display") == "none") {
+				alert("컴파일 후에 질의할 수 있습니다.");
+			}
+			else if($("#result").css("display") == "block"){
+				location.href="<%=request.getContextPath()%>/question/questionWriteServlet";
+			}
+		}
 	//Ace Editor Logic
 		var editor = ace.edit('editor');
 		var code = 'public class Test {public static void main(String[] args) throws Exception {System.out.print("Hello world");}}';
