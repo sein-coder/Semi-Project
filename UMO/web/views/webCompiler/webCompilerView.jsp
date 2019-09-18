@@ -16,9 +16,10 @@
 		select#language-choice option { font-size: 18px; }
 		input#btn-compiler{ font-size: 20px; color: red; padding-left: 16%; padding-right: 16%;}
 		div.title { font-size: 1.67em; font-weight: bold; text-align: center; }
-	    div#editor,div#result { margin-top:20px; margin-left: auto; margin-right: auto; font-size: 15px; height: 500px; width: 750px;}
+	    div#editor,div#result { margin-top:20px; margin-left: auto; margin-right: auto; font-size: 15px; height: 500px; width: 700px; border: 1px solid black;}
 	    .as-console-wrapper { display: none !important; }
 	    div.result { text-align: left; margin-left: 30%;}
+	    div.ace_scroller { width: 680px; }
 	</style>
 	
 	<section id="webCompiler-container">
@@ -39,7 +40,9 @@
 		
 		</form>
 		<button id="btn" onclick="compile();">C o m p i l e r</button>
+		
 		<div id="result" class="result" style="display: none;"></div>
+		
 	</section>
 	<script>
 	//Ace Editor Logic
@@ -47,7 +50,6 @@
 		var code = 'public class Test {public static void main(String[] args) throws Exception {System.out.print("Hello world");}}';
 	    var inputCode = $("#inputCode");
 	    inputCode.val(code);
-	    var result = "";
 		var jsbOpts = {
 	        indent_size : 4
 	    };
@@ -91,6 +93,7 @@
 		});
     
     	function compile(){
+    		var result = "";
     		console.log($("#inputCode").val());
     		$.ajax({
     			url:"<%=request.getContextPath()%>/webCompiler/codeInput",
@@ -102,6 +105,8 @@
 					if($("#result").css("display") == "none") {
 						$("#result").show('slow');
 						$("html").animate({scrollTop : ($("#result").offset().top)}, 500);
+					}else{
+						$("html").animate({scrollTop : ($("#result").offset().top)}, 500);
 					}
 					var CodeResult = data.substring(1,data.length-1).split(",");
 					for(var i = 0 ; i<CodeResult.length-1; i++){
@@ -110,6 +115,7 @@
 					resulteditor.getSession().setValue(result);
 				}
     		});
+    		setTimeout(500);
     	}
     
 	</script>

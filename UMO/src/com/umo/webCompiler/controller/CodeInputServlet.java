@@ -53,7 +53,7 @@ public class CodeInputServlet extends HttpServlet {
 		writer.write(inputCode); writer.close(); //컴파일 및 실행 결과파일값들 가져오기 List<File>
 		List<File> filelist = new webCompilerService().compile(lang,f);
 		request.setAttribute("filelist", filelist);
-
+		
 		String CodeResult = "";
 		 
 		for(File file : filelist) {
@@ -61,10 +61,10 @@ public class CodeInputServlet extends HttpServlet {
 			
 			String line = "";
 			while((line = bufReader.readLine()) != null) {
-				System.out.println(line);
 				CodeResult+=line+",";
 			}
 			bufReader.close();
+			file.delete();
 		}
 		
 		response.setContentType("application/json; charset=UTF-8");
