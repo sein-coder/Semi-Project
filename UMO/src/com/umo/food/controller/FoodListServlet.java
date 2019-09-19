@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.umo.food.model.service.FoodService;
-import com.umo.food.model.vo.Food;
+import com.umo.model.vo.Food;
 
 /**
  * Servlet implementation class FoodListServlet

@@ -41,19 +41,20 @@ public class CodeInputServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		request.setCharacterEncoding("UTF-8");
+
 		String lang = request.getParameter("language-choice");
 		String inputCode = request.getParameter("inputCode");
 		
 		String saveDir = getServletContext().getRealPath("/upload/inputCode"); //파일생성
-		File f = new File(saveDir+"/"+"Test.java"); if(!(f.exists())) {
-		f.createNewFile(); } BufferedWriter writer = new BufferedWriter(new
-		OutputStreamWriter(new FileOutputStream(f),"MS949"));
+		File f = new File(saveDir+"/"+"Test.java"); 
+		if(!(f.exists())) {
+			f.createNewFile(); 
+		} 
+		BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f),"MS949"));
 		writer.write(inputCode); writer.close(); //컴파일 및 실행 결과파일값들 가져오기 List<File>
 		List<File> filelist = new webCompilerService().compile(lang,f);
 		request.setAttribute("filelist", filelist);
-
+		
 		String CodeResult = "";
 		 
 		for(File file : filelist) {
@@ -61,10 +62,10 @@ public class CodeInputServlet extends HttpServlet {
 			
 			String line = "";
 			while((line = bufReader.readLine()) != null) {
-				System.out.println(line);
 				CodeResult+=line+",";
 			}
 			bufReader.close();
+			file.delete();
 		}
 		
 		response.setContentType("application/json; charset=UTF-8");

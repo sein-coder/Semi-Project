@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp"%>
 
-<%@ page import="java.util.List, com.umo.food.model.vo.Food"%>
+<%@ page import="java.util.List,com.umo.model.vo.Food"%>
 <%
 		List<Food> list = (List<Food>)request.getAttribute("list");
 		int count = 0;

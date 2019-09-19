@@ -1,4 +1,4 @@
-package com.umo.food.model.vo;
+package com.umo.model.vo;
 
 import java.sql.Date;
 

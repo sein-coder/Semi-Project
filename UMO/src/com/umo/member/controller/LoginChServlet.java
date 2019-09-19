@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.umo.member.model.service.MemberService;
 import com.umo.model.vo.Member;
-import com.umo.service.MemberService;
 
 /**
  * Servlet implementation class LoginhServlet
@@ -64,7 +64,7 @@ public class LoginChServlet extends HttpServlet {
 			response.sendRedirect(request.getContextPath());
 			
 			}else {
-				msg="µî·ÏµÇÁö¾ÊÀº È¸¿øÀÔ´Ï´Ù.";
+				msg="ï¿½ï¿½Ïµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½Ô´Ï´ï¿½.";
 			   view="views/common/msg.jsp";
 			   request.setAttribute("msg", msg);
 			   request.setAttribute("loc", loc);

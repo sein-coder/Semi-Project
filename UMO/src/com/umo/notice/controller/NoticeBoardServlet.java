@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.umo.notice.model.service.NoticeBoardService;
 import com.umo.notice.model.vo.NoticeBoard;
-import com.umo.notice.service.NoticeBoardService;
 
 /**
  * Servlet implementation class ClassBoardListServlet
@@ -41,8 +41,6 @@ public class NoticeBoardServlet extends HttpServlet {
 		int numPerPage=3;
 	    NoticeBoardService service=new NoticeBoardService();
 	    int totalData=service.countNoticeList();
-	  
-	    System.out.println("noticeListTotal : "+totalData);
 	    
 	    List<NoticeBoard> list =service.selectNoticeBoardList(cPage, numPerPage);
 	    
