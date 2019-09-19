@@ -1,6 +1,7 @@
 package com.umo.myPage.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.umo.food.model.service.FoodService;
+import com.umo.model.vo.Food;
 import com.umo.model.vo.Member;
 import com.umo.myPage.service.MyPageService;
 
@@ -15,13 +18,13 @@ import com.umo.myPage.service.MyPageService;
  * Servlet implementation class MyPageController
  */
 @WebServlet("/myPage")
-public class MyPageController extends HttpServlet {
+public class MyPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyPageController() {
+    public MyPageServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,6 +37,21 @@ public class MyPageController extends HttpServlet {
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
 		String userId=request.getParameter("userId");
 	      Member m=new MyPageService().selectOne(userId);
+	  	int cPage;
+		try {
+			cPage=Integer.parseInt(request.getParameter("cPage"));
+		}catch(NumberFormatException e) {
+			cPage=1;
+		}
+		int numPerPage=3;
+		
+		FoodService service = new FoodService();
+		int totalData=service.selectCountFood_Board();
+		String name="myPage";
+		List<Food> foodlist = new FoodService().selectFoodList(cPage,numPerPage,name,userId);
+		
+		request.setAttribute("foodlist", foodlist);
+		request.setAttribute("cPage", cPage);
 	      request.setAttribute("member", m);
 	      request.getRequestDispatcher("/views/myPage/myPage.jsp")
 	      .forward(request, response);
