@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.umo.member.model.service.MemberService;
 import com.umo.model.vo.Member;
 import com.umo.myPage.service.MyPageService;
-import com.umo.service.MemberService;
 
 /**
  * Servlet implementation class InfoUpdateServlet
