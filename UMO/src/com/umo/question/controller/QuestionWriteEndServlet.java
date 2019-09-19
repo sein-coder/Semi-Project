@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class QuestionWriteServlet
+ * Servlet implementation class QuestionWriteEndServlet
  */
-@WebServlet("/question/questionWriteServlet")
-public class QuestionWriteServlet extends HttpServlet {
+@WebServlet("/question/question/questionWriteEndServlet")
+public class QuestionWriteEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QuestionWriteServlet() {
+    public QuestionWriteEndServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,14 +28,10 @@ public class QuestionWriteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String inputCode = request.getParameter("inputCode");
 		String outputCode = request.getParameter("outputCode");
-		//outputCode 줄개행 전처리
-		inputCode = inputCode.replaceAll("(\r\n|\r|\n|\n\r)", " ");
-		outputCode = outputCode.replaceAll("(\r\n|\r|\n|\n\r)", ",");
 		
-		request.setAttribute("inputCode", inputCode);
-		request.setAttribute("outputCode", outputCode);	
+		System.out.println(inputCode);
+		System.out.println(outputCode);
 		
-		request.getRequestDispatcher("/views/question/questionForm.jsp").forward(request, response);
 	}
 
 	/**

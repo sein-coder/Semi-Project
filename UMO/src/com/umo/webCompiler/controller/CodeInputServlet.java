@@ -44,9 +44,10 @@ public class CodeInputServlet extends HttpServlet {
 
 		String lang = request.getParameter("language-choice");
 		String inputCode = request.getParameter("inputCode");
+		String className = inputCode.split(" ")[2];
 		
 		String saveDir = getServletContext().getRealPath("/upload/inputCode"); //파일생성
-		File f = new File(saveDir+"/"+"Test.java"); 
+		File f = new File(saveDir+"/"+className+".java"); 
 		if(!(f.exists())) {
 			f.createNewFile(); 
 		} 

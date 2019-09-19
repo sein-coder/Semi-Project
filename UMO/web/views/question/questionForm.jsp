@@ -7,47 +7,55 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.6.8/beautify.js"></script>
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" rel="stylesheet"/>
 	
+<%
+	String inputCode = (String)request.getAttribute("inputCode");	
+	String[] outputCode = ((String)request.getAttribute("outputCode")).split(",");	
+%>
+	
 	
 	<style>
 		section#questionForm-container{ width: 100%; margin-bottom: 20px; margin-top: 9em; text-align: center;}
-		div.question-form {width:50%; margin-left: auto; margin-right: auto; border: 1px solid red;}
+		div.question-form {width:55%; margin-left: auto; margin-right: auto; border: 1px solid red;}
 		input#question-title { width: 600px; margin-left: auto; margin-right: auto; font-size: 25px; padding: 2px;}
 		textarea#question-content { resize: none; margin-left: auto; margin-right: auto; padding: 2px; width: 600px;}
-		div#inputCode,div#outputCode { margin-top:20px; margin-left: auto; margin-right: auto; font-size: 15px; height: 600px; width : 600px; border: 1px solid black;}
+		div#inputeditor,div#outputeditor { margin-top:20px; margin-left: auto; margin-right: auto; font-size: 15px; height: 600px; width : 600px; border: 1px solid black;}
 		input#submit { margin-top: 10px; }
 	</style>
 
 	<section id="questionForm-container">
 	<div class="question-form">
-		<form action="">
+		<form action="<%=request.getContextPath() %>/question/question/questionWriteEndServlet" method="post">
 			제목<input id="question-title" name="question-title" type="text"/>
 			질의내용<textarea id="question-content" name="question-content" rows="15" cols="25"></textarea>
 			
-			<div id="inputCode"></div>
-			
-			<div id="outputCode"></div>
+			<div id="inputeditor"></div>
+			<input type="hidden" id="inputCode" name="inputCode" value="">
+			<div id="outputeditor"></div>
+			<input type="hidden" id="outputCode" name="outputCode" value="">
 			
 			<input id="submit" type="submit" value="질문올리기">
-			<input id="btn-cancel" type="button" value="되돌아가기">
+			<input id="btn-cancel" type="button" value="되돌아가기" onclick="location.href='<%=request.getContextPath()%>/webCopiler/webCopilerView'">
 		</form>
 	</div>
 	
 	<script>
 		//editor 입력코드와 출력 자료에 적용
-		var inputCode = ace.edit('inputCode');
-		var outputCode = ace.edit('outputCode'); 
+		var inputCode = ace.edit('inputeditor');
+		var outputCode = ace.edit('outputeditor'); 
 		
-		var code = 'public class Test {public static void main(String[] args) throws Exception {System.out.print("Hello world");}}';
 		var jsbOpts = {
 	        indent_size : 4
 	    };
 		
 		inputCode.setTheme("ace/theme/monokai");
 		inputCode.getSession().setMode("ace/mode/java");
-		inputCode.getSession().setValue(code);
+		inputCode.getSession().setValue('<%= inputCode %>');
 		
 	    outputCode.getSession().setMode("ace/mode/java");
-	    outputCode.getSession().setValue(code);
+		
+	    <%for(int i=0; i<outputCode.length; i++) {%>
+			insertLine(outputCode,'<%=outputCode[i]%>');
+	    <%}%>
 	    
 	    inputCode.getSession().setValue(js_beautify(inputCode.getSession().getValue(), jsbOpts));
 	    outputCode.getSession().setValue(js_beautify(outputCode.getSession().getValue(), jsbOpts));
@@ -56,8 +64,26 @@
 	    outputCode.setReadOnly(true);
 	    
 	    var lines = inputCode.session.doc.getAllLines()
-	    $("#inputCode").height((lines.length * 18)+5);
-	    $("#outputCode").height((lines.length * 18)+5);
+	    $("#inputeditor").height((lines.length * 18)+5);
+	    $("#outputeditor").height((lines.length * 18)+5);
+	    
+	    commitChanges(inputCode,$("#inputCode"));
+	    commitChanges(outputCode,$("#outputCode"));
+	    
+	    function commitChanges(editor, codetag) {
+	    	codetag.val(editor.getSession().getValue());
+	    }
+	    
+	    function insertLine(editor,text){
+	    	editor.getSession().insert({
+		    	row : editor.getSession().getLength(),
+		    	column : 0
+		    }, "\n" + text)
+	    };
+	    
+	    console.log($("#inputCode").val());
+	    console.log($("#outputCode").val());
+	    
 	    
 	</script>
 	

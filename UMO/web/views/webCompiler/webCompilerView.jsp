@@ -39,21 +39,22 @@
   		<div id="editor"></div>
 		<br>
 		<input type="hidden" id="inputCode" name="inputCode" value="">
-		
+				
 		</form>
 		<button id="btn-compiler" onclick="compile();">C o m p i l e r</button>
+		<input type="hidden" id="outputCode" name="outputCode" value="">
 		
 		<div id="result" class="result" style="display: none;"></div>
-		
 	</section>
 	<script>
-	//btn event
+	//question button event
 		function fn_question() {
 			if($("#result").css("display") == "none") {
 				alert("컴파일 후에 질의할 수 있습니다.");
 			}
 			else if($("#result").css("display") == "block"){
-				location.href="<%=request.getContextPath()%>/question/questionWriteServlet";
+    			location.href="<%=request.getContextPath()%>/question/questionWriteServlet?inputCode="+encodeURI($('#inputCode').val())+"&outputCode="+encodeURI($('#outputCode').val());
+			//encodeURI(문자열) : 특수문자가 포함된 문자열 인코딩처리
 			}
 		}
 	//Ace Editor Logic
@@ -79,7 +80,6 @@
 	    // Functions
 	    function commitChanges() {
 	    	inputCode.val(editor.getSession().getValue());
-	    	/* $("#editor").height(editor.getSession().doc.getAllLines().length * 18); */
 	    }
 	    function formatCode() {
 	    	var session = editor.getSession();
@@ -105,7 +105,7 @@
     	function compile(){
     		var h = 0;
     		var result = "";
-    		console.log($("#inputCode").val());
+    		formatCode();
     		$.ajax({
     			url:"<%=request.getContextPath()%>/webCompiler/codeInput",
 				type:"post", //get이든 post든 무상관
@@ -123,7 +123,8 @@
 					for(var i = 0 ; i<CodeResult.length-1; i++){
 						result += CodeResult[i].split(",")+"\n";
 					}
-					resulteditor.getSession().setValue(result);		    		
+					resulteditor.getSession().setValue(result);
+					$("#outputCode").val(resulteditor.getSession().getValue());
 		    		resulteditor.setReadOnly(true);
 				}
     		});
