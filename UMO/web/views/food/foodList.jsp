@@ -55,7 +55,7 @@ input#btn-add{float:right; margin-top:20px; margin-right: 240px;}
 		</div>
 	
 	</section>
-	
+
 
 <%@ include file="/views/common/footer.jsp"%>	
 

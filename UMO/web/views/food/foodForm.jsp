@@ -125,7 +125,7 @@
 				"http://thum.buzzni.com/unsafe/640x640/center/smart/http://cdn.image.buzzni.com/2018/05/16/0H4uB9IPoG.jpg",
 				"http://cfs1.blog.daum.net/upload_control/download.blog?fhandle=MEFPWlBAZnMxLmJsb2cuZGF1bS5uZXQ6L0lNQUdFLzAvMC5qcGc=&filename=0.jpg"
 			];
-			for (var i = 0; i < foodpic.length; i++) {
+			for (var i = 0; i < 3; i++) {
 				var tag = $("<img>").attr({
 					"id":i,
 					"src": foodpic[i],
@@ -137,14 +137,20 @@
 				}
 				$('#img-container').append(tag);
 			}
-			var count = 1
-			$("#img-front").click(function(){
-				
-				
-				
+			var count = 0;
+			$("#img-back").click(function(){
 				count+=1;
+				$("#"+0).attr("src",foodpic[count%foodpic.length]);
+				$("#"+1).attr("src",foodpic[(count+1)%foodpic.length]);
+				$("#"+2).attr("src",foodpic[(count+2)%foodpic.length]);
 			});
-			
+			$("#img-front").click(function(){
+				count-=1;
+				if(count<0) { count = foodpic.length-1; }
+				$("#"+0).attr("src",foodpic[count%foodpic.length]);
+				$("#"+1).attr("src",foodpic[(count+1)%foodpic.length]);
+				$("#"+2).attr("src",foodpic[(count+2)%foodpic.length]);
+			});
 		</script>
 
 
