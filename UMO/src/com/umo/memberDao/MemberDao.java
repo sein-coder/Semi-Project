@@ -83,9 +83,28 @@ public int insertMember(Connection conn,Member m)
 		}return m;		
 	}
 		
+	public int updateMember(Connection conn, Member m) {
+	      PreparedStatement pstmt=null;
+	      int result=0;
+	      String sql=prop.getProperty("updateMember");
+	      try {
+	        pstmt=conn.prepareStatement(sql);
+	 		pstmt.setString(1,m.getMemberPw());
+	 		pstmt.setString(2, m.getMemberName());
+	 		pstmt.setString(3,m.getEmail());
+	 		pstmt.setString(4, m.getPhone());
+	 		pstmt.setString(5, m.getAddress());
+	 		pstmt.setString(6,m.getMemberId());
+	 		result=pstmt.executeUpdate();        
+	         System.out.println(" "+result);
+	      }catch(SQLException e) {
+	         e.printStackTrace();
+	      }finally {
+	         close(pstmt);
+	      }return result;
+	   }	
 		
-		
-		
+	
 		
 		
 		

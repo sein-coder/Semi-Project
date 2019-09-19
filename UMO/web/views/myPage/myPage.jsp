@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+    <%@page import="com.umo.model.vo.Member" %>
+<%Member m=(Member)request.getAttribute("member"); %>
 <%@ include file="/views/common/header.jsp"%>
 <section id="intro" class="main style12">
         <div>
@@ -11,7 +12,7 @@
                 <button onclick="click4();">쪽지</button>
                 <div style="margin-left:0 auto; ">
                     <p>출석은~일</p>
-                    <button onclick="click6();">정보수정</button>
+                    <button onclick="infoUpdate();">정보수정</button>
                 </div>
         <br>
 
@@ -70,7 +71,11 @@
                 $('#comment').css({ display: 'none', width: '75%' });
                 $('#note').css({ display: 'grid', width: '75%' });
             }
-
+ function infoUpdate()
+{
+	 location.href="<%=request.getContextPath()%>/infoUpdate?id=<%=m.getMemberId()%>";
+	 }
+ 
         </script>
 
 
