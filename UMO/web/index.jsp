@@ -63,32 +63,25 @@
 
            <!-- Gallery  -->
             <div class="gallery">
-                <article >
-                    <a href="images/fulls/01.jpg"><img  class="galleryimage" src="images/food/BathBurger.jpg" title="The Anonymous Red"
-                            alt=""/ ></a>
+                <article>
+                    <a href="images/fulls/01.jpg"><img class="galleryimage" src="images/food/BathBurger.jpg" title="The Anonymous Red" alt="" /></a>
                 </article>
                 <article>
-                    <a href="images/fulls/03.jpg"><img  class="galleryimage" src="images/food/ihwasuyuggaejang.jpg" title="Air Lounge" alt=""  /></a>
+                    <a href="images/fulls/02.jpg"><img class="galleryimage" src="images/food/ihwasuyuggaejang.jpg" title="Airchitecture II" alt="" /></a>
                 </article>
                 <article>
-                    <a href="images/fulls/05.jpg" ><img  class="galleryimage" src="images/food/itaelibudaejjigae.jpg" title="The sparkling shell"
-                            alt="" /></a>
+                    <a href="images/fulls/03.jpg"><img class="galleryimage" src="images/food/itaelibudaejjigae.jpg" title="Air Lounge" alt="" /></a>
+                </article>
+                <article>
+                    <a href="images/fulls/04.jpg"><img class="galleryimage" src="images/food/jijonjjamppong.jpg" title="Carry on" alt="" /></a>
+                </article>
+                <article>
+                    <a href="images/fulls/05.jpg"><img class="galleryimage" src="images/food/mabuyugjeon.jpg" title="The sparkling shell" alt="" /></a>
+                </article>
+                <article>
+                    <a href="images/fulls/06.jpg"><img class="galleryimage" src="images/food/naiseusyawo.jpg" title="Bent IX" alt="" /></a>
                 </article>
             </div>
-            <br>
-            <div class="gallery">
-                <article>
-                    <a href="images/fulls/02.jpg" ><img  class="galleryimage" src="images/food/jijonjjamppong.jpg" title="Airchitecture II"
-                            alt="" /></a>
-                </article>
-                <article>
-                    <a href="images/fulls/04.jpg"><img  class="galleryimage" src="images/food/mabuyugjeon.jpg" title="Carry on" alt=""/></a>
-                </article>
-                <article >
-                    <a href="images/fulls/06.jpg" ><img  class="galleryimage" src="images/food/naiseusyawo.jpg" title="Bent IX" alt=""/></a>
-                </article>
-            </div>
-
         </div>
     </section>
 
@@ -100,7 +93,7 @@
                 <h2>문의사항</h2>
                 <p>door의4항</p>
             </header>
-            <div class="box" style="margin:auto">
+            <div class="box" style="margin: auto;">
                 <form method="post" action="#">
                     <div class="fields">
                         <!-- <div class="field half"><input type="text" name="name" placeholder="Name" /></div> -->

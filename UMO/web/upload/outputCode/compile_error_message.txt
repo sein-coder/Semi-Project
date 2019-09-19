@@ -1,7 +1,0 @@
-C:\Users\ChoiMinSu\git\Semi-Project\UMO\web\upload\inputCode\Test.java:4: error: not a statement
-        fdafd
-        ^
-C:\Users\ChoiMinSu\git\Semi-Project\UMO\web\upload\inputCode\Test.java:4: error: ';' expected
-        fdafd
-             ^
-2 errors

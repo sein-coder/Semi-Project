@@ -7,7 +7,7 @@ import java.sql.Connection;
 import java.util.List;
 
 import com.umo.food.model.dao.FoodDao;
-import com.umo.food.model.vo.Food;
+import com.umo.model.vo.Food;
 
 
 

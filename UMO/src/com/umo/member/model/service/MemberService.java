@@ -1,6 +1,6 @@
-package com.umo.service;
+package com.umo.member.model.service;
 
-import com.umo.memberDao.MemberDao;
+import com.umo.member.model.dao.MemberDao;
 import com.umo.model.vo.Member;
 
 import static common.template.JDBCTemplate.getConnection;
