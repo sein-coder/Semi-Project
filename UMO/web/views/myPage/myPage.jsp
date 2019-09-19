@@ -74,10 +74,6 @@ int count = 0;
                 $('#comment').css({ display: 'none', width: '75%' });
                 $('#note').css({ display: 'grid', width: '75%' });
             }
- function infoUpdate()
-{
-	 location.href="<%=request.getContextPath()%>/infoUpdate?id=<%=m.getMemberId()%>";
-	 }
  
         </script>
 
