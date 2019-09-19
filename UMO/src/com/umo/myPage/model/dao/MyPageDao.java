@@ -13,7 +13,7 @@ import static common.template.JDBCTemplate.close;
 
 import com.umo.member.model.dao.MemberDao;
 import com.umo.model.vo.Member;
-import com.umo.notice.model.vo.NoticeBoard;
+import com.umo.model.vo.NoticeBoard;
 
 public class MyPageDao {
 	private Properties prop=new Properties();

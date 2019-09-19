@@ -27,7 +27,7 @@ public class FoodFormServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.getRequestDispatcher("/views/food/foodform.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/food/foodForm.jsp").forward(request, response);
 		
 		
 	}

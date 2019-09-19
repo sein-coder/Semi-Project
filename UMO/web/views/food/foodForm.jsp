@@ -70,9 +70,7 @@
 									<input type="radio" id="bills" name="bills" value="&#92;20,000~"/>&#92;20,000~<br>
 									기타:<input type="text" id="otherbill" placeholder="기타금액을 입력하세요" />
 								</td>
-								<td>
-									지도<%=request.getContextPath() %>
-								</td>
+							
 							</tr>
 							<tr>
 								<td>
@@ -100,18 +98,19 @@
 										placeholder="내용을입력하시오" /></textarea>
 								</td>
 							</tr>
+							<!-- <tr>
+								<td>
+									<input type="button" value="지도" id="btn_map";>
+								</td>
+							</tr> -->
 							<tr>
 								<td>
-									<input type="submit" value="완료" style="margin-left: 45%;"/>
+									<input type="submit" value="완료" style="margin-left: 40%; display:inline;" />
+									<input type="button" value="취소"  id="btn_cancel";/>
 								</td>
 							</tr>
 						</table>
 					</form>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="5">
-					<button style="margin-left: 45%;">목록</button>
 				</td>
 			</tr>
 		</table>
@@ -138,19 +137,28 @@
 				}
 				$('#img-container').append(tag);
 			}
-			var count = 0;
+			var count = 0;//시작값
 			$("#img-back").click(function(){
-				count+=1;
-				$("#"+0).attr("src",foodpic[count%foodpic.length]);
+				count+=1;//초기값에 +1
+				$("#"+0).attr("src",foodpic[count%foodpic.length]);//id값이 0인 곳, 속성 src에 foodpic에서 count값에서 foodpic의 길이를 나눈 나머지의 값이 0이면 여기서 src바꿔주기  
 				$("#"+1).attr("src",foodpic[(count+1)%foodpic.length]);
 				$("#"+2).attr("src",foodpic[(count+2)%foodpic.length]);
+				console.log(count);
 			});
 			$("#img-front").click(function(){
-				count-=1;
-				if(count<0) { count = foodpic.length-1; }
-				$("#"+0).attr("src",foodpic[count%foodpic.length]);
+				count-=1;//초기값을 -1
+				if(count<0){count=foodpic.length-1;}//count가 0보다 작게 나오면 foodpic의 길이에서 -1을 뺀값을 count에 넣어줘(그럼 4)
+				$("#"+0).attr("src",foodpic[count%foodpic.length]);//id값이 0인곳, 속성src에 foodpic길이에서 count를 나눈나머지값이 0이면 id값이 0인 곳에 src를 바꿔주기 
 				$("#"+1).attr("src",foodpic[(count+1)%foodpic.length]);
 				$("#"+2).attr("src",foodpic[(count+2)%foodpic.length]);
+				console.log(count);
+			});
+			
+			$("#btn_cancel").click(function(){
+				location.href="<%=request.getContextPath()%>/food/foodList";
+			});
+			$("#btn_map").click(function(){
+				location.href="<%=request.getContextPath()%>/food/foodForm";
 			});
 		</script>
 

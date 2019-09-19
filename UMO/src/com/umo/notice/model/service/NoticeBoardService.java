@@ -8,8 +8,8 @@ import static common.template.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.List;
 
+import com.umo.model.vo.NoticeBoard;
 import com.umo.notice.model.dao.NoticeBoardDao;
-import com.umo.notice.model.vo.NoticeBoard;
 
 public class NoticeBoardService {
 	

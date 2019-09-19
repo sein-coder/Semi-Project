@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.umo.model.vo.NoticeBoard;
 import com.umo.notice.model.service.NoticeBoardService;
-import com.umo.notice.model.vo.NoticeBoard;
 
 /**
  * Servlet implementation class NoticeWriteEndServlet

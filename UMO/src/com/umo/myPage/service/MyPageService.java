@@ -7,8 +7,8 @@ import java.sql.Connection;
 import java.util.List;
 
 import com.umo.model.vo.Member;
+import com.umo.model.vo.NoticeBoard;
 import com.umo.myPage.model.dao.MyPageDao;
-import com.umo.notice.model.vo.NoticeBoard;
 public class MyPageService {
 	private MyPageDao dao=new MyPageDao();
 	

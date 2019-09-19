@@ -11,7 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import com.umo.notice.model.vo.NoticeBoard;
+
+import com.umo.model.vo.NoticeBoard;
 
 //반별 게시판 DB접속
 public class NoticeBoardDao {
@@ -136,7 +137,7 @@ public class NoticeBoardDao {
 			pstmt.setString(2, nb.getTitle());
 			pstmt.setString(3, nb.getContent());
 			pstmt.setString(4, nb.getOriginal_filename());
-
+			
 			result = pstmt.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();

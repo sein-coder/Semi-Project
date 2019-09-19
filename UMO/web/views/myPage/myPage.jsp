@@ -3,6 +3,7 @@
 <%@ page import="java.util.List, com.umo.model.vo.*" %>
 <%
 List<Food> foodlist = (List<Food>)request.getAttribute("foodlist");
+Member m=(Member)request.getAttribute("member");
 int count = 0;
 %> 
 <%@ include file="/views/common/header.jsp"%>
@@ -21,13 +22,27 @@ int count = 0;
 
         </div>
         <div class="mypagediv" id="mypost">
+        	
+        	<select id="board" name="board" style="width:5%">
+				  <option value="음식" selected="selected">음식</option>
+				  <option value="질의">질의</option>
+			</select>
+        
             <fieldset>
                 <legend>내 게시글</legend> <br>
-                <table>
+                <table id="foodboard">
+                <% if(count<3){
+                 for(Food f : foodlist) {%>
                     <tr>
-                        <td>ㅇㅇㅇ</td>
+                        <td><a href="<%=request.getContextPath() %>/images/food/<%= f.getBoard_Thumbnail()%>">food <%=f.getBoard_Title()+" "+f.getBoard_Contents()+" "+f.getBoard_Writer()%></a></td>
                     </tr>
+	          	<%count++;} } %>
                 </table>
+	                <table id="inqueryboard" style="display:none">
+		                <tr>
+		                    <td>안녕</td>
+	                    </tr>
+               	</table>
             </fieldset>
             <br>
         </div>
@@ -54,6 +69,18 @@ int count = 0;
         </div>
 
         <script>
+	        $(document).ready(function(){
+	        	$('#board').on('change',function(){
+	        if($('#board').val()=='음식'){
+	        	 $('#foodboard').css({ display: 'flex'});
+	        	 $('#inqueryboard').css({ display: 'none'});
+	        }else if($('#board').val()=='질의'){
+	        	$('#inqueryboard').css({ display: 'flex'});
+	        	$('#foodboard').css({ display: 'none'});
+	        }
+	        	})
+	        })
+        
             function click1() {
                 $('#mypost').css({ display: 'grid', width: '75%' });
                 $('#comment').css({ display: 'grid', width: '75%' });
@@ -74,7 +101,10 @@ int count = 0;
                 $('#comment').css({ display: 'none', width: '75%' });
                 $('#note').css({ display: 'grid', width: '75%' });
             }
- 
+ 			
+            function infoUpdate() {
+            	 location.href="<%=request.getContextPath()%>/infoUpdate?id=<%=m.getMemberId()%>";
+            }
         </script>
 
 

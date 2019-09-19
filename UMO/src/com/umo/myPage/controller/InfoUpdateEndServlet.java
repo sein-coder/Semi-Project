@@ -45,10 +45,10 @@ public class InfoUpdateEndServlet extends HttpServlet {
 	      String loc="";
 	      System.out.println(result);
 	      if(result>0) {
-	         msg="ȸ������ ������ �Ϸ�Ǿ����ϴ�.!";
+	         msg="회원정보수정성공.!";
 	         loc="/";
 	      }else {
-	         msg="ȸ������ ���� ���� �ٽ� �������ּ���!";
+	         msg="회원정보수정실패!";
 	         loc="/";
 	      }
 	      request.setAttribute("msg",msg);
