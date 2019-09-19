@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@page import="com.umo.model.vo.Member" %>
-<%Member m=(Member)request.getAttribute("member"); %>
+<%@ page import="java.util.List, com.umo.model.vo.*" %>
+<%
+List<Food> foodlist = (List<Food>)request.getAttribute("foodlist");
+int count = 0;
+%> 
 <%@ include file="/views/common/header.jsp"%>
 <section id="intro" class="main style12">
         <div>

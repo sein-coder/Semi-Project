@@ -204,16 +204,16 @@ if(menuview.style.display=='block'){
     menuview.style.display ='block';
     // header.style.left='10.2%';
     // header.style.width='89.8%';
-    intro.style.marginLeft='10%';
-    intro.style.width='90%';
-    one.style.marginLeft='10%';
-    one.style.width='90%';
-    two.style.marginLeft='10%';
-    two.style.width='90%';
-    work.style.marginLeft='10%';
-    work.style.width='90%';
-    contact.style.marginLeft='10%';
-    contact.style.width='90%';
+    intro.style.marginLeft = '150px';
+    intro.style.width ='calc(100% - 150px)';
+    one.style.marginLeft = '150px';
+    one.style.width = 'calc(100% - 150px)';
+    two.style.marginLeft = '150px';
+    two.style.width = 'calc(100% - 150px)';
+    work.style.marginLeft = '150px';
+    work.style.width = 'calc(100% - 150px)';
+    contact.style.marginLeft = '150px';
+    contact.style.width = 'calc(100% - 150px)';
     // footer.style.marginLeft='10%';
     // footer.style.width='90%';
 }

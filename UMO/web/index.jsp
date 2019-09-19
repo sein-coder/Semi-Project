@@ -62,7 +62,7 @@
                 <p>사진</p>
             </header>
 
-            <!-- Gallery  -->
+           <!-- Gallery  -->
             <div class="gallery">
                 <article>
                     <a href="images/fulls/01.jpg"><img class="galleryimage" src="images/food/BathBurger.jpg" title="The Anonymous Red" alt="" /></a>

@@ -26,15 +26,29 @@ public class FoodDao {
 		}
 	}
 	
-	public List<Food> selectFoodList(Connection conn, int cPage, int numPerPage) {
+	public List<Food> selectFoodList(Connection conn, int cPage, int numPerPage,String name,String userId) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<Food> list = new ArrayList();
-		String sql = prop.getProperty("selectFoodList");
+		String sql="";
+		if(name.equals("myPage")) {
+		sql = prop.getProperty("selectMyFoodList");
+		System.out.println(name);
+		}else {
+		sql = prop.getProperty("selectFoodList");
+		System.out.println(name);
+		}
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, (cPage-1)*numPerPage+1);
-			pstmt.setInt(2, cPage*numPerPage);
+			if(name.equals("myPage")) {
+				System.out.println(userId);
+				pstmt.setString(1, userId);
+				pstmt.setInt(2, (cPage-1)*numPerPage+1);
+				pstmt.setInt(3, cPage*numPerPage);
+				}else {
+					pstmt.setInt(1, (cPage-1)*numPerPage+1);
+					pstmt.setInt(2, cPage*numPerPage);
+				}
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				Food f = new Food();

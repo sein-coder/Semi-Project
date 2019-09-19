@@ -15,9 +15,9 @@ public class FoodService {
 	
 	private FoodDao dao = new FoodDao();
 	
-	public List<Food> selectFoodList(int cPage, int numPerPage) {
+	public List<Food> selectFoodList(int cPage, int numPerPage,String name,String userId) {
 		Connection conn  = getConnection();
-		List<Food> list = dao.selectFoodList(conn,cPage,numPerPage);
+		List<Food> list = dao.selectFoodList(conn,cPage,numPerPage,name,userId);
 		close(conn);
 		return list;
 	}

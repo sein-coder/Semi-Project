@@ -6,11 +6,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import static common.template.JDBCTemplate.close;
 
 import com.umo.member.model.dao.MemberDao;
 import com.umo.model.vo.Member;
+import com.umo.notice.model.vo.NoticeBoard;
 
 public class MyPageDao {
 	private Properties prop=new Properties();
