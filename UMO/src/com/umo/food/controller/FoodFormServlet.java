@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class FoodBoardServlet
  */
 @WebServlet("/food/foodForm")
-public class FoodBoardServlet extends HttpServlet {
+public class FoodFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FoodBoardServlet() {
+    public FoodFormServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,7 +27,8 @@ public class FoodBoardServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.getRequestDispatcher("/views/food/foodForm.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/food/foodform.jsp").forward(request, response);
+		
 		
 	}
 

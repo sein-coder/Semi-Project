@@ -16,7 +16,13 @@ public class Food {
 	private int board_Count;
 	private char writing_Status;
 	private int board_Grade;
-	
+	private String board_tel;
+	private String board_foodtype;
+	private int board_foodbill;
+	private String board_park;
+	private String board_open;
+	private String board_menu;
+
 	public Food() {
 		// TODO Auto-generated constructor stub
 	}
