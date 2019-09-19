@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.umo.model.vo.Member" %>
- <%Member loginMember=(Member)session.getAttribute("loginMember");
+ <% Member loginMember=(Member)session.getAttribute("loginMember");
 Cookie[] cookies=request.getCookies();
 String saveId=null;
+/* System.out.println(m.getMemberId()); */
 %>
 
    
@@ -25,7 +26,7 @@ String saveId=null;
             <a href="<%=request.getContextPath()%>/memberJoin">회원가입</a>&nbsp;&nbsp;
             <a href="<%=request.getContextPath()%>/memberLogin">로그인</a>
             <%}else{ %>
-            <a href="<%=request.getContextPath() %>/myPage?userId=<%=request.getContextPath()%>">마이페이지</a>
+            <a href="<%=request.getContextPath() %>/myPage?userId=<%=loginMember.getMemberId()%>">마이페이지</a>
             <a href="<%=request.getContextPath() %>/logout">로그아웃</a>
             <%} %>
         <br>
@@ -99,7 +100,7 @@ String saveId=null;
                             <%}else{ %>
                             <div class="right-menu">
                             
-                            <a href="<%=request.getContextPath() %>/myPage?userId=<%=request.getContextPath()%>" style="color:inherit; text-decoration: none;">마이페이지</a>
+                            <a href="<%=request.getContextPath() %>/myPage?userId=<%=loginMember.getMemberId()%>" style="color:inherit; text-decoration: none;">마이페이지</a>
                             <a href="<%=request.getContextPath() %>/logout">로그아웃</a>
                             </div>
                             <%} %>

@@ -3,6 +3,7 @@
 <!-- 외부파일을 불러오는 지시자 -> include -->
 <%@ include file="views/common/header.jsp" %>
 <!-- Intro -->
+
 <section id="intro" class="main style1" >
         <div class="content">
             <header>

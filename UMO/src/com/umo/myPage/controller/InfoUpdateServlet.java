@@ -10,18 +10,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.umo.model.vo.Member;
 import com.umo.myPage.service.MyPageService;
+import com.umo.service.MemberService;
 
 /**
- * Servlet implementation class MyPageController
+ * Servlet implementation class InfoUpdateServlet
  */
-@WebServlet("/myPage")
-public class MyPageController extends HttpServlet {
+@WebServlet("/infoUpdate")
+public class InfoUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyPageController() {
+    public InfoUpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,16 +32,12 @@ public class MyPageController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
-		String userId=request.getParameter("userId");
-	      Member m=new MyPageService().selectOne(userId);
-	      System.out.println(m.getMemberId());
+		
+		String id=request.getParameter("id");
+		Member m=new MyPageService().selectOne(id);
 	      request.setAttribute("member", m);
-	      request.getRequestDispatcher("/views/myPage/myPage.jsp")
-	      .forward(request, response);
-		
-		
-		
+		request.getRequestDispatcher("/views/myPage/infoUpdate.jsp")
+		.forward(request, response);
 	}
 
 	/**
