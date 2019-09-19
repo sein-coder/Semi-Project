@@ -68,8 +68,5 @@ button#btn-add{margin-left:85%;}
 		</script>
 
 	</section>
-	
-	
-	
 <%@ include file="/views/common/footer.jsp"%>	
 

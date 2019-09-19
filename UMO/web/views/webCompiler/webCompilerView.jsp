@@ -16,7 +16,7 @@
 		select#language-choice option { font-size: 18px; }
 		button#btn-compiler{ font-size: 20px; color: red; padding-left: 15%; padding-right: 15%;}
 		div.title { font-size: 1.67em; font-weight: bold; text-align: center; }
-	    div#editor,div#result { margin-top:20px; margin-left: auto; margin-right: auto; font-size: 15px; height: 500px; width: 700px; border: 1px solid black;}
+	    div#editor,div#result { margin-top:20px; margin-left: auto; margin-right: auto; font-size: 15px; height:300px; width: 700px; border: 1px solid black;}
 	    .as-console-wrapper { display: none !important; }
 	    div.result { text-align: left; margin-left: 30%;}
 	    div.ace_scroller { width: 680px; }
@@ -67,7 +67,7 @@
 	
 	    editor.setTheme("ace/theme/monokai");
 	    editor.getSession().setMode("ace/mode/java");
-	    syncEditor();
+	    editor.getSession().setValue(code);
 	    commitChanges();
 	    
 	    var resulteditor = ace.edit('result');
@@ -77,16 +77,15 @@
 	    setTimeout(formatCode, 500); // Format sample Java after 1 second.
 	
 	    // Functions
-	    function syncEditor() {
-	    	editor.getSession().setValue(code);
-	    }
 	    function commitChanges() {
 	    	inputCode.val(editor.getSession().getValue());
+	    	/* $("#editor").height(editor.getSession().doc.getAllLines().length * 18); */
 	    }
 	    function formatCode() {
 	    	var session = editor.getSession();
 	    	session.setValue(js_beautify(session.getValue(), jsbOpts));
 	    }
+	    
     //언어선택시 Editor화면 전환
 	    $(function(){
 			$("#language-choice").change(function(){
@@ -99,11 +98,12 @@
 			});
 			
 			$("#editor").keyup(function(){
-				commitChanges();				
+				commitChanges();
 			});
 		});
     
     	function compile(){
+    		var h = 0;
     		var result = "";
     		console.log($("#inputCode").val());
     		$.ajax({
@@ -123,12 +123,12 @@
 					for(var i = 0 ; i<CodeResult.length-1; i++){
 						result += CodeResult[i].split(",")+"\n";
 					}
-					resulteditor.getSession().setValue(result);
+					resulteditor.getSession().setValue(result);		    		
+		    		resulteditor.setReadOnly(true);
 				}
     		});
-    		setTimeout(500);
     	}
-    
+
 	</script>
 
 <%@ include file = "/views/common/footer.jsp" %>
