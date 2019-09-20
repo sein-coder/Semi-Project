@@ -53,13 +53,20 @@ public class MyPageDao {
 	         close(pstmt);
 	      }return m;
 	   }
-	public List<Comment> selectNoticeCommentList(Connection conn, int cPage, int numPerPage,String name,String userId) {
+	public List<Comment> selectNoticeCommentList(Connection conn, int cPage, int numPerPage,String name,String userId,String comment) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<Comment> list = new ArrayList();
 		String sql="";
 		if(name.equals("myPage")) {
-		sql = prop.getProperty("selectNoticeCommentList");
+			if(comment.equals("Notice_Comment")) {
+				sql = prop.getProperty("selectNoticeCommentList");
+			}else if(comment.equals("Food_Comment")) {
+				sql = prop.getProperty("selectFoodCommentList");
+			}else if(comment.equals("INQUERY_COMMENT")) {
+				sql = prop.getProperty("selectinqueryCommentList");
+			}
+			
 		}else {
 			
 		}
@@ -70,8 +77,7 @@ public class MyPageDao {
 				pstmt.setInt(2, (cPage-1)*numPerPage+1);
 				pstmt.setInt(3, cPage*numPerPage);
 				}else {
-					pstmt.setInt(1, (cPage-1)*numPerPage+1);
-					pstmt.setInt(2, cPage*numPerPage);
+
 				}
 			rs = pstmt.executeQuery();
 			while(rs.next()) {

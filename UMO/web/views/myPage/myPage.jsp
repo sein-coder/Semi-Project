@@ -4,6 +4,8 @@
 <%
 List<Food> foodlist = (List<Food>)request.getAttribute("foodlist");
 List<Comment> NoticeCommentlist = (List<Comment>)request.getAttribute("NoticeCommentlist");
+List<Comment> FoodCommentlist = (List<Comment>)request.getAttribute("FoodCommentlist");
+List<Comment> inqueryCommentlist = (List<Comment>)request.getAttribute("inqueryCommentlist");
 int count = 0;
 %> 
 <%@ include file="/views/common/header.jsp"%>
@@ -34,7 +36,7 @@ int count = 0;
                 <% if(count<3){
                  for(Food f : foodlist) {%>
                     <tr>
-                        <td><a href="<%=request.getContextPath() %>/images/food/"><%= f.getBoard_Thumbnail()%>">food <%=f.getBoard_Title()+" "+f.getBoard_Contents()+" "+f.getBoard_Writer()%></a></td>
+                        <td><a href="<%=request.getContextPath() %>/images/food/"><%=f.getBoard_Thumbnail()%>">food <%=f.getBoard_Title()+" "+f.getBoard_Contents()+" "+f.getBoard_Writer() %></a></td>
                     </tr>
           		<%count++;} } %>
                 </table>
@@ -64,14 +66,22 @@ int count = 0;
           		<%count++;} } %>
                 </table>
                 <table id="foodcomment" style="display:none">
+                   <% count=0;
+                   if(count<3){
+                 for(Comment c : FoodCommentlist) {%>
                     <tr>
-                        <td>푸드</td>
+                        <td><%=c.getComment_contents()+" "+c.getComment_writer()+" "+c.getComment_date() %></td>
                     </tr>
+          		<%count++;} } %>
                 </table>
                 <table id="inquerycomment" style="display:none">
+                     <% count=0;	
+                   if(count<3){
+                 for(Comment c : inqueryCommentlist) {%>
                     <tr>
-                        <td>질의</td>
+                        <td><%=c.getComment_contents()+" "+c.getComment_writer()+" "+c.getComment_date() %></td>
                     </tr>
+          		<%count++;} } %>
                 </table>
             </fieldset>
             <br>
@@ -123,22 +133,22 @@ int count = 0;
 	    
             function click1() {
                 $('#mypost').css({ display: 'grid', width: '75%' });
-                $('#comment').css({ display: 'grid', width: '75%' });
+                $('#mycomment').css({ display: 'grid', width: '75%' });
                 $('#note').css({ display: 'grid', width: '75%' });
             }
             function click2() {
                 $('#mypost').css({ display: 'grid', width: '75%' });
-                $('#comment').css({ display: 'none', width: '75%' });
+                $('#mycomment').css({ display: 'none', width: '75%' });
                 $('#note').css({ display: 'none', width: '75%' });
             }
             function click3() {
                 $('#mypost').css({ display: 'none', width: '75%' });
-                $('#comment').css({ display: 'grid', width: '75%' });
+                $('#mycomment').css({ display: 'grid', width: '75%' });
                 $('#note').css({ display: 'none', width: '75%' });
             }
             function click4() {
                 $('#mypost').css({ display: 'none', width: '75%' });
-                $('#comment').css({ display: 'none', width: '75%' });
+                $('#mycomment').css({ display: 'none', width: '75%' });
                 $('#note').css({ display: 'grid', width: '75%' });
             }
 

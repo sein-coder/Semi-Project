@@ -48,11 +48,16 @@ public class MyPageServlet extends HttpServlet {
 		
 		String name="myPage";
 		List<Food> foodlist = new FoodService().selectFoodList(cPage,numPerPage,name,userId);
-		List<Comment> NoticeCommentlist = new MyPageService().selectNoticeCommentList(cPage,numPerPage,name,userId);
-		
-		
+		String comment="Notice_Comment";
+		List<Comment> NoticeCommentlist = new MyPageService().selectCommentList(cPage,numPerPage,name,userId,comment);
+		comment="Food_Comment";
+		List<Comment> FoodCommentlist = new MyPageService().selectCommentList(cPage,numPerPage,name,userId,comment);
+		comment="INQUERY_COMMENT";
+		List<Comment> inqueryCommentlist = new MyPageService().selectCommentList(cPage,numPerPage,name,userId,comment);
 		
 		request.setAttribute("NoticeCommentlist", NoticeCommentlist);
+		request.setAttribute("FoodCommentlist", FoodCommentlist);
+		request.setAttribute("inqueryCommentlist", inqueryCommentlist);
 		request.setAttribute("foodlist", foodlist);
 		request.setAttribute("cPage", cPage);
 	      request.setAttribute("member", m);

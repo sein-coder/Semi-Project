@@ -19,11 +19,12 @@ public class MyPageService {
 	      close(conn);
 	      return m;
 	   }
-	public List<Comment> selectNoticeCommentList(int cPage, int numPerPage,String name,String userId) {
+	public List<Comment> selectCommentList(int cPage, int numPerPage,String name,String userId,String comment) {
 		Connection conn  = getConnection();
-		List<Comment> list = dao.selectNoticeCommentList(conn,cPage,numPerPage,name,userId);
+		List<Comment> list = dao.selectNoticeCommentList(conn,cPage,numPerPage,name,userId,comment);
 		close(conn);
 		return list;
 	}
+	
 	
 }
