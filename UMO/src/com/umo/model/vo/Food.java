@@ -27,9 +27,12 @@ public class Food {
 		// TODO Auto-generated constructor stub
 	}
 	
+	
+
 	public Food(int board_No, String board_Writer, String board_Title, String board_Contents, String board_MAP,
 			String board_Thumbnail, String original_Filename, String renamed_Filename, Date board_Date, int board_Count,
-			char writing_Status, int board_Grade) {
+			char writing_Status, int board_Grade, String board_tel, String board_foodtype, int board_foodbill,
+			String board_park, String board_open, String board_menu) {
 		super();
 		this.board_No = board_No;
 		this.board_Writer = board_Writer;
@@ -43,9 +46,15 @@ public class Food {
 		this.board_Count = board_Count;
 		this.writing_Status = writing_Status;
 		this.board_Grade = board_Grade;
+		this.board_tel = board_tel;
+		this.board_foodtype = board_foodtype;
+		this.board_foodbill = board_foodbill;
+		this.board_park = board_park;
+		this.board_open = board_open;
+		this.board_menu = board_menu;
 	}
-	
-	
+
+
 
 	public int getBoard_No() {
 		return board_No;
@@ -143,15 +152,67 @@ public class Food {
 		this.board_Grade = board_Grade;
 	}
 
+	public String getBoard_tel() {
+		return board_tel;
+	}
+
+	public void setBoard_tel(String board_tel) {
+		this.board_tel = board_tel;
+	}
+
+	public String getBoard_foodtype() {
+		return board_foodtype;
+	}
+
+	public void setBoard_foodtype(String board_foodtype) {
+		this.board_foodtype = board_foodtype;
+	}
+
+	public int getBoard_foodbill() {
+		return board_foodbill;
+	}
+
+	public void setBoard_foodbill(int board_foodbill) {
+		this.board_foodbill = board_foodbill;
+	}
+
+	public String getBoard_park() {
+		return board_park;
+	}
+
+	public void setBoard_park(String board_park) {
+		this.board_park = board_park;
+	}
+
+	public String getBoard_open() {
+		return board_open;
+	}
+
+	public void setBoard_open(String board_open) {
+		this.board_open = board_open;
+	}
+
+	public String getBoard_menu() {
+		return board_menu;
+	}
+
+	public void setBoard_menu(String board_menu) {
+		this.board_menu = board_menu;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "Food [board_No=" + board_No + ", board_Writer=" + board_Writer + ", board_Title=" + board_Title
 				+ ", board_Contents=" + board_Contents + ", board_MAP=" + board_MAP + ", board_Thumbnail="
 				+ board_Thumbnail + ", original_Filename=" + original_Filename + ", renamed_Filename="
 				+ renamed_Filename + ", board_Date=" + board_Date + ", board_Count=" + board_Count + ", writing_Status="
-				+ writing_Status + ", board_Grade=" + board_Grade + "]";
+				+ writing_Status + ", board_Grade=" + board_Grade + ", board_tel=" + board_tel + ", board_foodtype="
+				+ board_foodtype + ", board_foodbill=" + board_foodbill + ", board_park=" + board_park + ", board_open="
+				+ board_open + ", board_menu=" + board_menu + "]";
 	}
-
+	
 	
 	
 
