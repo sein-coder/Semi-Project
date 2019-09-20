@@ -23,11 +23,13 @@ div#btn-add{float:right; margin: 0 0 15px;}
 </style>
 <section id="notice-container">
 	<h2>공지사항</h2>
-	
+	 
+	<%if(loginMember!=null&&loginMember.getMemberId().equals("admin")){ %>
 	<div class="btn-group btn-group-sm"  id="btn-add">
 		<input type="button" class="btn btn-default" value="글쓰기"
 			onclick="location.href='<%=request.getContextPath()%>/noticeWrite'"/>
 	</div>
+	<%} %>
 	<table class="table table-striped table-bordered table-hover">
 		<thead>
 			<tr>
@@ -70,7 +72,5 @@ div#btn-add{float:right; margin: 0 0 15px;}
 	</nav>
 </section>
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
 <%@ include file="/views/common/footer.jsp" %>

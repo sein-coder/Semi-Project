@@ -19,7 +19,7 @@
        </tr>
        <tr>
          <th>작성자</th>
-         <td><input type="text" name="writer" value="" readonly="readonly"/></td>
+         <td><input type="text" name="writer" value="<%=loginMember.getMemberId()%>" readonly="readonly"/></td>
        </tr>
        <tr>
          <th>첨부파일</th>
@@ -38,7 +38,5 @@
    
    
    </section>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
 <%@ include file="/views/common/footer.jsp" %>

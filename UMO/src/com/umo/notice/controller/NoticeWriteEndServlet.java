@@ -59,12 +59,16 @@ public class NoticeWriteEndServlet extends HttpServlet {
 						"UTF-8",
 						new DefaultFileRenamePolicy()
 						);
+				
 				String title=mr.getParameter("title");
 				String writer=mr.getParameter("writer");
 				String content=mr.getParameter("content");
+				content=content.replace("\r\n", "<br>");
 				String fileName=mr.getFilesystemName("up_file");
 				
 				NoticeBoard nb=new NoticeBoard();
+				
+				
 				
 				nb.setTitle(title);
 				nb.setWriter(writer);
@@ -72,6 +76,9 @@ public class NoticeWriteEndServlet extends HttpServlet {
 				nb.setOriginal_filename(fileName);
 				
 				int result=new NoticeBoardService().noticeWrite(nb);
+				int noticeNo=new NoticeBoardService().lastNoticeContentNo(writer);
+				System.out.println("최신공지사항 no:"+noticeNo);
+				
 						
 				String msg="";
 				String loc="";
@@ -79,9 +86,9 @@ public class NoticeWriteEndServlet extends HttpServlet {
 				String view="/views/common/msg.jsp";//index.jsp
 				
 				if(result>0) {
-					msg="공지사항 등록 성공"; loc="/admin/noticelist";
+					msg="공지사항 등록 성공"; loc="/noticeContentView?noticeNo="+noticeNo;
 				}else {
-					msg="공지사항 등록 실패"; loc="/notice/noticeWrite";
+					msg="공지사항 등록 실패"; loc="/noticeWriteEnd";
 				}
 				
 				request.setAttribute("msg", msg);
