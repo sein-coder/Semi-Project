@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.umo.member.model.service.MemberService;
 import com.umo.model.vo.Member;
-import com.umo.myPage.service.MyPageService;
+import com.umo.myPage.model.service.MyPageService;
 
 /**
  * Servlet implementation class InfoUpdateServlet

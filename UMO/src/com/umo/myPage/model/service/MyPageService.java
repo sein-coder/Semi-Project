@@ -1,4 +1,4 @@
-package com.umo.myPage.service;
+package com.umo.myPage.model.service;
 
 import static common.template.JDBCTemplate.close;
 import static common.template.JDBCTemplate.getConnection;

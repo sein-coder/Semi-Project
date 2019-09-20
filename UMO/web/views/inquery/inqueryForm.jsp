@@ -130,7 +130,7 @@
 	    $("#up_file").change(function(){
 	    	$.each($("#up_file")[0].files,function(i,item){
 	    		var filetype = item.name.split(".")[item.name.split(".").length-1];
-	    		if(!( filetype.toLowerCase() == $("#type").val().toLowerCase() ) ){
+	    		if(!( filetype.toLowerCase() == $("#code-type").val().toLowerCase() ) ){
 	    			alert("같은 종류의 코드파일을 업로드해주세요.");
 	    			$("input[type=file]").val("");			  
 	    		}

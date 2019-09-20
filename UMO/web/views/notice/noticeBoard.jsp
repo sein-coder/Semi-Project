@@ -24,7 +24,7 @@ div#btn-add{float:right; margin: 0 0 15px;}
 <section id="notice-container">
 	<h2>공지사항</h2>
 	 
-	<%if(loginMember!=null&&loginMember.getMemberId().equals("admin")){ %>
+	<%if(loginMember!=null&&loginMember.getMemberId().equals("sein0728")){ %>
 	<div class="btn-group btn-group-sm"  id="btn-add">
 		<input type="button" class="btn btn-default" value="글쓰기"
 			onclick="location.href='<%=request.getContextPath()%>/noticeWrite'"/>
