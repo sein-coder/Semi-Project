@@ -14,7 +14,7 @@
                 <button class="move1 cursor">이동</button>
             </footer>
         </div>
-    </section>
+</section>
 
 <!-- One -->
     <section id="one" class="main style2" style="overflow: hidden;">

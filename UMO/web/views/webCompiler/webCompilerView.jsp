@@ -53,7 +53,7 @@
 				alert("컴파일 후에 질의할 수 있습니다.");
 			}
 			else if($("#result").css("display") == "block"){
-    			location.href="<%=request.getContextPath()%>/question/questionWriteServlet?inputCode="+encodeURI($('#inputCode').val())+"&outputCode="+encodeURI($('#outputCode').val());
+    			location.href="<%=request.getContextPath()%>/inquery/inqueryWriteServlet?inputCode="+encodeURI($('#inputCode').val())+"&outputCode="+encodeURI($('#outputCode').val())+"&type="+$('#language-choice').val();
 			//encodeURI(문자열) : 특수문자가 포함된 문자열 인코딩처리
 			}
 		}
