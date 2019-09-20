@@ -46,6 +46,23 @@ public class NoticeBoardService {
 		
 		return result;
 	}
+	//마지막에 작성한 공지사항 글 번호 불러오기
+	public int lastNoticeContentNo(String writer) {
+		Connection conn=getConnection();
+		int no=dao.lastNoticeContentNo(conn,writer);
+		close(conn);
+		return no;
+	}
+	
+	public int noticeUpdate(NoticeBoard nb) {
+		Connection conn=getConnection();
+		int result=dao.noticeUpdate(conn,nb);
+		
+		if(result>0) {commit(conn);}
+		else {rollback(conn);}
+		
+		return result;
+	}
 	
 
 }
