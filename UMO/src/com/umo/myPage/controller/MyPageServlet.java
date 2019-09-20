@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.umo.food.model.service.FoodService;
+import com.umo.model.vo.Comment;
 import com.umo.model.vo.Food;
 import com.umo.model.vo.Member;
 import com.umo.myPage.service.MyPageService;
@@ -45,11 +46,18 @@ public class MyPageServlet extends HttpServlet {
 		}
 		int numPerPage=3;
 		
-		FoodService service = new FoodService();
-		int totalData=service.selectCountFood_Board();
 		String name="myPage";
 		List<Food> foodlist = new FoodService().selectFoodList(cPage,numPerPage,name,userId);
+		String comment="Notice_Comment";
+		List<Comment> NoticeCommentlist = new MyPageService().selectCommentList(cPage,numPerPage,name,userId,comment);
+		comment="Food_Comment";
+		List<Comment> FoodCommentlist = new MyPageService().selectCommentList(cPage,numPerPage,name,userId,comment);
+		comment="INQUERY_COMMENT";
+		List<Comment> inqueryCommentlist = new MyPageService().selectCommentList(cPage,numPerPage,name,userId,comment);
 		
+		request.setAttribute("NoticeCommentlist", NoticeCommentlist);
+		request.setAttribute("FoodCommentlist", FoodCommentlist);
+		request.setAttribute("inqueryCommentlist", inqueryCommentlist);
 		request.setAttribute("foodlist", foodlist);
 		request.setAttribute("cPage", cPage);
 	      request.setAttribute("member", m);

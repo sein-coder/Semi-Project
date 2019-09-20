@@ -3,6 +3,9 @@
 <%@ page import="java.util.List, com.umo.model.vo.*" %>
 <%
 List<Food> foodlist = (List<Food>)request.getAttribute("foodlist");
+List<Comment> NoticeCommentlist = (List<Comment>)request.getAttribute("NoticeCommentlist");
+List<Comment> FoodCommentlist = (List<Comment>)request.getAttribute("FoodCommentlist");
+List<Comment> inqueryCommentlist = (List<Comment>)request.getAttribute("inqueryCommentlist");
 Member m=(Member)request.getAttribute("member");
 int count = 0;
 %> 
