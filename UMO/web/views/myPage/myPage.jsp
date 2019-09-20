@@ -3,6 +3,7 @@
 <%@ page import="java.util.List, com.umo.model.vo.*" %>
 <%
 List<Food> foodlist = (List<Food>)request.getAttribute("foodlist");
+List<Comment> NoticeCommentlist = (List<Comment>)request.getAttribute("NoticeCommentlist");
 int count = 0;
 %> 
 <%@ include file="/views/common/header.jsp"%>
@@ -33,7 +34,7 @@ int count = 0;
                 <% if(count<3){
                  for(Food f : foodlist) {%>
                     <tr>
-                        <td><a href="<%=request.getContextPath() %>/images/food/<%= f.getBoard_Thumbnail()%>">food <%=f.getBoard_Title()+" "+f.getBoard_Contents()+" "+f.getBoard_Writer()%></a></td>
+                        <td><a href="<%=request.getContextPath() %>/images/food/"><%= f.getBoard_Thumbnail()%>">food <%=f.getBoard_Title()+" "+f.getBoard_Contents()+" "+f.getBoard_Writer()%></a></td>
                     </tr>
           		<%count++;} } %>
                 </table>
@@ -46,12 +47,30 @@ int count = 0;
             </fieldset>
             <br>
         </div>
-        <div class="mypagediv" id="comment">
+        <div class="mypagediv" id="mycomment">
+         <select id="comment" name="comment" style="width:5%">
+				  <option value="공지댓글" selected="selected">공지댓글</option>
+				  <option value="음식댓글">음식댓글</option>
+				   <option value="질의댓글">질의댓글</option>
+				</select>
             <fieldset>
                 <legend>내 댓글</legend> <br>
-                <table>
+                 <table id="noticecomment">
+                <% if(count<3){
+                 for(Comment c : NoticeCommentlist) {%>
                     <tr>
-                        <td>ㅇㅇㅇ</td>
+                        <td><%=c.getComment_contents()+" "+c.getComment_writer()+" "+c.getComment_date() %></td>
+                    </tr>
+          		<%count++;} } %>
+                </table>
+                <table id="foodcomment" style="display:none">
+                    <tr>
+                        <td>푸드</td>
+                    </tr>
+                </table>
+                <table id="inquerycomment" style="display:none">
+                    <tr>
+                        <td>질의</td>
                     </tr>
                 </table>
             </fieldset>
@@ -79,6 +98,25 @@ int count = 0;
         	$('#inqueryboard').css({ display: 'flex'});
         	$('#foodboard').css({ display: 'none'});
         }
+        	})
+        })
+        
+        $(document).ready(function(){
+        	$('#comment').on('change',function(){
+        if($('#comment').val()=='공지댓글'){
+        	 $('#noticecomment').css({ display: 'flex'});
+        	 $('#foodcomment').css({ display: 'none'});
+        	 $('#inquerycomment').css({ display: 'none'});
+        }else if($('#comment').val()=='음식댓글'){
+        	$('#foodcomment').css({ display: 'flex'});
+        	$('#noticecomment').css({ display: 'none'});
+        	$('#inquerycomment').css({ display: 'none'});
+        }else if($('#comment').val()=='질의댓글'){
+        	$('#inquerycomment').css({ display: 'flex'});
+        	$('#foodcomment').css({ display: 'none'});
+        	$('#noticecomment').css({ display: 'none'});
+        }
+        
         	})
         })
 	    
