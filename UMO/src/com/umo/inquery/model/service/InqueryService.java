@@ -1,6 +1,7 @@
 package com.umo.inquery.model.service;
 
 import java.sql.Connection;
+import java.util.List;
 
 import com.umo.inquery.model.dao.InqueryDao;
 import com.umo.model.vo.Inquery;
@@ -23,6 +24,29 @@ public class InqueryService {
 		close(conn);
 		
 		return result;
+	}
+
+	public int selectBoardCount() {
+		Connection conn = getConnection();
+		int result = dao.selectBoardCount(conn);
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public List<Inquery> selectInqueryBoardList(int cPage, int numPerPage) {
+		Connection conn = getConnection();
+		List<Inquery> list = dao.selectInqueryBoardList(conn,cPage,numPerPage);
+		close(conn);
+		return list;
+	}
+
+	public Inquery selectBoardView(int board_No) {
+		Connection conn = getConnection();
+		Inquery inquery = dao.selectBoardView(conn, board_No);
+		close(conn);
+		return inquery;
 	}
 	
 }

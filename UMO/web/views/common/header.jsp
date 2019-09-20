@@ -115,7 +115,7 @@ String saveId=null;
                 <a href="index.html"><button id="dropdown-btn" class="dropdown" style="color: black">게시판1</button></a>
                 <a href="index.html"><button id="dropdown-btn" class="dropdown" style="color: black">게시판2</button></a>
                 <a href="index.html"><button id="dropdown-btn" class="dropdown" style="color: black">게시판3</button></a>
-                <a href="index.html"><button id="dropdown-btn" class="dropdown" style="color: black">게시판4</button></a>
+                <a href="<%= request.getContextPath()%>/inquery/inqueryBoard"><button id="dropdown-btn" class="dropdown" style="color: black">코드 질의게시판</button></a>
             </div>
         </div>
     </div>

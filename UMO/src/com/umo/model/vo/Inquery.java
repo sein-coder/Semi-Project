@@ -67,8 +67,8 @@ public class Inquery {
 		return board_Contents;
 	}
 
-	public void setBoard_Contents(String board_Contnets) {
-		this.board_Contents = board_Contnets;
+	public void setBoard_Contents(String board_Contents) {
+		this.board_Contents = board_Contents;
 	}
 
 	public String getInputCode() {
@@ -138,7 +138,7 @@ public class Inquery {
 	@Override
 	public String toString() {
 		return "Inquery [board_No=" + board_No + ", board_Writer=" + board_Writer + ", board_Title=" + board_Title
-				+ ", board_Contnets=" + board_Contents + ", inputCode=" + inputCode + ", outputCode=" + outputCode
+				+ ", board_Contents=" + board_Contents + ", inputCode=" + inputCode + ", outputCode=" + outputCode
 				+ ", code_Type=" + code_Type + ", original_FileName=" + original_FileName + ", renamed_FileName="
 				+ renamed_FileName + ", board_Date=" + board_Date + ", board_Count=" + board_Count + ", writing_Status="
 				+ writing_Status + "]";

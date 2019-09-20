@@ -136,7 +136,6 @@
 	    		}
 	    	});
 	    });
-	   console.log($("#code-type").val());
 	</script>
 	
 	</section>
