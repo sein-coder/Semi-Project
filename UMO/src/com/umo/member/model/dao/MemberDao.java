@@ -54,7 +54,6 @@ public int insertMember(Connection conn,Member m)
 }
 	public Member selectId(Connection conn,String id,String pw)
 	{
-		System.out.println(id+pw);
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		Member m=null;
@@ -74,7 +73,6 @@ public int insertMember(Connection conn,Member m)
 				m.setPhone(rs.getString("phone"));
 				m.setAddress(rs.getString("address"));
 			}
-			System.out.println(m.getMemberId());
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -97,7 +95,6 @@ public int insertMember(Connection conn,Member m)
 	 		pstmt.setString(5, m.getAddress());
 	 		pstmt.setString(6,m.getMemberId());
 	 		result=pstmt.executeUpdate();        
-	         System.out.println(" "+result);
 	      }catch(SQLException e) {
 	         e.printStackTrace();
 	      }finally {

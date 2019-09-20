@@ -1,4 +1,4 @@
-package com.umo.question.controller;
+package com.umo.inquery.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -10,14 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class QuestionWriteServlet
  */
-@WebServlet("/question/questionWriteServlet")
-public class QuestionWriteServlet extends HttpServlet {
+@WebServlet("/inquery/inqueryWriteServlet")
+public class InqueryWriteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QuestionWriteServlet() {
+    public InqueryWriteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,14 +28,16 @@ public class QuestionWriteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String inputCode = request.getParameter("inputCode");
 		String outputCode = request.getParameter("outputCode");
+		String type = request.getParameter("type");
 		//outputCode 줄개행 전처리
 		inputCode = inputCode.replaceAll("(\r\n|\r|\n|\n\r)", " ");
 		outputCode = outputCode.replaceAll("(\r\n|\r|\n|\n\r)", ",");
 		
+		request.setAttribute("type", type);
 		request.setAttribute("inputCode", inputCode);
 		request.setAttribute("outputCode", outputCode);	
 		
-		request.getRequestDispatcher("/views/question/questionForm.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/inquery/inqueryForm.jsp").forward(request, response);
 	}
 
 	/**
