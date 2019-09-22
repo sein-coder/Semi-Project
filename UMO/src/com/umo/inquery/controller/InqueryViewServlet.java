@@ -33,7 +33,6 @@ public class InqueryViewServlet extends HttpServlet {
 		
 		Inquery inquery = new InqueryService().selectBoardView(Board_No);
 		
-		
 		request.setAttribute("inquery", inquery);
 		
 		request.getRequestDispatcher("/views/inquery/inqueryView.jsp").forward(request, response);

@@ -150,4 +150,21 @@ public class InqueryDao {
 		return inquery;
 	}
 
+
+	public int updateInquery(Connection conn, int board_No) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("updateInquery");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return 0;
+	}
+
 }

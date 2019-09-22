@@ -52,6 +52,9 @@
 			if($("#result").css("display") == "none") {
 				alert("컴파일 후에 질의할 수 있습니다.");
 			}
+			else if($("#result").css("display") == "block" && <%= request.getAttribute("Board_No")!=null?request.getAttribute("Board_No"):"" %>) {
+				location.href="<%=request.getContextPath()%>/inquery/inqueryWriteServlet?inputCode="+encodeURI($('#inputCode').val())+"&outputCode="+encodeURI($('#outputCode').val())+"&type="+$('#language-choice').val()+"&Board_No=<%=request.getAttribute("Board_No")%>";
+			}
 			else if($("#result").css("display") == "block"){
     			location.href="<%=request.getContextPath()%>/inquery/inqueryWriteServlet?inputCode="+encodeURI($('#inputCode').val())+"&outputCode="+encodeURI($('#outputCode').val())+"&type="+$('#language-choice').val();
 			//encodeURI(문자열) : 특수문자가 포함된 문자열 인코딩처리

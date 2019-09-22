@@ -48,5 +48,22 @@ public class InqueryService {
 		close(conn);
 		return inquery;
 	}
+
+	public int deleteInquery() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int updateInquery(int board_No) {
+		Connection conn = getConnection();
+		int result = dao.updateInquery(conn,board_No);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
 	
 }

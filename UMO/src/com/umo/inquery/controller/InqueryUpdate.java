@@ -1,4 +1,4 @@
-package com.umo.webCompiler.controller;
+package com.umo.inquery.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,17 +7,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.umo.inquery.model.service.InqueryService;
+import com.umo.model.vo.Inquery;
+
 /**
- * Servlet implementation class WebCompilerViewServlet
+ * Servlet implementation class InqueryUpdate
  */
-@WebServlet("/webCopiler/webCopilerView")
-public class WebCompilerViewServlet extends HttpServlet {
+@WebServlet("/inquery/inqueryUpdate")
+public class InqueryUpdate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public WebCompilerViewServlet() {
+    public InqueryUpdate() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,12 +29,13 @@ public class WebCompilerViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(request.getParameter("Board_No")!=null) {
-			int Board_No = Integer.parseInt(request.getParameter("Board_No"));
-			request.setAttribute("Board_No", Board_No);
-		}
+		int Board_No = Integer.parseInt(request.getParameter("Board_No"));
 		
-		request.getRequestDispatcher("/views/webCompiler/webCompilerView.jsp").forward(request, response);
+		Inquery inquery = new InqueryService().selectBoardView(Board_No);
+		
+		request.setAttribute("inquery", inquery);
+		
+		request.getRequestDispatcher("/inquery/inqueryWriteServlet").forward(request,response);
 	}
 
 	/**

@@ -1,3 +1,4 @@
+<%@page import="com.umo.model.vo.Inquery"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -8,9 +9,11 @@
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" rel="stylesheet"/>
 	
 <%
+	Inquery inquery = (Inquery)request.getAttribute("inquery");
 	String inputCode = (String)request.getAttribute("inputCode");	
 	String[] outputCode = ((String)request.getAttribute("outputCode")).split(",");
 	String type = (String)request.getAttribute("type");
+
 %>
 	
 	
@@ -26,6 +29,7 @@
 		table.form-tbl h3{ width: 120px; text-align: center; margin-left: auto; margin-right: auto;}
 		table.form-tbl td,tr{ text-align: left; }
 		table.form-tbl td { margin-left: auto; margin-right: auto; border: 1px solid black; }
+		span#fname{position: absolute; font-size:18px; left:80px; top:28px; width: 285px; background-color: #ffffff;}
 	</style>
 
 	<section id="inqueryForm-container">
@@ -38,7 +42,7 @@
 						<h3>제목</h3>
 					</td>
 					<td>
-						<input id="inquery-title" name="inquery-title" type="text"/>
+						<input id="inquery-title" name="inquery-title" type="text" value="<%=(inquery!=null&&inquery.getBoard_Title()!=null)?inquery.getBoard_Title():""%>"/>
 					</td>
 				</tr>
 				<tr>
@@ -53,14 +57,20 @@
 					<td>
 						<h3>파일 업로드</h3>
 					</td>
-					<td>
-						<input type="file" id="up_file" name="up_file"> 
+					<td style="position: relative; ">
+					<% if(inquery!=null && inquery.getOriginal_FileName()!=null) { %>
+						<input type="file" name="up_file" value="<%= inquery.getRenamed_FileName() %>">
+						<input type="hidden" name="ori_file" value="<%= inquery.getOriginal_FileName() %>"><!-- 이전파일 정보 -->
+						<span id="fname"><%= inquery.getOriginal_FileName() %></span>
+					<% }else { %>
+						<input type="file" name="up_file">
+					<% } %>
 					</td>
 				</tr>
 				<tr>
 					<td colspan="2">
 						<h3>질의내용</h3>
-						<textarea id="inquery-content" name="inquery-content" rows="10" cols="25"></textarea>
+						<textarea id="inquery-content" name="inquery-content" rows="10" cols="25"><%= (inquery!=null&&inquery.getBoard_Title()!=null)?inquery.getBoard_Contents():"" %></textarea>
 					</td>
 				</tr>
 				<tr>
@@ -80,7 +90,7 @@
 			</table>
 
 			<input id="submit" type="submit" value="질문올리기">
-			<input id="btn-cancel" type="button" value="되돌아가기" onclick="location.href='<%=request.getContextPath()%>/webCopiler/webCopilerView'">
+			<input id="btn-cancel" type="button" value="컴파일러로" onclick="location.href='<%=request.getContextPath()%>/webCopiler/webCopilerView?Board_No=<%=(inquery!=null&&inquery.getBoard_Title()!=null)?inquery.getBoard_No():""%>'">
 		</form>
 	</div>
 	
@@ -105,7 +115,7 @@
 	    
 	    inputCode.getSession().setValue(js_beautify(inputCode.getSession().getValue(), jsbOpts));
 	    outputCode.getSession().setValue(js_beautify(outputCode.getSession().getValue(), jsbOpts));
-	    
+
 	    inputCode.setReadOnly(true);
 	    outputCode.setReadOnly(true);
 	    
@@ -126,16 +136,24 @@
 		    	column : 0
 		    }, "\n" + text)
 	    };
-	    
-	    $("#up_file").change(function(){
-	    	$.each($("#up_file")[0].files,function(i,item){
-	    		var filetype = item.name.split(".")[item.name.split(".").length-1];
-	    		if(!( filetype.toLowerCase() == $("#code-type").val().toLowerCase() ) ){
+
+	    $(function(){
+			$('[name="up_file"]').change(function(){
+				var filetype = $(this).val().split(".")[$(this).val().split(".").length-1];
+				if(!( filetype.toLowerCase() == $("#code-type").val().toLowerCase() ) ){
 	    			alert("같은 종류의 코드파일을 업로드해주세요.");
-	    			$("input[type=file]").val("");			  
+	    			$(this).val("");			  
 	    		}
-	    	});
-	    });
+				else {
+					if($(this).val()!=""){
+						$("#fname").hide();					
+					}else{
+						$("#fname").show();	
+					}
+				}
+			});
+		});
+	    
 	</script>
 	
 	</section>

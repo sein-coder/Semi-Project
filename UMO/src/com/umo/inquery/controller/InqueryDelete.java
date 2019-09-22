@@ -1,4 +1,4 @@
-package com.umo.webCompiler.controller;
+package com.umo.inquery.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,17 +7,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.umo.inquery.model.service.InqueryService;
+
 /**
- * Servlet implementation class WebCompilerViewServlet
+ * Servlet implementation class InqueryDelete
  */
-@WebServlet("/webCopiler/webCopilerView")
-public class WebCompilerViewServlet extends HttpServlet {
+@WebServlet("/inquery/inqueryDelete")
+public class InqueryDelete extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public WebCompilerViewServlet() {
+    public InqueryDelete() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,12 +28,20 @@ public class WebCompilerViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(request.getParameter("Board_No")!=null) {
-			int Board_No = Integer.parseInt(request.getParameter("Board_No"));
-			request.setAttribute("Board_No", Board_No);
+		int Board_No = Integer.parseInt(request.getParameter("Board_No"));
+		
+		int result = new InqueryService().deleteInquery();
+		
+		String views = "";
+		
+		if(result>0	) {
+			views = "/inquery/inqueryBoard";
+		}else {
+			
 		}
 		
-		request.getRequestDispatcher("/views/webCompiler/webCompilerView.jsp").forward(request, response);
+		
+		request.getRequestDispatcher(views).forward(request,response);
 	}
 
 	/**
