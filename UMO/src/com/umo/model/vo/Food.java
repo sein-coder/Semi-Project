@@ -15,7 +15,7 @@ public class Food {
 	private Date board_Date;
 	private int board_Count;
 	private char writing_Status;
-	private String board_Grade;
+	private int board_Grade;
 	private String board_tel;
 	private String board_foodtype;
 	private String board_foodbill;
@@ -32,7 +32,7 @@ public class Food {
 
 	public Food(int board_No, String board_Writer, String board_Title, String board_Contents, String board_MAP,
 			String board_Thumbnail, String original_Filename, String renamed_Filename, Date board_Date, int board_Count,
-			char writing_Status, String board_Grade, String board_tel, String board_foodtype, String board_foodbill,
+			char writing_Status, int board_Grade, String board_tel, String board_foodtype, String board_foodbill,
 			String board_park, String board_open, String board_menu) {
 		super();
 		this.board_No = board_No;
@@ -167,12 +167,12 @@ public class Food {
 	}
 
 
-	public String getBoard_Grade() {
+	public int getBoard_Grade() {
 		return board_Grade;
 	}
 
 
-	public void setBoard_Grade(String board_Grade) {
+	public void setBoard_Grade(int board_Grade) {
 		this.board_Grade = board_Grade;
 	}
 
@@ -234,6 +234,19 @@ public class Food {
 
 	public void setBoard_menu(String board_menu) {
 		this.board_menu = board_menu;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Food [board_No=" + board_No + ", board_Writer=" + board_Writer + ", board_Title=" + board_Title
+				+ ", board_Contents=" + board_Contents + ", board_MAP=" + board_MAP + ", board_Thumbnail="
+				+ board_Thumbnail + ", original_Filename=" + original_Filename + ", renamed_Filename="
+				+ renamed_Filename + ", board_Date=" + board_Date + ", board_Count=" + board_Count + ", writing_Status="
+				+ writing_Status + ", board_Grade=" + board_Grade + ", board_tel=" + board_tel + ", board_foodtype="
+				+ board_foodtype + ", board_foodbill=" + board_foodbill + ", board_park=" + board_park + ", board_open="
+				+ board_open + ", board_menu=" + board_menu + "]";
 	}
 
 	

@@ -40,6 +40,13 @@ public class FoodService {
 			rollback(conn);
 		}return result;
 	}
+
+	public Food selectFoodView(int board_no) {
+		Connection conn=getConnection();
+		Food f= dao.selectFoodView(conn,board_no);
+		close(conn);
+		return f;
+	}
 	
 
 	
