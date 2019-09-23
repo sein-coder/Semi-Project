@@ -1,3 +1,4 @@
+<%@page import="com.umo.model.vo.Inquery"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -8,6 +9,7 @@
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" rel="stylesheet"/>
 	
 <%
+	Inquery inquery = (Inquery)request.getAttribute("inquery");
 	String inputCode = (String)request.getAttribute("inputCode");	
 	String[] outputCode = ((String)request.getAttribute("outputCode")).split(",");
 	String type = (String)request.getAttribute("type");
@@ -26,11 +28,12 @@
 		table.form-tbl h3{ width: 120px; text-align: center; margin-left: auto; margin-right: auto;}
 		table.form-tbl td,tr{ text-align: left; }
 		table.form-tbl td { margin-left: auto; margin-right: auto; border: 1px solid black; }
+		span#fname{position: absolute; font-size:18px; left:80px; top:28px; width: 285px; background-color: #ffffff;}
 	</style>
 
 	<section id="inqueryForm-container">
 	<div class="inquery-form">
-		<form action="<%=request.getContextPath() %>/inquery/inqueryWriteEndServlet?code-type="+<%= type %> method="post" enctype="multipart/form-data">
+		<form action="<%=request.getContextPath() %>/inquery/inqueryWriteEnd?code-type="+<%= type %> method="post" enctype="multipart/form-data">
 			<input type="hidden" name="writer" value='<%=((Member)session.getAttribute("loginMember")).getMemberId()%>'>
 			<table class="form-tbl" style="border: 1px solid black;">
 				<tr>
@@ -53,8 +56,8 @@
 					<td>
 						<h3>파일 업로드</h3>
 					</td>
-					<td>
-						<input type="file" id="up_file" name="up_file"> 
+					<td style="position: relative; ">
+						<input type="file" name="up_file">
 					</td>
 				</tr>
 				<tr>
@@ -105,7 +108,7 @@
 	    
 	    inputCode.getSession().setValue(js_beautify(inputCode.getSession().getValue(), jsbOpts));
 	    outputCode.getSession().setValue(js_beautify(outputCode.getSession().getValue(), jsbOpts));
-	    
+
 	    inputCode.setReadOnly(true);
 	    outputCode.setReadOnly(true);
 	    
@@ -126,17 +129,24 @@
 		    	column : 0
 		    }, "\n" + text)
 	    };
-	    
-	    $("#up_file").change(function(){
-	    	$.each($("#up_file")[0].files,function(i,item){
-	    		var filetype = item.name.split(".")[item.name.split(".").length-1];
-	    		if(!( filetype.toLowerCase() == $("#code-type").val().toLowerCase() ) ){
+
+	    $(function(){
+			$('[name="up_file"]').change(function(){
+				var filetype = $(this).val().split(".")[$(this).val().split(".").length-1];
+				if(!( filetype.toLowerCase() == $("#code-type").val().toLowerCase() ) ){
 	    			alert("같은 종류의 코드파일을 업로드해주세요.");
-	    			$("input[type=file]").val("");			  
+	    			$(this).val("");			  
 	    		}
-	    	});
-	    });
-	   console.log($("#code-type").val());
+				else {
+					if($(this).val()!=""){
+						$("#fname").hide();					
+					}else{
+						$("#fname").show();	
+					}
+				}
+			});
+		});
+	    
 	</script>
 	
 	</section>

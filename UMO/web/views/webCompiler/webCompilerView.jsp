@@ -1,3 +1,4 @@
+<%@page import="com.umo.model.vo.Inquery"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -52,14 +53,24 @@
 			if($("#result").css("display") == "none") {
 				alert("컴파일 후에 질의할 수 있습니다.");
 			}
+			else if($("#result").css("display") == "block" && <%= request.getAttribute("Board_No") != null %>){
+    			location.href="<%=request.getContextPath()%>/inquery/inqueryUpdate?inputCode="+encodeURI($('#inputCode').val())+"&outputCode="+encodeURI($('#outputCode').val())+"&type="+$('#language-choice').val()+'&Board_No=<%=request.getAttribute("Board_No")%>&flag='+true;
+			//encodeURI(문자열) : 특수문자가 포함된 문자열 인코딩처리
+			}
 			else if($("#result").css("display") == "block"){
-    			location.href="<%=request.getContextPath()%>/inquery/inqueryWriteServlet?inputCode="+encodeURI($('#inputCode').val())+"&outputCode="+encodeURI($('#outputCode').val())+"&type="+$('#language-choice').val();
+    			location.href="<%=request.getContextPath()%>/inquery/inqueryWrite?inputCode="+encodeURI($('#inputCode').val())+"&outputCode="+encodeURI($('#outputCode').val())+"&type="+$('#language-choice').val();
 			//encodeURI(문자열) : 특수문자가 포함된 문자열 인코딩처리
 			}
 		}
 	//Ace Editor Logic
 		var editor = ace.edit('editor');
-		var code = 'public class Test {public static void main(String[] args) throws Exception {System.out.print("Hello world");}}';
+		var code = "";
+		if(<%=request.getAttribute("Board_No")%>!=null){
+			code = '<%= request.getAttribute("inputCode") %>'
+		}
+		else {
+			code = 'public class Test {public static void main(String[] args) throws Exception {System.out.print("Hello world");}}';
+		}
 	    var inputCode = $("#inputCode");
 	    inputCode.val(code);
 		var jsbOpts = {
@@ -102,7 +113,7 @@
 			});
 		});
     
-    	function compile(){
+    	function compile(){ //onload, 페이지로딩시 바로 실행되는 함수
     		var h = 0;
     		var result = "";
     		formatCode();

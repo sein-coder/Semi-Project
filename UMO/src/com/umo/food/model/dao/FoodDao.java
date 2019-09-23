@@ -101,7 +101,7 @@ public class FoodDao {
 		String sql = prop.getProperty("insertBoard");
 		try {
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setBoard_No(1,f.getBoard_No("board_no"));
+			/* pstmt.setBoard_No(1,f.getBoard_No("board_no")); */
 			pstmt.setString(2, f.getBoard_Title());
 			pstmt.setString(3, f.getBoard_tel());
 			pstmt.setString(4, f.getBoard_foodtype());

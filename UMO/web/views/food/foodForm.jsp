@@ -2,8 +2,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp"%>
-		<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=y8vul4gvp5&submodules=geocoder"></script>
-	    <script src="<%= request.getContextPath() %>/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=y8vul4gvp5&submodules=geocoder"></script>
+<script src="<%= request.getContextPath() %>/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/SE2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+
 	    
 <style>
 	table#big-table {
@@ -117,9 +119,11 @@
 							</tr>
 							<tr>
 								<td>
-							<tr>
-								<td><!--내용  -->
-									<div id="btn-container"></div>
+									<h3>내용</h3>
+										<textarea name="ir1" id="ir1" rows="10" cols="100">
+											에디터에 기본으로 삽입할 글(수정 모드)이 없다면 이 value 값을 지정하지 않으시면 됩니다.
+										</textarea>
+								</td>
 							</tr>
 							<tr>
 								<td>
@@ -150,123 +154,85 @@
 	</div>
 	</form>
 
-	<script>
-			
-			
-			
-			var count = 0;//시작값
-			$("#img-back").click(function(){
-				count+=1;//초기값에 +1
-				$("#"+0).attr("src",foodpic[count%foodpic.length]);//id값이 0인 곳, 속성 src에 foodpic에서 count값에서 foodpic의 길이를 나눈 나머지의 값이 0이면 여기서 src바꿔주기  
-				$("#"+1).attr("src",foodpic[(count+1)%foodpic.length]);
-				$("#"+2).attr("src",foodpic[(count+2)%foodpic.length]);
-				console.log(count);
-			});
-			$("#img-front").click(function(){
-				count-=1;//초기값을 -1
-				if(count<0){count=foodpic.length-1;}//count가 0보다 작게 나오면 foodpic의 길이에서 -1을 뺀값을 count에 넣어줘(그럼 4)
-				$("#"+0).attr("src",foodpic[count%foodpic.length]);//id값이 0인곳, 속성src에 foodpic길이에서 count를 나눈나머지값이 0이면 id값이 0인 곳에 src를 바꿔주기 
-				$("#"+1).attr("src",foodpic[(count+1)%foodpic.length]);
-				$("#"+2).attr("src",foodpic[(count+2)%foodpic.length]);
-				console.log(count);
-			});
-			
-			
-			
-		
-			
-			
-			//아래 사진 업로드, 파일선택 부분 코드
-			var foodpic=[];
-			$(function(){
-				$("#upfile").change(function(){
-					$("#preview").html("");//사진미리보기가 다 나오도록 처리
-					$.each($(this)[0].files,function(i,item){//$.each() 메서드는 object와 배열모두 사용할수 있는 반복함수,jquery용,for in 반복문과 유사
-						var reader = new FileReader();
-						reader.onload=function(e){
-/* 							var img=$("<img>").attr({"src":e.target.result ,"id":i}).css({"width":"300px","height":"200px"});
-							$("#img-container").append(img); */
-							
-							
-							
-						/* 	아래는 
-							i<3보다 작을때까지만 img태그를 만들고 container에 추가, foodpic배열에 이미지주소값을 요소로 추가 --> id값이 0,1,2인 img태그만 만들어서 세개만 container에 추가할려고, foodpic배열에 src추가 
-						    i가 3보다 클때는 img태그를 만들지 않고 foodpic배열에 이미지주소값추가만 --> 그외에 애들은 foodpic이라는 배열에만 src를 추가해준다
-						         이미지주소값 : e.tartget.result
-						         배열에 요소 추가는 append로 합니다~~~ */
-						    
-							if(i<3){
-								$("#"+i).attr({"src":e.target.result}).css({"width":"300px","height":"200px"});//img태그를 생성하는부분
-								//$("#img-container").append(img);//div 태그에 하위태그를 추가할때 append
-								foodpic.push(e.target.result);//배열에 요소를 추가할땐 push
-							}else{
-								foodpic.push(e.target.result);
-							}
-						}
-						reader.readAsDataURL(item);
-						console.log(item);
-					});
-				});
-							
-				
-				
-			$("#up-btn").on("click",function(){
-				var fd=new FormData();
-				$.each($("#upfile")[0].files,function(i,item){
-					fd.append("file"+i,item);
-				});
-				
-				$a.jax({
-				url:"<%=request.getContextPath()%>/ajaxFile",
-				data:fd,
-				type:"post",
-				processData:false,
-				contentType:false,
-				success:function(data){
-					console.log(data);
-					$("#preview").html("");
-					$("#upfile").val("");
-					}
-				});
-			});
-			$("#downfile").on("click",function(){
-				$("#"+0).attr({"src":"<%=request.getContextPath()%>/images/foodpoint/noimg.png"});
-				$("#"+1).attr({"src":"<%=request.getContextPath()%>/images/foodpoint/noimg.png"});
-				$("#"+2).attr({"src":"<%=request.getContextPath()%>/images/foodpoint/noimg.png"});
-				foodpic=[];
-			});
-			
-			<%-- $("#downfile").on("click",function(){
-				var a = foodpic.splice(foodpic.length-1,1);
-				if(foodpic.length<=2){
-					for(var i=2; i>foodpic.length; i--){
-						$("#"+i).attr({"src":"<%=request.getContextPath()%>/images/foodpoint/noimg.png"});
-						foodpic.push("<%=request.getContextPath()%>/images/foodpoint/noimg.png");
-					}
-				}else{
-					$("#"+0).attr({"src":foodpic[0]});
-					$("#"+1).attr({"src":foodpic[1]});
-					$("#"+2).attr({"src":foodpic[2]});
-				}
-			}); --%>
+<script>
 
+	var oEditors = [];
+	nhn.husky.EZCreator.createInIFrame({
+	 oAppRef: oEditors,
+	 elPlaceHolder: "ir1",
+	 sSkinURI: "<%=request.getContextPath()%>/SE2/SmartEditor2Skin.html",
+	 fCreator: "createSEditor2"
+	});
+
+	var count = 0;//시작값
+	$("#img-back").click(function(){
+		count+=1;//초기값에 +1
+		$("#"+0).attr("src",foodpic[count%foodpic.length]);//id값이 0인 곳, 속성 src에 foodpic에서 count값에서 foodpic의 길이를 나눈 나머지의 값이 0이면 여기서 src바꿔주기  
+		$("#"+1).attr("src",foodpic[(count+1)%foodpic.length]);
+		$("#"+2).attr("src",foodpic[(count+2)%foodpic.length]);
+		console.log(count);
+	});
+	$("#img-front").click(function(){
+		count-=1;//초기값을 -1
+		if(count<0){count=foodpic.length-1;}//count가 0보다 작게 나오면 foodpic의 길이에서 -1을 뺀값을 count에 넣어줘(그럼 4)
+		$("#"+0).attr("src",foodpic[count%foodpic.length]);//id값이 0인곳, 속성src에 foodpic길이에서 count를 나눈나머지값이 0이면 id값이 0인 곳에 src를 바꿔주기 
+		$("#"+1).attr("src",foodpic[(count+1)%foodpic.length]);
+		$("#"+2).attr("src",foodpic[(count+2)%foodpic.length]);
+		console.log(count);
 	});
 	
-			//ajax
-	<%-- $(function(){
-		$("document").ready(function(){
-			$.ajax({
-				url:"<%=request.getContextPath()%>/js/html",
-				type:"get",
-				dataType:"html",
-				success:function(data){
-					$("#btn-container").html(data);
-				}
-			});
-		});
-	}); 
-		 --%>
+	//아래 사진 업로드, 파일선택 부분 코드
+	var foodpic=[];
 			
+	$("#upfile").change(function(){
+		$("#preview").html("");//사진미리보기가 다 나오도록 처리
+		$.each($(this)[0].files,function(i,item){//$.each() 메서드는 object와 배열모두 사용할수 있는 반복함수,jquery용,for in 반복문과 유사
+			var reader = new FileReader();
+			reader.onload=function(e){									
+			/* 	아래는 
+				i<3보다 작을때까지만 img태그를 만들고 container에 추가, foodpic배열에 이미지주소값을 요소로 추가 --> id값이 0,1,2인 img태그만 만들어서 세개만 container에 추가할려고, foodpic배열에 src추가 
+			    i가 3보다 클때는 img태그를 만들지 않고 foodpic배열에 이미지주소값추가만 --> 그외에 애들은 foodpic이라는 배열에만 src를 추가해준다
+			         이미지주소값 : e.tartget.result
+			         배열에 요소 추가는 append로 합니다~~~ */
+				if(i<3){
+					$("#"+i).attr({"src":e.target.result}).css({"width":"300px","height":"200px"});//img태그를 생성하는부분
+					//$("#img-container").append(img);//div 태그에 하위태그를 추가할때 append
+					foodpic.push(e.target.result);//배열에 요소를 추가할땐 push
+				}else{
+					foodpic.push(e.target.result);
+				}
+			}
+			reader.readAsDataURL(item);
+			console.log(item);
+		});
+	});
+			
+	$("#up-btn").on("click",function(){
+		var fd=new FormData();
+		$.each($("#upfile")[0].files,function(i,item){
+			fd.append("file"+i,item);
+		});
+		
+		$a.jax({
+		url:"<%=request.getContextPath()%>/ajaxFile",
+		data:fd,
+		type:"post",
+		processData:false,
+		contentType:false,
+		success:function(data){
+			console.log(data);
+			$("#preview").html("");
+			$("#upfile").val("");
+			}
+		});
+	});
+			
+	$("#downfile").on("click",function(){
+		$("#"+0).attr({"src":"<%=request.getContextPath()%>/images/foodpoint/noimg.png"});
+		$("#"+1).attr({"src":"<%=request.getContextPath()%>/images/foodpoint/noimg.png"});
+		$("#"+2).attr({"src":"<%=request.getContextPath()%>/images/foodpoint/noimg.png"});
+		foodpic=[];
+	});			
 			
 			
 		//네이버 지도
@@ -527,7 +493,7 @@
 	
 	naver.maps.onJSContentLoaded = initGeocoder;
 	
-	</script>
+</script>
 
 
 </section>

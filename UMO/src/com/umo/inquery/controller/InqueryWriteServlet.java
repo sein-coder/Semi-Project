@@ -7,10 +7,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.umo.inquery.model.service.InqueryService;
+import com.umo.model.vo.Inquery;
+
 /**
  * Servlet implementation class QuestionWriteServlet
  */
-@WebServlet("/inquery/inqueryWriteServlet")
+@WebServlet("/inquery/inqueryWrite")
 public class InqueryWriteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -26,18 +29,19 @@ public class InqueryWriteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String inputCode = request.getParameter("inputCode");
-		String outputCode = request.getParameter("outputCode");
-		String type = request.getParameter("type");
-		//outputCode 줄개행 전처리
-		inputCode = inputCode.replaceAll("(\r\n|\r|\n|\n\r)", " ");
-		outputCode = outputCode.replaceAll("(\r\n|\r|\n|\n\r)", ",");
-		
-		request.setAttribute("type", type);
-		request.setAttribute("inputCode", inputCode);
-		request.setAttribute("outputCode", outputCode);	
-		
-		request.getRequestDispatcher("/views/inquery/inqueryForm.jsp").forward(request, response);
+
+			String inputCode = request.getParameter("inputCode");
+			String outputCode = request.getParameter("outputCode");
+			String type = request.getParameter("type");
+			//outputCode 줄개행 전처리
+			inputCode = inputCode.replaceAll("(\r\n|\r|\n|\n\r)", " ");
+			outputCode = outputCode.replaceAll("(\r\n|\r|\n|\n\r)", ",");
+			
+			request.setAttribute("type", type);
+			request.setAttribute("inputCode", inputCode);
+			request.setAttribute("outputCode", outputCode);			
+
+			request.getRequestDispatcher("/views/inquery/inqueryForm.jsp").forward(request, response);
 	}
 
 	/**

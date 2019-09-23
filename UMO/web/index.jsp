@@ -2,70 +2,6 @@
     pageEncoding="UTF-8" errorPage="/views/common/error.jsp"%>
 <!-- 외부파일을 불러오는 지시자 -> include -->
 <%@ include file="views/common/header.jsp" %>
-<script>
-$(document).ready(function(){
-	var result="";
-$.ajax({
-	url : "<%=request.getContextPath()%>/noticeBoard", 
-	dataType:"text",
-	type : "post", 
-	success : function(data){ 
-
-		 var noticeboardlist=data.substring(1,data.length-1).split("<tr>");
-		 for(var i = 3 ; i<noticeboardlist.length-1; i++){
-			result += noticeboardlist[i].split(",")+"\n";
-		}
-		$('#noticeboard').html("<table class='table table-striped table-bordered table-hover'>"+result); 
-
-	}
-});
-var result2="";
-$.ajax({
-	url : "<%=request.getContextPath()%>/freeBoard", 
-	dataType:"text",
-	type : "post", 
-	success : function(data){ 
-
-		 var freeboardlist=data.substring(1,data.length-1).split("<tr>");
-		 for(var i = 3 ; i<8; i++){
-			result2 += freeboardlist[i].split(",")+"\n";
-		}
-		$('#freeboard').html("<table class='table table-striped table-bordered table-hover'>"+result2); 
-
-	}
-});
- var result3="";
-$.ajax({
-	url : "<%=request.getContextPath()%>/anonymousBoard", 
-	dataType:"text",
-	type : "post", 
-	success : function(data){ 
-		console.log(data);
-		 var anonymousBoardlist=data.substring(1,data.length-1).split("<tr>");
-		 for(var i = 3 ; i<8; i++){
-			result3 += anonymousBoardlist[i].split(",")+"\n";
-		}
-		$("#anonymousboard").html("<table class='table table-striped table-bordered table-hover'>"+result3); 
-
-	}
-});
-var result5="";
-$.ajax({
-	url : "<%=request.getContextPath()%>/food/foodList",
-	dataType:"text",
-	type : "post", 
-	success : function(data){ 
-		 var foodboardlist=data.substring(1,data.length-1).split("<tr>");
-			 for(var i = 3 ; i<foodboardlist.length-1; i++){
-					result5 += foodboardlist[i].split(",")+"\n";
-				}
-			 $('#foodboard').html("<table class='table table-striped table-bordered table-hover'>"+result5); 
-	}
-	
-});
-});
-
-</script>
 <style>
 .foodimg{
 width:30px;
@@ -211,6 +147,68 @@ $('.move2').click(function(){
 $('.move3').click(function(){
     var scroll=$('#work').offset();
     $('html').animate({scrollTop:scroll.top},1000)
+});
+
+$(document).ready(function(){
+	var result="";
+$.ajax({
+	url : "<%=request.getContextPath()%>/noticeBoard", 
+	dataType:"text",
+	type : "post", 
+	success : function(data){ 
+
+		 var noticeboardlist=data.substring(1,data.length-1).split("<tr>");
+		 for(var i = 3 ; i<noticeboardlist.length-1; i++){
+			result += noticeboardlist[i].split(",")+"\n";
+		}
+		$('#noticeboard').html("<table class='table table-striped table-bordered table-hover'>"+result); 
+
+	}
+});
+var result2="";
+$.ajax({
+	url : "<%=request.getContextPath()%>/freeBoard", 
+	dataType:"text",
+	type : "post", 
+	success : function(data){ 
+
+		 var freeboardlist=data.substring(1,data.length-1).split("<tr>");
+		 for(var i = 3 ; i<8; i++){
+			/* result2 += freeboardlist[i].split(",")+"\n"; */
+		}
+		$('#freeboard').html("<table class='table table-striped table-bordered table-hover'>"+result2); 
+
+	}
+});
+ var result3="";
+$.ajax({
+	url : "<%=request.getContextPath()%>/anonymousBoard", 
+	dataType:"text",
+	type : "post", 
+	success : function(data){ 
+		console.log(data);
+		 var anonymousBoardlist=data.substring(1,data.length-1).split("<tr>");
+		 for(var i = 3 ; i<8; i++){
+			/* result3 += anonymousBoardlist[i].split(",")+"\n"; */
+		}
+		$("#anonymousboard").html("<table class='table table-striped table-bordered table-hover'>"+result3); 
+
+	}
+});
+var result5="";
+$.ajax({
+	url : "<%=request.getContextPath()%>/food/foodList",
+	dataType:"text",
+	type : "post", 
+	success : function(data){ 
+		 var foodboardlist=data.substring(1,data.length-1).split("<tr>");
+			 for(var i = 3 ; i<foodboardlist.length-1; i++){
+					result5 += foodboardlist[i].split(",")+"\n";
+				}
+			 $('#foodboard').html("<table class='table table-striped table-bordered table-hover'>"+result5); 
+	}
+	
+});
 });
 
 </script>
