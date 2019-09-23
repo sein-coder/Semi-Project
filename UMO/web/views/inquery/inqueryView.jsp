@@ -9,15 +9,12 @@
 
 <% 
 	Inquery inquery = (Inquery)request.getAttribute("inquery");
-	String inputCode = "";
-	String outputCode = "";
-	if(inquery.getInputCode()!=null && inquery.getOutputCode()!=null) {
+
+	String inputCode = "입력 코드가 없습니다. ";
+	String outputCode = "출력 코드가 없습니다.";
+	if(inquery!=null && inquery.getInputCode()!=null && inquery.getOutputCode()!=null ) {
 		inputCode = inquery.getInputCode().replaceAll("(\r\n|\r|\n|\n\r)", " ");
 		outputCode = inquery.getOutputCode().replaceAll("(\r\n|\r|\n|\n\r)", ",");
-	}
-	else {
-		inputCode = "입력 코드가 존재하지 않습니다.";
-		outputCode = "출력 코드가 존재하지 않습니다.";
 	}
 %>
 

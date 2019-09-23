@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.umo.inquery.model.service.InqueryService;
+import com.umo.model.vo.Inquery;
+
 /**
  * Servlet implementation class WebCompilerViewServlet
  */
@@ -29,6 +32,10 @@ public class WebCompilerViewServlet extends HttpServlet {
 		if(request.getParameter("Board_No")!=null) {
 			int Board_No = Integer.parseInt(request.getParameter("Board_No"));
 			request.setAttribute("Board_No", Board_No);
+			
+			Inquery inquery = new InqueryService().selectBoardView(Board_No);
+			String inputCode = inquery.getInputCode().replaceAll("(\r\n|\r|\n|\n\r)", " ");
+			request.setAttribute("inputCode", inputCode);
 		}
 		
 		request.getRequestDispatcher("/views/webCompiler/webCompilerView.jsp").forward(request, response);

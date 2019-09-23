@@ -28,6 +28,9 @@
 	} */
 	
 </style>
+
+<script type="text/javascript" src="<%=request.getContextPath()%>/SE2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+
 <section>
 
 	<div>
@@ -108,8 +111,9 @@
 							<tr>
 								<td>
 									<h3>내용</h3>
-									<textarea id="content" name="content" cols="10" rows="20"
-										placeholder="내용을입력하시오" /></textarea>
+										<textarea name="ir1" id="ir1" rows="10" cols="100">
+											에디터에 기본으로 삽입할 글(수정 모드)이 없다면 이 value 값을 지정하지 않으시면 됩니다.
+										</textarea>
 								</td>
 							</tr>
 							 <tr>
@@ -132,9 +136,15 @@
 	</div>
 
 	<script>
-			
-			
-			
+
+			var oEditors = [];
+			nhn.husky.EZCreator.createInIFrame({
+			 oAppRef: oEditors,
+			 elPlaceHolder: "ir1",
+			 sSkinURI: "<%=request.getContextPath()%>/SE2/SmartEditor2Skin.html",
+			 fCreator: "createSEditor2"
+			});
+
 			var count = 0;//시작값
 			$("#img-back").click(function(){
 				count+=1;//초기값에 +1
@@ -151,14 +161,6 @@
 				$("#"+2).attr("src",foodpic[(count+2)%foodpic.length]);
 				console.log(count);
 			});
-			
-			$("#btn_cancel").click(function(){
-				location.href="<%=request.getContextPath()%>/food/foodList";
-			});
-			$("#btn_map").click(function(){
-				location.href="<%=request.getContextPath()%>/food/foodForm";
-			});
-			
 			
 			
 			//아래 사진 업로드, 파일선택 부분 코드
@@ -232,8 +234,7 @@
 			
 			
 	});
-			
-			
+
 		</script>
 
 

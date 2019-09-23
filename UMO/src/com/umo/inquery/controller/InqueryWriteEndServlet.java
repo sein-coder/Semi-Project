@@ -17,7 +17,7 @@ import com.umo.model.vo.Inquery;
 /**
  * Servlet implementation class QuestionWriteEndServlet
  */
-@WebServlet("/inquery/inqueryWriteEndServlet")
+@WebServlet("/inquery/inqueryWriteEnd")
 public class InqueryWriteEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

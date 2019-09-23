@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import javax.crypto.spec.PSource;
+
 import com.umo.model.vo.Inquery;
 
 import static common.template.JDBCTemplate.close;
@@ -151,20 +153,43 @@ public class InqueryDao {
 	}
 
 
-	public int updateInquery(Connection conn, int board_No) {
+	public int updateInquery(Connection conn, Inquery inquery) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String sql = prop.getProperty("updateInquery");
 		try {
 			pstmt = conn.prepareStatement(sql);
-			
+			pstmt.setString(1, inquery.getBoard_Title());
+			pstmt.setString(2, inquery.getBoard_Contents());
+			pstmt.setString(3, inquery.getInputCode());
+			pstmt.setString(4, inquery.getOutputCode());
+			pstmt.setString(5, inquery.getOriginal_FileName());
+			pstmt.setString(6, inquery.getRenamed_FileName());
+			pstmt.setInt(7, inquery.getBoard_No());
 			result = pstmt.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
 		}
-		return 0;
+		return result;
+	}
+
+
+	public int deleteInquery(Connection conn, int board_No) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("deleteInquery");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, board_No);
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
 	}
 
 }

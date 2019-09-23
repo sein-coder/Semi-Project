@@ -29,13 +29,31 @@ public class InqueryUpdate extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int Board_No = Integer.parseInt(request.getParameter("Board_No"));
+		
+		int Board_No = Integer.parseInt(request.getParameter("Board_No").trim());
 		
 		Inquery inquery = new InqueryService().selectBoardView(Board_No);
+
+		String inputCode = "";
+		String outputCode = "";	
+		
+		if(request.getParameter("flag")!=null) {
+			inputCode = request.getParameter("inputCode").replaceAll("(\r\n|\r|\n|\n\r)", " ");
+			outputCode = request.getParameter("outputCode").replaceAll("(\r\n|\r|\n|\n\r)", ",");
+		}
+		else {
+			inputCode = inquery.getInputCode().replaceAll("(\r\n|\r|\n|\n\r)", " ");
+			outputCode = inquery.getOutputCode().replaceAll("(\r\n|\r|\n|\n\r)", ",");			
+		}
+		request.setAttribute("inputCode", inputCode);
+		request.setAttribute("outputCode", outputCode);		
 		
 		request.setAttribute("inquery", inquery);
 		
-		request.getRequestDispatcher("/inquery/inqueryWriteServlet").forward(request,response);
+		System.out.println(inputCode);
+		System.out.println(outputCode);
+		
+		request.getRequestDispatcher("/views/inquery/inqueryUpdateForm.jsp").forward(request,response);
 	}
 
 	/**

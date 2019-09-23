@@ -49,14 +49,21 @@ public class InqueryService {
 		return inquery;
 	}
 
-	public int deleteInquery() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteInquery(int Board_No) {
+		Connection conn = getConnection();
+		int result = dao.deleteInquery(conn,Board_No);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
 	}
 
-	public int updateInquery(int board_No) {
+	public int updateInquery(Inquery inquery) {
 		Connection conn = getConnection();
-		int result = dao.updateInquery(conn,board_No);
+		int result = dao.updateInquery(conn,inquery);
 		if(result>0) {
 			commit(conn);
 		}else {

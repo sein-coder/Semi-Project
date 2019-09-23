@@ -13,7 +13,6 @@
 	String inputCode = (String)request.getAttribute("inputCode");	
 	String[] outputCode = ((String)request.getAttribute("outputCode")).split(",");
 	String type = (String)request.getAttribute("type");
-
 %>
 	
 	
@@ -34,7 +33,7 @@
 
 	<section id="inqueryForm-container">
 	<div class="inquery-form">
-		<form action="<%=request.getContextPath() %>/inquery/inqueryWriteEndServlet?code-type="+<%= type %> method="post" enctype="multipart/form-data">
+		<form action="<%=request.getContextPath() %>/inquery/inqueryWriteEnd?code-type="+<%= type %> method="post" enctype="multipart/form-data">
 			<input type="hidden" name="writer" value='<%=((Member)session.getAttribute("loginMember")).getMemberId()%>'>
 			<table class="form-tbl" style="border: 1px solid black;">
 				<tr>
@@ -42,7 +41,7 @@
 						<h3>제목</h3>
 					</td>
 					<td>
-						<input id="inquery-title" name="inquery-title" type="text" value="<%=(inquery!=null&&inquery.getBoard_Title()!=null)?inquery.getBoard_Title():""%>"/>
+						<input id="inquery-title" name="inquery-title" type="text"/>
 					</td>
 				</tr>
 				<tr>
@@ -58,19 +57,13 @@
 						<h3>파일 업로드</h3>
 					</td>
 					<td style="position: relative; ">
-					<% if(inquery!=null && inquery.getOriginal_FileName()!=null) { %>
-						<input type="file" name="up_file" value="<%= inquery.getRenamed_FileName() %>">
-						<input type="hidden" name="ori_file" value="<%= inquery.getOriginal_FileName() %>"><!-- 이전파일 정보 -->
-						<span id="fname"><%= inquery.getOriginal_FileName() %></span>
-					<% }else { %>
 						<input type="file" name="up_file">
-					<% } %>
 					</td>
 				</tr>
 				<tr>
 					<td colspan="2">
 						<h3>질의내용</h3>
-						<textarea id="inquery-content" name="inquery-content" rows="10" cols="25"><%= (inquery!=null&&inquery.getBoard_Title()!=null)?inquery.getBoard_Contents():"" %></textarea>
+						<textarea id="inquery-content" name="inquery-content" rows="10" cols="25"></textarea>
 					</td>
 				</tr>
 				<tr>
@@ -90,7 +83,7 @@
 			</table>
 
 			<input id="submit" type="submit" value="질문올리기">
-			<input id="btn-cancel" type="button" value="컴파일러로" onclick="location.href='<%=request.getContextPath()%>/webCopiler/webCopilerView?Board_No=<%=(inquery!=null&&inquery.getBoard_Title()!=null)?inquery.getBoard_No():""%>'">
+			<input id="btn-cancel" type="button" value="되돌아가기" onclick="location.href='<%=request.getContextPath()%>/webCopiler/webCopilerView'">
 		</form>
 	</div>
 	
