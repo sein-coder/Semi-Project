@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class FoodBoardServlet
+ * Servlet implementation class AjaxHtmlServlet
  */
-@WebServlet("/food/foodForm")
-public class FoodFormServlet extends HttpServlet {
+@WebServlet("/js/html")
+public class AjaxHtmlServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FoodFormServlet() {
+    public AjaxHtmlServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,11 +27,7 @@ public class FoodFormServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.getRequestDispatcher("/views/food/foodForm.jsp").forward(request, response);
-		
-		
-		
-		
+		request.getRequestDispatcher("/views/food/smartEditor2/index.html").forward(request,response);
 	}
 
 	/**

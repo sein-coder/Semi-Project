@@ -1,10 +1,15 @@
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp"%>
 
 <%@ page import="java.util.List,com.umo.model.vo.Food"%>
-<%
-		List<Food> list = (List<Food>)request.getAttribute("list");
+<%		
+		List<Food> list = new ArrayList();
+
+		if(request.getAttribute("list")!=null) {
+			list = (List<Food>)request.getAttribute("list");
+		}
 		int count = 0;
 %>
 

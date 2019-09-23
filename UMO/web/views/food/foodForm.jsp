@@ -4,6 +4,7 @@
 <%@ include file="/views/common/header.jsp"%>
 		<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=y8vul4gvp5&submodules=geocoder"></script>
 	    <script src="<%= request.getContextPath() %>/js/jquery-3.4.1.min.js"></script>
+	    
 <style>
 	table#big-table {
 		border: 2px solid goldenrod;
@@ -27,9 +28,18 @@
 	/* th,td{
 		border: 1px solid blue;
 	} */
-	
+	input#si {
+	margin-RIGHT:auto;
+  	width:500px;
+ 	 height:40px;
+  	font-size:20px;
+}
+	input#downfile{
+	margin-left: 680px;
+	}
 </style>
 <section>
+	<form action ="<%=request.getContextPath() %>/board/boardFormEnd" method="post" enctype="multipart/form-data">
 
 	<div>
 		<table id="big-table">
@@ -51,30 +61,28 @@
 			</tr>
 			<tr>
 				<td colspan="5">
-					<button name="downfile" id="downfile">사진삭제</button>	
-				</td>			
-			</tr>
-			<tr>
-				<td colspan="5">
-					<form>
-					
-						<input type="file" name="upfile" id="upfile" multiple/><!--multiple은 다중값으로 갖고 올수 있는 것   -->
+						<input type="file" name="upfile" id="upfile" style="display:inline;" multiple /><!--multiple은 다중값으로 갖고 올수 있는 것   -->
+						<input type="button" name="downfile" id="downfile" value="사진삭제">
 						
 						<table id="sml-table">
 							<tr>
 								<td>
-									제목<input type="text" id="title" placeholder="가게상호명을 입력하세요" name="title"><br>
+									제목<input type="text" id="si" placeholder="가게상호명을 입력하세요" name="title"><br>
 								</td>
 							</tr>
 							<tr>
 								<td>
 									
-									전화번호<input type="text" id="tel" name="tel" /><br>
+									전화번호</br>
+									<input type="tel" placeholder='02*-0000*-0000' id="si" pattern="[0-9]{2}-[0-9]{3}-[0-9]{4}" /><br>
 									음식종류<br>
 									<input type="radio" id="foodtype" name="foodtype" value="한식"/>한식
 									<input type="radio" id="foodtype" name="foodtype" value="중식"/>중식
-									<input type="radio" id="foodtype" name="foodtype" value="일식"/>일식<br>
-									기타:<input type="text" id="foodtype" placeholder="그 외 음식을 입력하세요" /><br>
+									<input type="radio" id="foodtype" name="foodtype" value="일식"/>일식
+									<input type="radio" id="foodtype" name="foodtype" value="분식"/>분식
+									<input type="radio" id="foodtype" name="foodtype" value="카페"/>카페
+									<input type="radio" id="foodtype" name="foodtype" value="기타"/>기타<br>
+									
 
 									<br>
 									가격(1인기준)<br>
@@ -83,7 +91,7 @@
 									<input type="radio" id="bills" name="bills" value="&#92;10,000~&#92;15,000"/>&#92;10,000~&#92;15,000<br>
 									<input type="radio" id="bills" name="bills" value="&#92;15,000~&#92;20,000"/>&#92;15,000~&#92;20,000<br>
 									<input type="radio" id="bills" name="bills" value="&#92;20,000~"/>&#92;20,000~<br>
-									기타:<input type="text" id="otherbill" placeholder="기타금액을 입력하세요" />
+									<input type="radio" id="bills" name="bills" value="&#92;25,000~"/>&#92;25,000~<br>
 								</td>
 							
 							</tr>
@@ -96,7 +104,8 @@
 							</tr>
 							<tr>
 								<td>
-									영업시간<input type="text" id="open" name="open" />
+									open : <input type="time" name="start"/>
+            						close : <input type="time" name="end"/>
 								</td>
 							</tr>
 							<tr>
@@ -108,14 +117,18 @@
 							</tr>
 							<tr>
 								<td>
-									<h3>내용</h3>
-									<textarea id="content" name="content" cols="10" rows="20"
-										placeholder="내용을입력하시오" /></textarea>
+							<tr>
+								<td><!--내용  -->
+									<div id="btn-container"></div>
+							</tr>
+							<tr>
+								<td>
+									만족도<input type="number" name="su" step='10' min='0' max='100' />
 								</td>
 							</tr>
 							 <tr>
 								<td><!--지도  -->
-									<div id="map" style="width:80%;height:500px;margin-right: auto;margin-left: auto; ">
+									<div id="map" style="width:80%;height:400px;margin-right: auto;margin-left: auto; ">
 									 <div class="search" style="position:absolute; z-index:1000; top:20px; left:20px;">
 									 	<input id="address" type="text" placeholder="검색할 주소" value="테헤란로 14길 6" style="width:200px;text-align:center;display:inline;">
 									 	<input id="submit" type="button" value="주소검색">
@@ -127,15 +140,15 @@
 							<tr>
 								<td>
 									<input type="submit" value="완료" style="margin-left: 40%; display:inline;" />
-									<input type="button" value="취소"  id="btn_cancel";/>
+									<input type="button" value="취소"  id="btn_cancel;" onclick="location.href='<%=request.getContextPath()%>/food/foodList'"/>
 								</td>
 							</tr>
 						</table>
-					</form>
 				</td>
 			</tr>
 		</table>
 	</div>
+	</form>
 
 	<script>
 			
@@ -158,13 +171,9 @@
 				console.log(count);
 			});
 			
-			$("#btn_cancel").click(function(){
-				location.href="<%=request.getContextPath()%>/food/foodList";
-			});
-			$("#btn_map").click(function(){
-				location.href="<%=request.getContextPath()%>/food/foodForm";
-			});
 			
+			
+		
 			
 			
 			//아래 사진 업로드, 파일선택 부분 코드
@@ -206,7 +215,7 @@
 				$.each($("#upfile")[0].files,function(i,item){
 					fd.append("file"+i,item);
 				});
-			
+				
 				$a.jax({
 				url:"<%=request.getContextPath()%>/ajaxFile",
 				data:fd,
@@ -242,6 +251,24 @@
 			}); --%>
 
 	});
+	
+			//ajax
+	<%-- $(function(){
+		$("document").ready(function(){
+			$.ajax({
+				url:"<%=request.getContextPath()%>/js/html",
+				type:"get",
+				dataType:"html",
+				success:function(data){
+					$("#btn-container").html(data);
+				}
+			});
+		});
+	}); 
+		 --%>
+			
+			
+			
 		//네이버 지도
 
 	var mapOptions = {

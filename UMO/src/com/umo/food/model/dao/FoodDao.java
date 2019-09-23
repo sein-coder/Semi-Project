@@ -63,7 +63,7 @@ public class FoodDao {
 				f.setBoard_Date(rs.getDate("board_date"));
 				f.setBoard_Count(rs.getInt("board_count"));
 				f.setWriting_Status(rs.getString("writing_status").charAt(0));
-				f.setBoard_Grade(rs.getInt("board_grade"));
+				f.setBoard_Grade(rs.getString("board_grade"));
 				list.add(f);
 			}
 		}catch(SQLException e) {
@@ -91,6 +91,31 @@ public class FoodDao {
 			e.printStackTrace();
 		}finally {
 			close(rs);
+			close(pstmt);
+		}return result;
+	}
+
+	public int insertBoard(Connection conn, Food f) {
+		PreparedStatement pstmt =null;
+		int result = 0 ;
+		String sql = prop.getProperty("insertBoard");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setBoard_No(1,f.getBoard_No("board_no"));
+			pstmt.setString(2, f.getBoard_Title());
+			pstmt.setString(3, f.getBoard_tel());
+			pstmt.setString(4, f.getBoard_foodtype());
+			pstmt.setString(5, f.getBoard_foodbill());
+			pstmt.setString(6, f.getBoard_open());
+			pstmt.setString(7, f.getBoard_menu());
+			pstmt.setString(8, f.getBoard_Contents());
+			pstmt.setString(9, f.getBoard_Grade());
+			pstmt.setString(10, f.getBoard_MAP());
+			
+			result=pstmt.executeUpdate();
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
 			close(pstmt);
 		}return result;
 	}
