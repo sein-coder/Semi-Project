@@ -194,6 +194,20 @@ $.ajax({
 
 	}
 });
+var result4="";
+$.ajax({
+	url : "<%=request.getContextPath()%>/inquery/inqueryBoard",
+	dataType:"text",
+	type : "post", 
+	success : function(data){ 
+		 var inqueryboardlist=data.substring(1,data.length-1).split("<tr>");
+			 for(var i = 3 ; i<inqueryboardlist.length-1; i++){
+					result4 += inqueryboardlist[i].split(",")+"\n";
+				}
+			 $('#inqeurymousboard').html("<table class='table table-striped table-bordered table-hover'>"+result4); 
+	}
+	
+});
 var result5="";
 $.ajax({
 	url : "<%=request.getContextPath()%>/food/foodList",
