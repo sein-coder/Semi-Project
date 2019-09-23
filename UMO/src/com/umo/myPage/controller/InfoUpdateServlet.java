@@ -1,23 +1,28 @@
-package com.umo.question.controller;
+package com.umo.myPage.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.umo.member.model.service.MemberService;
+import com.umo.model.vo.Member;
+import com.umo.myPage.model.service.MyPageService;
+
 /**
- * Servlet implementation class QuestionWriteServlet
+ * Servlet implementation class InfoUpdateServlet
  */
-@WebServlet("/question/questionWriteServlet")
-public class QuestionWriteServlet extends HttpServlet {
+@WebServlet("/infoUpdate")
+public class InfoUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QuestionWriteServlet() {
+    public InfoUpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,8 +31,13 @@ public class QuestionWriteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("안녕 ㅋㅋ");
-		request.getRequestDispatcher("/views/question/questionForm.jsp").forward(request, response);
+		// TODO Auto-generated method stub
+		
+		String id=request.getParameter("id");
+		Member m=new MyPageService().selectOne(id);
+	      request.setAttribute("member", m);
+		request.getRequestDispatcher("/views/myPage/infoUpdate.jsp")
+		.forward(request, response);
 	}
 
 	/**

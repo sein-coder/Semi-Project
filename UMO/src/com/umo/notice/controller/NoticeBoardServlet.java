@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.umo.model.vo.NoticeBoard;
 import com.umo.notice.model.service.NoticeBoardService;
-import com.umo.notice.model.vo.NoticeBoard;
 
 /**
  * Servlet implementation class ClassBoardListServlet
@@ -38,7 +38,7 @@ public class NoticeBoardServlet extends HttpServlet {
 		} catch (NumberFormatException e) {
 		    cPage=1;
 		}
-		int numPerPage=3;
+		int numPerPage=10;
 	    NoticeBoardService service=new NoticeBoardService();
 	    int totalData=service.countNoticeList();
 	    
@@ -53,43 +53,34 @@ public class NoticeBoardServlet extends HttpServlet {
 	  //pageBar 소스코드작성!
 		//[이전]만들기
 		if(pageNo==1) {
-			pageBar+="<span>[이전]</span>";
+			pageBar+="<li><span>[이전]</span></li>";
 		}else {
 			pageBar+="<a href='"+request.getContextPath()
-			+"/noticeBoard?cPage="+(pageNo-1)+"'>[이전]</a>";
+			+"/noticeBoard?cPage="+(pageNo-1)+"'><span>[이전]</span></a>";
 		}
 		//중간 클릭한 페이지(숫자) 만들기
 		while(!(pageNo>pageEnd||pageNo>totalPage)) {
 			if(pageNo==cPage) {
-				pageBar+="<span>"+pageNo+"</span>";
+				pageBar+="<li>"+"<a href='#'>"+pageNo+"</a>"+"</li>";
 			}else {
-				pageBar+="<a href='"+request.getContextPath()
-				+"/noticeBoard?cPage="+pageNo+"'>"+pageNo+"</a>";
+				pageBar+="<li>"+"<a href='"+request.getContextPath()
+				+"/noticeBoard?cPage="+pageNo+"'>"+pageNo+"</a>"+"</li>";
 			}
 			pageNo++;
 		}
 		//[다음]만들기
 		if(pageNo>totalPage) {
-			pageBar+="<span>[다음]</span>";
+			pageBar+="<li><span>[다음]</span></li>";
 		}
 		else {
-			pageBar+="<a href='"+request.getContextPath()
-			+"/noticeBoard?cPage="+pageNo+"'>[다음]</a>";
+			pageBar+="<li><a href='"+request.getContextPath()
+			+"/noticeBoard?cPage="+pageNo+"'><span>[다음]</span></a></li>";
 			
 		}
 		
-		
-		
-	
 		request.setAttribute("cPage",cPage);
 		request.setAttribute("pageBar",pageBar);
-	    request.setAttribute("list", list);
-	    
-		
-		
-		
-		
-		
+	    request.setAttribute("list", list);	
 		request.getRequestDispatcher("/views/notice/noticeBoard.jsp").forward(request, response);
 		
 	    

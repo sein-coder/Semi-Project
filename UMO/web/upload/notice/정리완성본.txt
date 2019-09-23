@@ -1,0 +1,108 @@
+1.html이벤트 처리
+1-1.<input type="button" value="Press Me" onclick="alert('thanks');"> : onclick - 해당 태그를 클릭,눌렀을 때
+ 
+1-2.<form action="processform.action" onsubmit="return validateForm();"> : onsubmit - 다른페이지로 데이터를 전송했을 때
+ 
+1-3.<body onload="startApp()"> : onload - 페이지가 열렸을 때
+
+위와 같은 방식으로  on이벤트명 = "이벤트 내용"; 으로 해당 태그 안에 속성형태로 지정한다.
+
+2.시멘틱태그 
+	- header,footer,section,aside,article,navigator
+	header : 특정부분의 머리말로 주로 검색어(form),메뉴(nav)를 넣는다
+	nav(navigator) : 다른 사이트나 페이지로 이동하는 태그를 모아 놓은 태그(네이비게이션) 
+		       특정태그에 종속되지 않고 어느곳에서나 사용할 수 있음 
+		       주로 메뉴, footer의 사이트 링크 모음에 많이 쓰
+	section : 웹 문서에서 컨텐츠가 들어가는 영역, 컨텐츠를 주제별로 묶을때 사용
+	article : 웹 페이지의 내용이 들어가는 영역 
+	aside : 사이드 바라고 불림
+	         본문 외의 기타내용을 담고있는 영역
+	         주로 광고를 달거나 링크모음 등을 표현
+	footer : 웹 페이지의 맨 아래쪽에 위치하며, 회사소개, 저작권, 연락처(<address>태그)등의 정보 표시 
+	iframe : 웹문서안에 다른 웹페이지를 추가하는 태그
+
+3.tag
+	글자태그 - <h1~h6> : 각각 가장 첫번째로 큰 제목 부터 ~ 여섯번째로 큰 제목까지
+		 <p> : 한 개의 단락을 만들때 사용, 자동으로 문장 개행 후 한 줄 공백을 준다.
+		 <br> : 개행하는 태그
+		 <hr> : 페이지 가로로 밑줄을 만들어 줄때 사용
+		 <pre> : 입력한 그대로 출력하고 싶을때 사용
+		  <span> : 일정부분을 묶어서 스타일을 적용하거나 구역을 구별할때 설정
+	목록태그 - <ul> : 순서가 필요하지 않은 목록 -> <li>로 아래 항목을 추가
+		 <ol> : 순서가 필요한 목록, 속성으로 문자설정가능 -> <li>로 아래 항목을 추가
+		 <dl> : 용어나 문장에 대한 정의 리스트 -> <dt>로 정의 제목, <dd>로 정의 내용 추가
+	테이블태그 - <table> : 행열로 되어있는 표 -> <tr>로 행을 <td>로 열을 만든다, <th>로 열의 제목을 표현(중앙정렬,굵게)
+					    <thead>,<tbody>,<tfoot> 세가지 구조로 나누어진다.
+					    <rowspan>,<colspan>으로 각각 행병합,열병합
+					    <caption> 데이블의 제목잉나 내용을 추가하는 태그
+					    <figure><figcaption></figcaption></figure> 테이블을 감싸는 태그
+					    
+	하이퍼링크 - <a> : 속성으로 href = "이동할 페이지 주소" 를 추가해줘야 작동
+	
+4.폼 - 
+form태그 : 사용자가 입력한 data를 보내는 방식과 처리할 프로그램을 정하는 태그
+input태그 타입
+	- text : 한줄짜리 텍스트 입력창
+	- password : 비밀번호 입력창, 입력시 ●●●으로 표시됨
+	- hidden : 사용자에게 보이지 않지만 값을 넣을 수 있는 것
+	- button : 버튼 생성
+	- checkbox : 체크박스 생성, 그룹에서 여러개 선택 가능
+	- file : 파일 입력 양식
+	- image : 이미지 형태 생성
+	- radio : 라디오 버튼 생성, 그룹에서 한개만 선택
+	- submit : 입력한 데이터를 다른 페이지로 넘기는 기능
+	- reset : 입력한 내용을 지우는 기능
+
+5.텍스트에 조업,tip처럼 나오도록하는 속성 기억하기 
+	-> 자동완성
+	<input type="text" list="data" name="keyword">
+            	<datalist id="data">
+
+	위와 같이 작성시 <datalist>태그 : 텍스트입력창을 클릭시 지정한 datalist내용이 나타난다, <datalist>아래 항목은 <option>태그로 추가
+
+6.img태그의 속성값들 ex) src,width 등등
+	img태그 속성
+		src : 삽입할 이미지 경로
+		alt : 이미지를 설명하는 텍스트속성, 이미지 출력실패시 표시됨
+		width,height : 이미지의 크기를 설정하는 속성
+
+7.meta태그에서 viewport!!의 역할
+	viewport : 다양한 기기에 맞춰서 해상도를 조정하는 태그
+
+8.html5에선 사라진 태그 : <acronym> / <applet> / <basefont> / <big> / <center> / <dir> / <font> / <frame> / <frameset> / <noframes> / <strike> / <tt> / <u>
+			-> 다 외울필요 없이 font,frame,strike만 강사님이 얘기하셨음!!
+	
+9.시멘틱태그의 기본 다 알아놓기 - 위에 정리
+
+10.표(table태그) - 위에 정리
+
+11.이벤트 핸들러 (여러가지인것을 알아놓기 select같은건 특정 이벤트를 걸어야한다.)
+	onclick : 무언가를 눌렀을 때
+	onfocus : 무언가에 포커스가 잡혔을 때
+	onblur : 무언가에 포커스가 풀렸을 때
+	onkeypress : 키를 눌렀을 때
+	**onchange : 무언가가 변경 됐을때, select같은 경우 선택항목이 바뀔때마다 어떠한 이벤트를 주어야한다!
+
+12.front에서 배운 언어 : css,javascript,html  *(jQuery는 자바스크립트 기반의 라이브러리이다! 언어가 아님!)*
+
+13.각각 java,css,javascript,html에 대한 설명 - 서술형
+	HTML5 : 웹에서 정보를 표현할 목적으로 만든 마크업 언어 
+	CSS : 문서의 꾸미는 부분, 디자인을 하기 위한 언어
+	JavaScript : 로컬의 브라우저에서 실행되는 인터프리터 방식의 프로그래밍 언어.
+
+14.ajax : 비동기식으로 처리하는 자바스크립트
+	데이터통신용으로 처리용 언어
+	비동기식은 순서가 상관이 없다
+	일부분의 페이지만 전환, 전체 페이지 전환은 아님!
+
+15.사용자 위주의 시스템을 하게 되면 얻게 되는것 : UX(User Experience), 즉 사용자의 경험으로 사용자가 어떤 시스템을 
+					직,간접적으로 이용하면서 느끼고 생각하게 되는 총체적 경험
+16.시멘틱 - 윗부분에 정리
+
+17.코딩테스트는 폼을 작성해야한다. - 코드참고~
+
+
+
+  
+
+

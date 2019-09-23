@@ -36,7 +36,6 @@ public class LoginChServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		String id=request.getParameter("userId");
 		String pw=request.getParameter("password");
-		System.out.println(id+pw);
 		String saveId=request.getParameter("saveId");
 		
 		MemberService ms=new MemberService();

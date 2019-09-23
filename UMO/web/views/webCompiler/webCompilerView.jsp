@@ -16,7 +16,7 @@
 		select#language-choice option { font-size: 18px; }
 		button#btn-compiler{ font-size: 20px; color: red; padding-left: 15%; padding-right: 15%;}
 		div.title { font-size: 1.67em; font-weight: bold; text-align: center; }
-	    div#editor,div#result { margin-top:20px; margin-left: auto; margin-right: auto; font-size: 15px; height: 500px; width: 700px; border: 1px solid black;}
+	    div#editor,div#result { margin-top:20px; margin-left: auto; margin-right: auto; font-size: 15px; height:300px; width: 700px; border: 1px solid black;}
 	    .as-console-wrapper { display: none !important; }
 	    div.result { text-align: left; margin-left: 30%;}
 	    div.ace_scroller { width: 680px; }
@@ -39,21 +39,22 @@
   		<div id="editor"></div>
 		<br>
 		<input type="hidden" id="inputCode" name="inputCode" value="">
-		
+				
 		</form>
 		<button id="btn-compiler" onclick="compile();">C o m p i l e r</button>
+		<input type="hidden" id="outputCode" name="outputCode" value="">
 		
 		<div id="result" class="result" style="display: none;"></div>
-		
 	</section>
 	<script>
-	//btn event
+	//question button event
 		function fn_question() {
 			if($("#result").css("display") == "none") {
 				alert("컴파일 후에 질의할 수 있습니다.");
 			}
 			else if($("#result").css("display") == "block"){
-				location.href="<%=request.getContextPath()%>/question/questionWriteServlet";
+    			location.href="<%=request.getContextPath()%>/inquery/inqueryWriteServlet?inputCode="+encodeURI($('#inputCode').val())+"&outputCode="+encodeURI($('#outputCode').val())+"&type="+$('#language-choice').val();
+			//encodeURI(문자열) : 특수문자가 포함된 문자열 인코딩처리
 			}
 		}
 	//Ace Editor Logic
@@ -67,7 +68,7 @@
 	
 	    editor.setTheme("ace/theme/monokai");
 	    editor.getSession().setMode("ace/mode/java");
-	    syncEditor();
+	    editor.getSession().setValue(code);
 	    commitChanges();
 	    
 	    var resulteditor = ace.edit('result');
@@ -77,9 +78,6 @@
 	    setTimeout(formatCode, 500); // Format sample Java after 1 second.
 	
 	    // Functions
-	    function syncEditor() {
-	    	editor.getSession().setValue(code);
-	    }
 	    function commitChanges() {
 	    	inputCode.val(editor.getSession().getValue());
 	    }
@@ -87,6 +85,7 @@
 	    	var session = editor.getSession();
 	    	session.setValue(js_beautify(session.getValue(), jsbOpts));
 	    }
+	    
     //언어선택시 Editor화면 전환
 	    $(function(){
 			$("#language-choice").change(function(){
@@ -99,13 +98,14 @@
 			});
 			
 			$("#editor").keyup(function(){
-				commitChanges();				
+				commitChanges();
 			});
 		});
     
     	function compile(){
+    		var h = 0;
     		var result = "";
-    		console.log($("#inputCode").val());
+    		formatCode();
     		$.ajax({
     			url:"<%=request.getContextPath()%>/webCompiler/codeInput",
 				type:"post", //get이든 post든 무상관
@@ -124,11 +124,12 @@
 						result += CodeResult[i].split(",")+"\n";
 					}
 					resulteditor.getSession().setValue(result);
+					$("#outputCode").val(resulteditor.getSession().getValue());
+		    		resulteditor.setReadOnly(true);
 				}
     		});
-    		setTimeout(500);
     	}
-    
+
 	</script>
 
 <%@ include file = "/views/common/footer.jsp" %>

@@ -1,4 +1,4 @@
-package com.umo.notice.model.vo;
+package com.umo.model.vo;
 
 import java.sql.Date;
 

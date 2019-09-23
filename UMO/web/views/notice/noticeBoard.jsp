@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.List, com.umo.notice.model.vo.*" %>
+<%@ page import="java.util.List, com.umo.model.vo.NoticeBoard" %>
 <%
   List<NoticeBoard> list=(List)(request.getAttribute("list"));
 %>
@@ -18,8 +18,7 @@
 	margin: 10px 0;
 }  */
 </style>
-<section id="notice-container"  style="width:60%;margin-left:20%; padding: 5% 0 25% 0;
-    margin-top:6.3%; ">
+<section id="notice-container">
 	<table class="table table-striped table-bordered table-hover">
 		<thead>
 		<tr>

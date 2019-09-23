@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.umo.model.vo.Member" %>
- <%Member loginMember=(Member)session.getAttribute("loginMember");
+ <% Member loginMember=(Member)session.getAttribute("loginMember");
 Cookie[] cookies=request.getCookies();
 String saveId=null;
+/* System.out.println(m.getMemberId()); */
 %>
 
    
@@ -15,7 +16,7 @@ String saveId=null;
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/style.css" type="text/css"/>
 <script src="<%=request.getContextPath() %>/js/jquery-3.4.1.min.js"></script>
 <script src="<%=request.getContextPath() %>/js/header.js"></script>
-</head>
+
 <body>
   <!-- Header -->
     <div class="menuview">

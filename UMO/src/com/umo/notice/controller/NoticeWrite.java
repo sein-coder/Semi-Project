@@ -1,4 +1,4 @@
-package com.umo.food.controller;
+package com.umo.notice.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,17 +7,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.umo.notice.model.service.NoticeBoardService;
+
 /**
- * Servlet implementation class FoodBoardServlet
+ * Servlet implementation class NoticeWrite
  */
-@WebServlet("/food/foodForm")
-public class FoodBoardServlet extends HttpServlet {
+@WebServlet("/noticeWrite")
+public class NoticeWrite extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FoodBoardServlet() {
+    public NoticeWrite() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,8 +28,8 @@ public class FoodBoardServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		request.getRequestDispatcher("/views/food/foodForm.jsp").forward(request, response);
+	
+		request.getRequestDispatcher("/views/notice/noticeWrite.jsp").forward(request, response);
 		
 	}
 

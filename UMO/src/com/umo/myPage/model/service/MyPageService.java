@@ -1,4 +1,4 @@
-package com.umo.myPage.service;
+package com.umo.myPage.model.service;
 
 import static common.template.JDBCTemplate.close;
 import static common.template.JDBCTemplate.getConnection;
@@ -9,6 +9,7 @@ import java.util.List;
 import com.umo.model.vo.Comment;
 import com.umo.model.vo.Food;
 import com.umo.model.vo.Member;
+import com.umo.model.vo.NoticeBoard;
 import com.umo.myPage.model.dao.MyPageDao;
 public class MyPageService {
 	private MyPageDao dao=new MyPageDao();

@@ -13,7 +13,7 @@ import com.umo.food.model.service.FoodService;
 import com.umo.model.vo.Comment;
 import com.umo.model.vo.Food;
 import com.umo.model.vo.Member;
-import com.umo.myPage.service.MyPageService;
+import com.umo.myPage.model.service.MyPageService;
 
 /**
  * Servlet implementation class MyPageController
