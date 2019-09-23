@@ -7,18 +7,19 @@
 
 <%@ include file="/views/common/header.jsp" %>
 <style>
-section#notice-container {
+/*  section#notice-container {
 	width: 600px;
 	margin: 0 auto;
 	text-align: center;
 	margin-top: 150px;
-}
+} */
 
-section#notice-container h2 {
+/* section#notice-container h2 {
 	margin: 10px 0;
-}
+}  */
 </style>
-<section id="notice-container">
+<section id="notice-container"  style="width:60%;margin-left:20%; padding: 5% 0 25% 0;
+    margin-top:6.3%; ">
 	<table class="table table-striped table-bordered table-hover">
 		<thead>
 		<tr>

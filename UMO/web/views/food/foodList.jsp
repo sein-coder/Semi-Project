@@ -17,7 +17,7 @@ p.viewCount{ text-align: right; margin-top: -2px}
 span.foodTag{ font-style:italic; }
 input#btn-add{float:right; margin-top:20px; margin-right: 240px;}
 </style>
-	<section id="food-container">
+	<section id="food-container"  style="padding: 0% 0 5% 0;margin-top:6.3%; ">
 	<!-- <MARQUEE behavior=alternate><h2 style="width:100; height:50;">FOOD ZONE</h2></MARQUEE> -->
 	
 <%-- 	<% if(loginMember != null) { %> --%>

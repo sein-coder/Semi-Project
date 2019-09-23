@@ -5,28 +5,20 @@
 <!-- Intro -->
 <section id="intro" class="main style1" >
         <div class="content">
-            <header>
                 <h2>안녕.</h2>
-            </header>
             <p>ㅎㅇㅎㅇㅎㅇ</a>.</p>
-            <footer>
                 <button class="move1 cursor">이동</button>
-            </footer>
         </div>
     </section>
 
 <!-- One -->
     <section id="one" class="main style2" style="overflow: hidden;">
         <div class="content box style2" >
-            <header>
                 <h2>게시판1</h2>
-            </header>
             <p>호로로로롤</p>
         </div>
         <div class="content box style2" id="trans1" style="transform: translateX(120.9%) translateY(-100%);">
-            <header>
                 <h2>게시판2</h2>
-            </header>
             <p>ㅎ로로로롤</p>
         </div>
         <div style="margin-top: -10%;">
@@ -37,15 +29,11 @@
 <!-- Two -->
 <section id="two" class="main style2" style="overflow: hidden;">
         <div class="content box style2">
-            <header>
                 <h2>게시판3</h2>
-            </header>
             <p>33333333333333</p>
         </div>
         <div class="content box style2" id="trans2" style="transform: translateX(120.9%) translateY(-100%);" >
-            <header>
                 <h2>게시판4</h2>
-            </header>
             <p>44444444444</p>
         </div>
         <div style="margin-top: -10%;">
@@ -56,10 +44,8 @@
 <!-- Work -->
 <section id="work" class="main style3 primary">
         <div class="content">
-            <header>
                 <h2>사진</h2>
                 <p>사진</p>
-            </header>
 
  <!-- Gallery  -->
             <div class="gallery">
@@ -116,10 +102,8 @@
 <!-- Contact -->
 <section id="contact" class="main style3 secondary">
         <div class="content">
-            <header>
                 <h2>문의사항</h2>
                 <p>door의4항</p>
-            </header>
             <div class="box" style="margin: auto;">
                 <form method="post" action="#">
                     <div class="fields">
