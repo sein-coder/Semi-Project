@@ -156,7 +156,6 @@ $.ajax({
 	dataType:"text",
 	type : "post", 
 	success : function(data){ 
-
 		 var noticeboardlist=data.substring(1,data.length-1).split("<tr>");
 		 for(var i = 3 ; i<noticeboardlist.length-1; i++){
 			result += noticeboardlist[i].split(",")+"\n";
@@ -173,8 +172,8 @@ $.ajax({
 	success : function(data){ 
 
 		 var freeboardlist=data.substring(1,data.length-1).split("<tr>");
-		 for(var i = 3 ; i<8; i++){
-			/* result2 += freeboardlist[i].split(",")+"\n"; */
+		 for(var i = 3 ; i<freeboardlist.length-1; i++){
+			result2 += freeboardlist[i].split(",")+"\n";
 		}
 		$('#freeboard').html("<table class='table table-striped table-bordered table-hover'>"+result2); 
 
@@ -188,8 +187,8 @@ $.ajax({
 	success : function(data){ 
 		console.log(data);
 		 var anonymousBoardlist=data.substring(1,data.length-1).split("<tr>");
-		 for(var i = 3 ; i<8; i++){
-			/* result3 += anonymousBoardlist[i].split(",")+"\n"; */
+		 for(var i = 3 ; i<anonymousBoardlist.length-1; i++){
+			result3 += anonymousBoardlist[i].split(",")+"\n";
 		}
 		$("#anonymousboard").html("<table class='table table-striped table-bordered table-hover'>"+result3); 
 
