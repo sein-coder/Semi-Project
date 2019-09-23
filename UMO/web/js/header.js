@@ -93,6 +93,8 @@ function buildCalendar() {//현재 달 달력 만들기
 }
 $(document).ready(function () {
     buildCalendar();//
+    
+    
 });
 
 
@@ -169,6 +171,7 @@ $(".menu>a").click(function(){
         submenu.slideDown();
     }
 });
+
 });
 
     function doDisplay() {
