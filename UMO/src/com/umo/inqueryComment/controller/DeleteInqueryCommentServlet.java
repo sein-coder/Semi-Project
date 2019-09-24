@@ -1,8 +1,6 @@
-package com.umo.inquery.controller;
+package com.umo.inqueryComment.controller;
 
 import java.io.IOException;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,20 +8,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.umo.inquery.model.service.InqueryService;
-import com.umo.model.vo.Inquery;
-import com.umo.model.vo.InqueryComment;
 
 /**
- * Servlet implementation class InqueryViewServlet
+ * Servlet implementation class DeleteComment
  */
-@WebServlet("/inquery/inqueryView")
-public class InqueryViewServlet extends HttpServlet {
+@WebServlet("/inqueryComment/deleteComment")
+public class DeleteInqueryCommentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InqueryViewServlet() {
+    public DeleteInqueryCommentServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,15 +28,28 @@ public class InqueryViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int Board_No = Integer.parseInt(request.getParameter("Board_No"));
+
+		int boardRef = Integer.parseInt(request.getParameter("boardRef"));
+
+		int boardCommentNo = Integer.parseInt(request.getParameter("boardCommentNo"));
+
+		int result = new InqueryService().deleteInqueryComment(boardRef,boardCommentNo);
+
+		String msg = "";
+		String loc = "/inquery/inqueryView?Board_No="+boardRef;
+		String view = "/views/common/msg.jsp";
+
+		if(result>0) {
+			msg = "댓글 삭제 완료";
+		}else {
+			msg="댓글 삭제 실패";
+		}
+
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
+		request.getRequestDispatcher(view).forward(request, response);
+
 		
-		Inquery inquery = new InqueryService().selectBoardView(Board_No);
-		List<InqueryComment> list = new InqueryService().selectComment(Board_No);
-		
-		request.setAttribute("inquery", inquery);
-		request.setAttribute("list", list);
-		
-		request.getRequestDispatcher("/views/inquery/inqueryView.jsp").forward(request, response);
 	}
 
 	/**

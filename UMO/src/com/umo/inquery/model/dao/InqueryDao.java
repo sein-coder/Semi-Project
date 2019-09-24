@@ -13,6 +13,9 @@ import java.util.Properties;
 import javax.crypto.spec.PSource;
 
 import com.umo.model.vo.Inquery;
+import com.umo.model.vo.InqueryComment;
+
+import oracle.jdbc.proxy.annotation.Pre;
 
 import static common.template.JDBCTemplate.close;
 
@@ -183,6 +186,75 @@ public class InqueryDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, board_No);
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+
+	public List<InqueryComment> selectComment(Connection conn, int board_No) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<InqueryComment> list = new ArrayList();
+		String sql = prop.getProperty("selectComment");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, board_No);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				InqueryComment comment = new InqueryComment();
+				comment.setComment_no(rs.getInt("comment_no"));
+				comment.setComment_contents(rs.getString("comment_contents"));
+				comment.setComment_writer(rs.getString("comment_writer"));
+				comment.setComment_level(rs.getInt("comment_level"));
+				comment.setComment_Refno(rs.getInt("comment_Refno"));
+				comment.setBoard_no_Ref(rs.getInt("board_no_Ref"));
+				comment.setComment_date(rs.getDate("comment_date"));
+				list.add(comment);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
+
+
+	public int insertInqueryComment(Connection conn, InqueryComment inqueryComment) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("insertInqueryComment");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,inqueryComment.getComment_writer() );
+			pstmt.setString(2,inqueryComment.getComment_contents() );
+			pstmt.setInt(3, inqueryComment.getBoard_no_Ref());
+			pstmt.setInt(4, inqueryComment.getComment_level());
+			pstmt.setInt(5, inqueryComment.getComment_Refno());
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+
+	public int deleteInqueryComment(Connection conn, int boardRef, int boardCommentNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("deleteInqueryComment");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardRef);
+			pstmt.setInt(2, boardCommentNo);
 			result = pstmt.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();
