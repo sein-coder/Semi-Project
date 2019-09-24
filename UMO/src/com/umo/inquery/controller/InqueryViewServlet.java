@@ -41,6 +41,7 @@ public class InqueryViewServlet extends HttpServlet {
 		request.setAttribute("list", list);
 		
 		request.getRequestDispatcher("/views/inquery/inqueryView.jsp").forward(request, response);
+		
 	}
 
 	/**
