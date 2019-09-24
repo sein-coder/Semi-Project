@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.umo.inquery.model.dao.InqueryDao;
 import com.umo.model.vo.Inquery;
+import com.umo.model.vo.InqueryComment;
 
 import static common.template.JDBCTemplate.getConnection;
 import static common.template.JDBCTemplate.close;
@@ -64,6 +65,37 @@ public class InqueryService {
 	public int updateInquery(Inquery inquery) {
 		Connection conn = getConnection();
 		int result = dao.updateInquery(conn,inquery);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	public List<InqueryComment> selectComment(int board_No) {
+		Connection conn = getConnection();
+		List<InqueryComment> list = dao.selectComment(conn,board_No);
+		close(conn);
+		return list;
+	}
+
+	public int insertInqueryComment(InqueryComment inqueryComment) {
+		Connection conn = getConnection();
+		int result = dao.insertInqueryComment(conn,inqueryComment);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	public int deleteInqueryComment(int boardRef, int boardCommentNo) {
+		Connection conn = getConnection();
+		int result = dao.deleteInqueryComment(conn,boardRef,boardCommentNo);
 		if(result>0) {
 			commit(conn);
 		}else {
