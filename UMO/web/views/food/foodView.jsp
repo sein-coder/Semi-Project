@@ -34,6 +34,8 @@
 	</style>
 	
 	<section id="foodview-container">
+	<input type="hidden" name="writer" value="<%=loginMember!=null?loginMember.getMemberId():""%>"> 
+	
 	<div id="div-container">
 		<table id="big-table">
 		
@@ -124,10 +126,18 @@
 							</tr>
 							<tr>
 								<td>
-									<input type="button" value="목록"  id="btn_list;" onclick="location.href='<%=request.getContextPath()%>/food/foodList'"/>
+									<input type="button" value="목록"  id="btn_list" onclick="location.href='<%=request.getContextPath()%>/food/foodList'"/>
 								</td>
 							</tr>
 						</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="button" value="수정" id="btn_update" onclick="location.href='<%=request.getContextPath() %>/food/foodUpdate?board_no=<%=f.getBoard_No()%>'">
+				</td>
+				<td>
+					<input type="button" value="삭제" id="btn_delete" onclick="location.href='<%=request.getContextPath() %>/food/foodBoardDelete?board_no=<%=f.getBoard_No()%>'">
 				</td>
 			</tr>
 		</table>

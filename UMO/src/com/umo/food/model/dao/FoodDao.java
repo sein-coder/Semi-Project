@@ -161,9 +161,53 @@ public class FoodDao {
 		
 	}
 
+	public int updateFoodBoard(Connection conn, Food f) {
+		PreparedStatement pstmt =null;
+		int result=0;
+		String sql=prop.getProperty("updateFoodBoard");
+		try {
+			pstmt = conn.prepareStatement(sql);		
+			pstmt.setString(1, f.getOriginal_Filename());
+			pstmt.setString(2, f.getRenamed_Filename());
+			pstmt.setString(3, f.getBoard_Title());
+			pstmt.setString(4, f.getBoard_tel());
+			pstmt.setString(5,f.getBoard_foodtype());
+			pstmt.setString(6, f.getBoard_foodbill());
+			pstmt.setString(7, f.getBoard_park());
+			pstmt.setString(8, f.getBoard_open());		
+			pstmt.setString(9,f.getBoard_menu());			
+			pstmt.setString(10, f.getBoard_Contents());
+			pstmt.setInt(11, f.getBoard_Grade());
+			pstmt.setString(12, f.getBoard_MAP());
+			pstmt.setInt(13, f.getBoard_No());
+			result=pstmt.executeUpdate();
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
+
+	public int deleteFoodBoard(Connection conn, int board_no) {
+		PreparedStatement pstmt = null;
+		int result=0;
+		String sql=prop.getProperty("deleteFoodBoard");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, board_no);
+			result = pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
+}
+
+
 
 	
-
 	
 	
 //	private Properties prop = new Properties(); //properties파일을 다루는 객체선언 및 초기화
@@ -233,4 +277,4 @@ public class FoodDao {
 	
 	
 	
-}
+

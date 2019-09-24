@@ -47,9 +47,30 @@ public class FoodService {
 		close(conn);
 		return f;
 	}
-	
 
-	
-	
+	public int updateFoodBoard(Food f) {
+		Connection conn=getConnection();
+		int result=dao.updateFoodBoard(conn,f);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
 
+	public int deleteFoodBoard(int board_no) {
+		Connection conn=getConnection();
+		int result = dao.deleteFoodBoard(conn,board_no);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}	
 }
+
