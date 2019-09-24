@@ -1,20 +1,25 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="/views/common/header.jsp"%>
+<%@ page import = "com.umo.model.vo.Food" %>
+<%@ include file = "/views/common/header.jsp" %>
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=y8vul4gvp5&submodules=geocoder"></script>
 <script src="<%= request.getContextPath() %>/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/SE2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
-
-	    
-<style>
-	table#big-table {
+<%
+	
+	Food f = (Food)request.getAttribute("f");
+%>
+	<style>
+		section#foodview-container{margin-top: 150px;margin-left: auto;margin-right: auto;align:center;width:100%;}
+		div#div-container{margin-left:auto; margin-right: auto; }
+		
+		table#big-table {
 		border: 2px solid goldenrod;
 		margin-top: 10%;
 		margin-left: auto;
 		margin-right: auto;
 		border-spacing: 0px;
-	}
+		}
 
 	table#sml-table {
 		border: 2px solid goldenrod;
@@ -24,26 +29,14 @@
 		width: 1000px;
 		height: 100px;
 	}
-	button#downfile{
-		margin-left:700px;
-	}
-	/* th,td{
-		border: 1px solid blue;
-	} */
-	input#si {
-	margin-RIGHT:auto;
-  	width:500px;
- 	 height:40px;
-  	font-size:20px;
-}
-	input#downfile{
-	margin-left: 680px;
-	}
-</style>
-<section>
-	<form action ="<%=request.getContextPath() %>/board/boardFormEnd" method="post" enctype="multipart/form-data">
+	span{font-size:20px;}
+	
+	</style>
+	
+	<section id="foodview-container">
 	<input type="hidden" name="writer" value="<%=loginMember!=null?loginMember.getMemberId():""%>"> 
-	<div>
+	
+	<div id="div-container">
 		<table id="big-table">
 		
 			<tr>
@@ -63,79 +56,69 @@
 			</tr>
 			<tr>
 				<td colspan="5">
-						<input type="file" name="upfile" id="upfile" style="display:inline;" multiple /><!--multiple은 다중값으로 갖고 올수 있는 것   -->
-						<input type="button" name="downfile" id="downfile" value="사진삭제">
+						
 						
 						<table id="sml-table">
 							<tr>
 								<td>
-									제목<input type="text" id="si" placeholder="가게상호명을 입력하세요" name="title"><br>
+									<span>제목:<%=f.getBoard_Title() %></span>
 								</td>
 							</tr>
 							<tr>
 								<td>
 									
-									전화번호</br>
-									<input type="tel" name="tel" placeholder='02*-0000*-0000' id="si" pattern="[0-9]{2}-[0-9]{3}-[0-9]{4}" /><br>
-									음식종류<br>
-									<input type="radio" id="foodtype" name="foodtype" value="한식"/>한식
-									<input type="radio" id="foodtype" name="foodtype" value="중식"/>중식
-									<input type="radio" id="foodtype" name="foodtype" value="일식"/>일식
-									<input type="radio" id="foodtype" name="foodtype" value="분식"/>분식
-									<input type="radio" id="foodtype" name="foodtype" value="카페"/>카페
-									<input type="radio" id="foodtype" name="foodtype" value="기타"/>기타<br>
+									<span>전화번호 :<%=f.getBoard_tel() %></span>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span>음식종류 :<%=f.getBoard_foodtype() %></span>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span>가격(1인기준) :<%=f.getBoard_foodbill() %></span>
 									
-
-									<br>
-									가격(1인기준)<br>
-									<input type="radio" id="bills" name="bills" value="~5,000"/>~5,000<br>
-									<input type="radio" id="bills" name="bills" value="5,000~10,000"/>5,000~10,000<br>
-									<input type="radio" id="bills" name="bills" value="10,000~15,000"/>10,000~15,000<br>
-									<input type="radio" id="bills" name="bills" value="15,000~20,000"/>15,000~20,000<br>
-									<input type="radio" id="bills" name="bills" value="20,000~"/>20,000~<br>
-									<input type="radio" id="bills" name="bills" value="25,000~"/>25,000~<br>
-								</td>
-							
-							</tr>
-							<tr>
-								<td>
-									주차여부
-									<input type="radio" id="park" name="park" value="가능"/>가능
-									<input type="radio" id="park" name="park" value="불가능"/>불가능<br>
 								</td>
 							</tr>
 							<tr>
 								<td>
-									 영업시간 : <input type="text" id="si" name="time" placeholder="ex)오전 10:00~오후10:00"/> 
+									<span name="grade" id="grade">만족도:<%=f.getBoard_Grade() %></span>
 								</td>
 							</tr>
 							<tr>
 								<td>
-									메뉴
-									<textarea id="menu" name="menu" cols="10" rows="5"
-										placeholder="메뉴를 입력하시오" /></textarea>
+									<span>주차여부 :<%=f.getBoard_park() %></span>
+									
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span>영업시간 :<%=f.getBoard_open() %></span>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<h3>메뉴</h3>
+									<textarea id="menu" name="menu" cols="250" rows="5"placeholder="메뉴를 입력하시오" readonly><%=f.getBoard_menu() %>
+									</textarea>
 								</td>
 							</tr>
 							<tr>
 								<td>
 									<h3>내용</h3>
-										<textarea name="ir1" id="ir1" rows="10" cols="100">
+										<textarea name="ir1" id="ir1" rows="10" cols="100" readonly>
+											<%=f.getBoard_Contents() %>
 											에디터에 기본으로 삽입할 글(수정 모드)이 없다면 이 value 값을 지정하지 않으시면 됩니다.
 										</textarea>
 								</td>
 							</tr>
-							<tr>
-								<td>
-									만족도<input type="number" name="grade" step='10' min='0' max='100' />
-								</td>
-							</tr>
+							
 							 <tr>
 								<td><!--지도  -->
-									<div id="map" style="width:80%;height:400px;margin-right: auto;margin-left: auto; ">
+									<div id="map" style="width:100%;height:400px;margin-right: auto;margin-left: auto; ">
 									 <div class="search" style="position:absolute; z-index:1000; top:20px; left:20px;">
-									 	<input id="address" name="address1" type="text" placeholder="검색할 주소" value="테헤란로 14길 6" style="width:200px;text-align:center;display:inline;">
-									 	<input id="submit" name="address2"type="button" value="주소검색">
-									 	<input type="hidden" id="road_address" name="road_address" value="서울특별시 강남구 테헤란로 14길 6 남도빌딩  2F, 3F, 4F, 5F">
+									 	<input type="hidden" id="road_address" name="road_address" value="<%=f.getBoard_MAP()%>">
 									 </div>
 								</div>
 
@@ -143,18 +126,28 @@
 							</tr>
 							<tr>
 								<td>
-									<input type="submit" value="완료" style="margin-left: 40%; display:inline;" />
-									<input type="button" value="취소"  id="btn_cancel;" onclick="location.href='<%=request.getContextPath()%>/food/foodList'"/>
+									<input type="button" value="목록"  id="btn_list" onclick="location.href='<%=request.getContextPath()%>/food/foodList'"/>
 								</td>
 							</tr>
 						</table>
 				</td>
 			</tr>
+			<tr>
+				<td>
+					<input type="button" value="수정" id="btn_update" onclick="location.href='<%=request.getContextPath() %>/food/foodUpdate?board_no=<%=f.getBoard_No()%>'">
+				</td>
+				<td>
+					<input type="button" value="삭제" id="btn_delete" onclick="location.href='<%=request.getContextPath() %>/food/foodBoardDelete?board_no=<%=f.getBoard_No()%>'">
+				</td>
+			</tr>
 		</table>
 	</div>
-	</form>
+		
+		
+		
+	</section>
 
-<script>
+	<script>
 
 	var oEditors = [];
 	nhn.husky.EZCreator.createInIFrame({
@@ -299,60 +292,6 @@
 	      $(this).addClass('control-on');
 	  }
 	});
-	
-	//클릭한 지점으로 마커 옮기기
-	
-	$("#interaction, #tile-transition, #controls").addClass("control-on");
-	
-	var marker = new naver.maps.Marker({
-	    position: position,
-	    map: map
-	});
-	
-	naver.maps.Event.addListener(map, 'click', function(e) {
-	    marker.setPosition(e.coord);
-	});
-	
-	//주소와 좌표 검색  API 사용하기
-	map.setCursor('pointer');
-	
-	function searchCoordinateToAddress(latlng) {
-
-	    infoWindow.close();
-
-	    naver.maps.Service.reverseGeocode({
-	        coords: latlng,
-	        orders: [
-	            naver.maps.Service.OrderType.ADDR,
-	            naver.maps.Service.OrderType.ROAD_ADDR
-	        ].join(',')
-	    }, function(status, response) {
-	        if (status === naver.maps.Service.Status.ERROR) {
-	            return alert('Something Wrong!');
-	        }
-
-	        var items = response.v2.results,
-	            address = '',
-	            htmlAddresses = [];
-
-	        for (var i=0, ii=items.length, item, addrType; i<ii; i++) {
-	            item = items[i];
-	            address = makeAddress(item) || '';
-	            addrType = item.name === 'roadaddr' ? '[도로명 주소]' : '[지번 주소]';
-
-	            htmlAddresses.push((i+1) +'. '+ addrType +' '+ address);
-	        }
-
-	        infoWindow.setContent([
-	            '<div style="padding:10px;min-width:200px;line-height:150%;">',
-	            '<h4 style="margin-top:5px;">검색 좌표</h4><br />',
-	            htmlAddresses.join('<br />'),
-	            '</div>'
-	        ].join('\n'));
-
-	        infoWindow.open(map, latlng);
-	    });
-	}
 
 	function searchAddressToCoordinate(address) {
 	    naver.maps.Service.geocode({
@@ -387,8 +326,8 @@
 			console.log($("#road_address").val());
 			
 	        infoWindow.setContent([
-	            '<div style="padding:10px;min-width:200px;line-height:150%;">',
-	            '<h4 style="margin-top:5px;">검색 주소 : '+ address +'</h4><br />',
+	            '<div style="padding:10px;min-width:180px;line-height:100%;">',
+	            '<h5 style="margin-top:5px;">검색 주소 : '+ address +'</h5>',
 	            htmlAddresses.join('<br />'),
 	            '</div>'
 	        ].join('\n'));
@@ -399,9 +338,6 @@
 	}
 
 	function initGeocoder() {
-	    map.addListener('click', function(e) {
-	        searchCoordinateToAddress(e.coord);
-	    });
 
 	    $('#address').on('keydown', function(e) {
 	        var keyCode = e.which;
@@ -417,7 +353,7 @@
 	        searchAddressToCoordinate($('#address').val());
 	    });
 
-	    searchAddressToCoordinate('서울특별시 강남구 테헤란로 14길 6 남도빌딩  2F, 3F, 4F, 5F');
+	    searchAddressToCoordinate('<%=f.getBoard_MAP()%>');
 	}
 
 	function makeAddress(item) {
@@ -495,9 +431,6 @@
 	}
 	
 	naver.maps.onJSContentLoaded = initGeocoder;
-	
-</script>
+	</script>
 
-
-</section>
-<%@ include file="/views/common/footer.jsp"%>
+<%@ include file = "/views/common/footer.jsp" %>

@@ -7,17 +7,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.umo.food.model.service.FoodService;
+
 /**
- * Servlet implementation class AjaxHtmlServlet
+ * Servlet implementation class FoodBoardDeleteServlet
  */
-@WebServlet("/js/html")
-public class AjaxHtmlServlet extends HttpServlet {
+@WebServlet("/food/foodBoardDelete")
+public class FoodBoardDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxHtmlServlet() {
+    public FoodBoardDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,8 +28,17 @@ public class AjaxHtmlServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int board_no = Integer.parseInt(request.getParameter("board_no"));
 		
-		request.getRequestDispatcher("/views/food/smartEditor2/index.html").forward(request,response);
+		int result = new FoodService().deleteFoodBoard(board_no);
+		
+		if(result>0) {
+			request.getRequestDispatcher("/food/foodList").forward(request, response);
+		}else {
+			request.setAttribute("msg","글 삭제 실패");
+		    request.setAttribute("log", "/");
+		    request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
+		}
 	}
 
 	/**
