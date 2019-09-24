@@ -61,10 +61,9 @@ public class FoodBoardFormEndServlet extends HttpServlet {
 		String foodtype=mr.getParameter("foodtype");
 		String bills=mr.getParameter("bills");
 		String park=mr.getParameter("park");
-		String start=mr.getParameter("start");
-		String end=mr.getParameter("end");
+		String open = mr.getParameter("time");
 		String menu=mr.getParameter("menu");
-		/* String irl=mr.getParameter("irl"); */
+		String irl=mr.getParameter("irl");
 		int grade=Integer.parseInt(mr.getParameter("grade"));
 		String road_address=mr.getParameter("road_address");
 	
@@ -82,9 +81,9 @@ public class FoodBoardFormEndServlet extends HttpServlet {
 		f.setBoard_foodtype(foodtype);
 		f.setBoard_foodbill(bills);
 		f.setBoard_park(park);
-		f.setBoard_open(start+"~"+end);
+		f.setBoard_open(open);
 		f.setBoard_menu(menu);
-		f.setBoard_Contents("contents");
+		f.setBoard_Contents(irl);
 		f.setBoard_Grade(grade);
 		f.setBoard_MAP(road_address);
 		

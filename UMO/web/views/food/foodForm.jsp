@@ -126,16 +126,16 @@
 							</tr>
 							<tr>
 								<td>
-									만족도<input type="number" name="grade" step='10' min='0' max='100' />
+									만족도<input type="number" name="grade" step='10' min='0' max='100' value="0"/>
 								</td>
 							</tr>
 							 <tr>
 								<td><!--지도  -->
 									<div id="map" style="width:80%;height:400px;margin-right: auto;margin-left: auto; ">
 									 <div class="search" style="position:absolute; z-index:1000; top:20px; left:20px;">
-									 	<input id="address" name="address1" type="text" placeholder="검색할 주소" value="테헤란로 14길 6" style="width:200px;text-align:center;display:inline;">
+									 	<input id="address" name="address1" type="text" placeholder="검색할 주소"  style="width:200px;text-align:center;display:inline;">
 									 	<input id="submit" name="address2"type="button" value="주소검색">
-									 	<input type="hidden" id="road_address" name="road_address" value="서울특별시 강남구 테헤란로 14길 6 남도빌딩  2F, 3F, 4F, 5F">
+									 	<input type="hidden" id="road_address" name="road_address" >
 									 </div>
 								</div>
 

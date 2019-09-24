@@ -76,52 +76,57 @@
 						<table id="sml-table">
 							<tr>
 								<td>
-									제목<input type="text" id="si" placeholder="가게상호명을 입력하세요" name="title" <%=f.getBoard_Title() %>><br>
+									제목<input type="text" id="si" placeholder="가게상호명을 입력하세요" name="title" value="<%=f.getBoard_Title() %>"><br>
 								</td>
 							</tr>
 							<tr>
 								<td>
 									
 									전화번호</br>
-									<input type="tel" name="tel" placeholder='02*-0000*-0000' id="si" pattern="[0-9]{2}-[0-9]{3}-[0-9]{4}" <%=f.getBoard_tel() %>/><br>
+									<input type="tel" name="tel" placeholder='02*-0000*-0000' id="si" pattern="[0-9]{2}-[0-9]{3}-[0-9]{4}" value="<%=f.getBoard_tel()%>"/><br>
 									음식종류<br>
-									<input type="radio" id="foodtype" name="foodtype" value="한식" <%=f.getBoard_foodtype()!=null&&f.getBoard_foodtype().equals("한식")?"selected":""%>/>한식
-									<input type="radio" id="foodtype" name="foodtype" value="중식" <%=f.getBoard_foodtype()!=null&&f.getBoard_foodtype().equals("중식")?"selected":""%>/>중식
-									<input type="radio" id="foodtype" name="foodtype" value="일식" <%=f.getBoard_foodtype()!=null&&f.getBoard_foodtype().equals("일식")?"selected":""%>/>일식
-									<input type="radio" id="foodtype" name="foodtype" value="분식" <%=f.getBoard_foodtype()!=null&&f.getBoard_foodtype().equals("분식")?"selected":""%>/>분식
-									<input type="radio" id="foodtype" name="foodtype" value="카페" <%=f.getBoard_foodtype()!=null&&f.getBoard_foodtype().equals("카페")?"selected":""%>/>카페
-									<input type="radio" id="foodtype" name="foodtype" value="기타" <%=f.getBoard_foodtype()!=null&&f.getBoard_foodtype().equals("기타")?"selected":""%>/>기타
+									<input type="radio" id="foodtype" name="foodtype" value="한식" <%=f.getBoard_foodtype()!=null&&f.getBoard_foodtype().equals("한식")?"checked":""%>/>한식
+									<input type="radio" id="foodtype" name="foodtype" value="중식" <%=f.getBoard_foodtype()!=null&&f.getBoard_foodtype().equals("중식")?"checked":""%>/>중식
+									<input type="radio" id="foodtype" name="foodtype" value="일식" <%=f.getBoard_foodtype()!=null&&f.getBoard_foodtype().equals("일식")?"checked":""%>/>일식
+									<input type="radio" id="foodtype" name="foodtype" value="분식" <%=f.getBoard_foodtype()!=null&&f.getBoard_foodtype().equals("분식")?"checked":""%>/>분식
+									<input type="radio" id="foodtype" name="foodtype" value="카페" <%=f.getBoard_foodtype()!=null&&f.getBoard_foodtype().equals("카페")?"checked":""%>/>카페
+									<input type="radio" id="foodtype" name="foodtype" value="기타" <%=f.getBoard_foodtype()!=null&&f.getBoard_foodtype().equals("기타")?"checked":""%>/>기타
 									
 
 									<br>
 									가격(1인기준)<br>
-									<input type="radio" id="bills" name="bills" value="~5,000" <%=f.getBoard_foodbill()!=null&&f.getBoard_foodbill().equals("~5,000")?"selected":"" %>/>~5,000<br>
-									<input type="radio" id="bills" name="bills" value="5,000~10,000" <%=f.getBoard_foodbill()!=null&&f.getBoard_foodbill().equals("5,000~10,000")?"selected":"" %>/>5,000~10,000<br>
-									<input type="radio" id="bills" name="bills" value="10,000~15,000" <%=f.getBoard_foodbill()!=null&&f.getBoard_foodbill().equals("10,000~15,000")?"selected":"" %>/>10,000~15,000<br>
-									<input type="radio" id="bills" name="bills" value="15,000~20,000" <%=f.getBoard_foodbill()!=null&&f.getBoard_foodbill().equals("20,000~20,000")?"selected":"" %>/>15,000~20,000<br>
-									<input type="radio" id="bills" name="bills" value="20,000~25,000" <%=f.getBoard_foodbill()!=null&&f.getBoard_foodbill().equals("15,000~25,000")?"selected":"" %>/>20,000~25,000<br>
-									<input type="radio" id="bills" name="bills" value="25,000~" <%=f.getBoard_foodbill()!=null&&f.getBoard_foodbill().equals("25,000~")?"selected":"" %>/>25,000~<br>
+									<input type="radio" id="bills" name="bills" value="~5,000" <%=f.getBoard_foodbill()!=null&&f.getBoard_foodbill().equals("~5,000")?"checked":"" %>/>~5,000<br>
+									<input type="radio" id="bills" name="bills" value="5,000~10,000" <%=f.getBoard_foodbill()!=null&&f.getBoard_foodbill().equals("5,000~10,000")?"checked":"" %>/>5,000~10,000<br>
+									<input type="radio" id="bills" name="bills" value="10,000~15,000" <%=f.getBoard_foodbill()!=null&&f.getBoard_foodbill().equals("10,000~15,000")?"checked":"" %>/>10,000~15,000<br>
+									<input type="radio" id="bills" name="bills" value="15,000~20,000" <%=f.getBoard_foodbill()!=null&&f.getBoard_foodbill().equals("20,000~20,000")?"checked":"" %>/>15,000~20,000<br>
+									<input type="radio" id="bills" name="bills" value="20,000~25,000" <%=f.getBoard_foodbill()!=null&&f.getBoard_foodbill().equals("15,000~25,000")?"checked":"" %>/>20,000~25,000<br>
+									<input type="radio" id="bills" name="bills" value="25,000~" <%=f.getBoard_foodbill()!=null&&f.getBoard_foodbill().equals("25,000~")?"checked":"" %>/>25,000~<br>
 								</td>
 							
 							</tr>
 							<tr>
 								<td>
 									주차여부
-									<input type="radio" id="park" name="park" value="가능" <%=f.getBoard_park()!=null&&f.getBoard_park().equals("가능")?"selected":"" %>/>가능
-									<input type="radio" id="park" name="park" value="불가능" <%=f.getBoard_park()!=null&&f.getBoard_park().equals("불가능")?"selected":"" %>/>불가능<br>
+									<input type="radio" id="park" name="park" value="가능" <%=f.getBoard_park()!=null&&f.getBoard_park().equals("가능")?"checked":"" %>/>가능
+									<input type="radio" id="park" name="park" value="불가능" <%=f.getBoard_park()!=null&&f.getBoard_park().equals("불가능")?"checked":"" %>/>불가능<br>
 								</td>
 							</tr>
 							<tr>
 								<td>
-            						 영업시간 : <input type="text" id="si" name="time" <%=f.getBoard_open() %>/> 
+            						 영업시간 <input type="text" id="si" name="time" placeholder="ex)오전 10:00 ~오후10:00" value="<%=f.getBoard_open()%>"/> 
 									
+								</td>
+							</tr>
+							<tr>
+								<td>
+									만족도<input type="number" name="grade" step='10' min='0' max='100' value="<%=f.getBoard_Grade() %>"/>
 								</td>
 							</tr>
 							<tr>
 								<td>
 									메뉴
 									<textarea id="menu" name="menu" cols="10" rows="5"
-										placeholder="메뉴를 입력하시오" <%=f.getBoard_menu()%>/></textarea>
+										placeholder="메뉴를 입력하시오" /><%=f.getBoard_menu()%></textarea>
 								</td>
 							</tr>
 							<tr>
@@ -133,20 +138,15 @@
 										</textarea>
 								</td>
 							</tr>
-							<tr>
-								<td>
-									만족도<input type="number" name="grade" step='10' min='0' max='100' <%=f.getBoard_Grade() %>/>
-								</td>
-							</tr>
 							 <tr>
 								<td><!--지도  -->
-									<div id="map" style="width:80%;height:400px;margin-right: auto;margin-left: auto; ">
-									 <div class="search" style="position:absolute; z-index:1000; top:20px; left:20px;">
-									 	<input id="address" name="address1" type="text" placeholder="검색할 주소" value="테헤란로 14길 6" style="width:200px;text-align:center;display:inline;">
-									 	<input id="submit" name="address2"type="button" value="주소검색">
-									 	<input type="hidden" id="road_address" name="road_address" value="<%=f.getBoard_MAP()%>">
-									 </div>
-								</div>
+									<div id="map" style="width:100%;height:400px;margin-right: auto;margin-left: auto;">
+										 <div class="search" style="position:absolute; z-index:1000; top:20px; left:20px;">
+										 	<input id="address" name="address1" type="text" placeholder="검색할 주소" style="width:200px; text-align:center; display:inline;">
+										 	<input id="submit" name="address2" type="button" value="주소검색">
+										 	<input type="hidden" id="road_address" name="road_address" value="<%=f.getBoard_MAP()%>">
+										 </div>
+									</div>
 
 								</td>
 							</tr>
@@ -425,8 +425,7 @@
 
 	        searchAddressToCoordinate($('#address').val());
 	    });
-
-	    searchAddressToCoordinate('서울특별시 강남구 테헤란로 14길 6 남도빌딩  2F, 3F, 4F, 5F');
+	    searchAddressToCoordinate("<%=f.getBoard_MAP()%>");
 	}
 
 	function makeAddress(item) {

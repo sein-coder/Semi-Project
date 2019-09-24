@@ -56,7 +56,7 @@ public class FoodUpdateEndServlet extends HttpServlet {
 		String foodtype=mr.getParameter("foodtype");
 		String bills=mr.getParameter("bills");
 		String park=mr.getParameter("park");
-		String open=mr.getParameter("start");
+		String open=mr.getParameter("time");
 		String menu=mr.getParameter("menu");
 		String ir1=mr.getParameter("contents");
 		int grade=Integer.parseInt(mr.getParameter("grade"));

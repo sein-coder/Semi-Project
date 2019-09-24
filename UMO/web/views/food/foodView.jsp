@@ -83,11 +83,6 @@
 							</tr>
 							<tr>
 								<td>
-									<span name="grade" id="grade">만족도:<%=f.getBoard_Grade() %></span>
-								</td>
-							</tr>
-							<tr>
-								<td>
 									<span>주차여부 :<%=f.getBoard_park() %></span>
 									
 								</td>
@@ -95,6 +90,11 @@
 							<tr>
 								<td>
 									<span>영업시간 :<%=f.getBoard_open() %></span>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span name="grade" id="grade">만족도:<%=f.getBoard_Grade() %></span>
 								</td>
 							</tr>
 							<tr>
