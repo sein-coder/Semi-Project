@@ -33,15 +33,12 @@ public class FoodDao {
 		String sql="";
 		if(name.equals("myPage")) {
 		sql = prop.getProperty("selectMyFoodList");
-		System.out.println(name);
 		}else {
 		sql = prop.getProperty("selectFoodList");
-		System.out.println(name);
 		}
 		try {
 			pstmt = conn.prepareStatement(sql);
 			if(name.equals("myPage")) {
-				System.out.println(userId);
 				pstmt.setString(1, userId);
 				pstmt.setInt(2, (cPage-1)*numPerPage+1);
 				pstmt.setInt(3, cPage*numPerPage);

@@ -80,15 +80,26 @@ public class InqueryDao {
 	}
 
 
-	public List<Inquery> selectInqueryBoardList(Connection conn, int cPage, int numPerPage) {
+	public List<Inquery> selectInqueryBoardList(Connection conn, int cPage, int numPerPage,String name,String userId) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<Inquery> list = new ArrayList();
-		String sql = prop.getProperty("selectInqueryBoardList");
+		String sql="";
+		if(name.equals("myPage")) {
+			sql = prop.getProperty("selectMyInqueryBoardList");
+			}else {
+		sql = prop.getProperty("selectInqueryBoardList");
+			}
 		try {
 			pstmt = conn.prepareStatement(sql);
+			if(name.equals("myPage")) {
+				pstmt.setString(1, userId);
+				pstmt.setInt(2, (cPage-1)*numPerPage+1);
+				pstmt.setInt(3, cPage*numPerPage);
+				}else {
 			pstmt.setInt(1, (cPage-1)*numPerPage+1);
 			pstmt.setInt(2, cPage*numPerPage);
+				}
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				Inquery inquery = new Inquery();

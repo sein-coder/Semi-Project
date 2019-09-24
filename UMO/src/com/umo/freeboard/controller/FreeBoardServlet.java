@@ -13,16 +13,16 @@ import com.umo.freeboard.service.FreeBoardService;
 import com.umo.model.vo.Board;
 
 /**
- * Servlet implementation class FreeborderServlert
+ * Servlet implementation class FreeBoardServlet
  */
 @WebServlet("/freeBoard")
-public class FreeborderServlert extends HttpServlet {
+public class FreeBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FreeborderServlert() {
+    public FreeBoardServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,8 +31,7 @@ public class FreeborderServlert extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 		int cPage;
 		try {
 			cPage=Integer.parseInt(request.getParameter("cPage"));
@@ -83,9 +82,6 @@ public class FreeborderServlert extends HttpServlet {
 		request.setAttribute("pageBar",pageBar);
 	    request.setAttribute("list", list);	
 		request.getRequestDispatcher("/views/free/freeBoard.jsp").forward(request, response);
-		
-		
-		
 		
 		
 	}

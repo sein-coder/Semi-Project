@@ -6,12 +6,16 @@
 %>
 <%@ include file="/views/common/header.jsp"%>
 	<section id="notice-container" style="margin-top:6.3%;padding:5% 0 5% 0;">
+	<h2>익명게시판</h2>
+<div class="btn-group btn-group-sm"  id="btn-add">
+		<input type="button" class="btn btn-default" value="글쓰기"
+			onclick="location.href='<%=request.getContextPath()%>/anonymousWrite'"/>
+	</div>
 	<table class="table table-striped table-bordered table-hover">
 		<thead>
 		<tr>
 			<th>번호</th>
 			<th>제목</th>
-			<th>작성자</th>
 			<th>첨부파일</th>
 			<th>작성일</th>
 		</tr>
@@ -25,7 +29,6 @@
 			<td><%=b.getNo()%></td>
 			<td><a
 				href="<%=request.getContextPath()%>/anonymousContentView?anonymousNo=<%=b.getNo()%>"><%=b.getTitle()%></a></td>
-			<td><%=b.getWriter()%></td>
 			<td>
 				<%
 					if (b.getRenamed_filename() != null) {

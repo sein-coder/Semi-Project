@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.umo.model.vo.NoticeBoard" %>
+<%@ page import="com.umo.model.vo.Board" %>
 
 <% 
-     NoticeBoard nb=(NoticeBoard)request.getAttribute("nb");
+     Board ab=(Board)request.getAttribute("ab");
 %>
 
 
@@ -20,18 +20,13 @@
         <table id="tbl-notice" class="table table-striped table-bordered table-hover">
         <tr>
             <th>제 목</th>
-            <td><%=nb.getTitle()%></td>
+            <td><%=ab.getTitle()%></td>
         </tr>
-        <tr>
-            <th>작성자</th>
-            <td><%=nb.getWriter()%></td>
-        </tr>
-        
         <tr>
             <th>첨부파일</th>
             <td>
-            <%if(nb.getRenamed_filename()!=null) {%>
-                         <a href="<%=request.getContextPath()%>/notice/fileDown?fileName=<%=nb.getRenamed_filename() %>">
+            <%if(ab.getRenamed_filename()!=null) {%>
+                         <a href="<%=request.getContextPath()%>/free/fileDown?fileName=<%=ab.getRenamed_filename() %>">
 						<img src="<%=request.getContextPath()%>/images/file.png"
 						width="16px"/></a>
 					<%} %>
@@ -39,13 +34,13 @@
         </tr>
         <tr>
             <th>내 용</th>
-            <td><%=nb.getContent()%></td>
+            <td><%=ab.getContent()%></td>
         </tr>
-        <%if(loginMember!=null&&loginMember.getMemberId().equals("admin")){ %>
+        <%if(loginMember!=null){ %>
         <tr>
             <th colspan="2">
-                <input type="button" class="btn btn-default" value="수정하기" onclick="location.href='<%=request.getContextPath()%>/noticeUpdate?noticeNo=<%=nb.getNo()%>'"/>
-                <input type="button" class="btn btn-default" value="삭제하기" onclick="location.href='<%=request.getContextPath()%>/noticeDelete?noticeNo=<%=nb.getNo() %>'"/>
+                <input type="button" class="btn btn-default" value="수정하기" onclick="location.href='<%=request.getContextPath()%>/freeUpdate?noticeNo=<%=ab.getNo()%>'"/>
+                <input type="button" class="btn btn-default" value="삭제하기" onclick="location.href='<%=request.getContextPath()%>/freeDelete?noticeNo=<%=ab.getNo() %>'"/>
             </th>
         </tr>
         <%} %>

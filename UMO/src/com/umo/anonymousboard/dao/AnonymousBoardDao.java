@@ -54,7 +54,6 @@ public class AnonymousBoardDao {
 
 	}
 
-	// 공지사항 전체 리스트 불러오기
 	public List<Board> selectAnonymousBoardList(Connection conn, int cPage, int numPerPage) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -85,5 +84,80 @@ public class AnonymousBoardDao {
 			close(pstmt);
 		}
 		return list;
+	}
+	public Board anonymousBoardContent(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Board b = new Board();
+		String sql = prop.getProperty("anonymousBoardContent");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				b.setNo(rs.getInt("board_no"));
+				b.setWriter(rs.getString("board_writer"));
+				b.setTitle(rs.getString("board_title"));
+				b.setContent(rs.getString("board_contents"));
+				b.setOriginal_filename(rs.getString("Original_filename"));
+				b.setRenamed_filename(rs.getString("renamed_filename"));
+				b.setDate(rs.getDate("board_date"));
+				b.setCount(rs.getInt("board_count"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return b;
+
+	}
+	public int anonymousWrite(Connection conn, Board ab) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("anonymousWrite");
+		
+		System.out.println("sql확인"+sql);
+
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, ab.getWriter());
+			pstmt.setString(2, ab.getTitle());
+			pstmt.setString(3, ab.getContent());
+			pstmt.setString(4, ab.getOriginal_filename());
+			pstmt.setString(5, ab.getRenamed_filename());		
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			
+			close(pstmt);
+		}
+		return result;
+    	
+	}
+	public int lastAnonymousContentNo(Connection conn,String writer) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int no=0;
+		String sql=prop.getProperty("lastAnonymousContentNo");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, writer);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				no=rs.getInt("NO");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+
+		return no;
+
 	}
 }

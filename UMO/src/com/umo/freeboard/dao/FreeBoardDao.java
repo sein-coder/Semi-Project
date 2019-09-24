@@ -32,7 +32,6 @@ public class FreeBoardDao {
 
 	}
 
-	// 공지사항 전체 글 갯수
 	public int countFreeList(Connection conn) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -54,7 +53,6 @@ public class FreeBoardDao {
 
 	}
 
-	// 공지사항 전체 리스트 불러오기
 	public List<Board> selectFreeBoardList(Connection conn, int cPage, int numPerPage) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -86,4 +84,82 @@ public class FreeBoardDao {
 		}
 		return list;
 	}
+	public Board freeBoardContent(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Board b = new Board();
+		String sql = prop.getProperty("freeBoardContent");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				b.setNo(rs.getInt("free_no"));
+				b.setWriter(rs.getString("free_writer"));
+				b.setTitle(rs.getString("free_title"));
+				b.setContent(rs.getString("free_contents"));
+				b.setOriginal_filename(rs.getString("Original_filename"));
+				b.setRenamed_filename(rs.getString("renamed_filename"));
+				b.setDate(rs.getDate("free_date"));
+				b.setCount(rs.getInt("free_count"));
+				b.setWriting_status(rs.getString("writing_status").charAt(0));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return b;
+
+	}
+	public int freeWrite(Connection conn, Board fb) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("freeWrite");
+		
+		System.out.println("sql확인"+sql);
+
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, fb.getWriter());
+			pstmt.setString(2, fb.getTitle());
+			pstmt.setString(3, fb.getContent());
+			pstmt.setString(4, fb.getOriginal_filename());
+			pstmt.setString(5, fb.getRenamed_filename());		
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			
+			close(pstmt);
+		}
+		return result;
+    	
+	}
+	public int lastFreeContentNo(Connection conn,String writer) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int no=0;
+		String sql=prop.getProperty("lastFreeContentNo");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, writer);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				no=rs.getInt("NO");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+
+		return no;
+
+	}
+	
+	
 }

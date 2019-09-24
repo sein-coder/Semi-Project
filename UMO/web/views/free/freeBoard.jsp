@@ -6,6 +6,13 @@
 %>
 <%@ include file="/views/common/header.jsp" %>
 <section id="notice-container" style="margin-top:6.3%;padding:5% 0 5% 0;width:60%;">
+<h2>자유게시판</h2>
+<%if(loginMember!=null){ %>
+<div class="btn-group btn-group-sm"  id="btn-add">
+		<input type="button" class="btn btn-default" value="글쓰기"
+			onclick="location.href='<%=request.getContextPath()%>/freeWrite'"/>
+	</div>
+	<%} %>
 	<table class="table table-striped table-bordered table-hover">
 		<thead>
 		<tr>
@@ -23,8 +30,7 @@
 		<tbody>
 		<tr>
 			<td><%=b.getNo()%></td>
-			<td><a
-				href="<%=request.getContextPath()%>/freeContentViewfreeeNo=<%=b.getNo()%>"><%=b.getTitle()%></a></td>
+			<td><a href="<%=request.getContextPath()%>/freeContentView?freeNo=<%=b.getNo()%>"><%=b.getTitle() %></a></td>
 			<td><%=b.getWriter()%></td>
 			<td>
 				<%

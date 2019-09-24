@@ -3,6 +3,7 @@
 <%@ page import="java.util.List, com.umo.model.vo.*" %>
 <%
 List<Food> foodlist = (List<Food>)request.getAttribute("foodlist");
+List<Inquery> inquerylist = (List<Inquery>)request.getAttribute("inquerylist"); 
 List<Comment> NoticeCommentlist = (List<Comment>)request.getAttribute("NoticeCommentlist");
 List<Comment> FoodCommentlist = (List<Comment>)request.getAttribute("FoodCommentlist");
 List<Comment> inqueryCommentlist = (List<Comment>)request.getAttribute("inqueryCommentlist");
@@ -28,6 +29,8 @@ int count = 0;
         	
         	<select id="board" name="board" style="width:5%">
 				  <option value="음식" selected="selected">음식</option>
+				   <option value="자유">자유</option>
+			    	<option value="익명">익명</option>
 				  <option value="질의">질의</option>
 			</select>
         
@@ -39,13 +42,35 @@ int count = 0;
                     <tr>
                         <td><a href="<%=request.getContextPath() %>/images/food/<%= f.getBoard_Thumbnail()%>">food <%=f.getBoard_Title()+" "+f.getBoard_Contents()+" "+f.getBoard_Writer()%></a></td>
                     </tr>
-	          	<%count++;} } %>
+	          	<%count++;} } count=0;%>
                 </table>
 	                <table id="inqueryboard" style="display:none">
-		                <tr>
-		                    <td>안녕</td>
-	                    </tr>
+	                
+		               <% if(count<3){ 
+		               for(Inquery i : inquerylist) { %>
+				<tr>
+					<td>
+						<a href="<%=request.getContextPath()%>/inquery/inqueryView?Board_No=<%=i.getBoard_No()%>"><%= i.getCode_Type()+i.getBoard_Title()+i.getBoard_Writer() %></a>
+					</td>
+				</tr>
+			<% count++;} } count=0; %>
                	</table>
+               	<table id="freeboard" style="display:none">
+                <% if(count<3){
+                 for(Food f : foodlist) {%>
+                    <tr>
+                        <td><a href="<%=request.getContextPath() %>/images/food/<%= f.getBoard_Thumbnail()%>">food <%=f.getBoard_Title()+" "+f.getBoard_Contents()+" "+f.getBoard_Writer()%></a></td>
+                    </tr>
+	          	<%count++;} } count=0;%>
+                </table>
+                <table id="anonymousboard" style="display:none">
+                <% if(count<3){
+                 for(Food f : foodlist) {%>
+                    <tr>
+                        <td><a href="<%=request.getContextPath() %>/images/food/<%= f.getBoard_Thumbnail()%>">food <%=f.getBoard_Title()+" "+f.getBoard_Contents()+" "+f.getBoard_Writer()%></a></td>
+                    </tr>
+	          	<%count++;} } count=0;%>
+                </table>
             </fieldset>
             <br>
         </div>
@@ -77,9 +102,23 @@ int count = 0;
 	        if($('#board').val()=='음식'){
 	        	 $('#foodboard').css({ display: 'flex'});
 	        	 $('#inqueryboard').css({ display: 'none'});
+	        	 $('#freeboard').css({ display: 'none'});
+	        	 $('#anonymousboard').css({ display: 'none'});
 	        }else if($('#board').val()=='질의'){
 	        	$('#inqueryboard').css({ display: 'flex'});
 	        	$('#foodboard').css({ display: 'none'});
+	        	$('#freeboard').css({ display: 'none'});
+	        	 $('#anonymousboard').css({ display: 'none'});
+	        }else if($('#board').val()=='자유'){
+	        	$('#inqueryboard').css({ display: 'none'});
+	        	$('#foodboard').css({ display: 'none'});
+	        	$('#freeboard').css({ display: 'flex'});
+	        	 $('#anonymousboard').css({ display: 'none'});
+	        }else if($('#board').val()=='익명'){
+	        	$('#inqueryboard').css({ display: 'none'});
+	        	$('#foodboard').css({ display: 'none'});
+	        	$('#freeboard').css({ display: 'none'});
+	        	 $('#anonymousboard').css({ display: 'flex'});
 	        }
 	        	})
 	        })

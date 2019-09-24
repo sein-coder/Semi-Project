@@ -44,7 +44,9 @@ public class InqueryBoardServlet extends HttpServlet {
 		InqueryService service = new InqueryService();
 		
 		int totalData = service.selectBoardCount();
-		List<Inquery> list = service.selectInqueryBoardList(cPage,numPerPage);
+		String name="";
+		String userId="";
+		List<Inquery> list = service.selectInqueryBoardList(cPage,numPerPage,name,userId);
 		
 		String pageBar = "";
 		int totalPage = (int)Math.ceil((double)totalData/numPerPage);
