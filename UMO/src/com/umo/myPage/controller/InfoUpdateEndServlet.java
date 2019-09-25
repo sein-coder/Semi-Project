@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.umo.member.model.service.MemberService;
 import com.umo.model.vo.Member;
-import com.umo.myPage.service.MyPageService;
-import com.umo.service.MemberService;
+import com.umo.myPage.model.service.MyPageService;
 
 /**
  * Servlet implementation class InfoUpdateEndServlet
@@ -45,10 +45,10 @@ public class InfoUpdateEndServlet extends HttpServlet {
 	      String loc="";
 	      System.out.println(result);
 	      if(result>0) {
-	         msg="È¸¿øÁ¤º¸ ¼öÁ¤ÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù.!";
+	         msg="íšŒì›ì •ë³´ìˆ˜ì •ì„±ê³µ.!";
 	         loc="/";
 	      }else {
-	         msg="È¸¿øÁ¤º¸ ¼öÁ¤ ½ÇÆĞ ´Ù½Ã ¼öÁ¤ÇØÁÖ¼¼¿ä!";
+	         msg="íšŒì›ì •ë³´ìˆ˜ì •ì‹¤íŒ¨!";
 	         loc="/";
 	      }
 	      request.setAttribute("msg",msg);

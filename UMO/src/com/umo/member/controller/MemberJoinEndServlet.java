@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.umo.member.model.service.MemberService;
 import com.umo.model.vo.Member;
-import com.umo.service.MemberService;
 
 /**
  * Servlet implementation class MemberJoinEndServlet
@@ -43,7 +43,7 @@ public class MemberJoinEndServlet extends HttpServlet {
 		Member m=new Member(id,pw,name,email,phone,address);
 		
 		int result=new MemberService().registMember(m);
-		String msg=result>0?"°¡ÀÔ¿Ï·á":"°¡ÀÔ½ÇÆÐ";
+		String msg=result>0?"ï¿½ï¿½ï¿½Ô¿Ï·ï¿½":"ï¿½ï¿½ï¿½Ô½ï¿½ï¿½ï¿½";
 		String loc="/";
 		if(result>0) {
 		loc="/";	

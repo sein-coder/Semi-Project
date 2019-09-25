@@ -2,33 +2,38 @@
     pageEncoding="UTF-8" errorPage="/views/common/error.jsp"%>
 <!-- 외부파일을 불러오는 지시자 -> include -->
 <%@ include file="views/common/header.jsp" %>
+<style>
+.foodimg{
+width:30px;
+height:30px;
+
+
+}
+</style>
+
 <!-- Intro -->
 
 <section id="intro" class="main style1" >
         <div class="content">
-            <header>
                 <h2>안녕.</h2>
-            </header>
-            <p>ㅎㅇㅎㅇㅎㅇ</a>.</p>
-            <footer>
+            <p>ㅎㅇㅎㅇㅎㅇ</p>
                 <button class="move1 cursor">이동</button>
-            </footer>
         </div>
-    </section>
+</section>
 
 <!-- One -->
     <section id="one" class="main style2" style="overflow: hidden;">
         <div class="content box style2" >
-            <header>
-                <h2>게시판1</h2>
-            </header>
-            <p>호로로로롤</p>
+                <h2>공지게시판</h2>
+            <div id="noticeboard" style="border:0px solid">
+            
+            </div>
         </div>
-        <div class="content box style2" id="trans1" style="transform: translateX(120.9%) translateY(-100%);">
-            <header>
-                <h2>게시판2</h2>
-            </header>
-            <p>ㅎ로로로롤</p>
+        <div class="content box style2" id="trans1" style="transform: translateX(150%) translateY(-100%);">
+                <h2>자유게시판</h2>
+		<div id="freeboard" style="border:0px solid">
+		
+		</div>
         </div>
         <div style="margin-top: -10%;">
             <button class="move2 cursor">이동</button>
@@ -38,16 +43,12 @@
 <!-- Two -->
 <section id="two" class="main style2" style="overflow: hidden;">
         <div class="content box style2">
-            <header>
-                <h2>게시판3</h2>
-            </header>
-            <p>33333333333333</p>
+                <h2>익명게시판</h2>
+                <div id="anonymousboard"></div>
         </div>
-        <div class="content box style2" id="trans2" style="transform: translateX(120.9%) translateY(-100%);" >
-            <header>
-                <h2>게시판4</h2>
-            </header>
-            <p>44444444444</p>
+        <div class="content box style2" id="trans2" style="transform: translateX(150%) translateY(-100%);" >
+                <h2>질의게시판</h2>
+            <div id="inqeurymousboard"></div>
         </div>
         <div style="margin-top: -10%;">
             <button class="move3 cursor">이동</button>
@@ -57,44 +58,67 @@
 <!-- Work -->
 <section id="work" class="main style3 primary">
         <div class="content">
-            <header>
                 <h2>사진</h2>
-                <p>ㅇㅇㅇㅇ</p>
-            </header>
+                <p>사진</p>
 
-            <!-- Gallery  -->
+ <!-- Gallery  -->
             <div class="gallery">
-                <article class="from-left">
-                    <a href="images/fulls/01.jpg"><img class="image-fit" src="images/food/BathBurger.jpg" title="The Anonymous Red" alt="" /></a>
+                <article>
+                    <a href="images/fulls/01.jpg"><img class="galleryimage" src="images/food/BathBurger.jpg" title="The Anonymous Red" alt="" /></a>
                 </article>
-                <article class="from-right">
-                    <a href="images/fulls/02.jpg"><img class="image-fit" src="images/food/ihwasuyuggaejang.jpg" title="Airchitecture II" alt="" /></a>
+                <article>
+                    <a href="images/fulls/02.jpg"><img class="galleryimage" src="images/food/ihwasuyuggaejang.jpg" title="Airchitecture II" alt="" /></a>
                 </article>
-                <article class="from-left">
-                    <a href="images/fulls/03.jpg"><img class="image-fit" src="images/food/itaelibudaejjigae.jpg" title="Air Lounge" alt="" /></a>
+                <article>
+                    <a href="images/fulls/03.jpg"><img class="galleryimage" src="images/food/itaelibudaejjigae.jpg" title="Air Lounge" alt="" /></a>
                 </article>
-                <article class="from-right">
-                    <a href="images/fulls/04.jpg"><img class="image-fit" src="images/food/jijonjjamppong.jpg" title="Carry on" alt="" /></a>
+            </div>
+            <br>
+            <div class="gallery">
+              <article>
+                    <a href="images/fulls/04.jpg"><img class="galleryimage" src="images/food/jijonjjamppong.jpg" title="Carry on" alt="" /></a>
                 </article>
-                <article class="from-left">
-                    <a href="images/fulls/05.jpg"><img class="image-fit" src="images/food/mabuyugjeon.jpg" title="The sparkling shell" alt="" /></a>
+                <article>
+                    <a href="images/fulls/05.jpg"><img class="galleryimage" src="images/food/mabuyugjeon.jpg" title="The sparkling shell" alt="" /></a>
                 </article>
-                <article class="from-right">
-                    <a href="images/fulls/06.jpg"><img class="image-fit" src="images/food/naiseusyawo.jpg" title="Bent IX" alt="" /></a>
+                <article>
+                    <a href="images/fulls/06.jpg"><img class="galleryimage" src="images/food/naiseusyawo.jpg" title="Bent IX" alt="" /></a>
+                </article>
+            </div>
+
+        </div>
+    </section>
+           <!-- Gallery  -->
+            <!-- <div class="gallery">
+                <article>
+                    <a href="images/fulls/01.jpg"><img class="galleryimage" src="images/food/BathBurger.jpg" title="The Anonymous Red" alt="" /></a>
+                </article>
+                <article>
+                    <a href="images/fulls/02.jpg"><img class="galleryimage" src="images/food/ihwasuyuggaejang.jpg" title="Airchitecture II" alt="" /></a>
+                </article>
+                <article>
+                    <a href="images/fulls/03.jpg"><img class="galleryimage" src="images/food/itaelibudaejjigae.jpg" title="Air Lounge" alt="" /></a>
+                </article>
+                <article>
+                    <a href="images/fulls/04.jpg"><img class="galleryimage" src="images/food/jijonjjamppong.jpg" title="Carry on" alt="" /></a>
+                </article>
+                <article>
+                    <a href="images/fulls/05.jpg"><img class="galleryimage" src="images/food/mabuyugjeon.jpg" title="The sparkling shell" alt="" /></a>
+                </article>
+                <article>
+                    <a href="images/fulls/06.jpg"><img class="galleryimage" src="images/food/naiseusyawo.jpg" title="Bent IX" alt="" /></a>
                 </article>
             </div>
         </div>
-    </section>
+    </section> -->
 
 
 <!-- Contact -->
 <section id="contact" class="main style3 secondary">
         <div class="content">
-            <header>
                 <h2>문의사항</h2>
                 <p>door의4항</p>
-            </header>
-            <div class="box" style="transform: translateX(50%)translateY(28.5%);">
+            <div class="box" style="margin: auto;">
                 <form method="post" action="#">
                     <div class="fields">
                         <!-- <div class="field half"><input type="text" name="name" placeholder="Name" /></div> -->
@@ -123,6 +147,81 @@ $('.move2').click(function(){
 $('.move3').click(function(){
     var scroll=$('#work').offset();
     $('html').animate({scrollTop:scroll.top},1000)
+});
+
+$(document).ready(function(){
+	var result="";
+$.ajax({
+	url : "<%=request.getContextPath()%>/noticeBoard", 
+	dataType:"text",
+	type : "post", 
+	success : function(data){ 
+		 var noticeboardlist=data.substring(1,data.length-1).split("<tr>");
+		 for(var i = 3 ; i<noticeboardlist.length-1; i++){
+			result += noticeboardlist[i].split(",")+"\n";
+		}
+		$('#noticeboard').html("<table class='table table-striped table-bordered table-hover'>"+result); 
+
+	}
+});
+var result2="";
+$.ajax({
+	url : "<%=request.getContextPath()%>/freeBoard", 
+	dataType:"text",
+	type : "post", 
+	success : function(data){ 
+
+		 var freeboardlist=data.substring(1,data.length-1).split("<tr>");
+		 for(var i = 3 ; i<freeboardlist.length-1; i++){
+			result2 += freeboardlist[i].split(",")+"\n";
+		}
+		$('#freeboard').html("<table class='table table-striped table-bordered table-hover'>"+result2); 
+
+	}
+});
+ var result3="";
+$.ajax({
+	url : "<%=request.getContextPath()%>/anonymousBoard", 
+	dataType:"text",
+	type : "post", 
+	success : function(data){ 
+		console.log(data);
+		 var anonymousBoardlist=data.substring(1,data.length-1).split("<tr>");
+		 for(var i = 3 ; i<anonymousBoardlist.length-1; i++){
+			result3 += anonymousBoardlist[i].split(",")+"\n";
+		}
+		$("#anonymousboard").html("<table class='table table-striped table-bordered table-hover'>"+result3); 
+
+	}
+});
+var result4="";
+$.ajax({
+	url : "<%=request.getContextPath()%>/inquery/inqueryBoard",
+	dataType:"text",
+	type : "post", 
+	success : function(data){ 
+		 var inqueryboardlist=data.substring(1,data.length-1).split("<tr>");
+			 for(var i = 3 ; i<inqueryboardlist.length-1; i++){
+					result4 += inqueryboardlist[i].split(",")+"\n";
+				}
+			 $('#inqeurymousboard').html("<table class='table table-striped table-bordered table-hover'>"+result4); 
+	}
+	
+});
+var result5="";
+$.ajax({
+	url : "<%=request.getContextPath()%>/food/foodList",
+	dataType:"text",
+	type : "post", 
+	success : function(data){ 
+		 var foodboardlist=data.substring(1,data.length-1).split("<tr>");
+			 for(var i = 3 ; i<foodboardlist.length-1; i++){
+					result5 += foodboardlist[i].split(",")+"\n";
+				}
+			 $('#foodboard').html("<table class='table table-striped table-bordered table-hover'>"+result5); 
+	}
+	
+});
 });
 
 </script>

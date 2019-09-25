@@ -169,6 +169,11 @@ ul :hover .menuLink {
     padding: 30% 0 0em 0;
     margin-top:6.3%;  
 }
+.main.style11 {
+    text-align: center;
+    padding: 15% 0 15% 0;
+    margin-top:6.3%;  
+}
 
 .main.dark {
     color: #ffffff;
@@ -182,10 +187,10 @@ ul :hover .menuLink {
     background-attachment: fixed, fixed;
     background-position: top left, center center;
 }
-.main.style2 {
+/* .main.style2 {
     text-align: center;
-    padding: 10% 0 0% 0;
-}
+    padding: 5% 0 0% 0;
+} */
 
 /* Two */
 
@@ -207,15 +212,14 @@ ul :hover .menuLink {
 }
 .main.style3 {
     text-align: center;
-    padding: 6em 0 6em 0;
+    padding: 12em 0 0em 0;
 }
 .main.style3.primary {
     background: #ffffff;
 }
 .gallery {
-    display: flex;
-    flex-wrap: wrap;
-    margin-left:15%; 
+    display: inline-flex;
+    flex-wrap: wrap; 
 }
 .main.style3.secondary {
     background: #f5f6f7;
@@ -309,9 +313,9 @@ textarea {
     display: none;
 }
 
-.image-fit{
-	width: 440px;
-	height: 276px;
+.galleryimage{
+	width: 250px;
+	height: 250px;
 }
 .mypagediv{
     display: grid;
@@ -319,7 +323,7 @@ textarea {
 }
 .main.style12 {
     /* text-align: center; */
-    padding: 5% 0 10% 0;
+    padding: 15% 0 10% 0;
     margin-top:6.3%;   
 }
 

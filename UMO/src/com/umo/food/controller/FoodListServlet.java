@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.umo.food.model.service.FoodService;
-import com.umo.food.model.vo.Food;
+import com.umo.model.vo.Food;
 
 /**
  * Servlet implementation class FoodListServlet
@@ -41,8 +41,9 @@ public class FoodListServlet extends HttpServlet {
 		
 		FoodService service = new FoodService();
 		int totalData=service.selectCountFood_Board();
-		
-		List<Food> list = new FoodService().selectFoodList(cPage,numPerPage);
+		String name="";
+		String userId="";
+		List<Food> list = new FoodService().selectFoodList(cPage,numPerPage,name,userId);
 		System.out.println(list.size());
 		String pageBar="";
 		int totalPage = (int)Math.ceil((double)totalData/numPerPage);

@@ -30,6 +30,8 @@ public class FoodFormServlet extends HttpServlet {
 		request.getRequestDispatcher("/views/food/foodForm.jsp").forward(request, response);
 		
 		
+		
+		
 	}
 
 	/**

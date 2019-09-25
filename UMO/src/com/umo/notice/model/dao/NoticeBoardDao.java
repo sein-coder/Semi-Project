@@ -11,10 +11,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-
 import com.umo.model.vo.NoticeBoard;
 
-//ë°˜ë³„ ê²Œì‹œíŒ DBì ‘ì†
+//ë°˜ë³„ ê²Œì‹œ?Œ DB? ‘?†
 public class NoticeBoardDao {
 
 	private Properties prop = new Properties();
@@ -32,7 +31,7 @@ public class NoticeBoardDao {
 
 	}
 
-	// ê³µì§€ì‚¬í•­ ì „ì²´ ê¸€ ê°¯ìˆ˜
+	// ê³µì??‚¬?•­ ? „ì²? ê¸? ê°??ˆ˜
 	public int countNoticeList(Connection conn) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -54,7 +53,7 @@ public class NoticeBoardDao {
 
 	}
 
-	// ê³µì§€ì‚¬í•­ ì „ì²´ ë¦¬ìŠ¤íŠ¸ ë¶ˆëŸ¬ì˜¤ê¸°
+	// ê³µì??‚¬?•­ ? „ì²? ë¦¬ìŠ¤?Š¸ ë¶ˆëŸ¬?˜¤ê¸?
 	public List<NoticeBoard> selectNoticeBoardList(Connection conn, int cPage, int numPerPage) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -88,14 +87,14 @@ public class NoticeBoardDao {
 		return list;
 	}
 
-	// ê³µì§€ì‚¬í•­ ë‚´ìš© ë¶ˆëŸ¬ì˜¤ê¸°
+	// ê³µì??‚¬?•­ ?‚´?š© ë¶ˆëŸ¬?˜¤ê¸?
 	public NoticeBoard noticeBoardContent(Connection conn, int no) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		NoticeBoard nb = new NoticeBoard();
 		String sql = prop.getProperty("noticeBoardContent");
 		
-		System.out.println("ê³µì§€ì‚¬í•­ ë‚´ìš© sql"+sql);
+		System.out.println("ê³µì??‚¬?•­ ?‚´?š© sql"+sql);
 
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -113,7 +112,7 @@ public class NoticeBoardDao {
 				nb.setWriting_status(rs.getString("writing_status").charAt(0));
 				System.out.println(nb);
 			}
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(rs);
@@ -123,13 +122,13 @@ public class NoticeBoardDao {
 
 	}
 
-	// ìƒˆë¡œìš´ ê³µì§€ ì‘ì„±
+	// ?ƒˆë¡œìš´ ê³µì? ?‘?„±
 	public int noticeWrite(Connection conn, NoticeBoard nb) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String sql = prop.getProperty("noticeWrite");
 		
-		System.out.println("sqlí™•ì¸"+sql);
+		System.out.println("sql?™•?¸"+sql);
 
 		try {
 			pstmt=conn.prepareStatement(sql);
@@ -137,7 +136,7 @@ public class NoticeBoardDao {
 			pstmt.setString(2, nb.getTitle());
 			pstmt.setString(3, nb.getContent());
 			pstmt.setString(4, nb.getOriginal_filename());
-			
+			pstmt.setString(5, nb.getRenamed_filename());		
 			result = pstmt.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -147,6 +146,54 @@ public class NoticeBoardDao {
 		}
 		return result;
     	
+	}
+	//ë§ˆì?ë§‰ì— ?‘?„±?•œ ê³µì??‚¬?•­ ê¸? ë²ˆí˜¸ ë¶ˆëŸ¬?˜¤ê¸?
+	public int lastNoticeContentNo(Connection conn,String writer) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int no=0;
+		String sql=prop.getProperty("lastNoticeContentNo");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, writer);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				no=rs.getInt("NO");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+
+		return no;
+
+	}
+	//ê³µì?ê¸? ?‚­? œ?•˜ê¸?
+	public int noticeUpdate(Connection conn,NoticeBoard nb) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int result=0;
+		String sql=prop.getProperty("noticeUpdate");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, nb.getTitle());
+			pstmt.setString(2, nb.getContent());
+			pstmt.setString(3, nb.getRenamed_filename());
+			pstmt.setInt(4, nb.getNo());
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+
+		return result;
+		
+		
 	}
 
 }

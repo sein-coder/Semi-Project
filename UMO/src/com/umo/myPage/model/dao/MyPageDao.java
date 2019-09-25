@@ -1,14 +1,20 @@
 package com.umo.myPage.model.dao;
 
+import static common.template.JDBCTemplate.close;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
-import static common.template.JDBCTemplate.close;
-import com.umo.memberDao.MemberDao;
+
+import com.umo.member.model.dao.MemberDao;
+import com.umo.model.vo.Comment;
+import com.umo.model.vo.Food;
 import com.umo.model.vo.Member;
 
 public class MyPageDao {
@@ -47,6 +53,51 @@ public class MyPageDao {
 	         close(pstmt);
 	      }return m;
 	   }
+	public List<Comment> selectNoticeCommentList(Connection conn, int cPage, int numPerPage,String name,String userId,String comment) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Comment> list = new ArrayList();
+		String sql="";
+		if(name.equals("myPage")) {
+			if(comment.equals("Notice_Comment")) {
+				sql = prop.getProperty("selectNoticeCommentList");
+			}else if(comment.equals("Food_Comment")) {
+				sql = prop.getProperty("selectFoodCommentList");
+			}else if(comment.equals("INQUERY_COMMENT")) {
+				sql = prop.getProperty("selectinqueryCommentList");
+			}
+			
+		}else {
+			
+		}
+		try {
+			pstmt = conn.prepareStatement(sql);
+			if(name.equals("myPage")) {
+				pstmt.setString(1, userId);
+				pstmt.setInt(2, (cPage-1)*numPerPage+1);
+				pstmt.setInt(3, cPage*numPerPage);
+				}else {
 
+				}
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Comment c = new Comment();
+				c.setComment_no(rs.getInt("comment_no"));
+				c.setComment_writer(rs.getString("comment_writer"));
+				c.setComment_contents(rs.getString("comment_contents"));
+				c.setComment_date(rs.getDate("comment_date"));
+				c.setBoard_no_ref(rs.getInt("board_no_ref"));
+				c.setComment_level(rs.getInt("comment_level"));
+				c.setComment_refno(rs.getInt("comment_refno"));
+				
+				list.add(c);
+			}
+		}catch(SQLException e) {
+				e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return list;
+	}
 
 }

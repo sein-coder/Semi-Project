@@ -2,14 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ page import="com.umo.model.vo.NoticeBoard" %>
 
-<%
-   
+<% 
      NoticeBoard nb=(NoticeBoard)request.getAttribute("nb");
-
-
 %>
 
-<%@ include file="/views/common/header.jsp" %>
+
    <style>
     section#notice-container{width:600px; margin:0 auto; text-align:center; margin-top:150px; }
     section#notice-container h2{margin:10px 0;}
@@ -18,6 +15,7 @@
     table#tbl-notice td {border:1px solid; padding: 5px 0 5px 10px; text-align:left;}
     </style> 
    <section id="notice-container">
+   <%@ include file="/views/common/header.jsp" %>
    <h2>공지사항</h2>
         <table id="tbl-notice" class="table table-striped table-bordered table-hover">
         <tr>
@@ -28,6 +26,7 @@
             <th>작성자</th>
             <td><%=nb.getWriter()%></td>
         </tr>
+        
         <tr>
             <th>첨부파일</th>
             <td>
@@ -42,17 +41,15 @@
             <th>내 용</th>
             <td><%=nb.getContent()%></td>
         </tr>
-        
+        <%if(loginMember!=null&&loginMember.getMemberId().equals("admin")){ %>
         <tr>
             <th colspan="2">
-                <input type="button" class="btn btn-default" value="수정하기" onclick="location.href='<%=request.getContextPath()%>/notice/noticeUpdate?no=<%=nb.getNo() %>'"/ >
-                <input type="button" class="btn btn-default" value="삭제하기" >
+                <input type="button" class="btn btn-default" value="수정하기" onclick="location.href='<%=request.getContextPath()%>/noticeUpdate?noticeNo=<%=nb.getNo()%>'"/>
+                <input type="button" class="btn btn-default" value="삭제하기" onclick="location.href='<%=request.getContextPath()%>/noticeDelete?noticeNo=<%=nb.getNo() %>'"/>
             </th>
         </tr>
+        <%} %>
        
     </table>
     </section>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <%@ include file="/views/common/footer.jsp" %>

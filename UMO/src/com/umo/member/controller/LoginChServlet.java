@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.umo.member.model.service.MemberService;
 import com.umo.model.vo.Member;
-import com.umo.service.MemberService;
 
 /**
  * Servlet implementation class LoginhServlet
@@ -36,11 +36,15 @@ public class LoginChServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		String id=request.getParameter("userId");
+<<<<<<< HEAD
 		String pw=request.getParameter("pw");
 		System.out.println(id+pw);
 		
 		
 		
+=======
+		String pw=request.getParameter("password");
+>>>>>>> refs/remotes/origin/master
 		String saveId=request.getParameter("saveId");
 		
 		MemberService ms=new MemberService();
@@ -69,10 +73,14 @@ public class LoginChServlet extends HttpServlet {
 			response.sendRedirect(request.getContextPath());
 			
 			}else {
+<<<<<<< HEAD
 				
 				
 				msg="µî·ÏµÇÁö¾ÊÀº È¸¿øÀÔ´Ï´Ù.";
 				
+=======
+				msg="ï¿½ï¿½Ïµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½Ô´Ï´ï¿½.";
+>>>>>>> refs/remotes/origin/master
 			   view="views/common/msg.jsp";
 			   request.setAttribute("msg", msg);
 			   request.setAttribute("loc", loc);

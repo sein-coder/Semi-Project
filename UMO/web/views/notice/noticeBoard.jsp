@@ -8,26 +8,28 @@
 <%@ include file="/views/common/header.jsp" %>
 <style>
 section#notice-container {
-	width: 600px;
+	/* width: 600px;
 	height: 500px;
 	margin: 0 auto;
 	text-align: center;
-	margin-top: 150px;
+	margin-top: 150px; */
 }
 
 section#notice-container th {
 	text-align: center;
 }
-section#notice-container h2{margin:10px 0;}
+section#notice-container h2{margin:10px 0; text-align: center;}
 div#btn-add{float:right; margin: 0 0 15px;}
 </style>
-<section id="notice-container">
+<section id="notice-container" style="margin-top:6.3%;padding:5% 5% 5% 5%;">
 	<h2>공지사항</h2>
-	
+	 
+	<%if(loginMember!=null&&loginMember.getMemberId().equals("admin")){ %>
 	<div class="btn-group btn-group-sm"  id="btn-add">
 		<input type="button" class="btn btn-default" value="글쓰기"
 			onclick="location.href='<%=request.getContextPath()%>/noticeWrite'"/>
 	</div>
+	<%} %>
 	<table class="table table-striped table-bordered table-hover">
 		<thead>
 			<tr>
@@ -63,14 +65,12 @@ div#btn-add{float:right; margin: 0 0 15px;}
 			}
 		%>
 	</table>
-	<nav>
+	<nav style="text-align: center;">
 		<ul class="pagination">
 			<%=request.getAttribute("pageBar")%>
 		</ul>
 	</nav>
 </section>
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
 <%@ include file="/views/common/footer.jsp" %>

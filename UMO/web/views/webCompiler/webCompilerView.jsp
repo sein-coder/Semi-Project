@@ -1,3 +1,4 @@
+<%@page import="com.umo.model.vo.Inquery"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -12,16 +13,19 @@
 		section#webCompiler-container{ width: 100%; text-align: center; margin-bottom: 20px;}
 		section#webCompiler-container textarea#inputcode{ resize: none; width: 730px; font-size: 25px; margin-left: auto; margin-right: auto;}
 		div#language-container { text-align:left; margin-right: 62%; margin-left: 31%; margin-top: 7%;}
-		select#language-choice { position: relative; margin-left: auto; font-size: 18px; }
+		select#language-choice { position: relative; margin-top: 5px; margin-left: auto; padding-top: 5px; padding-bottom: 5px;}
 		select#language-choice option { font-size: 18px; }
-		input#btn-compiler{ font-size: 20px; color: red; padding-left: 16%; padding-right: 16%;}
+		button#btn-compiler{ font-size: 20px; color: red; padding-left: 15%; padding-right: 15%;}
 		div.title { font-size: 1.67em; font-weight: bold; text-align: center; }
-	    div#editor,div#result { margin-top:20px; margin-left: auto; margin-right: auto; font-size: 15px; height: 500px; width: 750px;}
+	    div#editor,div#result { margin-top:20px; margin-left: auto; margin-right: auto; font-size: 15px; height:300px; width: 700px; border: 1px solid black;}
 	    .as-console-wrapper { display: none !important; }
 	    div.result { text-align: left; margin-left: 30%;}
+	    div.ace_scroller { width: 680px; }
+	    button#question { position: absolute; top: 10em; right: 38.5em; }
 	</style>
 	
 	<section id="webCompiler-container">
+		<button id="question" onclick="fn_question()">질의하기</button>
 		<form action="<%= request.getContextPath() %>/webCompiler/codeInput" method="post">
 		<div id="language-container">
 		언어 선택 :
@@ -36,25 +40,46 @@
   		<div id="editor"></div>
 		<br>
 		<input type="hidden" id="inputCode" name="inputCode" value="">
-		
+				
 		</form>
-		<button id="btn" onclick="compile();">C o m p i l e r</button>
+		<button id="btn-compiler" onclick="compile();">C o m p i l e r</button>
+		<input type="hidden" id="outputCode" name="outputCode" value="">
+		
 		<div id="result" class="result" style="display: none;"></div>
 	</section>
 	<script>
+	//question button event
+		function fn_question() {
+			if($("#result").css("display") == "none") {
+				alert("컴파일 후에 질의할 수 있습니다.");
+			}
+			else if($("#result").css("display") == "block" && <%= request.getAttribute("Board_No") != null %>){
+    			location.href="<%=request.getContextPath()%>/inquery/inqueryUpdate?inputCode="+encodeURI($('#inputCode').val())+"&outputCode="+encodeURI($('#outputCode').val())+"&type="+$('#language-choice').val()+'&Board_No=<%=request.getAttribute("Board_No")%>&flag='+true;
+			//encodeURI(문자열) : 특수문자가 포함된 문자열 인코딩처리
+			}
+			else if($("#result").css("display") == "block"){
+    			location.href="<%=request.getContextPath()%>/inquery/inqueryWrite?inputCode="+encodeURI($('#inputCode').val())+"&outputCode="+encodeURI($('#outputCode').val())+"&type="+$('#language-choice').val();
+			//encodeURI(문자열) : 특수문자가 포함된 문자열 인코딩처리
+			}
+		}
 	//Ace Editor Logic
 		var editor = ace.edit('editor');
-		var code = 'public class Test {public static void main(String[] args) throws Exception {System.out.print("Hello world");}}';
+		var code = "";
+		if(<%=request.getAttribute("Board_No")%>!=null){
+			code = '<%= request.getAttribute("inputCode") %>'
+		}
+		else {
+			code = 'public class Test {public static void main(String[] args) throws Exception {System.out.print("Hello world");}}';
+		}
 	    var inputCode = $("#inputCode");
 	    inputCode.val(code);
-	    var result = "";
 		var jsbOpts = {
 	        indent_size : 4
 	    };
 	
 	    editor.setTheme("ace/theme/monokai");
 	    editor.getSession().setMode("ace/mode/java");
-	    syncEditor();
+	    editor.getSession().setValue(code);
 	    commitChanges();
 	    
 	    var resulteditor = ace.edit('result');
@@ -64,9 +89,6 @@
 	    setTimeout(formatCode, 500); // Format sample Java after 1 second.
 	
 	    // Functions
-	    function syncEditor() {
-	    	editor.getSession().setValue(code);
-	    }
 	    function commitChanges() {
 	    	inputCode.val(editor.getSession().getValue());
 	    }
@@ -74,6 +96,7 @@
 	    	var session = editor.getSession();
 	    	session.setValue(js_beautify(session.getValue(), jsbOpts));
 	    }
+	    
     //언어선택시 Editor화면 전환
 	    $(function(){
 			$("#language-choice").change(function(){
@@ -86,12 +109,14 @@
 			});
 			
 			$("#editor").keyup(function(){
-				commitChanges();				
+				commitChanges();
 			});
 		});
     
-    	function compile(){
-    		console.log($("#inputCode").val());
+    	function compile(){ //onload, 페이지로딩시 바로 실행되는 함수
+    		var h = 0;
+    		var result = "";
+    		formatCode();
     		$.ajax({
     			url:"<%=request.getContextPath()%>/webCompiler/codeInput",
 				type:"post", //get이든 post든 무상관
@@ -102,16 +127,20 @@
 					if($("#result").css("display") == "none") {
 						$("#result").show('slow');
 						$("html").animate({scrollTop : ($("#result").offset().top)}, 500);
+					}else{
+						$("html").animate({scrollTop : ($("#result").offset().top)}, 500);
 					}
 					var CodeResult = data.substring(1,data.length-1).split(",");
 					for(var i = 0 ; i<CodeResult.length-1; i++){
 						result += CodeResult[i].split(",")+"\n";
 					}
 					resulteditor.getSession().setValue(result);
+					$("#outputCode").val(resulteditor.getSession().getValue());
+		    		resulteditor.setReadOnly(true);
 				}
     		});
     	}
-    
+
 	</script>
 
 <%@ include file = "/views/common/footer.jsp" %>

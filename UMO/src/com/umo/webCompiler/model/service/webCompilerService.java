@@ -27,16 +27,19 @@ public class webCompilerService {
 		try {			
 			Process compilepro = Runtime.getRuntime().exec("javac "+f.getPath());
 			
-			files.add(recordFile(compilepro,"compile_message",path));
+			files.add(recordFile(compilepro,"compile_message",path,"$javac "+fileName+".java"));
 			files.add(recordFile(compilepro,"compile_error_message",path));
 			//execute시작
 			
-			Thread.sleep(1000);
+			f.delete();
 			
-			if(new File(f.getParent()+"/"+fileName+".class").exists()) {				
+			Thread.sleep(1000);
+			File excutefile = new File(f.getParent()+"/"+fileName+".class");
+			if(excutefile.exists()) {				
 				Process executepro = Runtime.getRuntime().exec("java "+fileName, null, new File(f.getParent()));	
-				files.add(recordFile(executepro,"execute_message",path));
+				files.add(recordFile(executepro,"execute_message",path,"$java "+fileName));
 				files.add(recordFile(executepro,"execute_error_message",path));
+				excutefile.delete();
 			}
 		}
 		catch (Exception e) {
