@@ -15,7 +15,7 @@ import java.util.Properties;
 import com.umo.model.vo.BoardComment;
 import com.umo.model.vo.NoticeBoard;
 
-//ë°˜ë³„ ê²Œì‹œ?Œ DB? ‘?†
+//ë°˜ë³„ ê²Œì‹œ?ï¿½ï¿½ DB?ï¿½ï¿½?ï¿½ï¿½
 public class NoticeBoardDao {
 
 	private Properties prop = new Properties();
@@ -33,7 +33,7 @@ public class NoticeBoardDao {
 
 	}
 
-	// ê³µì??‚¬?•­ ? „ì²? ê¸? ê°??ˆ˜
+	// ê³µï¿½??ï¿½ï¿½?ï¿½ï¿½ ?ï¿½ï¿½ï¿½? ï¿½? ï¿½??ï¿½ï¿½
 	public int countNoticeList(Connection conn) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -55,7 +55,7 @@ public class NoticeBoardDao {
 
 	}
 
-	// ê³µì??‚¬?•­ ? „ì²? ë¦¬ìŠ¤?Š¸ ë¶ˆëŸ¬?˜¤ê¸?
+	// ê³µï¿½??ï¿½ï¿½?ï¿½ï¿½ ?ï¿½ï¿½ï¿½? ë¦¬ìŠ¤?ï¿½ï¿½ ë¶ˆëŸ¬?ï¿½ï¿½ï¿½?
 	public List<NoticeBoard> selectNoticeBoardList(Connection conn, int cPage, int numPerPage) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -89,17 +89,12 @@ public class NoticeBoardDao {
 		return list;
 	}
 
-	// ê³µì??‚¬?•­ ?‚´?š© ë¶ˆëŸ¬?˜¤ê¸?
+	// ê³µï¿½??ï¿½ï¿½?ï¿½ï¿½ ?ï¿½ï¿½?ï¿½ï¿½ ë¶ˆëŸ¬?ï¿½ï¿½ï¿½?
 	public NoticeBoard noticeBoardContent(Connection conn, int no) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		NoticeBoard nb = new NoticeBoard();
 		String sql = prop.getProperty("noticeBoardContent");
-		
-<<<<<<< HEAD
-		System.out.println("ê³µì??‚¬?•­ ?‚´?š© sql"+sql);
-=======
->>>>>>> refs/remotes/origin/purum
 
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -126,17 +121,11 @@ public class NoticeBoardDao {
 
 	}
 
-	// ?ƒˆë¡œìš´ ê³µì? ?‘?„±
+	// ?ï¿½ï¿½ë¡œìš´ ê³µï¿½? ?ï¿½ï¿½?ï¿½ï¿½
 	public int noticeWrite(Connection conn, NoticeBoard nb) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String sql = prop.getProperty("noticeWrite");
-		
-<<<<<<< HEAD
-		System.out.println("sql?™•?¸"+sql);
-
-=======
->>>>>>> refs/remotes/origin/purum
 		try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, nb.getWriter());
@@ -154,7 +143,7 @@ public class NoticeBoardDao {
 		return result;
     	
 	}
-	//ë§ˆì?ë§‰ì— ?‘?„±?•œ ê³µì??‚¬?•­ ê¸? ë²ˆí˜¸ ë¶ˆëŸ¬?˜¤ê¸?
+	//ë§ˆï¿½?ë§‰ì— ?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ ê³µï¿½??ï¿½ï¿½?ï¿½ï¿½ ï¿½? ë²ˆí˜¸ ë¶ˆëŸ¬?ï¿½ï¿½ï¿½?
 	public int lastNoticeContentNo(Connection conn,String writer) {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -177,7 +166,7 @@ public class NoticeBoardDao {
 		return no;
 
 	}
-	//ê³µì?ê¸? ?‚­? œ?•˜ê¸?
+	//ê³µï¿½?ï¿½? ?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ï¿½?
 	public int noticeUpdate(Connection conn,NoticeBoard nb) {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
