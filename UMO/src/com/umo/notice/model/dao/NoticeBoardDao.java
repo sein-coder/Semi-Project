@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+
+import com.umo.model.vo.BoardComment;
 import com.umo.model.vo.NoticeBoard;
 
 //반별 게시판 DB접속
@@ -94,7 +96,6 @@ public class NoticeBoardDao {
 		NoticeBoard nb = new NoticeBoard();
 		String sql = prop.getProperty("noticeBoardContent");
 		
-		System.out.println("공지사항 내용 sql"+sql);
 
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -110,7 +111,6 @@ public class NoticeBoardDao {
 				nb.setDate(rs.getDate("Notice_date"));
 				nb.setCount(rs.getInt("Notice_count"));
 				nb.setWriting_status(rs.getString("writing_status").charAt(0));
-				System.out.println(nb);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -128,8 +128,6 @@ public class NoticeBoardDao {
 		int result = 0;
 		String sql = prop.getProperty("noticeWrite");
 		
-		System.out.println("sql확인"+sql);
-
 		try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, nb.getWriter());
@@ -180,7 +178,7 @@ public class NoticeBoardDao {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, nb.getTitle());
 			pstmt.setString(2, nb.getContent());
-			pstmt.setString(3, nb.getRenamed_filename());
+			pstmt.setString(3, nb.getOriginal_filename());
 			pstmt.setInt(4, nb.getNo());
 			result=pstmt.executeUpdate();
 			
@@ -195,5 +193,115 @@ public class NoticeBoardDao {
 		
 		
 	}
-
+	public List<BoardComment> selectnoticeBoardComment(Connection conn,int no){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<BoardComment> list=new ArrayList();
+		String sql=prop.getProperty("selectnoticeBoardComment");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				BoardComment bc=new BoardComment();
+				bc.setBoardCommentNo(rs.getInt("comment_no"));
+				bc.setBoardCommentWriter(rs.getString("comment_writer"));
+				bc.setBoardCommentContent(rs.getString("comment_contents"));
+				bc.setBoardCommentDate(rs.getDate("comment_date"));
+				bc.setBoardRef(rs.getInt("board_no_ref"));
+				bc.setBoardCommentLevel(rs.getInt("comment_level"));
+				bc.setBoardCommentRef(rs.getInt("comment_refno"));
+				list.add(bc);
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return list;
+	}
+	public int deletenoticeBoardComment(Connection conn,int no){
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("deletenoticeBoardComment");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
+	public int updateReadCount(Connection conn,int no) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("updateReadCount");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			result=pstmt.executeUpdate();
+			
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+		
+		
+	}
+	public int insertnoticeBoardComment(Connection conn,BoardComment bc) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("insertNoticeBoardComment");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, bc.getBoardCommentWriter());
+			pstmt.setString(2, bc.getBoardCommentContent());
+			pstmt.setInt(3, bc.getBoardRef());
+			pstmt.setInt(4, bc.getBoardCommentLevel());
+			pstmt.setString(5, bc.getBoardCommentRef()==0?null:String.valueOf(bc.getBoardCommentRef()));
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			
+		}return result;
+		
+	}
+	public int deleteNoticeBoardComment(Connection conn,int no){
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("deleteNoticeBoardComment");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
+	public int noticeDelete(Connection conn,int no)
+	{
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("noticeDelete");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1,no);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e)
+		{e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	
+}
 }

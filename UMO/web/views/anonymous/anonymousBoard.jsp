@@ -30,11 +30,13 @@
 			<td><a
 				href="<%=request.getContextPath()%>/anonymousContentView?anonymousNo=<%=b.getNo()%>"><%=b.getTitle()%></a></td>
 			<td>
-				<%
-					if (b.getRenamed_filename() != null) {
-				%> <img
-				src="<%=request.getContextPath()%>/images/file/png" width="16px" />
-				<%
+				<%if(b.getRenamed_filename()!=null) {%>
+				 <img src="<%=request.getContextPath()%>/images/file.png"
+					width="16px" />
+					<%
+				}else if (b.getOriginal_filename() != null) {
+				%> <img src="<%=request.getContextPath()%>/images/file.png"
+					width="16px" /> <%
 					}
 				%>
 			</td>

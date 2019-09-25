@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.umo.model.vo.NoticeBoard" %>
+<%@ page import="com.umo.model.vo.Board" %>
 
 <% 
-     NoticeBoard nb=(NoticeBoard)request.getAttribute("nb");
+     Board nb=(Board)request.getAttribute("nb");
      String content=nb.getContent();
      content=content.replace("<br>", "\r\n");
 %>
@@ -17,8 +17,8 @@
         <div class="col-lg-2"></div>
 	<div class="col-lg-8">
 		<section id="notice-container">
-			<h2 style="text-align: center;">공지사항</h2>
-			<form action="<%=request.getContextPath()%>/noticeUpdateEnd?no=<%=nb.getNo() %>" method="post" enctype="multipart/form-data">
+			<h2 style="text-align: center;">자유게시판</h2>
+			<form action="<%=request.getContextPath()%>/anonymousUpdateEnd?no=<%=nb.getNo() %>" method="post" enctype="multipart/form-data">
 				<input type="hidden" name="noticeNo" value="<%=nb.getNo()%>">
 				<table id="tbl-notice"
 					class="table table-striped table-bordered table-hover">

@@ -16,7 +16,7 @@
     </style> 
    <section id="notice-container">
    <%@ include file="/views/common/header.jsp" %>
-   <h2>공지사항</h2>
+   <h2>자유게시판</h2>
         <table id="tbl-notice" class="table table-striped table-bordered table-hover">
         <tr>
             <th>제 목</th>
@@ -29,8 +29,12 @@
         <tr>
             <th>첨부파일</th>
             <td>
-            <%if(fb.getRenamed_filename()!=null) {%>
+           <%if(fb.getRenamed_filename()!=null) {%>
                          <a href="<%=request.getContextPath()%>/free/fileDown?fileName=<%=fb.getRenamed_filename() %>">
+						<img src="<%=request.getContextPath()%>/images/file.png"
+						width="16px"/></a>
+					<%}else if(fb.getOriginal_filename()!=null){ %>
+					<a href="<%=request.getContextPath()%>/free/fileDown?fileName=<%=fb.getOriginal_filename() %>">
 						<img src="<%=request.getContextPath()%>/images/file.png"
 						width="16px"/></a>
 					<%} %>
@@ -43,8 +47,8 @@
         <%if(loginMember!=null){ %>
         <tr>
             <th colspan="2">
-                <input type="button" class="btn btn-default" value="수정하기" onclick="location.href='<%=request.getContextPath()%>/freeUpdate?noticeNo=<%=fb.getNo()%>'"/>
-                <input type="button" class="btn btn-default" value="삭제하기" onclick="location.href='<%=request.getContextPath()%>/freeDelete?noticeNo=<%=fb.getNo() %>'"/>
+                <input type="button" class="btn btn-default" value="수정하기" onclick="location.href='<%=request.getContextPath()%>/freeUpdate?freeNo=<%=fb.getNo()%>'"/>
+                <input type="button" class="btn btn-default" value="삭제하기" onclick="location.href='<%=request.getContextPath()%>/freeDelete?freeNo=<%=fb.getNo() %>'"/>
             </th>
         </tr>
         <%} %>

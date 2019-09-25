@@ -160,4 +160,28 @@ public class AnonymousBoardDao {
 		return no;
 
 	}
+	public int anonymousUpdate(Connection conn,NoticeBoard nb) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int result=0;
+		String sql=prop.getProperty("anonymousUpdate");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, nb.getTitle());
+			pstmt.setString(2, nb.getContent());
+			pstmt.setString(3, nb.getOriginal_filename());
+			pstmt.setInt(4, nb.getNo());
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+
+		return result;
+		
+		
+	}
 }
