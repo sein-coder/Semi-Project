@@ -1,10 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.umo.model.vo.Member"%>
+<script src="<%=request.getContextPath() %>/js/jquery-3.4.1.min.js"></script>
+<%Member m=(Member)request.getAttribute("member");
 
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 
-<script type="text/javascript" src="<%=request.getContextPath() %>/js/placeholder.js"></script>
+%>
+ <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+
 <head>
 <style>
 
@@ -15,7 +19,7 @@ body {
 	font-family: sans-serif;
 	width:100%;
 	height:100%;
-	background-color: seashell;
+	background-color: F0F8FF;
 	/* border:2px solid blue; */
 	/* line-height: 2; */
 	padding-top:15%;
@@ -28,10 +32,11 @@ margin-left:23%;
 padding-right:3%;
 margin-top:10%;
 margin-bottom: 300px;
-border:4px solid green;
+border:4px solid  mintcream;
 width:50%;
 height:85%;
 text-align:center;
+overflow:hidden;
 
 }
 
@@ -40,10 +45,10 @@ text-align:center;
 	height: 155px;
 	/* position: absolute; */
 	
-	display:inline-block;
+
 	
 	
-margin:15% 0 20% 18%;
+margin:15% 0 20% 28%;
 	
 }
 
@@ -54,7 +59,7 @@ margin:15% 0 20% 18%;
 }
 
 .placeholder {
-    color: #444;
+    color: green;
 }
 
 #slick-login input[type="text"],#slick-login input[type="password"] {
@@ -63,9 +68,9 @@ margin:15% 0 20% 18%;
 	position: relative;
 	margin-top: 10px;
 	font-size: 16px;
+
 	
-	
-	border: 1px solid rgba(0, 0, 0, .49);
+	border: 1px solid dashed;
 
 	padding-left: 10px;
 	
@@ -106,19 +111,43 @@ margin:15% 0 20% 18%;
 
 	<div id="loginscreen">
    
-<form id="slick-login" method="post" >
+<form id="slick-login" name="login" method="post"  >
 <h1 >로그인</h1>
 <label for="id">아이디</label><input type="text" name="userId" class="placeholder" placeholder="아이디작성하세요">
-<label for="password">password</label><input type="password" name="password" class="placeholder" placeholder="password">
-<input type="submit" value="Log In" style="margin-top:13px;" formaction="<%=request.getContextPath()%>/loginCh?">
+<label for="password">password</label><input type="password" name="pw" class="placeholder" placeholder="password">
+<input type="submit" id="logcheck" value="Log In" style="margin-top:13px;" onclick="return logincheck();"  formaction="<%=request.getContextPath()%>/loginCh?"  >
 
-<input type="submit" id="hweonJoin"  onclick="memberJoin()" value="회원가입" formaction="<%=request.getContextPath()%>/memberJoin">
+<input type="submit" id="hweonJoin"   value="회원가입" formaction="<%=request.getContextPath()%>/memberJoin">
 
 </form>
-
+ 
 </div>
 
+<script>
+ 
+var id=$("input[name='userId']");
+var pw=$("input[name='password']");
 
+function logincheck(){
+if(id.val().length<4||id.val().length>11)
+	{
+	alert("4자이상입력 11자이하입력");
+	
+	return false;
+	}
+
+
+	if(pw.val().length<6||pw.val().length>15)
+		{
+		alert("비밀번호6글자이상입력 15글자이하입력");
+		return false;
+		}
+	
+	
+	
+}
+
+</script>
 
 		
 </body>

@@ -14,7 +14,7 @@ import com.umo.service.MemberService;
 /**
  * Servlet implementation class MemberJoinEndServlet
  */
-@WebServlet("/memberJoinEnd")
+@WebServlet(name="MemberJoinEnd", urlPatterns="/memberJoinEnd")
 public class MemberJoinEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -33,7 +33,7 @@ public class MemberJoinEndServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		String id=request.getParameter("id");
-		String pw=request.getParameter("password");
+		String pw=request.getParameter("pw");
 		String name=request.getParameter("name");
 		String email=request.getParameter("email");
 		String phone=request.getParameter("phone");
@@ -45,6 +45,11 @@ public class MemberJoinEndServlet extends HttpServlet {
 		int result=new MemberService().registMember(m);
 		String msg=result>0?"가입완료":"가입실패";
 		String loc="/";
+		if(result>0) {
+		loc="/";	
+		}else {
+			loc="/views/member/memberJoin.jsp";
+		}
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc",loc);
 		request.getRequestDispatcher("views/common/msg.jsp")

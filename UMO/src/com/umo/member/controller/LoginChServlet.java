@@ -17,7 +17,7 @@ import com.umo.service.MemberService;
 /**
  * Servlet implementation class LoginhServlet
  */
-@WebServlet("/loginCh")
+@WebServlet(name="LoginChServlet", urlPatterns="/loginCh")
 public class LoginChServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -34,9 +34,13 @@ public class LoginChServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		request.setCharacterEncoding("UTF-8");
 		String id=request.getParameter("userId");
-		String pw=request.getParameter("password");
+		String pw=request.getParameter("pw");
 		System.out.println(id+pw);
+		
+		
+		
 		String saveId=request.getParameter("saveId");
 		
 		MemberService ms=new MemberService();
@@ -50,6 +54,7 @@ public class LoginChServlet extends HttpServlet {
 			
 			HttpSession session=request.getSession();
 			session.setAttribute("loginMember", m);
+			
 			if(saveId!=null)
 			{
 				Cookie c=new Cookie("saveId",id);
@@ -57,14 +62,17 @@ public class LoginChServlet extends HttpServlet {
 				response.addCookie(c);
 			}else {
 				Cookie c=new Cookie("saveId",id);
-				c.setMaxAge(0);
+				c.setMaxAge(10);
 				response.addCookie(c);
 			}
 			view="/";
 			response.sendRedirect(request.getContextPath());
 			
 			}else {
+				
+				
 				msg="등록되지않은 회원입니다.";
+				
 			   view="views/common/msg.jsp";
 			   request.setAttribute("msg", msg);
 			   request.setAttribute("loc", loc);
