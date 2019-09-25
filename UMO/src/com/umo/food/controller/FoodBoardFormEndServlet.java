@@ -67,8 +67,12 @@ public class FoodBoardFormEndServlet extends HttpServlet {
 		int grade=Integer.parseInt(mr.getParameter("grade"));
 		String road_address=mr.getParameter("road_address");
 
-		System.out.println(thumnail);
-
+		String ori_file = mr.getParameter("ori_file");
+		String renamed_file = mr.getParameter("renamed_file");
+		
+		System.out.println("servlet:"+ori_file);
+		System.out.println("servlet:"+renamed_file);
+		
 		Food f = new Food();
 		//사진
 		f.setBoard_Thumbnail(thumnail);

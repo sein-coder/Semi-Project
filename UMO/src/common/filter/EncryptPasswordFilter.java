@@ -46,7 +46,6 @@ public class EncryptPasswordFilter extends HttpServletRequestWrapper  {
 		{
 		value=getEncryptPw(super.getParameter(key));
 			
-			
 		}else {
 			value=super.getParameter(key);
 			

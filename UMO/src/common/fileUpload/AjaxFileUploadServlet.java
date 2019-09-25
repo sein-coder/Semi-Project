@@ -1,6 +1,7 @@
 package common.fileUpload;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -41,23 +42,37 @@ public class AjaxFileUploadServlet extends HttpServlet {
 		}
 		
 		//저장경로
-		String path = getServletContext().getRealPath("/upload");
+		
+		String root = getServletContext().getRealPath("/");
+		
+		String saveDir = root+"/upload/food/content";
 		//크기
 		int maxSize = 1024*1024*100;
-		MultipartRequest mr = new MultipartRequest(request, path, maxSize, "UTF-8", new DefaultFileRenamePolicy());
 		
-		List<String> fileNames = new ArrayList();
+		MultipartRequest mr = new MultipartRequest(request, saveDir, maxSize, "UTF-8", new DefaultFileRenamePolicy());
 		
-		Enumeration<String> e = mr.getFileNames();
-		while(e.hasMoreElements()) {
-			fileNames.add(mr.getFilesystemName(e.nextElement()));
+		String originalFilenames = "";
+		String renamedFilenames = "";
+		
+		Enumeration<String> orie = mr.getFileNames();
+		Enumeration<String> renamee = mr.getFileNames();
+		
+		while(orie.hasMoreElements()) {
+			originalFilenames+=mr.getOriginalFileName(orie.nextElement())+",";
 		}
-		System.out.println("ajax시작");
-		for(String str : fileNames) {
-			System.out.println(str);
-		}
-		System.out.println("ajax끝");
 		
+		while(renamee.hasMoreElements()) {
+			renamedFilenames+=mr.getFilesystemName(renamee.nextElement())+",";
+		}
+		
+		originalFilenames = originalFilenames.substring(0, originalFilenames.length()-1);
+		renamedFilenames = renamedFilenames.substring(0, renamedFilenames.length()-1);
+	
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		out.append(originalFilenames);
+		out.append("/");
+		out.append(renamedFilenames);
 	}
 
 	/**

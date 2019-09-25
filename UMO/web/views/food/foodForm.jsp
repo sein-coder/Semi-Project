@@ -45,11 +45,12 @@
 </style>
 <section>
 	<form id="frm" action ="<%=request.getContextPath() %>/board/boardFormEnd" method="post" enctype="multipart/form-data">
-	<input type="hidden" name="writer" value="<%=loginMember!=null?loginMember.getMemberId():""%>"> 
+	<input type="hidden" name="writer" value="<%=loginMember!=null?loginMember.getMemberId():""%>">
 	<div>
-		<div id="thumnail" style="margin-left:auto; margin-right:auto; margin-top:300px; width: 200px; height: 200px; border: 1px solid red;">
-			<input style="margin-top: 80px;" type="file" id="thumnail_select" name="thumnail_select">
+		<div id="thumnail" style="margin-left:auto; margin-right:auto; margin-top:100px; width: 600px; height: 400px; border: 1px solid red;">
+			<img id="thumnail_image" src="<%=request.getContextPath()%>/images/foodpoint/noimg.png" >
 		</div>
+		<input style="margin-left: auto; margin-right: auto;" id="thumnail_select" name="thumnail_select" type="file">
 		<table id="big-table">
 			<tr>
 				<th style="background-color:black;">  	
@@ -60,6 +61,9 @@
 						<img id="img0" style="width: 300px; height:200px" src="<%=request.getContextPath()%>/images/foodpoint/noimg.png">
 						<img id="img1" style="width: 300px; height:200px" src="<%=request.getContextPath()%>/images/foodpoint/noimg.png"> 
 						<img id="img2" style="width: 300px; height:200px" src="<%=request.getContextPath()%>/images/foodpoint/noimg.png">
+						<!-- 다중 이미지 파일명 저장용 -->
+						<input id="ori_file" type="hidden" name="ori_file" value="a">
+						<input id="renamed_file" type="hidden" name="renamed_file" value="b">
 					</div>
 				</th>
 				<th style="background-color:white;">
@@ -95,7 +99,7 @@
 									<input type="radio" id="bills" name="bills" value="5,000~10,000"/>5,000~10,000<br>
 									<input type="radio" id="bills" name="bills" value="10,000~15,000"/>10,000~15,000<br>
 									<input type="radio" id="bills" name="bills" value="15,000~20,000"/>15,000~20,000<br>
-									<input type="radio" id="bills" name="bills" value="20,000~"/>20,000~<br>
+									<input type="radio" id="bills" name="bills" value="20,000~25,000"/>20,000~25,000<br>
 									<input type="radio" id="bills" name="bills" value="25,000~"/>25,000~<br>
 								</td>
 							
@@ -146,7 +150,8 @@
 							</tr>
 							<tr>
 								<td>
-									<input id="savebutton" type="submit" value="완료" style="margin-left: 40%; display:inline;" />
+									<input id="savebutton" type="button" value="완료" style="margin-left: 40%;" onclick="form_validation();">
+									<input id="savebutton" type="submit" value="완료" style="margin-left: 40%;">
 									<input type="button" value="취소"  id="btn_cancel;" onclick="location.href='<%=request.getContextPath()%>/food/foodList'"/>
 								</td>
 							</tr>
@@ -166,7 +171,7 @@
 	 fCreator: "createSEditor2"
 	});
 
-	$("#savebutton").click(function(){ 
+	function form_validation() {
 		oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []); 
 		
 		var fd = new FormData();
@@ -181,12 +186,19 @@
 			processData: false,
 			contentType:false,
 			success : function(data){
-				console.log(data);
+				alert("실행");
+				$("#ori_file").val(data.split("/")[0]);
+				$("#renamed_file").val(data.split("/")[1]);
+				
+				alert($("#ori_file").val());
+				alert($("#renamed_file").val());
+				
+				$("#frm").submit();
+			},
+			error : function(request,status,error){
 			}
 		});
-
-		$("#frm").submit(); 
-	});
+	}
 
 	// textArea에 이미지 첨부
 	function pasteHTML(filepath){
@@ -196,14 +208,13 @@
 	
 	//썸네일 이미지 부분
 	$("#thumnail_select").change(function(){
-		/* $(this).hide(); */
+		$("#thumnail_select").hide();
 		var reader = new FileReader();
 		reader.onload = function(e){
-			var img = $("<img>").attr({"src":e.target.result}).css({"width":"200px","height":"200px"});
-			$("#thumnail").html(img); 
-			//e.target.result 안에 변경된 url데이터가 저장되어있다.
+			$("#thumnail_image").attr({"src":e.target.result}).css({"width":"600px","height":"400px"});
 		}
 		reader.readAsDataURL($(this)[0].files[0]); //파일리더가 파일을 읽어들여온다.
+
 	});
 	
 	//상단 이미지 부분
@@ -239,6 +250,9 @@
 			reader.readAsDataURL(item);
 			console.log(item);
 		});
+		
+		/* form_validation(); */
+		
 	});
 			
 	$("#downfile").on("click",function(){

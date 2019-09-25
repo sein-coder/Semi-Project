@@ -13,27 +13,10 @@
 	<style>
 		section#foodview-container{margin-top: 150px;margin-left: auto;margin-right: auto;align:center;width:100%;}
 		div#div-container{margin-left:auto; margin-right: auto; }
-		
-		table#big-table {
-		border: 2px solid goldenrod;
-		margin-top: 10%;
-		margin-left: auto;
-		margin-right: auto;
-		border-spacing: 0px;
-		}
-
-	table#sml-table {
-		border: 2px solid goldenrod;
-		margin-left: auto;
-		margin-right: auto;
-		border-spacing: 50px 20px;
-		width: 1000px;
-		height: 100px;
-	}
-	span{font-size:20px;}
-	
+		table#big-table {border: 2px solid goldenrod; margin-top:5px; margin-left: auto;margin-right: auto;border-spacing: 0px;}
+		table#sml-table {border: 2px solid goldenrod; margin-left: auto;margin-right: auto;border-spacing: 50px 20px; width: 1000px; height: 100px; }
+		span{font-size:20px;}
 	</style>
-	
 	<style>
 	table#tbl-comment{width:580px; margin:0 auto; border-collapse:collapse; clear:both;} 
 	table#tbl-comment tr td{border-bottom:1px solid; border-top:1px solid; padding:5px; text-align:left; line-height:100%;}
@@ -54,8 +37,8 @@
 	<input type="hidden" name="writer" value="<%=loginMember!=null?loginMember.getMemberId():""%>"> 
 	
 	<div id="div-container">
-		<div id="thumnail" style="margin-left:auto; margin-right:auto; margin-top:300px; width: 200px; height: 200px; border: 1px solid red;">
-			<img src="<%= f.getBoard_Thumbnail() %>">
+		<div id="thumnail" style="margin-left:auto; margin-right:auto; margin-top:200px; width: 600px; height: 400px; border: 1px solid red;">
+			<img src="<%=request.getContextPath() %>/upload/food/<%= f.getBoard_Thumbnail() %>" style="width: 600px; height: 400px" >
 		</div>
 		<table id="big-table">
 		
@@ -226,7 +209,8 @@
 	</section> -->
 
 	<script>
-
+	var foodpic=[];
+	
 	var count = 0;//시작값
 	$("#img-back").click(function(){
 		count+=1;//초기값에 +1
@@ -240,55 +224,9 @@
 		$("#img"+0).attr("src",foodpic[count%foodpic.length]);//id값이 0인곳, 속성src에 foodpic길이에서 count를 나눈나머지값이 0이면 id값이 0인 곳에 src를 바꿔주기 
 		$("#img"+1).attr("src",foodpic[(count+1)%foodpic.length]);
 		$("#img"+2).attr("src",foodpic[(count+2)%foodpic.length]);
-	});
+	});	
 	
-	//아래 사진 업로드, 파일선택 부분 코드
-	var foodpic=[];
-			
-	$("#upfile").change(function(){
-		$("#preview").html("");
-		$.each($(this)[0].files,function(i,item){
-			var reader = new FileReader();
-			reader.onload=function(e){									
-				if(i<3){
-					$("#"+i).attr({"src":e.target.result}).css({"width":"300px","height":"200px"});
-				}
-				foodpic.push(e.target.result);
-			}
-			reader.readAsDataURL(item);
-			console.log(item);
-		});
-	});
-			
-	$("#up-btn").on("click",function(){
-		var fd=new FormData();
-		$.each($("#upfile")[0].files,function(i,item){
-			fd.append("file"+i,item);
-		});
-		
-		$a.jax({
-		url:"<%=request.getContextPath()%>/ajaxFile",
-		data:fd,
-		type:"post",
-		processData:false,
-		contentType:false,
-		success:function(data){
-			console.log(data);
-			$("#preview").html("");
-			$("#upfile").val("");
-			}
-		});
-	});
-			
-	$("#downfile").on("click",function(){
-		$("#"+0).attr({"src":"<%=request.getContextPath()%>/images/foodpoint/noimg.png"});
-		$("#"+1).attr({"src":"<%=request.getContextPath()%>/images/foodpoint/noimg.png"});
-		$("#"+2).attr({"src":"<%=request.getContextPath()%>/images/foodpoint/noimg.png"});
-		foodpic=[];
-	});			
-			
-			
-		//네이버 지도
+	//네이버 지도
 
 	var mapOptions = {
 	        center: new naver.maps.LatLng(37.3595704, 127.105399), //지도의 초기 중심 좌표

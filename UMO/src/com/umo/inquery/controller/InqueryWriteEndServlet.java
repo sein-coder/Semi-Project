@@ -58,6 +58,9 @@ public class InqueryWriteEndServlet extends HttpServlet {
 		String fileName = mr.getFilesystemName("up_file");
 		String original_FileName = mr.getOriginalFileName("up_file");
 		
+		System.out.println(fileName);
+		System.out.println(mr.getFilesystemName("up_file"));
+		
 		Inquery inquery = new Inquery();
 		inquery.setBoard_Writer(board_Writer);
 		inquery.setBoard_Title(board_Title);

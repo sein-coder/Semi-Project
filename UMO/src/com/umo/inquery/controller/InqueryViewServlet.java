@@ -32,7 +32,7 @@ public class InqueryViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int Board_No = Integer.parseInt(request.getParameter("board_no"));
+		int Board_No = Integer.parseInt(request.getParameter("Board_No"));
 		
 		Inquery inquery = new InqueryService().selectBoardView(Board_No);
 		List<InqueryComment> list = new InqueryService().selectComment(Board_No);

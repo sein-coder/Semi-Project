@@ -17,7 +17,7 @@
 <style>
 	table#big-table {
 		border: 2px solid goldenrod;
-		margin-top: 10%;
+		margin-top: 5px;
 		margin-left: auto;
 		margin-right: auto;
 		border-spacing: 0px;
@@ -51,113 +51,116 @@
 	<form id="frm" action ="<%=request.getContextPath() %>/food/foodUpdateEnd?board_no=<%= f.getBoard_No() %>" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="writer" value="<%=loginMember!=null?loginMember.getMemberId():""%>"> 
 	<div>
-		<table id="big-table">
-		
-			<tr>
-				<th style="background-color:black;">  	
-					<button id="img-back" style="border:none;padding:0px;"><img src="<%=request.getContextPath()%>/images/foodpoint/back.jpg" width="50px" height="205px"></button>
-				</th> 
-				<th colspan="3" style="background-color:white;" >
-					<div id="img-container">
-						<img id="0" style="width: 300px; height:200px" src="<%=request.getContextPath()%>/images/foodpoint/noimg.png">
-						<img id="1" style="width: 300px; height:200px" src="<%=request.getContextPath()%>/images/foodpoint/noimg.png"> 
-						<img id="2" style="width: 300px; height:200px" src="<%=request.getContextPath()%>/images/foodpoint/noimg.png">
-					</div>
-				</th>
-				<th style="background-color:white;">
-					<button id="img-front" style="border: none; padding:0px 0px 0px 0px; " ><img src="<%=request.getContextPath()%>/images/foodpoint/front.jpg" width="50px" height="205px"></button>
-				</th>
-			</tr>
-			<tr>
-				<td colspan="5">
-						<input type="file" name="upfile" id="upfile" style="display:inline;" multiple /><!--multiple은 다중값으로 갖고 올수 있는 것   -->
-						<input type="button" name="downfile" id="downfile" value="사진삭제">
+	<div id="thumnail" style="margin-left:auto; margin-right:auto; margin-top:100px; width: 600px; height: 400px; border: 1px solid red;">
+		<img id="thumnail_image" src="<%=request.getContextPath()%>/upload/food/<%= f.getBoard_Thumbnail() %>" style="width: 600px; height: 400px;" >
+	</div>
+	<input style="margin-left: auto; margin-right: auto;" id="thumnail_select" name="thumnail_select" type="file">
+	<table id="big-table">
+		<tr>
+			<th style="background-color:black;">  	
+				<button id="img-back" style="border:none;padding:0px;"><img src="<%=request.getContextPath()%>/images/foodpoint/back.jpg" width="50px" height="205px"></button>
+			</th> 
+			<th colspan="3" style="background-color:white;" >
+				<div id="img-container">
+					<img id="img0" style="width: 300px; height:200px" src="<%=request.getContextPath()%>/images/foodpoint/noimg.png">
+					<img id="img1" style="width: 300px; height:200px" src="<%=request.getContextPath()%>/images/foodpoint/noimg.png"> 
+					<img id="img2" style="width: 300px; height:200px" src="<%=request.getContextPath()%>/images/foodpoint/noimg.png">
+				</div>
+			</th>
+			<th style="background-color:white;">
+				<button id="img-front" style="border: none; padding:0px 0px 0px 0px; " ><img src="<%=request.getContextPath()%>/images/foodpoint/front.jpg" width="50px" height="205px"></button>
+			</th>
+		</tr>
+		<tr>
+			<td colspan="5">
+					<input type="file" name="upfile" id="upfile" style="display:inline;" multiple /><!--multiple은 다중값으로 갖고 올수 있는 것   -->
+					<input type="button" name="downfile" id="downfile" value="사진삭제">
+					
+					<table id="sml-table">
+						<tr>
+							<td>
+								제목<input type="text" id="si" placeholder="가게상호명을 입력하세요" name="title" value="<%=f.getBoard_Title() %>"><br>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								
+								전화번호</br>
+								<input type="tel" name="tel" placeholder='02*-0000*-0000' id="si" pattern="[0-9]{2}-[0-9]{3}-[0-9]{4}" value="<%=f.getBoard_tel()%>"/><br>
+								음식종류<br>
+								<input type="radio" id="foodtype" name="foodtype" value="한식" <%=f.getBoard_foodtype()!=null&&f.getBoard_foodtype().equals("한식")?"checked":""%>/>한식
+								<input type="radio" id="foodtype" name="foodtype" value="중식" <%=f.getBoard_foodtype()!=null&&f.getBoard_foodtype().equals("중식")?"checked":""%>/>중식
+								<input type="radio" id="foodtype" name="foodtype" value="일식" <%=f.getBoard_foodtype()!=null&&f.getBoard_foodtype().equals("일식")?"checked":""%>/>일식
+								<input type="radio" id="foodtype" name="foodtype" value="분식" <%=f.getBoard_foodtype()!=null&&f.getBoard_foodtype().equals("분식")?"checked":""%>/>분식
+								<input type="radio" id="foodtype" name="foodtype" value="카페" <%=f.getBoard_foodtype()!=null&&f.getBoard_foodtype().equals("카페")?"checked":""%>/>카페
+								<input type="radio" id="foodtype" name="foodtype" value="기타" <%=f.getBoard_foodtype()!=null&&f.getBoard_foodtype().equals("기타")?"checked":""%>/>기타
+								
+								<br>
+								가격(1인기준)<br>
+								<input type="radio" id="bills" name="bills" value="~5,000" <%=f.getBoard_foodbill()!=null&&f.getBoard_foodbill().equals("~5,000")?"checked":"" %>/>~5,000<br>
+								<input type="radio" id="bills" name="bills" value="5,000~10,000" <%=f.getBoard_foodbill()!=null&&f.getBoard_foodbill().equals("5,000~10,000")?"checked":"" %>/>5,000~10,000<br>
+								<input type="radio" id="bills" name="bills" value="10,000~15,000" <%=f.getBoard_foodbill()!=null&&f.getBoard_foodbill().equals("10,000~15,000")?"checked":"" %>/>10,000~15,000<br>
+								<input type="radio" id="bills" name="bills" value="15,000~20,000" <%=f.getBoard_foodbill()!=null&&f.getBoard_foodbill().equals("20,000~20,000")?"checked":"" %>/>15,000~20,000<br>
+								<input type="radio" id="bills" name="bills" value="20,000~25,000" <%=f.getBoard_foodbill()!=null&&f.getBoard_foodbill().equals("15,000~25,000")?"checked":"" %>/>20,000~25,000<br>
+								<input type="radio" id="bills" name="bills" value="25,000~" <%=f.getBoard_foodbill()!=null&&f.getBoard_foodbill().equals("25,000~")?"checked":"" %>/>25,000~<br>
+							</td>
 						
-						<table id="sml-table">
-							<tr>
-								<td>
-									제목<input type="text" id="si" placeholder="가게상호명을 입력하세요" name="title" value="<%=f.getBoard_Title() %>"><br>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									
-									전화번호</br>
-									<input type="tel" name="tel" placeholder='02*-0000*-0000' id="si" pattern="[0-9]{2}-[0-9]{3}-[0-9]{4}" value="<%=f.getBoard_tel()%>"/><br>
-									음식종류<br>
-									<input type="radio" id="foodtype" name="foodtype" value="한식" <%=f.getBoard_foodtype()!=null&&f.getBoard_foodtype().equals("한식")?"checked":""%>/>한식
-									<input type="radio" id="foodtype" name="foodtype" value="중식" <%=f.getBoard_foodtype()!=null&&f.getBoard_foodtype().equals("중식")?"checked":""%>/>중식
-									<input type="radio" id="foodtype" name="foodtype" value="일식" <%=f.getBoard_foodtype()!=null&&f.getBoard_foodtype().equals("일식")?"checked":""%>/>일식
-									<input type="radio" id="foodtype" name="foodtype" value="분식" <%=f.getBoard_foodtype()!=null&&f.getBoard_foodtype().equals("분식")?"checked":""%>/>분식
-									<input type="radio" id="foodtype" name="foodtype" value="카페" <%=f.getBoard_foodtype()!=null&&f.getBoard_foodtype().equals("카페")?"checked":""%>/>카페
-									<input type="radio" id="foodtype" name="foodtype" value="기타" <%=f.getBoard_foodtype()!=null&&f.getBoard_foodtype().equals("기타")?"checked":""%>/>기타
-									
-									<br>
-									가격(1인기준)<br>
-									<input type="radio" id="bills" name="bills" value="~5,000" <%=f.getBoard_foodbill()!=null&&f.getBoard_foodbill().equals("~5,000")?"checked":"" %>/>~5,000<br>
-									<input type="radio" id="bills" name="bills" value="5,000~10,000" <%=f.getBoard_foodbill()!=null&&f.getBoard_foodbill().equals("5,000~10,000")?"checked":"" %>/>5,000~10,000<br>
-									<input type="radio" id="bills" name="bills" value="10,000~15,000" <%=f.getBoard_foodbill()!=null&&f.getBoard_foodbill().equals("10,000~15,000")?"checked":"" %>/>10,000~15,000<br>
-									<input type="radio" id="bills" name="bills" value="15,000~20,000" <%=f.getBoard_foodbill()!=null&&f.getBoard_foodbill().equals("20,000~20,000")?"checked":"" %>/>15,000~20,000<br>
-									<input type="radio" id="bills" name="bills" value="20,000~25,000" <%=f.getBoard_foodbill()!=null&&f.getBoard_foodbill().equals("15,000~25,000")?"checked":"" %>/>20,000~25,000<br>
-									<input type="radio" id="bills" name="bills" value="25,000~" <%=f.getBoard_foodbill()!=null&&f.getBoard_foodbill().equals("25,000~")?"checked":"" %>/>25,000~<br>
-								</td>
-							
-							</tr>
-							<tr>
-								<td>
-									주차여부
-									<input type="radio" id="park" name="park" value="가능" <%=f.getBoard_park()!=null&&f.getBoard_park().equals("가능")?"checked":"" %>/>가능
-									<input type="radio" id="park" name="park" value="불가능" <%=f.getBoard_park()!=null&&f.getBoard_park().equals("불가능")?"checked":"" %>/>불가능<br>
-								</td>
-							</tr>
-							<tr>
-								<td>
-            						 영업시간 <input type="text" id="si" name="time" placeholder="ex)오전 10:00 ~오후10:00" value="<%=f.getBoard_open()%>"/> 
-									
-								</td>
-							</tr>
-							<tr>
-								<td>
-									만족도<input type="number" name="grade" step='10' min='0' max='100' value="<%=f.getBoard_Grade() %>"/>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									메뉴
-									<textarea id="menu" name="menu" cols="10" rows="5" placeholder="메뉴를 입력하시오" ><%=f.getBoard_menu()%>
+						</tr>
+						<tr>
+							<td>
+								주차여부
+								<input type="radio" id="park" name="park" value="가능" <%=f.getBoard_park()!=null&&f.getBoard_park().equals("가능")?"checked":"" %>/>가능
+								<input type="radio" id="park" name="park" value="불가능" <%=f.getBoard_park()!=null&&f.getBoard_park().equals("불가능")?"checked":"" %>/>불가능<br>
+							</td>
+						</tr>
+						<tr>
+							<td>
+           						 영업시간 <input type="text" id="si" name="time" placeholder="ex)오전 10:00 ~오후10:00" value="<%=f.getBoard_open()%>"/> 
+								
+							</td>
+						</tr>
+						<tr>
+							<td>
+								만족도<input type="number" name="grade" step='10' min='0' max='100' value="<%=f.getBoard_Grade() %>"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								메뉴
+								<textarea id="menu" name="menu" cols="10" rows="5" placeholder="메뉴를 입력하시오" ><%=f.getBoard_menu()%>
+								</textarea>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h3>내용</h3>
+									<textarea name="ir1" id="ir1" rows="10" cols="100">
+										<%=f.getBoard_Contents() %>
 									</textarea>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<h3>내용</h3>
-										<textarea name="ir1" id="ir1" rows="10" cols="100">
-											<%=f.getBoard_Contents() %>
-										</textarea>
-								</td>
-							</tr>
-							 <tr>
-								<td><!--지도  -->
-									<div id="map" style="width:100%;height:400px;margin-right: auto;margin-left: auto;">
-										 <div class="search" style="position:absolute; z-index:1000; top:20px; left:20px;">
-										 	<input id="address" name="address1" type="text" placeholder="검색할 주소" style="width:200px; text-align:center; display:inline;">
-										 	<input id="submit" name="address2" type="button" value="주소검색">
-										 	<input type="hidden" id="road_address" name="road_address" value="<%=f.getBoard_MAP()%>">
-										 </div>
-									</div>
+							</td>
+						</tr>
+						 <tr>
+							<td><!--지도  -->
+								<div id="map" style="width:100%;height:400px;margin-right: auto;margin-left: auto;">
+									 <div class="search" style="position:absolute; z-index:1000; top:20px; left:20px;">
+									 	<input id="address" name="address1" type="text" placeholder="검색할 주소" style="width:200px; text-align:center; display:inline;" value="<%=f.getBoard_MAP()%>">
+									 	<input id="submit" name="address2" type="button" value="주소검색">
+									 	<input type="hidden" id="road_address" name="road_address" value="<%=f.getBoard_MAP()%>">
+									 </div>
+								</div>
 
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<input id="savebutton" type="submit" value="완료" style="margin-left: 40%; display:inline;"/>
-									<input type="button" value="취소"  id="btn_cancel;" onclick="location.href='<%=request.getContextPath()%>/food/foodList'"/>
-								</td>
-							</tr>
-						</table>
-				</td>
-			</tr>
-		</table>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input id="savebutton" type="submit" value="완료" style="margin-left: 40%; display:inline;"/>
+								<input type="button" value="취소"  id="btn_cancel;" onclick="location.href='<%=request.getContextPath()%>/food/foodList'"/>
+							</td>
+						</tr>
+					</table>
+			</td>
+		</tr>
+	</table>
 	</div>
 	</form>
 
@@ -173,6 +176,23 @@
 	
 	$("#savebutton").click(function(){ 
 		oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []); 
+		
+		var fd = new FormData();
+		$.each($("#upfile")[0].files,function(i,item){
+			fd.append("file"+i,item);
+		});
+		
+		$.ajax({
+			url:"<%= request.getContextPath() %>/ajaxFile",
+			data:fd,
+			type:"post", //무조건 post로 전송
+			processData: false,
+			contentType:false,
+			success : function(data){
+				console.log(data);
+			}
+		});
+
 		$("#frm").submit(); 
 	});
 	
@@ -182,6 +202,16 @@
 	    var sHTML = '<img src="<%=request.getContextPath()%>/upload/food/'+filepath+'">';
 	    oEditors.getById["ir1"].exec("PASTE_HTML", [sHTML]);
 	}
+	
+	//썸네일 이미지 부분
+	$("#thumnail_select").change(function(){
+		var reader = new FileReader();
+		reader.onload = function(e){
+			$("#thumnail_image").attr({"src":e.target.result}).css({"width":"600px","height":"400px"});
+		}
+		reader.readAsDataURL($(this)[0].files[0]); //파일리더가 파일을 읽어들여온다.
+
+	});
 
 	var count = 0;//시작값
 	$("#img-back").click(function(){
