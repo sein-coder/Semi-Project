@@ -4,13 +4,16 @@
 <%@ include file="/views/common/header.jsp"%>
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=y8vul4gvp5&submodules=geocoder"></script>
 <script src="<%= request.getContextPath() %>/js/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/SE2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/se2/js/HuskyEZCreator.js" charset="utf-8"></script>
 
 	    
 <style>
+	section{
+		margin-top: 10%;
+	}
+
 	table#big-table {
 		border: 2px solid goldenrod;
-		margin-top: 10%;
 		margin-left: auto;
 		margin-right: auto;
 		border-spacing: 0px;
@@ -41,24 +44,26 @@
 	}
 </style>
 <section>
-	<form action ="<%=request.getContextPath() %>/board/boardFormEnd" method="post" enctype="multipart/form-data">
+	<form id="frm" action ="<%=request.getContextPath() %>/board/boardFormEnd" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="writer" value="<%=loginMember!=null?loginMember.getMemberId():""%>"> 
 	<div>
+		<div id="thumnail" style="margin-left:auto; margin-right:auto; margin-top:300px; width: 200px; height: 200px; border: 1px solid red;">
+			<input style="margin-top: 80px;" type="file" id="thumnail_select" name="thumnail_select">
+		</div>
 		<table id="big-table">
-		
 			<tr>
 				<th style="background-color:black;">  	
-					<button id="img-back" style="border:none;padding:0px;"><img src="<%=request.getContextPath()%>/images/foodpoint/back.jpg" width="50px" height="205px"></button>
+					<button type="button" id="img-back" style="border:none;padding:0px;" onclick="back();"><img src="<%=request.getContextPath()%>/images/foodpoint/back.jpg" width="50px" height="205px"></button>
 				</th> 
 				<th colspan="3" style="background-color:white;" >
 					<div id="img-container">
-						<img id="0" style="width: 300px; height:200px" src="<%=request.getContextPath()%>/images/foodpoint/noimg.png">
-						<img id="1" style="width: 300px; height:200px" src="<%=request.getContextPath()%>/images/foodpoint/noimg.png"> 
-						<img id="2" style="width: 300px; height:200px" src="<%=request.getContextPath()%>/images/foodpoint/noimg.png">
+						<img id="img0" style="width: 300px; height:200px" src="<%=request.getContextPath()%>/images/foodpoint/noimg.png">
+						<img id="img1" style="width: 300px; height:200px" src="<%=request.getContextPath()%>/images/foodpoint/noimg.png"> 
+						<img id="img2" style="width: 300px; height:200px" src="<%=request.getContextPath()%>/images/foodpoint/noimg.png">
 					</div>
 				</th>
 				<th style="background-color:white;">
-					<button id="img-front" style="border: none; padding:0px 0px 0px 0px; " ><img src="<%=request.getContextPath()%>/images/foodpoint/front.jpg" width="50px" height="205px"></button>
+					<button type="button" id="img-front" style="border: none; padding:0px 0px 0px 0px;" onclick="front();" ><img src="<%=request.getContextPath()%>/images/foodpoint/front.jpg" width="50px" height="205px"></button>
 				</th>
 			</tr>
 			<tr>
@@ -74,7 +79,6 @@
 							</tr>
 							<tr>
 								<td>
-									
 									전화번호</br>
 									<input type="tel" name="tel" placeholder='02*-0000*-0000' id="si" pattern="[0-9]{2}-[0-9]{3}-[0-9]{4}" /><br>
 									음식종류<br>
@@ -84,7 +88,6 @@
 									<input type="radio" id="foodtype" name="foodtype" value="분식"/>분식
 									<input type="radio" id="foodtype" name="foodtype" value="카페"/>카페
 									<input type="radio" id="foodtype" name="foodtype" value="기타"/>기타<br>
-									
 
 									<br>
 									가격(1인기준)<br>
@@ -111,22 +114,22 @@
 							</tr>
 							<tr>
 								<td>
+									만족도<input type="number" name="grade" step='10' min='0' max='100' value="0"/>
+								</td>
+							</tr>
+							<tr>
+								<td>
 									메뉴
-									<textarea id="menu" name="menu" cols="10" rows="5"
-										placeholder="메뉴를 입력하시오" /></textarea>
+									<textarea id="menu" name="menu" cols="10" rows="5" placeholder="메뉴를 입력하시오" >
+									</textarea>
 								</td>
 							</tr>
 							<tr>
 								<td>
 									<h3>내용</h3>
 										<textarea name="ir1" id="ir1" rows="10" cols="100">
-											에디터에 기본으로 삽입할 글(수정 모드)이 없다면 이 value 값을 지정하지 않으시면 됩니다.
+										
 										</textarea>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									만족도<input type="number" name="grade" step='10' min='0' max='100' value="0"/>
 								</td>
 							</tr>
 							 <tr>
@@ -135,7 +138,7 @@
 									 <div class="search" style="position:absolute; z-index:1000; top:20px; left:20px;">
 									 	<input id="address" name="address1" type="text" placeholder="검색할 주소"  style="width:200px;text-align:center;display:inline;">
 									 	<input id="submit" name="address2"type="button" value="주소검색">
-									 	<input type="hidden" id="road_address" name="road_address" >
+									 	<input type="hidden" id="road_address" name="road_address" value="">
 									 </div>
 								</div>
 
@@ -143,7 +146,7 @@
 							</tr>
 							<tr>
 								<td>
-									<input type="submit" value="완료" style="margin-left: 40%; display:inline;" />
+									<input id="savebutton" type="submit" value="완료" style="margin-left: 40%; display:inline;" />
 									<input type="button" value="취소"  id="btn_cancel;" onclick="location.href='<%=request.getContextPath()%>/food/foodList'"/>
 								</td>
 							</tr>
@@ -153,90 +156,100 @@
 		</table>
 	</div>
 	</form>
-
 <script>
-
+	//에디터 설정부분
 	var oEditors = [];
 	nhn.husky.EZCreator.createInIFrame({
 	 oAppRef: oEditors,
 	 elPlaceHolder: "ir1",
-	 sSkinURI: "<%=request.getContextPath()%>/SE2/SmartEditor2Skin.html",
+	 sSkinURI: "<%=request.getContextPath()%>/se2/SmartEditor2Skin.html",
 	 fCreator: "createSEditor2"
 	});
 
-	var count = 0;//시작값
-	$("#img-back").click(function(){
-		count+=1;//초기값에 +1
-		$("#"+0).attr("src",foodpic[count%foodpic.length]);//id값이 0인 곳, 속성 src에 foodpic에서 count값에서 foodpic의 길이를 나눈 나머지의 값이 0이면 여기서 src바꿔주기  
-		$("#"+1).attr("src",foodpic[(count+1)%foodpic.length]);
-		$("#"+2).attr("src",foodpic[(count+2)%foodpic.length]);
-		console.log(count);
+	$("#savebutton").click(function(){ 
+		oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []); 
+		
+		var fd = new FormData();
+		$.each($("#upfile")[0].files,function(i,item){
+			fd.append("file"+i,item);
+		});
+		
+		$.ajax({
+			url:"<%= request.getContextPath() %>/ajaxFile",
+			data:fd,
+			type:"post", //무조건 post로 전송
+			processData: false,
+			contentType:false,
+			success : function(data){
+				console.log(data);
+			}
+		});
+
+		$("#frm").submit(); 
 	});
-	$("#img-front").click(function(){
-		count-=1;//초기값을 -1
-		if(count<0){count=foodpic.length-1;}//count가 0보다 작게 나오면 foodpic의 길이에서 -1을 뺀값을 count에 넣어줘(그럼 4)
-		$("#"+0).attr("src",foodpic[count%foodpic.length]);//id값이 0인곳, 속성src에 foodpic길이에서 count를 나눈나머지값이 0이면 id값이 0인 곳에 src를 바꿔주기 
-		$("#"+1).attr("src",foodpic[(count+1)%foodpic.length]);
-		$("#"+2).attr("src",foodpic[(count+2)%foodpic.length]);
-		console.log(count);
+
+	// textArea에 이미지 첨부
+	function pasteHTML(filepath){
+	    var sHTML = '<img src="<%=request.getContextPath()%>/upload/food/'+filepath+'">';
+	    oEditors.getById["ir1"].exec("PASTE_HTML", [sHTML]);
+	}
+	
+	//썸네일 이미지 부분
+	$("#thumnail_select").change(function(){
+		/* $(this).hide(); */
+		var reader = new FileReader();
+		reader.onload = function(e){
+			var img = $("<img>").attr({"src":e.target.result}).css({"width":"200px","height":"200px"});
+			$("#thumnail").html(img); 
+			//e.target.result 안에 변경된 url데이터가 저장되어있다.
+		}
+		reader.readAsDataURL($(this)[0].files[0]); //파일리더가 파일을 읽어들여온다.
 	});
 	
-	//아래 사진 업로드, 파일선택 부분 코드
+	//상단 이미지 부분
+	var count = 0;//시작값
+	function back(){
+		count+=1;//초기값에 +1
+		$("#img"+0).attr("src",foodpic[count%foodpic.length]);//id값이 0인 곳, 속성 src에 foodpic에서 count값에서 foodpic의 길이를 나눈 나머지의 값이 0이면 여기서 src바꿔주기  
+		$("#img"+1).attr("src",foodpic[(count+1)%foodpic.length]);
+		$("#img"+2).attr("src",foodpic[(count+2)%foodpic.length]);
+	};
+	
+	function front(){
+		count-=1;//초기값을 -1
+		if(count<0){count=foodpic.length-1;}//count가 0보다 작게 나오면 foodpic의 길이에서 -1을 뺀값을 count에 넣어줘(그럼 4)
+		$("#img"+0).attr("src",foodpic[count%foodpic.length]);//id값이 0인곳, 속성src에 foodpic길이에서 count를 나눈나머지값이 0이면 id값이 0인 곳에 src를 바꿔주기 
+		$("#img"+1).attr("src",foodpic[(count+1)%foodpic.length]);
+		$("#img"+2).attr("src",foodpic[(count+2)%foodpic.length]);
+	};
+	
+	//다중 사진 업로드, 파일선택 부분 코드
 	var foodpic=[];
-			
+
 	$("#upfile").change(function(){
-		$("#preview").html("");//사진미리보기가 다 나오도록 처리
-		$.each($(this)[0].files,function(i,item){//$.each() 메서드는 object와 배열모두 사용할수 있는 반복함수,jquery용,for in 반복문과 유사
+		$("#preview").html("");
+		$.each($(this)[0].files,function(i,item){
 			var reader = new FileReader();
 			reader.onload=function(e){									
-			/* 	아래는 
-				i<3보다 작을때까지만 img태그를 만들고 container에 추가, foodpic배열에 이미지주소값을 요소로 추가 --> id값이 0,1,2인 img태그만 만들어서 세개만 container에 추가할려고, foodpic배열에 src추가 
-			    i가 3보다 클때는 img태그를 만들지 않고 foodpic배열에 이미지주소값추가만 --> 그외에 애들은 foodpic이라는 배열에만 src를 추가해준다
-			         이미지주소값 : e.tartget.result
-			         배열에 요소 추가는 append로 합니다~~~ */
 				if(i<3){
-					$("#"+i).attr({"src":e.target.result}).css({"width":"300px","height":"200px"});//img태그를 생성하는부분
-					//$("#img-container").append(img);//div 태그에 하위태그를 추가할때 append
-					foodpic.push(e.target.result);//배열에 요소를 추가할땐 push
-				}else{
-					foodpic.push(e.target.result);
+					$("#img"+i).attr({"src":e.target.result}).css({"width":"300px","height":"200px"});
 				}
+				foodpic.push(e.target.result);
 			}
 			reader.readAsDataURL(item);
 			console.log(item);
 		});
 	});
 			
-	$("#up-btn").on("click",function(){
-		var fd=new FormData();
-		$.each($("#upfile")[0].files,function(i,item){
-			fd.append("file"+i,item);
-		});
-		
-		$a.jax({
-		url:"<%=request.getContextPath()%>/ajaxFile",
-		data:fd,
-		type:"post",
-		processData:false,
-		contentType:false,
-		success:function(data){
-			console.log(data);
-			$("#preview").html("");
-			$("#upfile").val("");
-			}
-		});
-	});
-			
 	$("#downfile").on("click",function(){
-		$("#"+0).attr({"src":"<%=request.getContextPath()%>/images/foodpoint/noimg.png"});
-		$("#"+1).attr({"src":"<%=request.getContextPath()%>/images/foodpoint/noimg.png"});
-		$("#"+2).attr({"src":"<%=request.getContextPath()%>/images/foodpoint/noimg.png"});
+		$("#img"+0).attr({"src":"<%=request.getContextPath()%>/images/foodpoint/noimg.png"});
+		$("#img"+1).attr({"src":"<%=request.getContextPath()%>/images/foodpoint/noimg.png"});
+		$("#img"+2).attr({"src":"<%=request.getContextPath()%>/images/foodpoint/noimg.png"});
+		$("#upfile").val(""); 
 		foodpic=[];
-	});			
-			
-			
-		//네이버 지도
-
+	});
+	
+	//네이버 지도
 	var mapOptions = {
 	        center: new naver.maps.LatLng(37.3595704, 127.105399), //지도의 초기 중심 좌표
 	        zoom: 8, //지도의 초기 줌 레벨
@@ -416,8 +429,6 @@
 
 	        searchAddressToCoordinate($('#address').val());
 	    });
-
-	    searchAddressToCoordinate('서울특별시 강남구 테헤란로 14길 6 남도빌딩  2F, 3F, 4F, 5F');
 	}
 
 	function makeAddress(item) {
@@ -497,7 +508,6 @@
 	naver.maps.onJSContentLoaded = initGeocoder;
 	
 </script>
-
 
 </section>
 <%@ include file="/views/common/footer.jsp"%>

@@ -4,7 +4,7 @@
 <%@ include file = "/views/common/header.jsp" %>
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=y8vul4gvp5&submodules=geocoder"></script>
 <script src="<%= request.getContextPath() %>/js/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/SE2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/se2/js/HuskyEZCreator.js" charset="utf-8"></script>
 <%
 	
 	Food f = (Food)request.getAttribute("f");
@@ -54,21 +54,24 @@
 	<input type="hidden" name="writer" value="<%=loginMember!=null?loginMember.getMemberId():""%>"> 
 	
 	<div id="div-container">
+		<div id="thumnail" style="margin-left:auto; margin-right:auto; margin-top:300px; width: 200px; height: 200px; border: 1px solid red;">
+			<img src="<%= f.getBoard_Thumbnail() %>">
+		</div>
 		<table id="big-table">
 		
 			<tr>
 				<th style="background-color:black;">  	
-					<button id="img-back" style="border:none;padding:0px;"><img src="<%=request.getContextPath()%>/images/foodpoint/back.jpg" width="50px" height="205px"></button>
+					<button type="button" id="img-back" style="border:none;padding:0px;"><img src="<%=request.getContextPath()%>/images/foodpoint/back.jpg" width="50px" height="205px"></button>
 				</th> 
 				<th colspan="3" style="background-color:white;" >
 					<div id="img-container">
-						<img id="0" style="width: 300px; height:200px" src="<%=request.getContextPath()%>/images/foodpoint/noimg.png">
-						<img id="1" style="width: 300px; height:200px" src="<%=request.getContextPath()%>/images/foodpoint/noimg.png"> 
-						<img id="2" style="width: 300px; height:200px" src="<%=request.getContextPath()%>/images/foodpoint/noimg.png">
+						<img id="img0" style="width: 300px; height:200px" src="<%=request.getContextPath()%>/images/foodpoint/noimg.png">
+						<img id="img1" style="width: 300px; height:200px" src="<%=request.getContextPath()%>/images/foodpoint/noimg.png"> 
+						<img id="img2" style="width: 300px; height:200px" src="<%=request.getContextPath()%>/images/foodpoint/noimg.png">
 					</div>
 				</th>
 				<th style="background-color:white;">
-					<button id="img-front" style="border: none; padding:0px 0px 0px 0px; " ><img src="<%=request.getContextPath()%>/images/foodpoint/front.jpg" width="50px" height="205px"></button>
+					<button type="button" id="img-front" style="border: none; padding:0px 0px 0px 0px; " ><img src="<%=request.getContextPath()%>/images/foodpoint/front.jpg" width="50px" height="205px"></button>
 				</th>
 			</tr>
 			<tr>
@@ -111,7 +114,7 @@
 							</tr>
 							<tr>
 								<td>
-									<span name="grade" id="grade">만족도:<%=f.getBoard_Grade() %></span>
+									<span id="grade">만족도:<%=f.getBoard_Grade() %></span>
 								</td>
 							</tr>
 							<tr>
@@ -124,21 +127,19 @@
 							<tr>
 								<td>
 									<h3>내용</h3>
-										<textarea name="ir1" id="ir1" rows="10" cols="100" readonly>
-											<%=f.getBoard_Contents() %>
-											에디터에 기본으로 삽입할 글(수정 모드)이 없다면 이 value 값을 지정하지 않으시면 됩니다.
-										</textarea>
+									<div>
+										<%=f.getBoard_Contents() %>
+									</div>
 								</td>
 							</tr>
 							
 							 <tr>
 								<td><!--지도  -->
-									<div id="map" style="width:100%;height:400px;margin-right: auto;margin-left: auto; ">
-									 <div class="search" style="position:absolute; z-index:1000; top:20px; left:20px;">
-									 	<input type="hidden" id="road_address" name="road_address" value="<%=f.getBoard_MAP()%>">
-									 </div>
-								</div>
-
+									<div id="map" style="width:100%;height:400px;margin-right: auto;margin-left: auto;">
+										 <div class="search" style="position:absolute; z-index:1000; top:20px; left:20px;">
+										 	<input type="hidden" id="road_address" name="road_address" value="<%=f.getBoard_MAP()%>">
+										 </div>
+									</div>
 								</td>
 							</tr>
 							<tr>
@@ -225,52 +226,34 @@
 	</section> -->
 
 	<script>
-	
-	var oEditors = [];
-	nhn.husky.EZCreator.createInIFrame({
-	 oAppRef: oEditors,
-	 elPlaceHolder: "ir1",
-	 sSkinURI: "<%=request.getContextPath()%>/SE2/SmartEditor2Skin.html",
-	 fCreator: "createSEditor2"
-	});
 
 	var count = 0;//시작값
 	$("#img-back").click(function(){
 		count+=1;//초기값에 +1
-		$("#"+0).attr("src",foodpic[count%foodpic.length]);//id값이 0인 곳, 속성 src에 foodpic에서 count값에서 foodpic의 길이를 나눈 나머지의 값이 0이면 여기서 src바꿔주기  
-		$("#"+1).attr("src",foodpic[(count+1)%foodpic.length]);
-		$("#"+2).attr("src",foodpic[(count+2)%foodpic.length]);
-		console.log(count);
+		$("#img"+0).attr("src",foodpic[count%foodpic.length]);//id값이 0인 곳, 속성 src에 foodpic에서 count값에서 foodpic의 길이를 나눈 나머지의 값이 0이면 여기서 src바꿔주기  
+		$("#img"+1).attr("src",foodpic[(count+1)%foodpic.length]);
+		$("#img"+2).attr("src",foodpic[(count+2)%foodpic.length]);
 	});
 	$("#img-front").click(function(){
 		count-=1;//초기값을 -1
 		if(count<0){count=foodpic.length-1;}//count가 0보다 작게 나오면 foodpic의 길이에서 -1을 뺀값을 count에 넣어줘(그럼 4)
-		$("#"+0).attr("src",foodpic[count%foodpic.length]);//id값이 0인곳, 속성src에 foodpic길이에서 count를 나눈나머지값이 0이면 id값이 0인 곳에 src를 바꿔주기 
-		$("#"+1).attr("src",foodpic[(count+1)%foodpic.length]);
-		$("#"+2).attr("src",foodpic[(count+2)%foodpic.length]);
-		console.log(count);
+		$("#img"+0).attr("src",foodpic[count%foodpic.length]);//id값이 0인곳, 속성src에 foodpic길이에서 count를 나눈나머지값이 0이면 id값이 0인 곳에 src를 바꿔주기 
+		$("#img"+1).attr("src",foodpic[(count+1)%foodpic.length]);
+		$("#img"+2).attr("src",foodpic[(count+2)%foodpic.length]);
 	});
 	
 	//아래 사진 업로드, 파일선택 부분 코드
 	var foodpic=[];
 			
 	$("#upfile").change(function(){
-		$("#preview").html("");//사진미리보기가 다 나오도록 처리
-		$.each($(this)[0].files,function(i,item){//$.each() 메서드는 object와 배열모두 사용할수 있는 반복함수,jquery용,for in 반복문과 유사
+		$("#preview").html("");
+		$.each($(this)[0].files,function(i,item){
 			var reader = new FileReader();
 			reader.onload=function(e){									
-			/* 	아래는 
-				i<3보다 작을때까지만 img태그를 만들고 container에 추가, foodpic배열에 이미지주소값을 요소로 추가 --> id값이 0,1,2인 img태그만 만들어서 세개만 container에 추가할려고, foodpic배열에 src추가 
-			    i가 3보다 클때는 img태그를 만들지 않고 foodpic배열에 이미지주소값추가만 --> 그외에 애들은 foodpic이라는 배열에만 src를 추가해준다
-			         이미지주소값 : e.tartget.result
-			         배열에 요소 추가는 append로 합니다~~~ */
 				if(i<3){
-					$("#"+i).attr({"src":e.target.result}).css({"width":"300px","height":"200px"});//img태그를 생성하는부분
-					//$("#img-container").append(img);//div 태그에 하위태그를 추가할때 append
-					foodpic.push(e.target.result);//배열에 요소를 추가할땐 push
-				}else{
-					foodpic.push(e.target.result);
+					$("#"+i).attr({"src":e.target.result}).css({"width":"300px","height":"200px"});
 				}
+				foodpic.push(e.target.result);
 			}
 			reader.readAsDataURL(item);
 			console.log(item);
