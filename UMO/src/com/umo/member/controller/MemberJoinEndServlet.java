@@ -39,11 +39,11 @@ public class MemberJoinEndServlet extends HttpServlet {
 		String phone=request.getParameter("phone");
 		String address=request.getParameter("address");
 		
-		
 		Member m=new Member(id,pw,name,email,phone,address);
 		
+		
 		int result=new MemberService().registMember(m);
-		String msg=result>0?"���ԿϷ�":"���Խ���";
+		String msg=result>0?"성공":"실패";
 		String loc="/";
 		if(result>0) {
 		loc="/";	

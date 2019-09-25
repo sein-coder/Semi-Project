@@ -35,6 +35,16 @@ public Member(String memberId, String memberPw, String memberName, String email,
 	this.point = point;
 }
 
+public Member(String memberId, String memberPw, String memberName, String email, String phone, String address) {
+	super();
+	this.memberId = memberId;
+	this.memberPw = memberPw;
+	this.memberName = memberName;
+	this.email = email;
+	this.phone = phone;
+	this.address = address;
+}
+
 public String getMemberId() {
 	return memberId;
 }

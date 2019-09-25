@@ -41,16 +41,15 @@ public class InfoUpdateEndServlet extends HttpServlet {
 		Member m=new Member(request.getParameter("id"),request.getParameter("pw"),request.getParameter("name"),
 				request.getParameter("email"),request.getParameter("phone"),request.getParameter("address"));
 		System.out.println(m.getMemberId()+m.getMemberPw()+m.getMemberName()+m.getEmail());
-	  request.setCharacterEncoding("UTF-8");
 		int result=new MemberService().updateMember(m);
 		String msg="";
 	      String loc="";
 	      System.out.println(result);
 	      if(result>0) {
-	         msg="荐沥肯丰!";
+	         msg="靹标车!";
 	         loc="/";
 	      }else {
-	         msg="促矫荐沥秦林技夸!";
+	         msg="鞁ろ尐!";
 	         loc="/";
 	      }
 	      request.setAttribute("msg",msg);
