@@ -5,7 +5,7 @@
 <%@ include file="/views/common/header.jsp"%>
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=y8vul4gvp5&submodules=geocoder"></script>
 <script src="<%= request.getContextPath() %>/js/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/SE2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/se2/js/HuskyEZCreator.js" charset="utf-8"></script>
 
 <%
 	
@@ -48,7 +48,7 @@
 	}
 </style>
 <section>
-	<form action ="<%=request.getContextPath() %>/food/foodUpdateEnd?board_no=<%= f.getBoard_No() %>" method="post" enctype="multipart/form-data">
+	<form id="frm" action ="<%=request.getContextPath() %>/food/foodUpdateEnd?board_no=<%= f.getBoard_No() %>" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="writer" value="<%=loginMember!=null?loginMember.getMemberId():""%>"> 
 	<div>
 		<table id="big-table">
@@ -92,7 +92,6 @@
 									<input type="radio" id="foodtype" name="foodtype" value="카페" <%=f.getBoard_foodtype()!=null&&f.getBoard_foodtype().equals("카페")?"checked":""%>/>카페
 									<input type="radio" id="foodtype" name="foodtype" value="기타" <%=f.getBoard_foodtype()!=null&&f.getBoard_foodtype().equals("기타")?"checked":""%>/>기타
 									
-
 									<br>
 									가격(1인기준)<br>
 									<input type="radio" id="bills" name="bills" value="~5,000" <%=f.getBoard_foodbill()!=null&&f.getBoard_foodbill().equals("~5,000")?"checked":"" %>/>~5,000<br>
@@ -125,15 +124,14 @@
 							<tr>
 								<td>
 									메뉴
-									<textarea id="menu" name="menu" cols="10" rows="5"
-										placeholder="메뉴를 입력하시오" /><%=f.getBoard_menu()%></textarea>
+									<textarea id="menu" name="menu" cols="10" rows="5" placeholder="메뉴를 입력하시오" ><%=f.getBoard_menu()%>
+									</textarea>
 								</td>
 							</tr>
 							<tr>
 								<td>
 									<h3>내용</h3>
 										<textarea name="ir1" id="ir1" rows="10" cols="100">
-											에디터에 기본으로 삽입할 글(수정 모드)이 없다면 이 value 값을 지정하지 않으시면 됩니다.
 											<%=f.getBoard_Contents() %>
 										</textarea>
 								</td>
@@ -152,7 +150,7 @@
 							</tr>
 							<tr>
 								<td>
-									<input type="submit" value="완료" style="margin-left: 40%; display:inline; onclick="location.href='<%=request.getContextPath()%>/food/foodList'"/>
+									<input id="savebutton" type="submit" value="완료" style="margin-left: 40%; display:inline;"/>
 									<input type="button" value="취소"  id="btn_cancel;" onclick="location.href='<%=request.getContextPath()%>/food/foodList'"/>
 								</td>
 							</tr>
@@ -169,9 +167,21 @@
 	nhn.husky.EZCreator.createInIFrame({
 	 oAppRef: oEditors,
 	 elPlaceHolder: "ir1",
-	 sSkinURI: "<%=request.getContextPath()%>/SE2/SmartEditor2Skin.html",
+	 sSkinURI: "<%=request.getContextPath()%>/se2/SmartEditor2Skin.html",
 	 fCreator: "createSEditor2"
 	});
+	
+	$("#savebutton").click(function(){ 
+		oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []); 
+		$("#frm").submit(); 
+	});
+	
+	
+	// textArea에 이미지 첨부
+	function pasteHTML(filepath){
+	    var sHTML = '<img src="<%=request.getContextPath()%>/upload/food/'+filepath+'">';
+	    oEditors.getById["ir1"].exec("PASTE_HTML", [sHTML]);
+	}
 
 	var count = 0;//시작값
 	$("#img-back").click(function(){
