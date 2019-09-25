@@ -47,6 +47,7 @@ height:30px;
                 <div id="anonymousboard"></div>
         </div>
         <div class="content box style2" id="trans2" style="transform: translateX(150%) translateY(-100%);" >
+            
                 <h2>질의게시판</h2>
             <div id="inqeurymousboard"></div>
         </div>
@@ -164,6 +165,7 @@ $.ajax({
 
 	}
 });
+
 var result2="";
 $.ajax({
 	url : "<%=request.getContextPath()%>/freeBoard", 

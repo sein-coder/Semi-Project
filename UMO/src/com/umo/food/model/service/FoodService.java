@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.umo.food.model.dao.FoodDao;
 import com.umo.model.vo.Food;
+import com.umo.model.vo.FoodComment;
 
 
 
@@ -71,6 +72,48 @@ public class FoodService {
 		}
 		close(conn);
 		return result;
+	}
+
+	public List<FoodComment> selectComment(int board_no) {
+		Connection conn=getConnection();
+		List<FoodComment> list=dao.selectComment(conn,board_no);
+		close(conn);
+		return list;
+		
+		
+	}
+
+	public int insertFoodComment(FoodComment foodComment) {
+		Connection conn=getConnection();
+		int result=dao.insertFoodComment(conn,foodComment);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	public int deleteFoodComment(int boardRef, int boardCommentNo) {
+		Connection conn=getConnection();
+		int result=dao.deleteFoodComment(conn,boardRef,boardCommentNo);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
 	}	
-}
+	
+	
+	
+	
+	
+	
+	
+	
 
