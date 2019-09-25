@@ -13,7 +13,7 @@ import com.umo.model.vo.FoodComment;
 /**
  * Servlet implementation class InsertFoodCommentServelt
  */
-@WebServlet("/InsertFoodCommentServelt")
+@WebServlet("/foodComment/insertComment")
 public class InsertFoodCommentServelt extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -29,8 +29,10 @@ public class InsertFoodCommentServelt extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println(request.getParameter("boardRef"));
 		int boardRef=Integer.parseInt(request.getParameter("boardRef"));
-		int level=Integer.parseInt(request.getParameter("boardCommentRef"));
+		System.out.println(boardRef);
+		int level=Integer.parseInt(request.getParameter("boardCommentLevel"));
 		int boardCommentRef=Integer.parseInt(request.getParameter("boardCommentRef"));
 		String writer=request.getParameter("boardWriter");
 		String content=request.getParameter("content");
@@ -46,7 +48,7 @@ public class InsertFoodCommentServelt extends HttpServlet {
 		int result=new FoodService().insertFoodComment(foodComment);
 		
 		String msg="";
-		String loc="/food/foodView?Board_No="+boardRef;
+		String loc="/food/foodView?board_no="+boardRef;
 		String view="/views/common/msg.jsp";
 		
 		if(result>0) {

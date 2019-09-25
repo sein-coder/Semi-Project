@@ -34,6 +34,22 @@
 	
 	</style>
 	
+	<style>
+	table#tbl-comment{width:580px; margin:0 auto; border-collapse:collapse; clear:both;} 
+	table#tbl-comment tr td{border-bottom:1px solid; border-top:1px solid; padding:5px; text-align:left; line-height:100%;}
+	table#tbl-comment tr td:first-of-type{padding: 5px 5px 5px 50px;}
+	table#tbl-comment tr td:last-of-type {text-align:right; width: 100px;}
+	table#tbl-comment button.btn-reply{display:none;}
+	table#tbl-comment tr:hover {background:gold;}
+	table#tbl-comment tr:hover button.btn-reply{display:inline;}
+	table#tbl-comment tr.level2 {color:gray; font-size: 14px;}
+	table#tbl-comment sub.comment-writer {color:navy; font-size:14px}
+	table#tbl-comment sub.comment-date {color:tomato; font-size:10px}
+	table#tbl-comment tr.level2 td:first-of-type{padding-left:100px;}
+	table#tbl-comment tr.level2 sub.comment-writer {color:#8e8eff; font-size:14px}
+	table#tbl-comment tr.level2 sub.comment-date {color:#ff9c8a; font-size:10px}
+</style>
+	
 	<section id="foodview-container">
 	<input type="hidden" name="writer" value="<%=loginMember!=null?loginMember.getMemberId():""%>"> 
 	
@@ -151,18 +167,20 @@
 				<tr>
 					<td>
 						<!-- 클라이언트에게 입력받을 필요가 없는 내용이다 -->
-						<input type="hidden" name="boardRef" value="<%=f.getBoard_No() %>>">
-						<input type="hidden" name="boardCommentRef" value="0">
+						<input type="hidden" name="boardRef" value="<%=f.getBoard_No() %>">
+						<input type="hidden" name="boardCommentRef" value="0">		
 						<input type="hidden" name="boardCommentLevel" value="1">
 						<input type="hidden" name="boardWriter" value="<%=loginMember!=null?loginMember.getMemberId():"" %>">
 						<!--클라이언트에게 입력을 받아야 하는 내용을 작성을 하기  -->	
-						<textarea style="min-right:1s00px;" name="content" rows="3" cols="60"></textarea>
+						<textarea style="min-right:100px;" name="content" rows="3" cols="60"></textarea>
 					</td>
 					<td>	
 						<input type="submit" value="등록"/>
+						<input type="submit" value="삭제"/>
 					</td>
 				</tr>
 			</table>
+			</form>
 		
 		
 		
@@ -194,6 +212,7 @@
 			</td>
 			<td>
 				<button class="btn-reply" value="<%=comment.getComment_No()%>">답글</button>
+				<button class="btn-delete" value="<%=comment.getComment_No()%> ">삭제</button><!--아직 안함  -->
 				</td>
 			</tr>
 		<% 		}	
@@ -202,11 +221,11 @@
 	</table>
 		
 		
-		
-	</section>
+<!-- 		
+	</section> -->
 
 	<script>
-
+	
 	var oEditors = [];
 	nhn.husky.EZCreator.createInIFrame({
 	 oAppRef: oEditors,
@@ -492,8 +511,8 @@
 	
 	//댓글 부분
 	$(function(){
-		$("[name=cotent]").focus(function(){
-			if(<%=loginMember==null%> {
+		$("[name=content]").focus(function(){
+			if(<%=loginMember==null%> ){
 				fn_loginAlert();
 			}		
 		})
@@ -504,22 +523,23 @@
 			var tr=$("<tr>");
 			var html="<td style='display:none; text-align:left;' colspan='2'>";
 			html+="<form action='<%=request.getContextPath()%>/foodComment/insertComment' method='post'>";
-			html+='<input type="hidden" name="boardnoRef" value="<%=food.getboard_no() %>">';
-			html+='<input type="hidden" name="boardCommentRef" value="'+$(this).val()'">';
+			html+='<input type="hidden" name="boardRef" value="<%=f.getBoard_No()%>" >';
+			html+='<input type="hidden" name="boardCommentRef" value="'+$(this).val()+'">';
 			html+='<input type="hidden" name="boardCommentLevel" value="2">';
 			html+='<input type="hidden" name="boardWriter" value="<%=loginMember!=null?loginMember.getMemberId():""%>">';
-			html+='<textarea name="content" cols="60" rows="3"></textarea>';
+			html+='<textarea name="content" cols="100" rows="3"></textarea>';
 			html+='<input type="submit" value="등록"/>';
 			html+= '</form></td>';
 			tr.html(html);
 			tr.insertAfter($(this).parent().parent()).children("td").show().slidDown(800);
 			$(this).off('click')//실행후 이벤트를 중단시킴
 		});
+		
 		$(".btn-delete").click(function(){
 			if(<%=loginMember==null%>){
 				fn_loginAlert();
 			}
-			location.href="<%=request.getContextPath()%>/foodComment/deleteComment?boardRef=<%=f.getBoard_No()%>&foodCommentNo="+$(this).val()+"";
+			location.href="<%=request.getContextPath()%>/foodComment/deleteComment?boardRef=<%=f.getBoard_No()%>&boardCommentNo="+$(this).val()+"";
 	
 		});
 	});
@@ -532,13 +552,15 @@
 			alert("내용을 입력하세요.");
 			return false;
 		}
-		function fn_loginAlert(){}
-			alert("로그인 후 이용하세요!");
-			$("[name=content]").blur();
-			location.href="<%=request.getContextPath()%>/memberLogin";
+	}
+	
+	function fn_loginAlert() {
+		alert("로그인 후 이용하세요!");
+		$("[name=content]").blur();
+		location.href="<%=request.getContextPath()%>/memberLogin";
 	}
 	
 	
 	</script>
-</sesction>
+	</section>
 <%@ include file = "/views/common/footer.jsp" %>

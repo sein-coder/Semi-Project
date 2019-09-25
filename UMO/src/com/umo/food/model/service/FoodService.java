@@ -93,6 +93,20 @@ public class FoodService {
 		}
 		close(conn);
 		return result;
+	}
+
+	public int deleteFoodComment(int boardRef, int boardCommentNo) {
+		Connection conn=getConnection();
+		int result=dao.deleteFoodComment(conn,boardRef,boardCommentNo);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
 	}	
 	
 	
@@ -102,20 +116,4 @@ public class FoodService {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-}
 

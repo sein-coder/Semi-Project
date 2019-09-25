@@ -204,21 +204,21 @@ public class FoodDao {
 		}return result;
 	}
 
-	public List<FoodComment> selectComment(Connection conn, int board_no) {
+	public List<FoodComment> selectComment(Connection conn, int Board_No) {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		List<FoodComment> list= new ArrayList();
 		String sql=prop.getProperty("selectComment");
 		try {
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1,board_no);
+			pstmt.setInt(1,Board_No);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				FoodComment comment=new FoodComment();
 				comment.setComment_No(rs.getInt("comment_No"));
 				comment.setComment_Writer(rs.getString("comment_Writer"));
 				comment.setComment_Contents(rs.getString("comment_Contents"));
-				comment.setDate(rs.getDate("date"));
+				comment.setDate(rs.getDate("comment_date"));
 				comment.setBoard_no_Ref(rs.getInt("board_no_Ref"));
 				comment.setComment_Level(rs.getInt("comment_Level"));
 				comment.setComment_Refno(rs.getInt("comment_Refno"));
@@ -251,6 +251,22 @@ public class FoodDao {
 			close(pstmt);
 		}
 		return result;
+	}
+
+	public int deleteFoodComment(Connection conn, int boardRef, int boardCommentNo) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("deleteFoodComment");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, boardRef);
+			pstmt.setInt(2, boardCommentNo);
+			result=pstmt.executeUpdate();
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
 	}
 }
 	
