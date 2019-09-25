@@ -1,27 +1,27 @@
-	package com.umo.notice.controller;
+	package com.umo.anonymousboard.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.umo.board.model.service.BoardService;
-import com.umo.model.vo.NoticeBoard;
-import com.umo.notice.model.service.NoticeBoardService;
+import com.umo.anonymousboard.service.AnonymousBoardService;
+import com.umo.model.vo.Board;
 
 /**
  * Servlet implementation class NoticeUpdateServlet
  */
-@WebServlet("/noticeUpdate")
-public class NoticeUpdateServlet extends HttpServlet {
+@WebServlet("/anonymousUpdate")
+public class AnonymousUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeUpdateServlet() {
+    public AnonymousUpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,12 +30,12 @@ public class NoticeUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int no=Integer.parseInt(request.getParameter("noticeNo"));
+		int no=Integer.parseInt(request.getParameter("anonymousNo"));
 		
-		NoticeBoard nb=new NoticeBoardService().noticeBoardContent(no);
+		Board nb=new AnonymousBoardService().anonymousBoardContent(no);
 		
 		request.setAttribute("nb", nb);
-		request.getRequestDispatcher("/views/notice/noticeUpdate.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/anonymous/anonymousUpdate.jsp").forward(request, response);
 		
 		
 	}

@@ -51,9 +51,12 @@ div#btn-add{float:right; margin: 0 0 15px;}
 					href="<%=request.getContextPath()%>/noticeContentView?noticeNo=<%=n.getNo()%>"><%=n.getTitle()%></a></td>
 				<td><%=n.getWriter()%></td>
 				<td>
+				<%if(n.getRenamed_filename()!=null) {%>
+				 <img src="<%=request.getContextPath()%>/images/file.png"
+					width="16px" />
 					<%
-					if (n.getRenamed_filename() != null) {
-				%> <img src="<%=request.getContextPath()%>/images/file/png"
+				}else if (n.getOriginal_filename() != null) {
+				%> <img src="<%=request.getContextPath()%>/images/file.png"
 					width="16px" /> <%
 					}
 				%>

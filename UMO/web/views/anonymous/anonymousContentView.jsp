@@ -26,7 +26,7 @@
             <th>첨부파일</th>
             <td>
             <%if(ab.getRenamed_filename()!=null) {%>
-                         <a href="<%=request.getContextPath()%>/free/fileDown?fileName=<%=ab.getRenamed_filename() %>">
+                         <a href="<%=request.getContextPath()%>/anonymous/fileDown?fileName=<%=ab.getRenamed_filename() %>">
 						<img src="<%=request.getContextPath()%>/images/file.png"
 						width="16px"/></a>
 					<%} %>
@@ -39,8 +39,8 @@
         <%if(loginMember!=null){ %>
         <tr>
             <th colspan="2">
-                <input type="button" class="btn btn-default" value="수정하기" onclick="location.href='<%=request.getContextPath()%>/freeUpdate?noticeNo=<%=ab.getNo()%>'"/>
-                <input type="button" class="btn btn-default" value="삭제하기" onclick="location.href='<%=request.getContextPath()%>/freeDelete?noticeNo=<%=ab.getNo() %>'"/>
+                <input type="button" class="btn btn-default" value="수정하기" onclick="location.href='<%=request.getContextPath()%>/anonymousUpdate?anonymousNo=<%=ab.getNo()%>'"/>
+                <input type="button" class="btn btn-default" value="삭제하기" onclick="location.href='<%=request.getContextPath()%>/anonymousDelete?anonymousNo=<%=ab.getNo() %>'"/>
             </th>
         </tr>
         <%} %>

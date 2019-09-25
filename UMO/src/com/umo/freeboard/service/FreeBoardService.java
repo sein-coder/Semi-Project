@@ -47,4 +47,14 @@ public class FreeBoardService {
 		close(conn);
 		return no;
 	}
+	public int freeUpdate(NoticeBoard nb) {
+		System.out.println(nb.getOriginal_filename()+" "+nb.getRenamed_filename());
+		Connection conn=getConnection();
+		int result=dao.freeUpdate(conn,nb);
+		
+		if(result>0) {commit(conn);}
+		else {rollback(conn);}
+		
+		return result;
+	}
 }

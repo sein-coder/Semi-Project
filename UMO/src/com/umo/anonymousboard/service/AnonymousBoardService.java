@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.umo.anonymousboard.dao.AnonymousBoardDao;
 import com.umo.model.vo.Board;
+import com.umo.model.vo.NoticeBoard;
 
 public class AnonymousBoardService {
 	private AnonymousBoardDao dao= new AnonymousBoardDao();
@@ -45,5 +46,15 @@ public class AnonymousBoardService {
 		int no=dao.lastAnonymousContentNo(conn,writer);
 		close(conn);
 		return no;
+	}
+	public int anonymousUpdate(NoticeBoard nb) {
+		System.out.println(nb.getOriginal_filename()+" "+nb.getRenamed_filename());
+		Connection conn=getConnection();
+		int result=dao.anonymousUpdate(conn,nb);
+		
+		if(result>0) {commit(conn);}
+		else {rollback(conn);}
+		
+		return result;
 	}
 }
