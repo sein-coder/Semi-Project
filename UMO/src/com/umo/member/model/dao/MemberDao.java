@@ -94,7 +94,8 @@ public int insertMember(Connection conn,Member m)
 	 		pstmt.setString(4, m.getPhone());
 	 		pstmt.setString(5, m.getAddress());
 	 		pstmt.setString(6,m.getMemberId());
-	 		result=pstmt.executeUpdate();        
+	 		result=pstmt.executeUpdate();      
+
 	      }catch(SQLException e) {
 	         e.printStackTrace();
 	      }finally {

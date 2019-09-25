@@ -43,11 +43,11 @@
       font-weight: bold;
       font-size: 17px;
       width: 41%;
-      height: 30%;
+      height: 11%;
 
       font-family: tahoma;
       margin-left: 28%;
-      margin-top: 2%;
+      margin-top: 1%;
 line-height:30px;
     }
 
@@ -107,7 +107,7 @@ line-height:30px;
         <label>주소<input type="text" id="address" name="address" value="<%=m.getAddress()%>" /></label>
 
         <input type="button" onclick="fn_updateMember();" value="수정완료" id="updateCheck"
-          style="margin-left:10%;margin-top:15%;" />
+          style="margin-left:10%;margin-top:1%;" />
         <input type="button" value="취소" name="cancel" id="updateCheck" onclick="acancel();" style="margin-left:7%;margin-top:2%;"/>
 
       </form>
@@ -134,5 +134,6 @@ line-height:30px;
     }
   </script>
   <br>
+  
   <%@ include file="/views/common/footer.jsp"%>
 </body>

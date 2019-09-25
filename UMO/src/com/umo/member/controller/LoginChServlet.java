@@ -36,15 +36,12 @@ public class LoginChServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		String id=request.getParameter("userId");
-<<<<<<< HEAD
 		String pw=request.getParameter("pw");
 		System.out.println(id+pw);
 		
 		
 		
-=======
-		String pw=request.getParameter("password");
->>>>>>> refs/remotes/origin/master
+		
 		String saveId=request.getParameter("saveId");
 		
 		MemberService ms=new MemberService();
@@ -73,14 +70,10 @@ public class LoginChServlet extends HttpServlet {
 			response.sendRedirect(request.getContextPath());
 			
 			}else {
-<<<<<<< HEAD
 				
 				
-				msg="µî·ÏµÇÁö¾ÊÀº È¸¿øÀÔ´Ï´Ù.";
+				msg="ë“±ë¡ë˜ì§€ì•Šì€ íšŒì›ìž…ë‹ˆë‹¤.";
 				
-=======
-				msg="ï¿½ï¿½Ïµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½Ô´Ï´ï¿½.";
->>>>>>> refs/remotes/origin/master
 			   view="views/common/msg.jsp";
 			   request.setAttribute("msg", msg);
 			   request.setAttribute("loc", loc);

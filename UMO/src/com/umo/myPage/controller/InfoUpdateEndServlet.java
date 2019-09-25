@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.catalina.filters.SetCharacterEncodingFilter;
+
 import com.umo.member.model.service.MemberService;
 import com.umo.model.vo.Member;
 import com.umo.myPage.model.service.MyPageService;
@@ -15,7 +17,7 @@ import com.umo.myPage.model.service.MyPageService;
 /**
  * Servlet implementation class InfoUpdateEndServlet
  */
-@WebServlet("/infoUpdateEnd")
+@WebServlet(name="InfoUpdateEnd", urlPatterns="/infoUpdateEnd")
 public class InfoUpdateEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -39,16 +41,16 @@ public class InfoUpdateEndServlet extends HttpServlet {
 		Member m=new Member(request.getParameter("id"),request.getParameter("pw"),request.getParameter("name"),
 				request.getParameter("email"),request.getParameter("phone"),request.getParameter("address"));
 		System.out.println(m.getMemberId()+m.getMemberPw()+m.getMemberName()+m.getEmail());
-		
+	  request.setCharacterEncoding("UTF-8");
 		int result=new MemberService().updateMember(m);
 		String msg="";
 	      String loc="";
 	      System.out.println(result);
 	      if(result>0) {
-	         msg="須岇洂鞝曤炒靾橃爼靹标车.!";
+	         msg="荐沥肯丰!";
 	         loc="/";
 	      }else {
-	         msg="須岇洂鞝曤炒靾橃爼鞁ろ尐!";
+	         msg="促矫荐沥秦林技夸!";
 	         loc="/";
 	      }
 	      request.setAttribute("msg",msg);
