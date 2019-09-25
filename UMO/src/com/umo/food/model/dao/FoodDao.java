@@ -11,6 +11,9 @@ import java.util.List;
 import java.util.Properties;
 
 import com.umo.model.vo.Food;
+import com.umo.model.vo.FoodComment;
+
+import oracle.jdbc.proxy.annotation.Pre;
 
 import static common.template.JDBCTemplate.close;
 
@@ -200,10 +203,56 @@ public class FoodDao {
 			close(pstmt);
 		}return result;
 	}
+
+	public List<FoodComment> selectComment(Connection conn, int board_no) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<FoodComment> list= new ArrayList();
+		String sql=prop.getProperty("selectComment");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1,board_no);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				FoodComment comment=new FoodComment();
+				comment.setComment_No(rs.getInt("comment_No"));
+				comment.setComment_Writer(rs.getString("comment_Writer"));
+				comment.setComment_Contents(rs.getString("comment_Contents"));
+				comment.setDate(rs.getDate("date"));
+				comment.setBoard_no_Ref(rs.getInt("board_no_Ref"));
+				comment.setComment_Level(rs.getInt("comment_Level"));
+				comment.setComment_Refno(rs.getInt("comment_Refno"));
+				list.add(comment);				
+				}
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			return list;
+		}
+
+	public int insertFoodComment(Connection conn, FoodComment foodComment) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("insertFoodComment");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, foodComment.getComment_Writer());
+			pstmt.setString(2, foodComment.getComment_Contents());
+			pstmt.setInt(3, foodComment.getBoard_no_Ref());
+			pstmt.setInt(4, foodComment.getComment_Level());
+			pstmt.setInt(5, foodComment.getComment_Refno());
+			result=pstmt.executeUpdate();	
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }
-
-
-
 	
 	
 	

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "com.umo.model.vo.Food" %>
+<%@ page import = "com.umo.model.vo.Food,java.util.List,com.umo.model.vo.FoodComment" %>
 <%@ include file = "/views/common/header.jsp" %>
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=y8vul4gvp5&submodules=geocoder"></script>
 <script src="<%= request.getContextPath() %>/js/jquery-3.4.1.min.js"></script>
@@ -8,6 +8,7 @@
 <%
 	
 	Food f = (Food)request.getAttribute("f");
+	List<FoodComment> list = (List<FoodComment>)request.getAttribute("list");
 %>
 	<style>
 		section#foodview-container{margin-top: 150px;margin-left: auto;margin-right: auto;align:center;width:100%;}
@@ -142,6 +143,63 @@
 			</tr>
 		</table>
 	</div>
+	<!-- 댓글  -->
+	<div id="comment-container"></div>
+		<div class="comment-editor">
+			<form action="<%=request.getContextPath()%>/foodComment/insertComment" method="post" onsubmit="return fn_commentValidate();">
+			<table style="margin-top:20px; margin-left:auto; margin-right:auto";>
+				<tr>
+					<td>
+						<!-- 클라이언트에게 입력받을 필요가 없는 내용이다 -->
+						<input type="hidden" name="boardRef" value="<%=f.getBoard_No() %>>">
+						<input type="hidden" name="boardCommentRef" value="0">
+						<input type="hidden" name="boardCommentLevel" value="1">
+						<input type="hidden" name="boardWriter" value="<%=loginMember!=null?loginMember.getMemberId():"" %>">
+						<!--클라이언트에게 입력을 받아야 하는 내용을 작성을 하기  -->	
+						<textarea style="min-right:1s00px;" name="content" rows="3" cols="60"></textarea>
+					</td>
+					<td>	
+						<input type="submit" value="등록"/>
+					</td>
+				</tr>
+			</table>
+		
+		
+		
+		</div>
+	<table id="tbl-comment">
+	<% if(!list.isEmpty()) {
+		for(FoodComment comment : list){
+			if(comment.getComment_Level()==1){
+	%>
+		<tr class="level1">
+			<td>
+				<sub class="comment-writer"><%=comment.getComment_Writer() %></sub>
+				<sub class="comment-date"><%=comment.getDate()%></sub>
+				<br>
+				<%= comment.getComment_Contents() %>
+			</td>
+			<td>
+				<button class="btn-reply" value="<%=comment.getComment_No()%>">답글</button>
+				<button class="btn-delete" value="<%=comment.getComment_No()%>">삭제</button>
+			</td>
+		</tr>
+	<%  } else {%>
+			<tr class="level2">
+			<td>
+				<sub class="comment-writer"><%=comment.getComment_Writer() %></sub>
+				<sub class="comment-date"><%=comment.getDate()%></sub>
+				<br>
+				<%=comment.getComment_Contents() %>
+			</td>
+			<td>
+				<button class="btn-reply" value="<%=comment.getComment_No()%>">답글</button>
+				</td>
+			</tr>
+		<% 		}	
+			}
+		}	%>
+	</table>
 		
 		
 		
@@ -431,6 +489,56 @@
 	}
 	
 	naver.maps.onJSContentLoaded = initGeocoder;
+	
+	//댓글 부분
+	$(function(){
+		$("[name=cotent]").focus(function(){
+			if(<%=loginMember==null%> {
+				fn_loginAlert();
+			}		
+		})
+		$(".btn-reply").click(function(){
+			if(<%=loginMember==null%>){
+				fn_loginAlert();
+			}
+			var tr=$("<tr>");
+			var html="<td style='display:none; text-align:left;' colspan='2'>";
+			html+="<form action='<%=request.getContextPath()%>/foodComment/insertComment' method='post'>";
+			html+='<input type="hidden" name="boardnoRef" value="<%=food.getboard_no() %>">';
+			html+='<input type="hidden" name="boardCommentRef" value="'+$(this).val()'">';
+			html+='<input type="hidden" name="boardCommentLevel" value="2">';
+			html+='<input type="hidden" name="boardWriter" value="<%=loginMember!=null?loginMember.getMemberId():""%>">';
+			html+='<textarea name="content" cols="60" rows="3"></textarea>';
+			html+='<input type="submit" value="등록"/>';
+			html+= '</form></td>';
+			tr.html(html);
+			tr.insertAfter($(this).parent().parent()).children("td").show().slidDown(800);
+			$(this).off('click')//실행후 이벤트를 중단시킴
+		});
+		$(".btn-delete").click(function(){
+			if(<%=loginMember==null%>){
+				fn_loginAlert();
+			}
+			location.href="<%=request.getContextPath()%>/foodComment/deleteComment?boardRef=<%=f.getBoard_No()%>&foodCommentNo="+$(this).val()+"";
+	
+		});
+	});
+	function fn_commentValidate(){
+		if(<%=loginMember==null%>){
+			fn_loginAlert();
+		}
+		var len = $("[name=content]").val().trim().length;
+		if(len<1){
+			alert("내용을 입력하세요.");
+			return false;
+		}
+		function fn_loginAlert(){}
+			alert("로그인 후 이용하세요!");
+			$("[name=content]").blur();
+			location.href="<%=request.getContextPath()%>/memberLogin";
+	}
+	
+	
 	</script>
-
+</sesction>
 <%@ include file = "/views/common/footer.jsp" %>
