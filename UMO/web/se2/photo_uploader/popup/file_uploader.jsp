@@ -7,7 +7,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%
 
-String path = request.getSession().getServletContext().getRealPath("/") + File.separator + "upload/food"; // 이미지가 저장될 주소
+String path = request.getSession().getServletContext().getRealPath("/") + File.separator + "upload/food/contentimg"; // 이미지가 저장될 주소
 String filename = "";
 
 if(request.getContentLength() > 10*1024*1024 ){
@@ -28,7 +28,7 @@ if(request.getContentLength() > 10*1024*1024 ){
 		String upfile = (multi.getFilesystemName("Filedata"));
 		if (!upfile.equals("")) {
 			String dateString = formatter2.format(new java.util.Date());
-			String moveFileName = dateString + upfile.substring(upfile.lastIndexOf(".") );
+			String moveFileName = dateString + upfile;
 			String fileExt = upfile.substring(upfile.lastIndexOf(".") + 1);
 			File sourceFile = new File(path + File.separator + upfile);
 			File targetFile = new File(path + File.separator + moveFileName);

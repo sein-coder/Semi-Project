@@ -50,7 +50,7 @@ public class FoodBoardFormEndServlet extends HttpServlet {
 		
 		String root = getServletContext().getRealPath("/");
 		
-		String saveDir = root+"/upload/food";
+		String saveDir = root+"/upload/food/thumnail";
 		
 		MultipartRequest mr = new MultipartRequest(request, saveDir,maxSize,"UTF-8",new DefaultFileRenamePolicy());
 
@@ -62,7 +62,7 @@ public class FoodBoardFormEndServlet extends HttpServlet {
 		String bills=mr.getParameter("bills");
 		String park=mr.getParameter("park");
 		String open = mr.getParameter("time");
-		String menu=mr.getParameter("menu");
+		String menu=mr.getParameter("tags");
 		String content=mr.getParameter("ir1");
 		int grade=Integer.parseInt(mr.getParameter("grade"));
 		String road_address=mr.getParameter("road_address");
@@ -70,14 +70,11 @@ public class FoodBoardFormEndServlet extends HttpServlet {
 		String ori_file = mr.getParameter("ori_file");
 		String renamed_file = mr.getParameter("renamed_file");
 		
-		System.out.println("servlet:"+ori_file);
-		System.out.println("servlet:"+renamed_file);
-		
 		Food f = new Food();
 		//사진
 		f.setBoard_Thumbnail(thumnail);
-//		f.setRenamed_Filename(renamed_fileNames);
-//		f.setOriginal_Filename(original_fileNames);
+		f.setRenamed_Filename(renamed_file);
+		f.setOriginal_Filename(ori_file);
 		f.setBoard_Writer(writer);
 		f.setBoard_Title(title);
 		f.setBoard_tel(tel);

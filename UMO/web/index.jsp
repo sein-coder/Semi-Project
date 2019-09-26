@@ -89,7 +89,7 @@ height:30px;
 
         </div>
     </section>
-           
+
 <section id="contact" class="main style3 secondary">
         <div class="content">
                 <h2>문의사항</h2>
@@ -183,7 +183,6 @@ $.ajax({
 				}
 			 $('#inqeurymousboard').html("<table class='table table-striped table-bordered table-hover'>"+result4); 
 	}
-	
 });
 var result5="";
 $.ajax({

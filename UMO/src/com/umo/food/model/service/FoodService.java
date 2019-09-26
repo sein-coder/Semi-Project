@@ -52,7 +52,7 @@ public class FoodService {
 	public int updateFoodBoard(Food f) {
 		Connection conn=getConnection();
 		int result=dao.updateFoodBoard(conn,f);
-		
+
 		if(result>0) {
 			commit(conn);
 		}else {

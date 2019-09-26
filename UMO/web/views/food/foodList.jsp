@@ -37,7 +37,7 @@ button#btn-add{margin-left:85%;}
 				<tr>
 					<td>
 					<a href="<%=request.getContextPath()%>/food/foodView?board_no=<%=f.getBoard_No()%>">
-						<img class="foodimg" alt="img" src="<%=request.getContextPath() %>/upload/food/<%= f.getBoard_Thumbnail() %>" >
+						<img class="foodimg" alt="img" src="<%=request.getContextPath() %>/upload/food/thumnail/<%= f.getBoard_Thumbnail() %>" >
 					</a>
 					
 					</td>

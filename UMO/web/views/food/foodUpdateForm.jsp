@@ -47,28 +47,71 @@
 	margin-left: 680px;
 	}
 </style>
+<style>
+	* {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    ul {
+        padding: 16px 0;
+    }
+
+    ul li {
+        display: inline-block;
+        margin: 0 5px;
+        font-size: 14px;
+        letter-spacing: -.5px;
+    }
+    
+    form {
+        padding-top: 16px;
+    }
+
+    ul li.tag-item {
+        padding: 4px 8px;
+        background-color: #777;
+        color: #000;
+    }
+
+    .tag-item:hover {
+        background-color: #262626;
+        color: #fff;
+    }
+
+    .del-btn {
+        font-size: 12px;
+        font-weight: bold;
+        cursor: pointer;
+        margin-left: 8px;
+    }
+</style>
 <section>
 	<form id="frm" action ="<%=request.getContextPath() %>/food/foodUpdateEnd?board_no=<%= f.getBoard_No() %>" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="writer" value="<%=loginMember!=null?loginMember.getMemberId():""%>"> 
 	<div>
 	<div id="thumnail" style="margin-left:auto; margin-right:auto; margin-top:100px; width: 600px; height: 400px; border: 1px solid red;">
-		<img id="thumnail_image" src="<%=request.getContextPath()%>/upload/food/<%= f.getBoard_Thumbnail() %>" style="width: 600px; height: 400px;" >
+		<img id="thumnail_image" src="<%=request.getContextPath()%>/upload/food/thumnail/<%= f.getBoard_Thumbnail() %>" style="width: 600px; height: 400px;" >
 	</div>
 	<input style="margin-left: auto; margin-right: auto;" id="thumnail_select" name="thumnail_select" type="file">
 	<table id="big-table">
 		<tr>
 			<th style="background-color:black;">  	
-				<button id="img-back" style="border:none;padding:0px;"><img src="<%=request.getContextPath()%>/images/foodpoint/back.jpg" width="50px" height="205px"></button>
+				<button id="img-back" type="button" style="border:none;padding:0px;"><img src="<%=request.getContextPath()%>/images/foodpoint/back.jpg" width="50px" height="205px"></button>
 			</th> 
 			<th colspan="3" style="background-color:white;" >
 				<div id="img-container">
 					<img id="img0" style="width: 300px; height:200px" src="<%=request.getContextPath()%>/images/foodpoint/noimg.png">
 					<img id="img1" style="width: 300px; height:200px" src="<%=request.getContextPath()%>/images/foodpoint/noimg.png"> 
 					<img id="img2" style="width: 300px; height:200px" src="<%=request.getContextPath()%>/images/foodpoint/noimg.png">
+					<!-- 다중 이미지 파일명 저장용 -->
+					<input id="ori_file" type="hidden" name="ori_file" value="a">
+					<input id="renamed_file" type="hidden" name="renamed_file" value="b">
 				</div>
 			</th>
 			<th style="background-color:white;">
-				<button id="img-front" style="border: none; padding:0px 0px 0px 0px; " ><img src="<%=request.getContextPath()%>/images/foodpoint/front.jpg" width="50px" height="205px"></button>
+				<button id="img-front" type="button" style="border: none; padding:0px 0px 0px 0px; " ><img src="<%=request.getContextPath()%>/images/foodpoint/front.jpg" width="50px" height="205px"></button>
 			</th>
 		</tr>
 		<tr>
@@ -82,6 +125,16 @@
 								제목<input type="text" id="si" placeholder="가게상호명을 입력하세요" name="title" value="<%=f.getBoard_Title() %>"><br>
 							</td>
 						</tr>
+						<tr>
+							<td>
+								해시태그
+								<div class="content">
+						            <input type="hidden" value="" name="tags" id="tags" />								
+							        <ul id="tag-list">
+							        </ul>
+							        <input type="text" id="tag" size="7" placeholder="태그입력" />
+							    </div>
+							</td>
 						<tr>
 							<td>
 								
@@ -126,13 +179,6 @@
 						</tr>
 						<tr>
 							<td>
-								메뉴
-								<textarea id="menu" name="menu" cols="10" rows="5" placeholder="메뉴를 입력하시오" ><%=f.getBoard_menu()%>
-								</textarea>
-							</td>
-						</tr>
-						<tr>
-							<td>
 								<h3>내용</h3>
 									<textarea name="ir1" id="ir1" rows="10" cols="100">
 										<%=f.getBoard_Contents() %>
@@ -165,6 +211,65 @@
 	</form>
 
 <script>
+	//해시태그 초기화
+	var tags = "<%=f.getBoard_menu()%>".split(",")
+	var counter = 0;
+	var tag = {};
+	
+	$.each(tags,function(i,item){
+		addTag(tags[i]);
+		$("#tag-list").append("<li class='tag-item'>"+"#"+item+"<span class='del-btn' idx='"+i+"'>x</span></li>");
+	});
+	
+	// 태그를 추가한다.
+    function addTag (value) {
+        tag[counter] = value; // 태그를 Object 안에 추가
+        counter++; // counter 증가 삭제를 위한 del-btn 의 고유 id 가 된다.
+    }
+    
+    $("#tag").on("keypress", function (e) {
+        // input 에 focus 되있을 때 엔터 및 스페이스바 입력시 구동
+        if (e.key === "Enter" || e.keyCode == 32) {
+            var tagValue = $(this).val(); // 값 가져오기
+            // 값이 없으면 동작 ㄴㄴ
+            if (tagValue !== "") {
+                // 같은 태그가 있는지 검사한다. 있다면 해당값이 array 로 return 된다.
+                var result = Object.values(tag).filter(function (word) {
+                    return word === tagValue;
+                })
+                // 태그 중복 검사
+                if (result.length == 0) { 
+                    $("#tag-list").append("<li class='tag-item'>"+"#"+tagValue+"<span class='del-btn' idx='"+counter+"'>x</span></li>");
+                    addTag(tagValue);
+                    $(this).val("");
+                } else {
+                    alert("태그값이 중복됩니다.");
+                }
+            }
+            e.preventDefault(); // SpaceBar 시 빈공간이 생기지 않도록 방지
+        }
+    });
+
+    // 삭제 버튼 
+    // 삭제 버튼은 비동기적 생성이므로 document 최초 생성시가 아닌 검색을 통해 이벤트를 구현시킨다.
+    $(document).on("click", ".del-btn", function (e) {
+        var index = $(this).attr("idx");
+        tag[index] = "";
+        $(this).parent().remove();
+    });
+
+
+	var foodpic=[];
+	//회전이미지값 받아오기 전처리
+	foodpic = ("<%=f.getRenamed_Filename()%>").split(",");
+	
+	for(var i=0; i<foodpic.length; i++){
+		foodpic[i] = "<%=request.getContextPath()%>/upload/food/rotateimg/"+foodpic[i]
+	}
+	
+	$("#img"+0).attr("src",foodpic[count%foodpic.length]);
+	$("#img"+1).attr("src",foodpic[(count+1)%foodpic.length]);
+	$("#img"+2).attr("src",foodpic[(count+2)%foodpic.length]);
 
 	var oEditors = [];
 	nhn.husky.EZCreator.createInIFrame({
@@ -174,32 +279,10 @@
 	 fCreator: "createSEditor2"
 	});
 	
-	$("#savebutton").click(function(){ 
-		oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []); 
-		
-		var fd = new FormData();
-		$.each($("#upfile")[0].files,function(i,item){
-			fd.append("file"+i,item);
-		});
-		
-		$.ajax({
-			url:"<%= request.getContextPath() %>/ajaxFile",
-			data:fd,
-			type:"post", //무조건 post로 전송
-			processData: false,
-			contentType:false,
-			success : function(data){
-				console.log(data);
-			}
-		});
-
-		$("#frm").submit(); 
-	});
-	
 	
 	// textArea에 이미지 첨부
 	function pasteHTML(filepath){
-	    var sHTML = '<img src="<%=request.getContextPath()%>/upload/food/'+filepath+'">';
+	    var sHTML = '<img src="<%=request.getContextPath()%>/upload/food/contentimg/'+filepath+'">';
 	    oEditors.getById["ir1"].exec("PASTE_HTML", [sHTML]);
 	}
 	
@@ -210,76 +293,97 @@
 			$("#thumnail_image").attr({"src":e.target.result}).css({"width":"600px","height":"400px"});
 		}
 		reader.readAsDataURL($(this)[0].files[0]); //파일리더가 파일을 읽어들여온다.
-
+		console.log($("#thumnail_select").val());
 	});
 
 	var count = 0;//시작값
 	$("#img-back").click(function(){
 		count+=1;//초기값에 +1
-		$("#"+0).attr("src",foodpic[count%foodpic.length]);//id값이 0인 곳, 속성 src에 foodpic에서 count값에서 foodpic의 길이를 나눈 나머지의 값이 0이면 여기서 src바꿔주기  
-		$("#"+1).attr("src",foodpic[(count+1)%foodpic.length]);
-		$("#"+2).attr("src",foodpic[(count+2)%foodpic.length]);
+		$("#img"+0).attr("src",foodpic[count%foodpic.length]);//id값이 0인 곳, 속성 src에 foodpic에서 count값에서 foodpic의 길이를 나눈 나머지의 값이 0이면 여기서 src바꿔주기  
+		$("#img"+1).attr("src",foodpic[(count+1)%foodpic.length]);
+		$("#img"+2).attr("src",foodpic[(count+2)%foodpic.length]);
 		console.log(count);
 	});
 	$("#img-front").click(function(){
 		count-=1;//초기값을 -1
 		if(count<0){count=foodpic.length-1;}//count가 0보다 작게 나오면 foodpic의 길이에서 -1을 뺀값을 count에 넣어줘(그럼 4)
-		$("#"+0).attr("src",foodpic[count%foodpic.length]);//id값이 0인곳, 속성src에 foodpic길이에서 count를 나눈나머지값이 0이면 id값이 0인 곳에 src를 바꿔주기 
-		$("#"+1).attr("src",foodpic[(count+1)%foodpic.length]);
-		$("#"+2).attr("src",foodpic[(count+2)%foodpic.length]);
+		$("#img"+0).attr("src",foodpic[count%foodpic.length]);//id값이 0인곳, 속성src에 foodpic길이에서 count를 나눈나머지값이 0이면 id값이 0인 곳에 src를 바꿔주기 
+		$("#img"+1).attr("src",foodpic[(count+1)%foodpic.length]);
+		$("#img"+2).attr("src",foodpic[(count+2)%foodpic.length]);
 		console.log(count);
 	});
-	
-	//아래 사진 업로드, 파일선택 부분 코드
-	var foodpic=[];
 			
+	//다중 사진 업로드, 파일선택 부분 코드
+	
+	var validation = false;
+
 	$("#upfile").change(function(){
-		$("#preview").html("");//사진미리보기가 다 나오도록 처리
-		$.each($(this)[0].files,function(i,item){//$.each() 메서드는 object와 배열모두 사용할수 있는 반복함수,jquery용,for in 반복문과 유사
+		foodpic = [];
+		$.each($(this)[0].files,function(i,item){
 			var reader = new FileReader();
 			reader.onload=function(e){									
-			/* 	아래는 
-				i<3보다 작을때까지만 img태그를 만들고 container에 추가, foodpic배열에 이미지주소값을 요소로 추가 --> id값이 0,1,2인 img태그만 만들어서 세개만 container에 추가할려고, foodpic배열에 src추가 
-			    i가 3보다 클때는 img태그를 만들지 않고 foodpic배열에 이미지주소값추가만 --> 그외에 애들은 foodpic이라는 배열에만 src를 추가해준다
-			         이미지주소값 : e.tartget.result
-			         배열에 요소 추가는 append로 합니다~~~ */
 				if(i<3){
-					$("#"+i).attr({"src":e.target.result}).css({"width":"300px","height":"200px"});//img태그를 생성하는부분
-					//$("#img-container").append(img);//div 태그에 하위태그를 추가할때 append
-					foodpic.push(e.target.result);//배열에 요소를 추가할땐 push
-				}else{
-					foodpic.push(e.target.result);
+					$("#img"+i).attr({"src":e.target.result}).css({"width":"300px","height":"200px"});
 				}
+				foodpic.push(e.target.result);
 			}
 			reader.readAsDataURL(item);
-			console.log(item);
 		});
+		
+		form_validation();
+		
 	});
-			
-	$("#up-btn").on("click",function(){
-		var fd=new FormData();
+	
+	function form_validation() {		
+		var fd = new FormData();
 		$.each($("#upfile")[0].files,function(i,item){
 			fd.append("file"+i,item);
 		});
-		
-		$a.jax({
-		url:"<%=request.getContextPath()%>/ajaxFile",
-		data:fd,
-		type:"post",
-		processData:false,
-		contentType:false,
-		success:function(data){
-			console.log(data);
-			$("#preview").html("");
-			$("#upfile").val("");
+
+		$.ajax({
+			url:"<%= request.getContextPath() %>/ajaxFile",
+			data:fd,
+			type:"post", //무조건 post로 전송
+			processData: false,
+			contentType:false,
+			success : function(data){
+				$("#ori_file").val(data.split("/")[0]);
+				$("#renamed_file").val(data.split("/")[1]);
+				validation = true;
+			},
+			error : function(request,status,error){
+				validation = false;
 			}
 		});
+	}
+	
+	$("#frm").submit(function(){
+		if(foodpic.length>0){
+			validation = true;
+		}
+		if(validation){
+			oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []); 
+			
+			var tags = "";
+			
+			for(var i=0; i<counter; i++){
+				if(tag[i] != "") {
+					tags += tag[i] + ",";											
+				}
+			}
+			tags = tags.substring(0,tags.length-1);
+			$("#tags").val(tags);
+			
+			return true;
+		}else {
+			return false;
+		}
 	});
 			
 	$("#downfile").on("click",function(){
-		$("#"+0).attr({"src":"<%=request.getContextPath()%>/images/foodpoint/noimg.png"});
-		$("#"+1).attr({"src":"<%=request.getContextPath()%>/images/foodpoint/noimg.png"});
-		$("#"+2).attr({"src":"<%=request.getContextPath()%>/images/foodpoint/noimg.png"});
+		$("#img"+0).attr({"src":"<%=request.getContextPath()%>/images/foodpoint/noimg.png"});
+		$("#img"+1).attr({"src":"<%=request.getContextPath()%>/images/foodpoint/noimg.png"});
+		$("#img"+2).attr({"src":"<%=request.getContextPath()%>/images/foodpoint/noimg.png"});
 		foodpic=[];
 	});			
 			

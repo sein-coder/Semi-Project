@@ -40,42 +40,36 @@ public class FoodUpdateEndServlet extends HttpServlet {
 			request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 			return;
 		}
-		
-		System.out.println("ㅋㅋㅋㅋ");
-		
-		String saveDir =getServletContext().getRealPath("/upload/food");
+		String saveDir =getServletContext().getRealPath("/upload/food/thumnail");
 		
 		int maxSize = 1024*1024*10;
 		
 		MultipartRequest mr = new MultipartRequest(request,saveDir,maxSize,"UTF-8",new DefaultFileRenamePolicy());
 		
-		String fileName = mr.getFilesystemName("upfile");
-		String oriFileName = mr.getOriginalFileName("upfile");
+		int board_no = Integer.parseInt(mr.getParameter("board_no"));
+		String thumnail = mr.getFilesystemName("thumnail_select");
+		String writer=mr.getParameter("writer");
 		String title=mr.getParameter("title");
 		String tel=mr.getParameter("tel");
 		String foodtype=mr.getParameter("foodtype");
 		String bills=mr.getParameter("bills");
 		String park=mr.getParameter("park");
-		String open=mr.getParameter("time");
-		String menu=mr.getParameter("menu");
-		String ir1=mr.getParameter("ir1");
+		String open = mr.getParameter("time");
+		String menu=mr.getParameter("tags");
+		String content=mr.getParameter("ir1");
 		int grade=Integer.parseInt(mr.getParameter("grade"));
-		String address1=mr.getParameter("address1");
+		String road_address=mr.getParameter("road_address");
 		
-		int board_no=Integer.parseInt(mr.getParameter("board_no"));
+		String ori_file = mr.getParameter("ori_file");
+		String renamed_file = mr.getParameter("renamed_file");
 		
-		File fi=mr.getFile("up_file");
-		
-		if(fi!=null&&fi.length()>0) {
-				File deleteFile = new File(saveDir+"/"+oriFileName);
-				boolean result=deleteFile.delete();
-				System.out.println(result);
-		}else {
-			fileName = oriFileName;
-		}
-		Food f=new Food();
-		f.setOriginal_Filename(fileName);
-		f.setRenamed_Filename(oriFileName);
+		Food f = new Food();
+		//사진
+		f.setBoard_No(board_no);
+		f.setBoard_Thumbnail(thumnail);
+		f.setRenamed_Filename(renamed_file);
+		f.setOriginal_Filename(ori_file);
+		f.setBoard_Writer(writer);
 		f.setBoard_Title(title);
 		f.setBoard_tel(tel);
 		f.setBoard_foodtype(foodtype);
@@ -83,10 +77,9 @@ public class FoodUpdateEndServlet extends HttpServlet {
 		f.setBoard_park(park);
 		f.setBoard_open(open);
 		f.setBoard_menu(menu);
-		f.setBoard_Contents(ir1);
+		f.setBoard_Contents(content);
 		f.setBoard_Grade(grade);
-		f.setBoard_MAP(address1);
-		f.setBoard_No(board_no);
+		f.setBoard_MAP(road_address);
 		
 		int result=new FoodService().updateFoodBoard(f);
 		String msg="";
