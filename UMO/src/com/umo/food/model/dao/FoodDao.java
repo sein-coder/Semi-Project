@@ -179,7 +179,8 @@ public class FoodDao {
 			pstmt.setString(10, f.getBoard_Contents());
 			pstmt.setInt(11, f.getBoard_Grade());
 			pstmt.setString(12, f.getBoard_MAP());
-			pstmt.setInt(13, f.getBoard_No());
+			pstmt.setString(13, f.getBoard_Thumbnail());
+			pstmt.setInt(14, f.getBoard_No());
 			result=pstmt.executeUpdate();
 		}catch (SQLException e) {
 			e.printStackTrace();

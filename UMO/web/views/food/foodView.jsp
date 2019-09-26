@@ -32,13 +32,47 @@
 	table#tbl-comment tr.level2 sub.comment-writer {color:#8e8eff; font-size:14px}
 	table#tbl-comment tr.level2 sub.comment-date {color:#ff9c8a; font-size:10px}
 </style>
+
+<style>
+	* {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    ul {
+        padding: 16px 0;
+    }
+
+    ul li {
+        display: inline-block;
+        margin: 0 5px;
+        font-size: 14px;
+        letter-spacing: -.5px;
+    }
+    
+    form {
+        padding-top: 16px;
+    }
+
+    ul li.tag-item {
+        padding: 4px 8px;
+        background-color: #777;
+        color: #000;
+    }
+
+    .tag-item:hover {
+        background-color: #262626;
+        color: #fff;
+    }
+</style>
 	
 	<section id="foodview-container">
 	<input type="hidden" name="writer" value="<%=loginMember!=null?loginMember.getMemberId():""%>"> 
 	
 	<div id="div-container">
 		<div id="thumnail" style="margin-left:auto; margin-right:auto; margin-top:200px; width: 600px; height: 400px; border: 1px solid red;">
-			<img src="<%=request.getContextPath() %>/upload/food/<%= f.getBoard_Thumbnail() %>" style="width: 600px; height: 400px" >
+			<img src="<%=request.getContextPath() %>/upload/food/thumnail/<%= f.getBoard_Thumbnail() %>" style="width: 600px; height: 400px" >
 		</div>
 		<table id="big-table">
 		
@@ -65,6 +99,15 @@
 							<tr>
 								<td>
 									<span>제목:<%=f.getBoard_Title() %></span>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="content">							
+								        <ul id="tag-list">
+								        	
+								        </ul>
+								    </div>
 								</td>
 							</tr>
 							<tr>
@@ -98,13 +141,6 @@
 							<tr>
 								<td>
 									<span id="grade">만족도:<%=f.getBoard_Grade() %></span>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<h3>메뉴</h3>
-									<textarea id="menu" name="menu" cols="250" rows="5"placeholder="메뉴를 입력하시오" readonly><%=f.getBoard_menu() %>
-									</textarea>
 								</td>
 							</tr>
 							<tr>
@@ -196,7 +232,7 @@
 			</td>
 			<td>
 				<button class="btn-reply" value="<%=comment.getComment_No()%>">답글</button>
-				<button class="btn-delete" value="<%=comment.getComment_No()%> ">삭제</button><!--아직 안함  -->
+				<button class="btn-delete" value="<%=comment.getComment_No()%>">삭제</button><!--아직 안함  -->
 				</td>
 			</tr>
 		<% 		}	
@@ -209,7 +245,30 @@
 	</section> -->
 
 	<script>
+	//해시태그 표시 및 추가
+	
+	var tags = "<%=f.getBoard_menu()%>".split(",")
+	
+	console.log(tags);
+	
+	$.each(tags,function(i,item){
+		$("#tag-list").append("<li class='tag-item'>"+"#"+item+"</li>");
+	});
+	
+	
 	var foodpic=[];
+	
+	//회전이미지값 받아오기 전처리
+	foodpic = ("<%=f.getRenamed_Filename()%>").trim().split(",");
+	
+	for(var i=0; i<foodpic.length; i++){
+		console.log(foodpic[i]);
+		foodpic[i] = "<%=request.getContextPath()%>/upload/food/rotateimg/"+foodpic[i]
+	}
+	
+	$("#img"+0).attr("src",foodpic[count%foodpic.length]);
+	$("#img"+1).attr("src",foodpic[(count+1)%foodpic.length]);
+	$("#img"+2).attr("src",foodpic[(count+2)%foodpic.length]);
 	
 	var count = 0;//시작값
 	$("#img-back").click(function(){

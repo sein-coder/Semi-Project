@@ -45,7 +45,7 @@ public class AjaxFileUploadServlet extends HttpServlet {
 		
 		String root = getServletContext().getRealPath("/");
 		
-		String saveDir = root+"/upload/food/content";
+		String saveDir = root+"/upload/food/rotateimg";
 		//크기
 		int maxSize = 1024*1024*100;
 		

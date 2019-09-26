@@ -42,7 +42,60 @@
 	input#downfile{
 	margin-left: 680px;
 	}
+	button.tag{
+		padding: 0px;
+		margin: 5px;
+		/* visibility: hidden; */
+	}
+	button.tag span{
+		color: red;
+		background-color: black;
+		font-size: 15px;
+		visibility: visible;
+	}
 </style>
+
+<style>
+	* {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    ul {
+        padding: 16px 0;
+    }
+
+    ul li {
+        display: inline-block;
+        margin: 0 5px;
+        font-size: 14px;
+        letter-spacing: -.5px;
+    }
+    
+    form {
+        padding-top: 16px;
+    }
+
+    ul li.tag-item {
+        padding: 4px 8px;
+        background-color: #777;
+        color: #000;
+    }
+
+    .tag-item:hover {
+        background-color: #262626;
+        color: #fff;
+    }
+
+    .del-btn {
+        font-size: 12px;
+        font-weight: bold;
+        cursor: pointer;
+        margin-left: 8px;
+    }
+</style>
+
 <section>
 	<form id="frm" action ="<%=request.getContextPath() %>/board/boardFormEnd" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="writer" value="<%=loginMember!=null?loginMember.getMemberId():""%>">
@@ -79,6 +132,17 @@
 							<tr>
 								<td>
 									제목<input type="text" id="si" placeholder="가게상호명을 입력하세요" name="title"><br>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									해시태그
+									<div class="content">
+							            <input type="hidden" value="" name="tags" id="tags" />								
+								        <ul id="tag-list">
+								        </ul>
+								        <input type="text" id="tag" size="7" placeholder="태그입력" />
+								    </div>
 								</td>
 							</tr>
 							<tr>
@@ -123,13 +187,6 @@
 							</tr>
 							<tr>
 								<td>
-									메뉴
-									<textarea id="menu" name="menu" cols="10" rows="5" placeholder="메뉴를 입력하시오" >
-									</textarea>
-								</td>
-							</tr>
-							<tr>
-								<td>
 									<h3>내용</h3>
 										<textarea name="ir1" id="ir1" rows="10" cols="100">
 										
@@ -150,8 +207,7 @@
 							</tr>
 							<tr>
 								<td>
-									<input id="savebutton" type="button" value="완료" style="margin-left: 40%;" onclick="form_validation();">
-									<input id="savebutton" type="submit" value="완료" style="margin-left: 40%;">
+									<input id="savebutton" type="submit" value="완료" style="margin-left: 40%;" >
 									<input type="button" value="취소"  id="btn_cancel;" onclick="location.href='<%=request.getContextPath()%>/food/foodList'"/>
 								</td>
 							</tr>
@@ -162,6 +218,49 @@
 	</div>
 	</form>
 <script>
+	//해시태그 기능
+        var tag = {};
+        var counter = 0;
+
+        // 태그를 추가한다.
+        function addTag (value) {
+            tag[counter] = value; // 태그를 Object 안에 추가
+            counter++; // counter 증가 삭제를 위한 del-btn 의 고유 id 가 된다.
+        }
+        
+        $("#tag").on("keypress", function (e) {
+            // input 에 focus 되있을 때 엔터 및 스페이스바 입력시 구동
+            if (e.key === "Enter" || e.keyCode == 32) {
+                var tagValue = $(this).val(); // 값 가져오기
+                // 값이 없으면 동작 ㄴㄴ
+                if (tagValue !== "") {
+                    // 같은 태그가 있는지 검사한다. 있다면 해당값이 array 로 return 된다.
+                    var result = Object.values(tag).filter(function (word) {
+                        return word === tagValue;
+                    })
+                    // 태그 중복 검사
+                    if (result.length == 0) { 
+                        $("#tag-list").append("<li class='tag-item'>"+"#"+tagValue+"<span class='del-btn' idx='"+counter+"'>x</span></li>");
+                        addTag(tagValue);
+                        $(this).val("");
+                    } else {
+                        alert("태그값이 중복됩니다.");
+                    }
+                }
+                e.preventDefault(); // SpaceBar 시 빈공간이 생기지 않도록 방지
+            }
+            console.log(tag);
+        });
+
+        // 삭제 버튼 
+        // 삭제 버튼은 비동기적 생성이므로 document 최초 생성시가 아닌 검색을 통해 이벤트를 구현시킨다.
+        $(document).on("click", ".del-btn", function (e) {
+            var index = $(this).attr("idx");
+            tag[index] = "";
+            $(this).parent().remove();
+        });
+
+
 	//에디터 설정부분
 	var oEditors = [];
 	nhn.husky.EZCreator.createInIFrame({
@@ -171,38 +270,9 @@
 	 fCreator: "createSEditor2"
 	});
 
-	function form_validation() {
-		oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []); 
-		
-		var fd = new FormData();
-		$.each($("#upfile")[0].files,function(i,item){
-			fd.append("file"+i,item);
-		});
-		
-		$.ajax({
-			url:"<%= request.getContextPath() %>/ajaxFile",
-			data:fd,
-			type:"post", //무조건 post로 전송
-			processData: false,
-			contentType:false,
-			success : function(data){
-				alert("실행");
-				$("#ori_file").val(data.split("/")[0]);
-				$("#renamed_file").val(data.split("/")[1]);
-				
-				alert($("#ori_file").val());
-				alert($("#renamed_file").val());
-				
-				$("#frm").submit();
-			},
-			error : function(request,status,error){
-			}
-		});
-	}
-
 	// textArea에 이미지 첨부
 	function pasteHTML(filepath){
-	    var sHTML = '<img src="<%=request.getContextPath()%>/upload/food/'+filepath+'">';
+	    var sHTML = '<img src="<%=request.getContextPath()%>/upload/food/contentimg/'+filepath+'">';
 	    oEditors.getById["ir1"].exec("PASTE_HTML", [sHTML]);
 	}
 	
@@ -216,7 +286,7 @@
 		reader.readAsDataURL($(this)[0].files[0]); //파일리더가 파일을 읽어들여온다.
 
 	});
-	
+
 	//상단 이미지 부분
 	var count = 0;//시작값
 	function back(){
@@ -236,6 +306,7 @@
 	
 	//다중 사진 업로드, 파일선택 부분 코드
 	var foodpic=[];
+	var validation = false;
 
 	$("#upfile").change(function(){
 		$("#preview").html("");
@@ -248,11 +319,54 @@
 				foodpic.push(e.target.result);
 			}
 			reader.readAsDataURL(item);
-			console.log(item);
 		});
 		
-		/* form_validation(); */
+		form_validation();
 		
+	});
+	
+	function form_validation() {		
+		var fd = new FormData();
+		$.each($("#upfile")[0].files,function(i,item){
+			fd.append("file"+i,item);
+		});
+		
+		$.ajax({
+			url:"<%= request.getContextPath() %>/ajaxFile",
+			data:fd,
+			type:"post", //무조건 post로 전송
+			processData: false,
+			contentType:false,
+			success : function(data){
+				$("#ori_file").val(data.split("/")[0]);
+				$("#renamed_file").val(data.split("/")[1]);			
+				validation = true;
+				
+			},
+			error : function(request,status,error){
+				validation = false;
+			}
+		});
+	}
+	
+	$("#frm").submit(function(){
+		if(validation){
+			oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []); 
+			
+			var tags = "";
+			
+			for(var i=0; i<counter; i++){
+				if(tag[i] != "") {
+					tags += tag[i] + ",";											
+				}
+			}
+			tags = tags.substring(0,tags.length-1);
+			$("#tags").val(tags);
+			
+			return true;
+		}else {
+			return false;
+		}
 	});
 			
 	$("#downfile").on("click",function(){
