@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Properties;
 
 import com.umo.model.vo.Board;
+import com.umo.model.vo.BoardComment;
 import com.umo.model.vo.NoticeBoard;
 import com.umo.notice.model.dao.NoticeBoardDao;
 
@@ -184,4 +185,100 @@ public class AnonymousBoardDao {
 		
 		
 	}
+	public int updateReadCount(Connection conn,int no) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("updateReadCount");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			result=pstmt.executeUpdate();
+			
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
+	public List<BoardComment> selectanonymousBoardComment(Connection conn,int no){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<BoardComment> list=new ArrayList();
+		String sql=prop.getProperty("selectanonymousBoardComment");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				BoardComment bc=new BoardComment();
+				bc.setBoardCommentNo(rs.getInt("comment_no"));
+				bc.setBoardCommentWriter(rs.getString("comment_writer"));
+				bc.setBoardCommentContent(rs.getString("comment_contents"));
+				bc.setBoardCommentDate(rs.getDate("comment_date"));
+				bc.setBoardRef(rs.getInt("board_no_ref"));
+				bc.setBoardCommentLevel(rs.getInt("comment_level"));
+				bc.setBoardCommentRef(rs.getInt("comment_refno"));
+				list.add(bc);
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return list;
+	}
+	public int insertanonymousBoardComment(Connection conn,BoardComment bc) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("insertanonymousBoardComment");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, bc.getBoardCommentWriter());
+			pstmt.setString(2, bc.getBoardCommentContent());
+			pstmt.setInt(3, bc.getBoardRef());
+			pstmt.setInt(4, bc.getBoardCommentLevel());
+			pstmt.setString(5, bc.getBoardCommentRef()==0?null:String.valueOf(bc.getBoardCommentRef()));
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			
+		}return result;
+		
+	}
+	public int deleteanonymousBoardComment(Connection conn,int no){
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("deleteanonymousBoardComment");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
+	public int AnonymousDelete(Connection conn,int no)
+	{
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("AnonymousDelete");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1,no);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e)
+		{e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	
+}
+	
 }

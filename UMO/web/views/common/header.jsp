@@ -114,7 +114,7 @@ String saveId=null;
             <div id="subcenter-menu2">
                 <a href="<%=request.getContextPath()%>/freeBoard"><button id="dropdown-btn" class="dropdown" style="color: black">자유게시판</button></a>
                 <a href="<%=request.getContextPath()%>/anonymousBoard"><button id="dropdown-btn" class="dropdown" style="color: black">익명게시판</button></a>
-                <a href="index.html"><button id="dropdown-btn" class="dropdown" style="color: black">게시판3</button></a>
+                <a href="<%=request.getContextPath()%>/gradeBoard"><button id="dropdown-btn" class="dropdown" style="color: black">반별게시판</button></a>
                 <a href="<%= request.getContextPath()%>/inquery/inqueryBoard"><button id="dropdown-btn" class="dropdown" style="color: black">코드 질의게시판</button></a>
             </div>
         </div>

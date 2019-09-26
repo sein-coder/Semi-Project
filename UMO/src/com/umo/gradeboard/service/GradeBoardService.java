@@ -1,4 +1,4 @@
-package com.umo.freeboard.service;
+package com.umo.gradeboard.service;
 
 import static common.template.JDBCTemplate.close;
 import static common.template.JDBCTemplate.commit;
@@ -8,68 +8,68 @@ import static common.template.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.List;
 
-import com.umo.freeboard.dao.FreeBoardDao;
+import com.umo.gradeboard.dao.GradeBoardDao;
 import com.umo.model.vo.Board;
 import com.umo.model.vo.BoardComment;
 import com.umo.model.vo.NoticeBoard;
 
-public class FreeBoardService {
-	private FreeBoardDao dao= new FreeBoardDao();
-	public int countFreeList() {	
+public class GradeBoardService {
+	private GradeBoardDao dao= new GradeBoardDao();
+	public int countGradeList() {	
 		Connection conn=getConnection();	
-		int result=dao.countFreeList(conn);
+		int result=dao.countGradeList(conn);
 		close(conn);
 		return result;
 	}
-	public List<Board> selectFreeBoardList(int cPage, int numPerPage){
+	public List<Board> selectGradeBoardList(int cPage, int numPerPage){
 		Connection conn=getConnection();		
-		List<Board> list=dao.selectFreeBoardList(conn, cPage, numPerPage);
+		List<Board> list=dao.selectGradeBoardList(conn, cPage, numPerPage);
 		close(conn);	
 		return list; 
 	}
-	public Board freeBoardContent(int no) {
+	public Board GradeBoardContent(int no) {
 		Connection conn=getConnection();
-		Board b=dao.freeBoardContent(conn, no);
+		Board b=dao.GradeBoardContent(conn, no);
 		close(conn);
 		return b;
 	}
-	public int freeWrite(Board fb) {
+	public int GradeWrite(Board fb) {
 		Connection conn=getConnection();
-		int result=dao.freeWrite(conn,fb);
+		int result=dao.GradeWrite(conn,fb);
 		
 		if(result>0) {commit(conn);}
 		else {rollback(conn);}
 		
 		return result;
 	}
-	public int lastFreeContentNo(String writer) {
+	public int lastGradeContentNo(String writer) {
 		Connection conn=getConnection();
-		int no=dao.lastFreeContentNo(conn,writer);
+		int no=dao.lastGradeContentNo(conn,writer);
 		close(conn);
 		return no;
 	}
-	public int freeUpdate(NoticeBoard nb) {
+	public int GradeUpdate(NoticeBoard nb) {
 		System.out.println(nb.getOriginal_filename()+" "+nb.getRenamed_filename());
 		Connection conn=getConnection();
-		int result=dao.freeUpdate(conn,nb);
+		int result=dao.GradeUpdate(conn,nb);
 		
 		if(result>0) {commit(conn);}
 		else {rollback(conn);}
 		
 		return result;
 	}
-	public int freeDelete(int no)
+	public int GradeDelete(int no)
 	{
 		Connection conn=getConnection();
-		int result=dao.freeDelete(conn,no);
+		int result=dao.GradeDelete(conn,no);
 		if(result>0) {commit(conn);}
 		else {rollback(conn);}
 		close(conn);
 		return result;
 	}
-	public Board selectfreeBoard(int no,boolean hasRead) {
+	public Board selectGradeBoard(int no,boolean hasRead) {
 		Connection conn=getConnection();
-		Board b=dao.freeBoardContent(conn,no);
+		Board b=dao.GradeBoardContent(conn,no);
 		if(!hasRead&&b!=null) {
 			int result=dao.updateReadCount(conn,no);
 			if(result>0) {commit(conn);}
@@ -78,15 +78,15 @@ public class FreeBoardService {
 		close(conn);
 		return b;
 	}
-	public List<BoardComment> selectFreeBoardComment(int no){
+	public List<BoardComment> selectGradeBoardComment(int no){
 		Connection conn=getConnection();
-		List<BoardComment> list=dao.selectFreeBoardComment(conn,no);
+		List<BoardComment> list=dao.selectGradeBoardComment(conn,no);
 		close(conn);
 		return list;
 	}
-	public int insertFreeBoardComment(BoardComment bc) {
+	public int insertGradeBoardComment(BoardComment bc) {
 		Connection conn=getConnection();
-		int result=dao.insertFreeBoardComment(conn,bc);
+		int result=dao.insertgradeBoardComment(conn,bc);
 		if(result>0) {
 			commit(conn);
 		}else {rollback(conn);}
@@ -94,9 +94,9 @@ public class FreeBoardService {
 		return result;
 		
 	}
-	public int deleteFreeBoardComment(int no) {
+	public int deleteGradeBoardComment(int no) {
 		Connection conn=getConnection();
-		int result=dao.deleteFreeBoardComment(conn,no);
+		int result=dao.deleteGradeBoardComment(conn,no);
 		if(result>0) {commit(conn);}
 		else {rollback(conn);}
 		close(conn);

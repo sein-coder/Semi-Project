@@ -1,4 +1,4 @@
-	package com.umo.anonymousboard.controller;
+	package com.umo.gradeboard.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,20 +13,20 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
-import com.umo.anonymousboard.service.AnonymousBoardService;
+import com.umo.gradeboard.service.GradeBoardService;
 import com.umo.model.vo.NoticeBoard;
 
 /**
  * Servlet implementation class NoticeUpdateServlet
  */
-@WebServlet("/anonymousUpdateEnd")
-public class AnonymousUpdateEndServlet extends HttpServlet {
+@WebServlet("/gradeUpdateEnd")
+public class GradeUpdateEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AnonymousUpdateEndServlet() {
+    public GradeUpdateEndServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,13 +37,13 @@ public class AnonymousUpdateEndServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(!ServletFileUpload.isMultipartContent(request)) {
 			request.setAttribute("msg", "잘못된 요청입니다.");
-			request.setAttribute("loc", "/anonymousBoard");
+			request.setAttribute("loc", "/freeBoard");
 			request.getRequestDispatcher("/views/common/msg.jsp")
 			.forward(request, response);
 			return;
 		}
 		
-		String saveDir=getServletContext().getRealPath("/upload/anonymous");
+		String saveDir=getServletContext().getRealPath("/upload/grade");
 		
 		int maxSize=1024*1024*10;
 		
@@ -77,17 +77,16 @@ public class AnonymousUpdateEndServlet extends HttpServlet {
 		nb.setOriginal_filename(fileName);
 		nb.setNo(Integer.parseInt(mr.getParameter("no")));
 		
-		int result=new AnonymousBoardService().anonymousUpdate(nb);
+		int result=new GradeBoardService().GradeUpdate(nb);
 		String msg="";
 		String loc="";
 		String views="/views/common/msg.jsp";
 		if(result>0) {
-			msg="익명게시판 수정이 완료되었습니다.";
+			msg="자유게시판 수정이 완료되었습니다.";
 		}else {
-			msg="익명게시판 수정실패";
+			msg="자유게시판 수정실패";
 		}
-		System.out.println(mr.getParameter("no"));
-		loc="/anonymousUpdate?anonymousNo="+mr.getParameter("no");
+		loc="/gradeUpdate?gradeNo="+mr.getParameter("no");
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc",loc);
 		request.getRequestDispatcher(views)

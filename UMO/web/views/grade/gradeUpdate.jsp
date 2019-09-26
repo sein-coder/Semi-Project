@@ -3,8 +3,8 @@
 <%@ page import="com.umo.model.vo.Board" %>
 
 <% 
-     Board nb=(Board)request.getAttribute("nb");
-     String content=nb.getContent();
+     Board gb=(Board)request.getAttribute("gb");
+     String content=gb.getContent();
      content=content.replace("<br>", "\r\n");
 %>
 
@@ -17,14 +17,14 @@
         <div class="col-lg-2"></div>
 	<div class="col-lg-8">
 		<section id="notice-container">
-			<h2 style="text-align: center;">익명게시판</h2>
-			<form action="<%=request.getContextPath()%>/anonymousUpdateEnd?no=<%=nb.getNo() %>" method="post" enctype="multipart/form-data">
-				<input type="hidden" name="noticeNo" value="<%=nb.getNo()%>">
+			<h2 style="text-align: center;">반별게시판</h2>
+			<form action="<%=request.getContextPath()%>/gradeUpdateEnd?no=<%=gb.getNo() %>" method="post" enctype="multipart/form-data">
+				<input type="hidden" name="noticeNo" value="<%=gb.getNo()%>">
 				<table id="tbl-notice"
 					class="table table-striped table-bordered table-hover">
 					<tr>
 						<th>제목</th>
-						<td><input type="text" name="title" value="<%=nb.getTitle()%>" required /></td>
+						<td><input type="text" name="title" value="<%=gb.getTitle()%>" required /></td>
 					</tr>
 					<tr>
 						<th>작성자</th>
@@ -33,13 +33,13 @@
 					</tr>
 					<tr>
 						<th>첨부파일</th>
-						<td><%if(nb.getOriginal_filename()!=null){ %>
+						<td><%if(gb.getOriginal_filename()!=null){ %>
 					<input type="file" name="up_file"/>
-					<input type="hidden" name="ori_file" value="<%=nb.getRenamed_filename()%>"/>
-					<%if(nb.getRenamed_filename()==null){ %>
-					<span id="fname"><%=nb.getOriginal_filename() %></span>
+					<input type="hidden" name="ori_file" value="<%=gb.getRenamed_filename()%>"/>
+					<%if(gb.getRenamed_filename()==null){ %>
+					<span id="fname"><%=gb.getOriginal_filename() %></span>
 					<%} else{%>
-					<span id="fname"><%=nb.getRenamed_filename() %></span>
+					<span id="fname"><%=gb.getRenamed_filename() %></span>
 					<%} %>
 					<%}else{ %>
 					<input type="file" name="up_file"/>

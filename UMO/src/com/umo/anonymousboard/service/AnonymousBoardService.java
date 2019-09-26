@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.umo.anonymousboard.dao.AnonymousBoardDao;
 import com.umo.model.vo.Board;
+import com.umo.model.vo.BoardComment;
 import com.umo.model.vo.NoticeBoard;
 
 public class AnonymousBoardService {
@@ -55,6 +56,50 @@ public class AnonymousBoardService {
 		if(result>0) {commit(conn);}
 		else {rollback(conn);}
 		
+		return result;
+	}
+	public Board selectanonymousBoard(int no,boolean hasRead) {
+		Connection conn=getConnection();
+		Board b=dao.anonymousBoardContent(conn,no);
+		if(!hasRead&&b!=null) {
+			int result=dao.updateReadCount(conn,no);
+			if(result>0) {commit(conn);}
+			else {rollback(conn);}
+		}
+		close(conn);
+		return b;
+	}
+	public List<BoardComment> selectanonymousBoardComment(int no){
+		Connection conn=getConnection();
+		List<BoardComment> list=dao.selectanonymousBoardComment(conn,no);
+		close(conn);
+		return list;
+	}
+	public int insertanonymousBoardComment(BoardComment bc) {
+		Connection conn=getConnection();
+		int result=dao.insertanonymousBoardComment(conn,bc);
+		if(result>0) {
+			commit(conn);
+		}else {rollback(conn);}
+		close(conn);
+		return result;
+		
+	}
+	public int deleteanonymousBoardComment(int no) {
+		Connection conn=getConnection();
+		int result=dao.deleteanonymousBoardComment(conn,no);
+		if(result>0) {commit(conn);}
+		else {rollback(conn);}
+		close(conn);
+		return result;
+	}
+	public int AnonymousDelete(int no)
+	{
+		Connection conn=getConnection();
+		int result=dao.AnonymousDelete(conn,no);
+		if(result>0) {commit(conn);}
+		else {rollback(conn);}
+		close(conn);
 		return result;
 	}
 }

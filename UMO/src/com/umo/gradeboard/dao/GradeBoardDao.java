@@ -1,4 +1,4 @@
-package com.umo.freeboard.dao;
+package com.umo.gradeboard.dao;
 
 import static common.template.JDBCTemplate.close;
 
@@ -17,11 +17,11 @@ import com.umo.model.vo.BoardComment;
 import com.umo.model.vo.NoticeBoard;
 import com.umo.notice.model.dao.NoticeBoardDao;
 
-public class FreeBoardDao {
+public class GradeBoardDao {
 	private Properties prop = new Properties();
 
-	public FreeBoardDao() {
-		String path = NoticeBoardDao.class.getResource("/sql/freeBoard/freeboard-query.properties").getPath();
+	public GradeBoardDao() {
+		String path = GradeBoardDao.class.getResource("/sql/gradeBoard/gradeboard-query.properties").getPath();
 
 		try {
 
@@ -33,11 +33,11 @@ public class FreeBoardDao {
 
 	}
 
-	public int countFreeList(Connection conn) {
+	public int countGradeList(Connection conn) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int result = 0;
-		String sql = prop.getProperty("countFreeList");
+		String sql = prop.getProperty("countGradeList");
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -54,11 +54,11 @@ public class FreeBoardDao {
 
 	}
 
-	public List<Board> selectFreeBoardList(Connection conn, int cPage, int numPerPage) {
+	public List<Board> selectGradeBoardList(Connection conn, int cPage, int numPerPage) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<Board> list = new ArrayList<Board>();
-		String sql = prop.getProperty("selectFreeBoardList");
+		String sql = prop.getProperty("selectGradeBoardList");
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, cPage);
@@ -66,14 +66,14 @@ public class FreeBoardDao {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				Board b = new Board();
-				b.setNo(rs.getInt("Free_no"));
-				b.setWriter(rs.getString("Free_writer"));
-				b.setTitle(rs.getString("Free_title"));
-				b.setContent(rs.getString("Free_contents"));
+				b.setNo(rs.getInt("grade_no"));
+				b.setWriter(rs.getString("grade_writer"));
+				b.setTitle(rs.getString("grade_title"));
+				b.setContent(rs.getString("grade_contents"));
 				b.setOriginal_filename(rs.getString("Original_filename"));
 				b.setRenamed_filename(rs.getString("renamed_filename"));
-				b.setDate(rs.getDate("Free_date"));
-				b.setCount(rs.getInt("Free_count"));
+				b.setDate(rs.getDate("grade_date"));
+				b.setCount(rs.getInt("grade_count"));
 				list.add(b);
 			}
 
@@ -85,25 +85,25 @@ public class FreeBoardDao {
 		}
 		return list;
 	}
-	public Board freeBoardContent(Connection conn, int no) {
+	public Board GradeBoardContent(Connection conn, int no) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		Board b = new Board();
-		String sql = prop.getProperty("freeBoardContent");
+		String sql = prop.getProperty("gradeBoardContent");
 
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, no);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				b.setNo(rs.getInt("free_no"));
-				b.setWriter(rs.getString("free_writer"));
-				b.setTitle(rs.getString("free_title"));
-				b.setContent(rs.getString("free_contents"));
+				b.setNo(rs.getInt("grade_no"));	
+				b.setWriter(rs.getString("grade_writer"));
+				b.setTitle(rs.getString("grade_title"));
+				b.setContent(rs.getString("grade_contents"));
 				b.setOriginal_filename(rs.getString("Original_filename"));
 				b.setRenamed_filename(rs.getString("renamed_filename"));
-				b.setDate(rs.getDate("free_date"));
-				b.setCount(rs.getInt("free_count"));
+				b.setDate(rs.getDate("grade_date"));
+				b.setCount(rs.getInt("grade_count"));
 				b.setWriting_status(rs.getString("writing_status").charAt(0));
 			}
 		} catch (SQLException e) {
@@ -115,12 +115,11 @@ public class FreeBoardDao {
 		return b;
 
 	}
-	public int freeWrite(Connection conn, Board fb) {
+	public int GradeWrite(Connection conn, Board fb) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		String sql = prop.getProperty("freeWrite");
+		String sql = prop.getProperty("gradeWrite");
 		
-		System.out.println("sql확인"+sql);
 
 		try {
 			pstmt=conn.prepareStatement(sql);
@@ -139,11 +138,11 @@ public class FreeBoardDao {
 		return result;
     	
 	}
-	public int lastFreeContentNo(Connection conn,String writer) {
+	public int lastGradeContentNo(Connection conn,String writer) {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		int no=0;
-		String sql=prop.getProperty("lastFreeContentNo");
+		String sql=prop.getProperty("lastGradeContentNo");
 		try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, writer);
@@ -161,11 +160,11 @@ public class FreeBoardDao {
 		return no;
 
 	}
-	public int freeUpdate(Connection conn,NoticeBoard nb) {
+	public int GradeUpdate(Connection conn,NoticeBoard nb) {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		int result=0;
-		String sql=prop.getProperty("freeUpdate");
+		String sql=prop.getProperty("gradeUpdate");
 		try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, nb.getTitle());
@@ -185,11 +184,11 @@ public class FreeBoardDao {
 		
 		
 	}
-	public int freeDelete(Connection conn,int no)
+	public int GradeDelete(Connection conn,int no)
 	{
 		PreparedStatement pstmt=null;
 		int result=0;
-		String sql=prop.getProperty("freeDelete");
+		String sql=prop.getProperty("GradeDelete");
 		try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1,no);
@@ -218,10 +217,10 @@ public class FreeBoardDao {
 			close(pstmt);
 		}return result;
 	}
-	public int insertfreeBoardComment(Connection conn,BoardComment bc) {
+	public int insertgradeBoardComment(Connection conn,BoardComment bc) {
 		PreparedStatement pstmt=null;
 		int result=0;
-		String sql=prop.getProperty("insertFreeBoardComment");
+		String sql=prop.getProperty("insertGradeBoardComment");
 		try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, bc.getBoardCommentWriter());
@@ -238,11 +237,11 @@ public class FreeBoardDao {
 		}return result;
 		
 	}
-	public List<BoardComment> selectFreeBoardComment(Connection conn,int no){
+	public List<BoardComment> selectGradeBoardComment(Connection conn,int no){
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		List<BoardComment> list=new ArrayList();
-		String sql=prop.getProperty("selectFreeBoardComment");
+		String sql=prop.getProperty("selectGradeBoardComment");
 		try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1, no);
@@ -266,10 +265,10 @@ public class FreeBoardDao {
 			close(pstmt);
 		}return list;
 	}
-	public int insertFreeBoardComment(Connection conn,BoardComment bc) {
+	public int insertGradeBoardComment(Connection conn,BoardComment bc) {
 		PreparedStatement pstmt=null;
 		int result=0;
-		String sql=prop.getProperty("insertFreeBoardComment");
+		String sql=prop.getProperty("insertGradeBoardComment");
 		try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, bc.getBoardCommentWriter());
@@ -286,10 +285,10 @@ public class FreeBoardDao {
 		}return result;
 		
 	}
-	public int deleteFreeBoardComment(Connection conn,int no){
+	public int deleteGradeBoardComment(Connection conn,int no){
 		PreparedStatement pstmt=null;
 		int result=0;
-		String sql=prop.getProperty("deleteFreeBoardComment");
+		String sql=prop.getProperty("deleteGradeBoardComment");
 		try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1, no);
