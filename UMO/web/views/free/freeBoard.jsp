@@ -11,10 +11,12 @@
 <%@ include file="/views/common/header.jsp" %>
 <style>
 section{margin-bottom: 500px;}
-div#search-container{margin:0 50px 10px 100px; background-color:gold;  float:center;}
-input#search-title{margin-left:200px; width:30%; heigh:500%; text-align:center; display:inline;}
-button#search-btn{margin-left:200px;width:10%; heigh:800%;display:inline}
-select#searchType,#search-btn{margin-left:50px;width:20%;height:800%;display:inline}
+div#search-container{margin:0 50px 10px 100px; background-color:gold;width:1000px; }
+
+select#searchType{width:40%;height:40%;display:inline;}
+div#search-free_writer,#search-free_contents,#search-free_title{margin-left:30px;width:20%;height:500%;display:inline;}
+btn#search_btn{width:20%;height:50%;margin-left:1000px;}
+
 </style>
 
 
@@ -24,21 +26,23 @@ select#searchType,#search-btn{margin-left:50px;width:20%;height:800%;display:inl
 <div class="btn-group btn-group-sm"  id="btn-add">
       <input type="button" class="btn btn-default" value="글쓰기"
          onclick="location.href='<%=request.getContextPath()%>/freeWrite'"/>
-   </div>
+</div>
 <%} %>
+<div class="searchType">
 		<%if(type!=null||keyword!=null) { %>
 		<select id="numPerPage" name="numPerPage">
-			<option value="3개" <%=numPerPage.equals("3개")?"selected":"" %>>3개</option>	
-			<option value="5개" <%=numPerPage.equals("5개")?"selected":"" %>>5개</option>
-			<option value="10개" <%=numPerPage.equals("10개")?"selected":"" %>>10개</option>
+			<option value="3" <%=numPerPage.equals("3")?"selected":"" %>>3</option>	
+			<option value="5" <%=numPerPage.equals("5")?"selected":"" %>>5</option>
+			<option value="10" <%=numPerPage.equals("10")?"selected":"" %>>10</option>
 		</select>
 		<% }else {%>
 		<select id="numPerPage" name="numPerPage">
-			<option value="3개" <%=numPerPage.equals("3개")?"selected":"" %>>3개</option>	
-			<option value="5개" <%=numPerPage.equals("5개")?"selected":"" %>>5개</option>
-			<option value="10개" <%=numPerPage.equals("10개")?"selected":"" %>>10개</option>
+			<option value="3" <%=numPerPage.equals("3")?"selected":"" %>>3</option>	
+			<option value="5" <%=numPerPage.equals("5")?"selected":"" %>>5</option>
+			<option value="10" <%=numPerPage.equals("10")?"selected":"" %>>10</option>
 		</select>
 		<% } %>
+</div>
    <table class="table table-striped table-bordered table-hover">
       <thead>
       <tr>
@@ -82,60 +86,56 @@ select#searchType,#search-btn{margin-left:50px;width:20%;height:800%;display:inl
     <!--검색기능  -->
 	<div id="search-container">검색타입:
 		<select id="searchType">
-			<option value="free_writer" <%="free_writer".equals(type)?"selected":"" %>>아이디</option>
+			<option value="free_writer" <%="free_writer".equals(type)?"selected":"" %>>작성자</option>
 			<option value="free_contents" <%="free_contents".equals(type)?"selected" :"" %>>내용</option>
 			<option value="free_title" <%="free_title".equals(type)?"selected" :"" %>>제목</option>
 		</select>
 		<div id="search-free_writer">
-			<form action="<%=request.getContextPath()%>/search/searchFinder">
+			<form action="<%=request.getContextPath()%>/freeBoard">
 			 <input type="hidden" name="searchType" value="free_writer"/>
 			 <input type="text" name="searchKeyword" size="30" placeholder="작성자아이디입력"
 			 value='<%=type!=null&&type.equals("free_writer")?keyword:"" %>'/>
-			 <button type="submit">검색</button>	
+			 <button type="submit"  id="search_btn">검색</button>	
 			</form>
 		</div>
 		<div id="search-free_contents">
-			<form action="<%=request.getContextPath()%>/search/searchFinder">
+			<form action="<%=request.getContextPath()%>/freeBoard">
 			 <input type="hidden" name="searchType" value="free_contents"/>
-			 <input type="text" name="searchKeyword" size="30" placeholder="작성내용입력" >
+			 <input type="text" name="searchKeyword" size="30" placeholder="작성내용입력">
 			 value='<%=type!=null&&type.equals("free_contents")?keyword:"" %>'/>
-			 <button type="submit">검색</button>
+			 <button type="submit" id="search_btn">검색</button>
 			</form>
 		</div>	
 		<div id="search-free_title">
-			<form action="<%=request.getContextPath()%>/search/searchFinder">
+			<form action="<%=request.getContextPath()%>/freeBoard">
 			 <input type="hidden" name="searchType" value="free_title"/>
 			 <input type="text" name="searchKeyword" size="30" placeholder="작성제목입력" >
 			 value='<%=type!=null&&type.equals("free_title")?keyword:"" %>'/>
-			 <button type="submit">검색</button>
+			 <button type="submit"  id="search_btn">검색</button>
 			</form>
 		</div>	
 	</div>
 	
-	   <script>
 	 <!--검색내용  -->
+	   <script>
 	   $(function(){
 		  $("#searchType").change(function(){
 		  $("#search-free_writer").css("display","none");
 		  $("#search-free_contents").css("display","none");
 		  $("#search-free_title").css("display","none");
-		  $("#search-"+$(this).val()).css("display","inline-block");
+		  $("#search-"+$(this).val()).css("display","inline-block");//아이디,이름,성병 중 나온 값 중 inline으로 바꾸면 내가 이제 변경할때마다 바뀜
 		  });
 	   //동작시키기
 		  	$("#searchType").trigger("change");
 	   });
 	   </script>
-	   
-	   
-	   
-	   <!--data : "countPerPage="+10+"&pageNo="+pageNo,  -->
-	   
-	   
+
 	   <script>
+	   //페이지갯수로직
+	   ///else면 free/boardSearchList로 넘어가게 만들기
 	   $(function(){
 		  $("#numPerPage").change(function(){
 			 location.href='<%=request.getContextPath()%>/freeBoard?numPerPage='+$("#numPerPage").val()+'&cPage=1';
-			 
 		  });
 	   });
 	   </script>

@@ -8,9 +8,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+
 
 import com.umo.model.vo.Board;
 import com.umo.model.vo.BoardComment;
@@ -297,4 +299,96 @@ public class FreeBoardDao {
 			close(pstmt);
 		}return result;
 	}
+
+	public int selectCountWriter(Connection conn) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;//컬럼으로 불러오기 때문에 필요함
+		int result=0;
+		String sql=prop.getProperty("selectCountWriter");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				result=rs.getInt(1);
+		}
+	}catch(SQLException e) {
+		e.printStackTrace();
+	}finally {
+		close(rs);
+		close(pstmt);
+	}return result;
+	
 }
+	
+	
+	public List<Board> selectSearch(Connection conn, int cPage, int numPerPage, String type, String keyword) {
+		Statement stmt=null;
+		ResultSet rs=null;
+		List<Board> list=new ArrayList();
+		String sql="";
+		int start=(cPage-1)*numPerPage+1;
+		int end=cPage*numPerPage;
+		
+		 sql="select * from (select rownum as rnum,a.* "
+	        		+ "from  (select * "
+	        			+ "from free_board "
+	        			+" where "+type+" like '%"+keyword+"%')a)"
+	        					+ "where rnum between "+start+" and "+end;
+		
+		 try {
+	        	stmt=conn.createStatement();
+	        	rs=stmt.executeQuery(sql);
+	        	while(rs.next()) {
+	        		Board b=new Board();
+					b.setNo(rs.getInt("no"));//글번호
+					b.setWriter(rs.getString("writer"));
+					b.setTitle(rs.getString("title"));
+					b.setContent(rs.getString("content"));
+					b.setOriginal_filename(rs.getString("original_filename"));
+					b.setRenamed_filename(rs.getString("renamed_filename"));
+					b.setDate(rs.getDate("date"));
+					b.setCount(rs.getInt("count"));//조회수
+					b.setWriting_status(rs.getString("writing_status").charAt(0));
+					list.add(b);
+	        	}
+	        }catch(SQLException e) {
+	        	e.printStackTrace();
+	        }finally{
+	        	close(rs);
+	        	close(stmt);
+	        }return list;
+		}
+
+	public int selectSearchCount(Connection conn, String type, String keyword) {
+		ResultSet rs=null;
+		Statement stmt=null;
+		int result=0;
+		String sql="";
+		
+		sql="select count(*) from free_board "+ "where "+type+" like '%"+keyword+"%'";
+		
+		try {
+			stmt=conn.createStatement();
+			rs=stmt.executeQuery(sql);
+			if(rs.next()) {
+				result=rs.getInt(1);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(stmt);
+		}
+		return result;
+	
+	}
+
+	
+
+	
+		
+}
+
+		
+
+

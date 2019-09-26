@@ -8,6 +8,7 @@ import static common.template.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.List;
 
+
 import com.umo.freeboard.dao.FreeBoardDao;
 import com.umo.model.vo.Board;
 import com.umo.model.vo.BoardComment;
@@ -102,4 +103,32 @@ public class FreeBoardService {
 		close(conn);
 		return result;
 	}
+	public int selectCountWriter() {
+		Connection conn=getConnection();
+		int result=dao.selectCountWriter(conn);
+		close(conn);
+		return result;
+	}
+	
+	
+	//검색된 결과 중 numPerPage갯수만큼만 조회
+	public List<Board> selectSearch(int cPage,int numPerPage,String type, String keyword) {
+		Connection conn=getConnection();
+		List<Board> list=dao.selectSearch(conn,cPage,numPerPage,type,keyword);	
+		close(conn);
+		return list;
+	
+	}
+	//검색에 대한 전체 자료수
+	public int selectSearchCount(String type,String keyword) {
+		Connection conn=getConnection();
+		int result=dao.selectSearchCount(conn, type, keyword);
+		close(conn);
+		return result;
+	}
+	public List<Board> selectMemberList(int cPage, int numPerPage) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }
