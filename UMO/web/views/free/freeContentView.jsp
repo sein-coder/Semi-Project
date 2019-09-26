@@ -4,19 +4,19 @@
 <%@ page import="com.umo.model.vo.BoardComment,java.util.List" %>
 
 <% 
-     Board fb=(Board)request.getAttribute("fb");
-List<BoardComment> list=(List)request.getAttribute("comments");
+    Board fb=(Board)request.getAttribute("fb");
+	List<BoardComment> list=(List)request.getAttribute("comments");
 %>
 
 
-   <style>
-    section#notice-container{width:600px; margin:0 auto; text-align:center; margin-top:150px; }
-    section#notice-container h2{margin:10px 0;}
-    table#tbl-notice{width:500px; margin:0 auto; border:1px solid black; border-collapse:collapse; clear:both; }
-    table#tbl-notice th {width: 125px; border:1px solid; padding: 5px 0; text-align:center;} 
-    table#tbl-notice td {border:1px solid; padding: 5px 0 5px 10px; text-align:left;}
-    </style> 
-    <style>
+<style>
+	section#notice-container{width:600px; margin:0 auto; text-align:center; margin-top:150px; }
+	section#notice-container h2{margin:10px 0;}
+	table#tbl-notice{width:500px; margin:0 auto; border:1px solid black; border-collapse:collapse; clear:both; }
+	table#tbl-notice th {width: 125px; border:1px solid; padding: 5px 0; text-align:center;} 
+	table#tbl-notice td {border:1px solid; padding: 5px 0 5px 10px; text-align:left;}
+</style> 
+<style>
 	table#tbl-comment{width:580px; margin:0 auto; border-collapse:collapse; clear:both;} 
 	table#tbl-comment tr td{border-bottom:1px solid; border-top:1px solid; padding:5px; text-align:left; line-height:100%;}
 	table#tbl-comment tr td:first-of-type{padding: 5px 5px 5px 50px;}
@@ -64,8 +64,9 @@ List<BoardComment> list=(List)request.getAttribute("comments");
         <%if(loginMember!=null){ %>
         <tr>
             <th colspan="2">
-                <input type="button" class="btn btn-default" value="수정하기" onclick="location.href='<%=request.getContextPath()%>/freeUpdate?freeNo=<%=fb.getNo()%>'"/>
-                <input type="button" class="btn btn-default" value="삭제하기" onclick="location.href='<%=request.getContextPath()%>/freeDelete?freeNo=<%=fb.getNo() %>'"/>
+                <input type="button" class="btn btn-default" value="수정하기" onclick="location.href='<%=request.getContextPath()%>/freeUpdate?noticeNo=<%=fb.getNo()%>'"/>
+                <input type="button" class="btn btn-default" value="삭제하기" onclick="location.href='<%=request.getContextPath()%>/freeDelete?noticeNo=<%=fb.getNo() %>'"/>
+	        	<input type="button" class="btn btn-list" value="목록" onclick="location.href='<%=request.getContextPath()%>/freeBoard?notice?cPage=1 %>'"/>
             </th>
         </tr>
         <%} %>

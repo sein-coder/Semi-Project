@@ -33,12 +33,15 @@ public class FreeBoardServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int cPage;
+		int numPerPage;
 		try {
 			cPage=Integer.parseInt(request.getParameter("cPage"));
+			numPerPage = Integer.parseInt(request.getParameter("numPerPage"));
 		} catch (NumberFormatException e) {
 		    cPage=1;
+		    numPerPage = 10;
 		}
-		int numPerPage=10;
+		
 		FreeBoardService service=new FreeBoardService();
 	    int totalData=service.countFreeList();
 	    
@@ -64,7 +67,7 @@ public class FreeBoardServlet extends HttpServlet {
 				pageBar+="<li>"+"<a href='#'>"+pageNo+"</a>"+"</li>";
 			}else {
 				pageBar+="<li>"+"<a href='"+request.getContextPath()
-				+"/freeBoard?cPage="+pageNo+"'>"+pageNo+"</a>"+"</li>";
+				+"/freeBoard?cPage="+pageNo+"&numPerPage="+numPerPage+"'>"+pageNo+"</a>"+"</li>";
 			}
 			pageNo++;
 		}
@@ -80,7 +83,9 @@ public class FreeBoardServlet extends HttpServlet {
 		
 		request.setAttribute("cPage",cPage);
 		request.setAttribute("pageBar",pageBar);
-	    request.setAttribute("list", list);	
+	    request.setAttribute("list", list);
+	    request.setAttribute("numPerPage", numPerPage);
+	    
 		request.getRequestDispatcher("/views/free/freeBoard.jsp").forward(request, response);
 		
 		

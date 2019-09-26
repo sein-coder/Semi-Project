@@ -19,6 +19,16 @@ public Member() {
 	// TODO Auto-generated constructor stub
 }
 
+public Member(String memberId, String memberPw, String memberName, String email, String phone, String address) {
+	super();
+	this.memberId = memberId;
+	this.memberPw = memberPw;
+	this.memberName = memberName;
+	this.email = email;
+	this.phone = phone;
+	this.address = address;
+}
+
 public Member(String memberId, String memberPw, String memberName, String email, String phone, String address,
 		Date join_Date, int kh_cNo, int attendance_count, int grade, int point) {
 	super();
