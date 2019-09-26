@@ -40,6 +40,15 @@ public class FoodUpdateEndServlet extends HttpServlet {
 			request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 			return;
 		}
+		String tag;
+		try {
+			tag = request.getParameter("tag");
+		}catch(NullPointerException e) {
+			tag = "";
+		}
+		
+		int cPage = Integer.parseInt(request.getParameter("cPage"));
+		
 		String saveDir =getServletContext().getRealPath("/upload/food/thumnail");
 		
 		int maxSize = 1024*1024*10;
@@ -96,9 +105,11 @@ public class FoodUpdateEndServlet extends HttpServlet {
 			msg="글 수정 실패되었습니다.";
 
 		}
-		loc="/food/foodView?board_no="+board_no;
+		loc="/food/foodView?board_no="+board_no+"&cPage="+cPage+"&tag="+tag;
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);
+		request.setAttribute("tag", tag);
+		
 		request.getRequestDispatcher(views).forward(request, response);
 
 		}

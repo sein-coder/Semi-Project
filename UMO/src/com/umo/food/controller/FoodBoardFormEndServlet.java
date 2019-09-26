@@ -45,6 +45,12 @@ public class FoodBoardFormEndServlet extends HttpServlet {
 			request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 			return;
 		}
+		int cPage;
+		try {
+			cPage = Integer.parseInt(request.getParameter("cPage"));
+		}catch(NumberFormatException e) {
+			cPage = 1;
+		}
 		
 		int maxSize = 1024*1024*10;
 		

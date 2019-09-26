@@ -8,9 +8,14 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/se2/js/HuskyEZCreator.js" charset="utf-8"></script>
 
 <%
-	
 	Food f = (Food)request.getAttribute("f");
-
+	String cPage = request.getAttribute("cPage").toString();
+	String tag;
+	try{
+		tag = request.getAttribute("tag").toString();
+	}catch(NullPointerException e){
+		tag = "";
+	}
 %>
 
 
@@ -87,8 +92,9 @@
         margin-left: 8px;
     }
 </style>
+
 <section>
-	<form id="frm" action ="<%=request.getContextPath() %>/food/foodUpdateEnd?board_no=<%= f.getBoard_No() %>" method="post" enctype="multipart/form-data">
+	<form id="frm" action ="<%=request.getContextPath() %>/food/foodUpdateEnd?board_no=<%= f.getBoard_No() %>&cPage=<%= cPage %>&tag=<%=tag%>" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="writer" value="<%=loginMember!=null?loginMember.getMemberId():""%>"> 
 	<div>
 	<div id="thumnail" style="margin-left:auto; margin-right:auto; margin-top:100px; width: 600px; height: 400px; border: 1px solid red;">
@@ -201,7 +207,7 @@
 						<tr>
 							<td>
 								<input id="savebutton" type="submit" value="완료" style="margin-left: 40%; display:inline;"/>
-								<input type="button" value="취소"  id="btn_cancel;" onclick="location.href='<%=request.getContextPath()%>/food/foodList'"/>
+								<input type="button" value="취소"  id="btn_cancel;" onclick="location.href='<%=request.getContextPath()%>/food/foodView?board_no=<%= f.getBoard_No() %>&cPage=<%= cPage %>&tag=<%=tag%>'"/>
 							</td>
 						</tr>
 					</table>
@@ -218,8 +224,10 @@
 	var tag = {};
 	
 	$.each(tags,function(i,item){
+		if(tags[i]!='null'){
 		addTag(tags[i]);
 		$("#tag-list").append("<li class='tag-item'>"+"#"+item+"<span class='del-btn' idx='"+i+"'>x</span></li>");
+		}
 	});
 	
 	// 태그를 추가한다.

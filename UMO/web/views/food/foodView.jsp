@@ -6,9 +6,15 @@
 <script src="<%= request.getContextPath() %>/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/se2/js/HuskyEZCreator.js" charset="utf-8"></script>
 <%
-	
 	Food f = (Food)request.getAttribute("f");
 	List<FoodComment> list = (List<FoodComment>)request.getAttribute("list");
+	String cPage = request.getAttribute("cPage").toString();
+	String tag;
+	try{
+		tag = request.getAttribute("tag").toString();
+	}catch(NullPointerException e){
+		tag = "";
+	}
 %>
 	<style>
 		section#foodview-container{margin-top: 150px;margin-left: auto;margin-right: auto;align:center;width:100%;}
@@ -163,7 +169,11 @@
 							</tr>
 							<tr>
 								<td>
-									<input type="button" value="목록"  id="btn_list" onclick="location.href='<%=request.getContextPath()%>/food/foodList'"/>
+									<% if(request.getAttribute("tag")!=null) { %>
+										<input type="button" value="목록"  id="btn_list" onclick="location.href='<%=request.getContextPath()%>/food/foodTagSearch?cPage=<%=cPage%>&tag=<%=tag%>'"/>
+									<% } else { %>
+										<input type="button" value="목록"  id="btn_list" onclick="location.href='<%=request.getContextPath()%>/food/foodList?cPage=<%=cPage%>'"/>
+									<% } %>
 								</td>
 							</tr>
 						</table>
@@ -171,7 +181,7 @@
 			</tr>
 			<tr>
 				<td>
-					<input type="button" value="수정" id="btn_update" onclick="location.href='<%=request.getContextPath() %>/food/foodUpdate?board_no=<%=f.getBoard_No()%>'">
+					<input type="button" value="수정" id="btn_update" onclick="location.href='<%=request.getContextPath() %>/food/foodUpdate?board_no=<%=f.getBoard_No()%>&cPage=<%=cPage%>&tag=<%=tag%>'">
 				</td>
 				<td>
 					<input type="button" value="삭제" id="btn_delete" onclick="location.href='<%=request.getContextPath() %>/food/foodBoardDelete?board_no=<%=f.getBoard_No()%>'">
@@ -246,18 +256,15 @@
 
 	<script>
 	//해시태그 표시 및 추가
-	
 	var tags = "<%=f.getBoard_menu()%>".split(",")
-	
-	console.log(tags);
-	
+
 	$.each(tags,function(i,item){
+		if(item!='null') {
 		$("#tag-list").append("<li class='tag-item'>"+"#"+item+"</li>");
+		}
 	});
 	
-	
 	var foodpic=[];
-	
 	//회전이미지값 받아오기 전처리
 	foodpic = ("<%=f.getRenamed_Filename()%>").trim().split(",");
 	

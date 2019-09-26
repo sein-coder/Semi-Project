@@ -13,16 +13,16 @@ import com.umo.food.model.service.FoodService;
 import com.umo.model.vo.Food;
 
 /**
- * Servlet implementation class FoodListServlet
+ * Servlet implementation class FoodTagSearchServlet
  */
-@WebServlet("/food/foodList")
-public class FoodListServlet extends HttpServlet {
+@WebServlet("/food/foodTagSearch")
+public class FoodTagSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FoodListServlet() {
+    public FoodTagSearchServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,19 +31,21 @@ public class FoodListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		int cPage;
 		try {
 			cPage=Integer.parseInt(request.getParameter("cPage"));
 		}catch(NumberFormatException e) {
 			cPage=1;
 		}
+
+		String tag = request.getParameter("tag");
 		int numPerPage=8;
 		
 		FoodService service = new FoodService();
-		int totalData=service.selectCountFood_Board();
-		String name="";
-		String userId="";
-		List<Food> list = new FoodService().selectFoodList(cPage,numPerPage,name,userId);
+		int totalData=service.selectSearchCount(tag);
+		List<Food> list = new FoodService().selectSearchTag(cPage,numPerPage,tag);
+		
 		String pageBar="";
 		int totalPage = (int)Math.ceil((double)totalData/numPerPage);
 		int pageBarSize=5;
@@ -53,26 +55,27 @@ public class FoodListServlet extends HttpServlet {
 		if(pageNo==1) {
 			pageBar += "<span> [이전] </span>";
 		}else {
-			pageBar +="<a href='"+request.getContextPath()+"/food/foodList?cPage="+(pageNo-1)+"'> [이전] </a>";
+			pageBar +="<a href='"+request.getContextPath()+"/food/foodTagSearch?cPage="+(pageNo-1)+"&tag="+tag+"'> [이전] </a>";
 		}
 		while(!(pageNo>pageEnd || pageNo>totalPage)) {
 			if(pageNo == cPage) {
 				pageBar += "<span> "+pageNo+" </span>";
 			}else {
-				pageBar += "<a href='"+request.getContextPath()+"/food/foodList?cPage="+pageNo+"'> "+pageNo+" </a>";
+				pageBar += "<a href='"+request.getContextPath()+"/food/foodTagSearch?cPage="+pageNo+"&tag="+tag+"'> "+pageNo+" </a>";
 			}
 			pageNo++;
 		}
 		if(pageNo>totalPage) {
 			pageBar +="<span> [다음] </span>";
 		}else {
-			pageBar +="<a href='"+request.getContextPath()+"/food/foodList?cPage="+pageNo+"'> [다음] </a>";
+			pageBar +="<a href='"+request.getContextPath()+"/food/foodTagSearch?cPage="+pageNo+"&tag="+tag+"'> [다음] </a>";
 		}
 		request.setAttribute("pageBar", pageBar);
 		request.setAttribute("list", list);
 		request.setAttribute("cPage", cPage);
+		request.setAttribute("tag", tag);
 		
-		request.getRequestDispatcher("/views/food/foodList.jsp").forward(request,response);
+		request.getRequestDispatcher("/views/food/foodList.jsp").forward(request, response);
 		
 	}
 

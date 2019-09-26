@@ -30,10 +30,19 @@ public class FoodUpdateServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int board_no=Integer.parseInt(request.getParameter("board_no"));
+		int cPage = Integer.parseInt(request.getParameter("cPage"));
+		String tag;
+		try {
+			tag = request.getParameter("tag");
+		}catch(NullPointerException e) {
+			tag = "";
+		}
 		
 		Food f =new FoodService().selectFoodView(board_no);		
 		
 		request.setAttribute("f", f);
+		request.setAttribute("cPage", cPage);
+		request.setAttribute("tag", tag);
 		
 		request.getRequestDispatcher("/views/food/foodUpdateForm.jsp").forward(request, response);
 	}

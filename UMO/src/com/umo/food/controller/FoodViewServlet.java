@@ -35,9 +35,18 @@ public class FoodViewServlet extends HttpServlet {
 		int board_no = Integer.parseInt(request.getParameter("board_no"));
 		Food f = new FoodService().selectFoodView(board_no);
 		List<FoodComment> list = new FoodService().selectComment(board_no);
+		int cPage = Integer.parseInt(request.getParameter("cPage"));
+		String tag;
+		try {
+			tag = request.getParameter("tag");
+		}catch(NullPointerException e) {
+			tag = "";
+		}
 		
 		request.setAttribute("f",f);
 		request.setAttribute("list", list);
+		request.setAttribute("cPage", cPage);
+		request.setAttribute("tag", tag);
 		
 		request.getRequestDispatcher("/views/food/foodView.jsp").forward(request, response);
 	}

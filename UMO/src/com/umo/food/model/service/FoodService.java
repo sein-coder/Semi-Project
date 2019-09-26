@@ -107,6 +107,20 @@ public class FoodService {
 		close(conn);
 		return result;
 	}
+
+	public List<Food> selectSearchTag(int cPage, int numPerPage, String tag) {
+		Connection conn = getConnection();
+		List<Food> list = dao.selectSearchTag(conn, cPage,numPerPage,tag);
+		close(conn);
+		return list;
+	}
+
+	public int selectSearchCount(String tag) {
+		Connection conn = getConnection();
+		int result = dao.selectSearchCount(conn, tag);
+		close(conn);
+		return result;
+	}
 	}	
 	
 	

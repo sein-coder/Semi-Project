@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -64,6 +65,7 @@ public class FoodDao {
 				f.setBoard_Count(rs.getInt("board_count"));
 				f.setWriting_Status(rs.getString("writing_status").charAt(0));
 				f.setBoard_Grade(rs.getInt("board_grade"));
+				f.setBoard_menu(rs.getString("board_menu"));
 				list.add(f);
 			}
 		}catch(SQLException e) {
@@ -269,9 +271,67 @@ public class FoodDao {
 			close(pstmt);
 		}return result;
 	}
+
+	public List<Food> selectSearchTag(Connection conn, int cPage, int numPerPage, String tag) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Food> list = new ArrayList();
+		String sql = prop.getProperty("selectSearchTag");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+tag+"%");
+			pstmt.setInt(2, (cPage-1)*numPerPage+1);
+			pstmt.setInt(3, cPage*numPerPage);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Food f = new Food();
+				f.setBoard_No(rs.getInt("board_no"));
+				f.setBoard_Writer(rs.getString("board_writer"));
+				f.setBoard_Title(rs.getString("board_title"));
+				f.setBoard_Contents(rs.getString("board_contents"));
+				f.setBoard_MAP(rs.getString("board_map"));
+				f.setBoard_Thumbnail(rs.getString("board_thumbnail"));
+				f.setOriginal_Filename(rs.getString("original_filename"));
+				f.setRenamed_Filename(rs.getString("renamed_filename"));
+				f.setBoard_Date(rs.getDate("board_date"));
+				f.setBoard_Count(rs.getInt("board_count"));
+				f.setWriting_Status(rs.getString("writing_status").charAt(0));
+				f.setBoard_Grade(rs.getInt("board_grade"));
+				f.setBoard_menu(rs.getString("board_menu"));
+				list.add(f);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	public int selectSearchCount(Connection conn, String tag) {
+		Statement stmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		String sql = "select count(*) from food_board where board_menu like '%"+tag+"%'";
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(stmt);
+		}
+		return result;
+	}
+	
 }
 	
-	
+
 	
 //	private Properties prop = new Properties(); //properties파일을 다루는 객체선언 및 초기화
 //	
