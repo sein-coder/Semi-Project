@@ -249,7 +249,6 @@
                 }
                 e.preventDefault(); // SpaceBar 시 빈공간이 생기지 않도록 방지
             }
-            console.log(tag);
         });
 
         // 삭제 버튼 
@@ -339,9 +338,9 @@
 			contentType:false,
 			success : function(data){
 				$("#ori_file").val(data.split("/")[0]);
-				$("#renamed_file").val(data.split("/")[1]);			
+				$("#renamed_file").val(data.split("/")[1]);	
+				console.log("성공");
 				validation = true;
-				
 			},
 			error : function(request,status,error){
 				validation = false;
@@ -362,9 +361,10 @@
 			}
 			tags = tags.substring(0,tags.length-1);
 			$("#tags").val(tags);
-			
+			console.log("결과");
 			return true;
 		}else {
+			console.log("결과2");
 			return false;
 		}
 	});
@@ -525,7 +525,6 @@
 	        }
 	        
 	        $("#road_address").val(item.roadAddress);
-			console.log($("#road_address").val());
 			
 	        infoWindow.setContent([
 	            '<div style="padding:10px;min-width:200px;line-height:150%;">',

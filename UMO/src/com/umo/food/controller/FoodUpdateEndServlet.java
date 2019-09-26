@@ -48,6 +48,9 @@ public class FoodUpdateEndServlet extends HttpServlet {
 		
 		int board_no = Integer.parseInt(mr.getParameter("board_no"));
 		String thumnail = mr.getFilesystemName("thumnail_select");
+		if(thumnail==null) {
+			thumnail = mr.getParameter("hidden_thumnail");
+		}
 		String writer=mr.getParameter("writer");
 		String title=mr.getParameter("title");
 		String tel=mr.getParameter("tel");

@@ -94,7 +94,8 @@
 	<div id="thumnail" style="margin-left:auto; margin-right:auto; margin-top:100px; width: 600px; height: 400px; border: 1px solid red;">
 		<img id="thumnail_image" src="<%=request.getContextPath()%>/upload/food/thumnail/<%= f.getBoard_Thumbnail() %>" style="width: 600px; height: 400px;" >
 	</div>
-	<input style="margin-left: auto; margin-right: auto;" id="thumnail_select" name="thumnail_select" type="file">
+	<input style="margin-left: auto; margin-right: auto;" id="thumnail_select" name="thumnail_select" type="file" value="<%= f.getBoard_Thumbnail() %>">
+	<input type="hidden" name="hidden_thumnail" value="<%= f.getBoard_Thumbnail() %>">
 	<table id="big-table">
 		<tr>
 			<th style="background-color:black;">  	
@@ -106,8 +107,8 @@
 					<img id="img1" style="width: 300px; height:200px" src="<%=request.getContextPath()%>/images/foodpoint/noimg.png"> 
 					<img id="img2" style="width: 300px; height:200px" src="<%=request.getContextPath()%>/images/foodpoint/noimg.png">
 					<!-- 다중 이미지 파일명 저장용 -->
-					<input id="ori_file" type="hidden" name="ori_file" value="a">
-					<input id="renamed_file" type="hidden" name="renamed_file" value="b">
+					<input id="ori_file" type="hidden" name="ori_file" value="<%=f.getOriginal_Filename()%>">
+					<input id="renamed_file" type="hidden" name="renamed_file" value="<%=f.getRenamed_Filename()%>">
 				</div>
 			</th>
 			<th style="background-color:white;">
@@ -153,8 +154,8 @@
 								<input type="radio" id="bills" name="bills" value="~5,000" <%=f.getBoard_foodbill()!=null&&f.getBoard_foodbill().equals("~5,000")?"checked":"" %>/>~5,000<br>
 								<input type="radio" id="bills" name="bills" value="5,000~10,000" <%=f.getBoard_foodbill()!=null&&f.getBoard_foodbill().equals("5,000~10,000")?"checked":"" %>/>5,000~10,000<br>
 								<input type="radio" id="bills" name="bills" value="10,000~15,000" <%=f.getBoard_foodbill()!=null&&f.getBoard_foodbill().equals("10,000~15,000")?"checked":"" %>/>10,000~15,000<br>
-								<input type="radio" id="bills" name="bills" value="15,000~20,000" <%=f.getBoard_foodbill()!=null&&f.getBoard_foodbill().equals("20,000~20,000")?"checked":"" %>/>15,000~20,000<br>
-								<input type="radio" id="bills" name="bills" value="20,000~25,000" <%=f.getBoard_foodbill()!=null&&f.getBoard_foodbill().equals("15,000~25,000")?"checked":"" %>/>20,000~25,000<br>
+								<input type="radio" id="bills" name="bills" value="15,000~20,000" <%=f.getBoard_foodbill()!=null&&f.getBoard_foodbill().equals("15,000~20,000")?"checked":"" %>/>15,000~20,000<br>
+								<input type="radio" id="bills" name="bills" value="20,000~25,000" <%=f.getBoard_foodbill()!=null&&f.getBoard_foodbill().equals("20,000~25,000")?"checked":"" %>/>20,000~25,000<br>
 								<input type="radio" id="bills" name="bills" value="25,000~" <%=f.getBoard_foodbill()!=null&&f.getBoard_foodbill().equals("25,000~")?"checked":"" %>/>25,000~<br>
 							</td>
 						
@@ -358,7 +359,7 @@
 	}
 	
 	$("#frm").submit(function(){
-		if(foodpic.length>0){
+		if(foodpic.length>0){			
 			validation = true;
 		}
 		if(validation){
