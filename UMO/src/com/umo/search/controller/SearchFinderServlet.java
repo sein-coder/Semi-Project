@@ -1,4 +1,4 @@
-package com.umo.admin.controller;
+package com.umo.search.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -10,18 +10,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.umo.admin.service.AdminService;
-import com.umo.model.vo.Member;;
+import com.umo.model.vo.Board;
 /**
  * Servlet implementation class AdminMemberFinderServlet
  */
-@WebServlet("/admin/memberFinder")
-public class AdminMemberFinderServlet extends HttpServlet {
+@WebServlet("/search/searchFinder")
+public class SearchFinderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminMemberFinderServlet() {
+    public SearchFinderServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -48,7 +48,7 @@ public class AdminMemberFinderServlet extends HttpServlet {
 		
 		//데이터 불러오기
 		AdminService service=new AdminService();
-		List<Member> list=service.selectSearch(cPage, numPerPage,type,keyword);
+		List<Board> list=service.selectSearch(cPage, numPerPage,type,keyword);
 		
 		
 		int totalData=service.selectSearchCount(type, keyword);
@@ -96,7 +96,7 @@ public class AdminMemberFinderServlet extends HttpServlet {
 		request.setAttribute("type", type);
 		request.setAttribute("numPerPage", numPerPage);
 		
-		request.getRequestDispatcher("/views/admin/memberList.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/free/freeboard.jsp").forward(request, response);
 	}
 
 	/**

@@ -45,6 +45,7 @@
             <th colspan="2">
                 <input type="button" class="btn btn-default" value="수정하기" onclick="location.href='<%=request.getContextPath()%>/freeUpdate?noticeNo=<%=fb.getNo()%>'"/>
                 <input type="button" class="btn btn-default" value="삭제하기" onclick="location.href='<%=request.getContextPath()%>/freeDelete?noticeNo=<%=fb.getNo() %>'"/>
+	        	<input type="button" class="btn btn-list" value="목록" onclick="location.href='<%=request.getContextPath()%>/freeBoard?notice?cPage=1 %>'"/>
             </th>
         </tr>
         <%} %>

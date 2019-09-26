@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%@ page import="java.util.List,com.umo.model.vo.Member"%>
+<%@ page import="java.util.List,com.umo.model.vo.Board"%>
 <%
-	List<Member> list=(List<Member>)request.getAttribute("list");
+	List<Board> list=(List<Board>)request.getAttribute("list");
 	String type=(String)request.getAttribute("type");
 	String keyword=(String)request.getAttribute("keyword");
 	String numPerPage=request.getAttribute("numPerPage").toString();
@@ -35,8 +35,8 @@
 	$(function(){
 	//검색타입을 고르는 부분
 		$("#searchType").change(function(){
-		$("#search-Id").css("display","none");
-	 	$("#search-name").css("display","none");
+		$("#search-memberId").css("display","none");
+	 	$("#search-membername").css("display","none");
 	 	$("#search-"+$(this).val()).css("display","inline-block");
 		});
 	//검색타입을 동작시키기
@@ -44,36 +44,36 @@
 	});
 </script>
 	<section id="memberList-container">
+	<h4>회원관리</h4>
 	<!--검색기능 추가 -->
 		<div id="neck-container">
 			<div id="search-container">
 				검색타입:
 				<select id="searchType">
-					<option value="userId" <%="Id".equals(type)?"selected" :"" %>>아이디</option>
-					<option value="userName" <%="userName".equals(type)?"selected" :"" %>>이름</option>
-					<option value="gender" <%="gender".equals(type)?"selected" :"" %>>성별</option>
+					<option value="memberId" <%="memberId".equals(type)?"selected" :"" %>>아이디</option>
+					<option value="memberName" <%="memberName".equals(type)?"selected" :"" %>>이름</option>
 				</select>
-				<div id="search-userId">
-					<form action="<%=request.getContextPath()%>/admin/memberFinder">
+				<div id="search-memberId">
+					<form action="<%=request.getContextPath()%>/search/searchFinder">
 					 <input type="hidden" name="searchType" value="userId"/>
 					 <input type="text" name="searchKeyword" size="25" placeholder="아이디입력"
-					 value='<%=type!=null&&type.equals("userId")?keyword:"" %>'/>
+					 value='<%=type!=null&&type.equals("memberId")?keyword:"" %>'/>
 					 <button type="submit">검색</button>
 					</form>
 				</div>
-				<div id="search-userName">
-					<form action="<%=request.getContextPath()%>/admin/memberFinder">
+				<div id="search-memberName">
+					<form action="<%=request.getContextPath()%>/search/searchFinder">
 					 <input type="hidden" name="searchType" value="userName"/>
 					 <input type="text" name="searchKeyword" size="25" placeholder="회원이름입력" >
-					 value='<%=type!=null&&type.equals("userName")?keyword:"" %>'/>
+					 value='<%=type!=null&&type.equals("memberName")?keyword:"" %>'/>
 					 <button type="submit">검색</button>
 					</form>
 				</div>
 			</div>
-		<%if(type!=null||keyword!=null) { %>
+	 	<%if(type!=null||keyword!=null) { %>
 			<div id="numPerPage-container">
 				페이지 회원수:
-				<form action="<%=request.getContextPath() %>/admin/memberFinder"
+				<form action="<%=request.getContextPath() %>/search/searchFinder"
 				 id="numPerPageFrm">
 					<select name="numPerPage" id="numPerPage" onchange="this.form.submit();">
 						<option value="10" <%=numPerPage.equals("10")?"selected":"" %>>10</option>
@@ -87,7 +87,7 @@
 			<% } else { %>
 			<div id="numPerPage-container">
 				페이지 회원수:
-				<form action="<%=request.getContextPath() %>/admin/memberFinder"
+				<form action="<%=request.getContextPath() %>/admin/memberList"
 				 id="numPerPageFrm">
 					<select name="numPerPage" id="numPerPage" onchange="this.form.submit();">
 						<option value="10" <%=numPerPage.equals("10")?"selected":"" %>>10</option>
@@ -96,27 +96,26 @@
 					</select>
 				</form>
 			</div>
-			<% } %>
+			<% } %> --%>
 		</div>
 		<table id="tbl-member">
 			<tr>
-				<th>아이디</th>
-				<th>이름</th>
-				<th>이메일</th>
-				<th>전화번호</th>
-				<th>주소</th>
-				<th>가입일자</th>
+				<th>번호</th>
+				<th>제목</th>
+				<th>작성자</th>
+				<th>작성일</th>
+				<th>조회</th>
 			</tr>
 			
 		
-		<% for(Member m:list){%>
+		<% for(Board b:list){%>
 			<tr>
-				<td><%=m.getMemberId()%></td>
-				<td><%=m.getMemberName()%></td>
-				<td><%=m.getEmail()%></td>
-				<td><%=m.getPhone()%></td>
-				<td><%=m.getAddress()%></td>
-				<td><%=m.getJoin_Date()%></td>
+				<td><%=b.getNo()%></td>
+				<td><%=b.getTitle()%></td>
+				<td><%=b.getWriter()%></td>
+				<td><%=b.getDate()%></td>
+				<td><%=b.getCount()%>
+				</td>
 		
 			</tr>
 		<%} %>
@@ -129,7 +128,31 @@
 	
 
 
+<!--
 
+<style>
+div#search-container{margin:0 50px 10px 100px;   background-color:gold;  float:left;}
+input#search-title{margin-left:200px; width:30%; heigh:1000%; text-align:center; display:inline;}
+button#search-btn{margin-left:500px;width:10%; heigh:1000%;}
+</style>
+
+	<div id="search-container">
+		검색타입:
+		<select id="searchType">
+			<option value="memberId" <%="memberId".equals(type)?"selected":"" %>아이디</option>
+		</select>
+		<form>
+			<input type="text" id="search-title" name="search" placeholder="제목을 입력하세요">
+			<button type="submit" id="search-btn" >검색</button>
+		</form>
+	</div>
+
+
+
+
+
+
+  -->
 
 
 
