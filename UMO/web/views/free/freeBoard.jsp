@@ -6,6 +6,7 @@
 	String type=(String)request.getAttribute("type");
 	String keyword=(String)request.getAttribute("keyword");
 	String numPerPage = request.getAttribute("numPerPage").toString();
+
 %>
 <%@ include file="/views/common/header.jsp" %>
 <style>

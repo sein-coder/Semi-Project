@@ -119,9 +119,6 @@ public class FreeBoardDao {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String sql = prop.getProperty("freeWrite");
-		
-		System.out.println("sql확인"+sql);
-
 		try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, fb.getWriter());

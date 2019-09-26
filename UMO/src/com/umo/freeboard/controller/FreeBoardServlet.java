@@ -36,10 +36,13 @@ public class FreeBoardServlet extends HttpServlet {
 		int numPerPage;
 		try {
 			cPage=Integer.parseInt(request.getParameter("cPage"));
-			numPerPage = Integer.parseInt(request.getParameter("numPerPage"));
 		} catch (NumberFormatException e) {
 		    cPage=1;
-		    numPerPage = 10;
+		}
+		try {
+		numPerPage = Integer.parseInt(request.getParameter("numPerPage"));
+		} catch (NumberFormatException e) {
+			numPerPage = 10;			
 		}
 		
 		FreeBoardService service=new FreeBoardService();
@@ -87,7 +90,6 @@ public class FreeBoardServlet extends HttpServlet {
 	    request.setAttribute("numPerPage", numPerPage);
 	    
 		request.getRequestDispatcher("/views/free/freeBoard.jsp").forward(request, response);
-		
 		
 	}
 
