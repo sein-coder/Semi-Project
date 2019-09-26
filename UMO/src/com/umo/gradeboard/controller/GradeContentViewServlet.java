@@ -1,4 +1,4 @@
-package com.umo.anonymousboard.controller;
+package com.umo.gradeboard.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -10,21 +10,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.umo.anonymousboard.service.AnonymousBoardService;
+import com.umo.gradeboard.service.GradeBoardService;
 import com.umo.model.vo.Board;
 import com.umo.model.vo.BoardComment;
 
 /**
  * Servlet implementation class FreeContentViewServlet
  */
-@WebServlet("/anonymousContentView")
-public class AnonymousContentViewServlet extends HttpServlet {
+@WebServlet("/gradeContentView")
+public class GradeContentViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AnonymousContentViewServlet() {
+    public GradeContentViewServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,7 +35,7 @@ public class AnonymousContentViewServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
-		int no=Integer.parseInt((request.getParameter("anonymousNo")));
+		int no=Integer.parseInt((request.getParameter("gradeNo")));
 		Cookie[] cookies=request.getCookies();
 		String boardCookieVal="";
 		boolean hasRead=false;
@@ -59,14 +59,14 @@ public class AnonymousContentViewServlet extends HttpServlet {
 			response.addCookie(c);
 			
 		}
-		AnonymousBoardService service=new AnonymousBoardService();
+		GradeBoardService service=new GradeBoardService();
 		
-		Board ab= service.selectanonymousBoard(no,hasRead);
-		List<BoardComment> list=service.selectanonymousBoardComment(no);
+		Board gb= service.selectGradeBoard(no,hasRead);
+		List<BoardComment> list=service.selectGradeBoardComment(no);
 		
-		request.setAttribute("ab", ab);
+		request.setAttribute("gb", gb);
 		request.setAttribute("comments", list);
-		request.getRequestDispatcher("/views/anonymous/anonymousContentView.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/grade/gradeContentView.jsp").forward(request, response);
 		
 	}
 

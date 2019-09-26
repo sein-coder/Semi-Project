@@ -4,7 +4,7 @@
 <%@ page import="com.umo.model.vo.BoardComment,java.util.List" %>
 
 <% 
-     Board fb=(Board)request.getAttribute("fb");
+     Board gb=(Board)request.getAttribute("gb");
 List<BoardComment> list=(List)request.getAttribute("comments");
 %>
 
@@ -33,25 +33,25 @@ List<BoardComment> list=(List)request.getAttribute("comments");
 </style>
    <section id="notice-container">
    <%@ include file="/views/common/header.jsp" %>
-   <h2>자유게시판</h2>
+   <h2>반별게시판</h2>
         <table id="tbl-notice" class="table table-striped table-bordered table-hover">
         <tr>
             <th>제 목</th>
-            <td><%=fb.getTitle()%></td>
+            <td><%=gb.getTitle()%></td>
         </tr>
         <tr>
             <th>작성자</th>
-            <td><%=fb.getWriter()%></td>
+            <td><%=gb.getWriter()%></td>
         </tr>
         <tr>
             <th>첨부파일</th>
             <td>
-           <%if(fb.getRenamed_filename()!=null) {%>
-                         <a href="<%=request.getContextPath()%>/free/fileDown?fileName=<%=fb.getRenamed_filename() %>">
+           <%if(gb.getRenamed_filename()!=null) {%>
+                         <a href="<%=request.getContextPath()%>/grade/fileDown?fileName=<%=gb.getRenamed_filename() %>">
 						<img src="<%=request.getContextPath()%>/images/file.png"
 						width="16px"/></a>
-					<%}else if(fb.getOriginal_filename()!=null){ %>
-					<a href="<%=request.getContextPath()%>/free/fileDown?fileName=<%=fb.getOriginal_filename() %>">
+					<%}else if(gb.getOriginal_filename()!=null){ %>
+					<a href="<%=request.getContextPath()%>/grade/fileDown?fileName=<%=gb.getOriginal_filename() %>">
 						<img src="<%=request.getContextPath()%>/images/file.png"
 						width="16px"/></a>
 					<%} %>
@@ -59,13 +59,13 @@ List<BoardComment> list=(List)request.getAttribute("comments");
         </tr>
         <tr>
             <th>내 용</th>
-            <td><%=fb.getContent()%></td>
+            <td><%=gb.getContent()%></td>
         </tr>
         <%if(loginMember!=null){ %>
         <tr>
             <th colspan="2">
-                <input type="button" class="btn btn-default" value="수정하기" onclick="location.href='<%=request.getContextPath()%>/freeUpdate?freeNo=<%=fb.getNo()%>'"/>
-                <input type="button" class="btn btn-default" value="삭제하기" onclick="location.href='<%=request.getContextPath()%>/freeDelete?freeNo=<%=fb.getNo() %>'"/>
+                <input type="button" class="btn btn-default" value="수정하기" onclick="location.href='<%=request.getContextPath()%>/gradeUpdate?gradeNo=<%=gb.getNo()%>'"/>
+                <input type="button" class="btn btn-default" value="삭제하기" onclick="location.href='<%=request.getContextPath()%>/gradeDelete?gradeNo=<%=gb.getNo() %>'"/>
             </th>
         </tr>
         <%} %>
@@ -75,9 +75,9 @@ List<BoardComment> list=(List)request.getAttribute("comments");
     </table>
     <div id="comment-container">
 			<div class="comment-editor">
-				<form action="<%=request.getContextPath()%>/free/insertComment"
+				<form action="<%=request.getContextPath()%>/grade/insertComment"
 				method="post" onsubmit="return fn_commentValidate();">
-					 <input type="hidden" name="boardRef" value="<%=fb.getNo()%>"/>
+					 <input type="hidden" name="boardRef" value="<%=gb.getNo()%>"/>
 					 <input type="hidden" name="boardCommentRef" value="0"/>
 					 <input type="hidden" name="boardCommentLevel" value="1"/>
 					 <input type="hidden" name="boardWriter" value="<%=loginMember!=null?loginMember.getMemberId():""%>"/>
@@ -100,7 +100,7 @@ List<BoardComment> list=(List)request.getAttribute("comments");
 				</td>
 				<td>
 					<button class="btn-reply" value="<%=bc.getBoardCommentNo()%>">답글</button>
-					<button class="btn-delete" value="<%=bc.getBoardCommentNo()%>" onclick="location.href='<%=request.getContextPath()%>/free/deleteComment?freeNo=<%=bc.getBoardCommentNo()%>'">삭제</button>
+					<button class="btn-delete" value="<%=bc.getBoardCommentNo()%>" onclick="location.href='<%=request.getContextPath()%>/grade/deleteComment?gradeNo=<%=bc.getBoardCommentNo()%>'">삭제</button>
 					
 				</td>
 			</tr>
@@ -138,8 +138,8 @@ List<BoardComment> list=(List)request.getAttribute("comments");
     		}
     		var tr=$("<tr>");
     		var html="<td style='display:none;text-align:left;' colpsan='2'>";
-    		html+="<form action='<%=request.getContextPath()%>/free/insertComment' method='post'>";
-       		html+='<input type="hidden" name="boardRef" value="<%=fb.getNo()%>"/>';
+    		html+="<form action='<%=request.getContextPath()%>/grade/insertComment' method='post'>";
+       		html+='<input type="hidden" name="boardRef" value="<%=gb.getNo()%>"/>';
 			html+='<input type="hidden" name="boardCommentRef" value="'+$(this).val()+'"/>';
 			html+='<input type="hidden" name="boardCommentLevel" value="2"/>';
 			html+='<input type="hidden" name="boardWriter" value="<%=loginMember!=null?loginMember.getMemberId():""%>"/>';					
