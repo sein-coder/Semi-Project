@@ -9,8 +9,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.umo.anonymousboard.service.AnonymousBoardService;
 import com.umo.food.model.service.FoodService;
+import com.umo.freeboard.service.FreeBoardService;
+import com.umo.gradeboard.service.GradeBoardService;
 import com.umo.inquery.model.service.InqueryService;
+import com.umo.model.vo.Board;
 import com.umo.model.vo.Comment;
 import com.umo.model.vo.Food;
 import com.umo.model.vo.Inquery;
@@ -50,19 +54,38 @@ public class MyPageServlet extends HttpServlet {
 		
 		String name="myPage";
 		List<Food> foodlist = new FoodService().selectFoodList(cPage,numPerPage,name,userId);
-		List<Inquery> inquerylist =new InqueryService().selectInqueryBoardList(cPage,numPerPage,name,userId);
+		List<Board> anonymousBoardList=new AnonymousBoardService().selectanonymousBoardList(cPage,numPerPage,name,userId);
+		List<Inquery> inquerylist=new InqueryService().selectInqueryBoardList(cPage,numPerPage,name,userId);
+		List<Board> freelist =new FreeBoardService().selectFreeBoardList(cPage, numPerPage,name,userId);
+		 List<Board> gradelist =new GradeBoardService().selectGradeBoardList(cPage, numPerPage,name,userId);
+		
+		 
+		 
 		String comment="Notice_Comment";
 		List<Comment> NoticeCommentlist = new MyPageService().selectCommentList(cPage,numPerPage,name,userId,comment);
 		comment="Food_Comment";
 		List<Comment> FoodCommentlist = new MyPageService().selectCommentList(cPage,numPerPage,name,userId,comment);
 		comment="INQUERY_COMMENT";
 		List<Comment> inqueryCommentlist = new MyPageService().selectCommentList(cPage,numPerPage,name,userId,comment);
+		comment="grade_COMMENT";
+		List<Comment> gradeCommentlist = new MyPageService().selectCommentList(cPage,numPerPage,name,userId,comment);
+		comment="free_COMMENT";
+		List<Comment> freeCommentlist = new MyPageService().selectCommentList(cPage,numPerPage,name,userId,comment);
+		comment="anonymous_COMMENT";
+		List<Comment> anonymousCommentlist = new MyPageService().selectCommentList(cPage,numPerPage,name,userId,comment);
 		
+		
+		request.setAttribute("gradelist", gradelist);
+		request.setAttribute("gradeCommentlist", gradeCommentlist);
+		request.setAttribute("freeCommentlist", freeCommentlist);
+		request.setAttribute("anonymousCommentlist", anonymousCommentlist);
+		request.setAttribute("freelist", freelist);
+		request.setAttribute("inquerylist", inquerylist);
+		request.setAttribute("foodlist", foodlist);
+		request.setAttribute("anonymousBoardList", anonymousBoardList);
 		request.setAttribute("NoticeCommentlist", NoticeCommentlist);
 		request.setAttribute("FoodCommentlist", FoodCommentlist);
-		request.setAttribute("inquerylist", inquerylist);
 		request.setAttribute("inqueryCommentlist", inqueryCommentlist);
-		request.setAttribute("foodlist", foodlist);
 		request.setAttribute("cPage", cPage);
 	      request.setAttribute("member", m);
 	      request.getRequestDispatcher("/views/myPage/myPage.jsp")

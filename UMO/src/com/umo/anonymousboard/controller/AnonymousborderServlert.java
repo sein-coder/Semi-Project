@@ -42,8 +42,9 @@ public class AnonymousborderServlert extends HttpServlet {
 		int numPerPage=10;
 		AnonymousBoardService service=new AnonymousBoardService();
 	    int totalData=service.countanonymousList();
-	    
-	    List<Board> list =service.selectanonymousBoardList(cPage, numPerPage);
+	    String name="";
+	    String userId="";
+	    List<Board> list =service.selectanonymousBoardList(cPage,numPerPage,name,userId);
 	    
 	    String pageBar="";
 	    int totalPage=(int)Math.ceil((double)totalData/numPerPage);

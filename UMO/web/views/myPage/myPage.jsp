@@ -3,10 +3,18 @@
 <%@ page import="java.util.List, com.umo.model.vo.*" %>
 <%
 List<Food> foodlist = (List<Food>)request.getAttribute("foodlist");
+List<Board> anonymouslist = (List<Board>)request.getAttribute("anonymousBoardList");
 List<Inquery> inquerylist = (List<Inquery>)request.getAttribute("inquerylist"); 
+List<Board> freelist=(List)(request.getAttribute("freelist"));
+List<Board> gradelist=(List)(request.getAttribute("gradelist"));
 List<Comment> NoticeCommentlist = (List<Comment>)request.getAttribute("NoticeCommentlist");
 List<Comment> FoodCommentlist = (List<Comment>)request.getAttribute("FoodCommentlist");
 List<Comment> inqueryCommentlist = (List<Comment>)request.getAttribute("inqueryCommentlist");
+List<Comment> gradeCommentlist = (List<Comment>)request.getAttribute("gradeCommentlist");
+List<Comment> freeCommentlist = (List<Comment>)request.getAttribute("freeCommentlist");
+List<Comment> anonymousCommentlist = (List<Comment>)request.getAttribute("anonymousCommentlist");
+
+
 Member m=(Member)request.getAttribute("member");
 int count = 0;
 %> 
@@ -32,6 +40,7 @@ int count = 0;
 				   <option value="자유">자유</option>
 			    	<option value="익명">익명</option>
 				  <option value="질의">질의</option>
+				  <option value="반별">반별</option>
 			</select>
         
             <fieldset>
@@ -57,30 +66,86 @@ int count = 0;
                	</table>
                	<table id="freeboard" style="display:none">
                 <% if(count<3){
-                 for(Food f : foodlist) {%>
+                 for(Board f : freelist) {%>
                     <tr>
-                        <td><a href="<%=request.getContextPath() %>/images/food/<%= f.getBoard_Thumbnail()%>">food <%=f.getBoard_Title()+" "+f.getBoard_Contents()+" "+f.getBoard_Writer()%></a></td>
+                        <td><a href="<%=request.getContextPath()%>/freeContentView?freeNo=<%=f.getNo()%>"><%=f.getTitle()+f.getWriter() %></a></td>
                     </tr>
 	          	<%count++;} } count=0;%>
                 </table>
                 <table id="anonymousboard" style="display:none">
                 <% if(count<3){
-                 for(Food f : foodlist) {%>
+                	for (Board a : anonymouslist){%>
                     <tr>
-                        <td><a href="<%=request.getContextPath() %>/images/food/<%= f.getBoard_Thumbnail()%>">food <%=f.getBoard_Title()+" "+f.getBoard_Contents()+" "+f.getBoard_Writer()%></a></td>
+                        <td><a href="<%=request.getContextPath()%>/anonymousContentView?anonymousNo=<%=a.getNo()%>"><%=a.getTitle()%></a></td>
+                    </tr>
+	          	<%count++;} } count=0;%>
+                </table>
+                <table id="gradeboard" style="display:none">
+                <% if(count<3){
+                	for (Board g : gradelist){%>
+                    <tr>
+                        <td><a href="<%=request.getContextPath()%>/gradeContentView?gradeNo=<%=g.getNo()%>"><%=g.getTitle()+g.getWriter() %></a></td>
                     </tr>
 	          	<%count++;} } count=0;%>
                 </table>
             </fieldset>
             <br>
         </div>
-        <div class="mypagediv" id="comment">
+        <div class="mypagediv" id="mycomment">
+        <select id="comment" name="comment" style="width:5%">
+				  <option value="공지" selected="selected">공지</option>
+				   <option value="음식">음식</option>
+				   <option value="자유">자유</option>
+			    	<option value="익명">익명</option>
+				  <option value="질의">질의</option>
+				  <option value="반별">반별</option>
+			</select>
             <fieldset>
                 <legend>내 댓글</legend> <br>
-                <table>
+                <table id="noticecomment" name="noticecomment">
+                   <% if(count<3){
+                 for(Comment n : NoticeCommentlist) {%>
                     <tr>
-                        <td>ㅇㅇㅇ</td>
+                        <td><%=n.getComment_contents() %></td>
                     </tr>
+	          	<%count++;} } count=0;%>
+                </table>
+                <table id="foodcomment" name="foodcomment" style="display:none">
+                   <% if(count<3){
+                 for(Comment f : FoodCommentlist) {%>
+                    <tr>
+                        <td><%=f.getComment_contents() %></td>
+                    </tr>
+	          	<%count++;} } count=0;%>
+                </table>
+                <table id="inquerycomment" name="inquerycomment" style="display:none">
+                   <% if(count<3){
+                 for(Comment i : inqueryCommentlist) {%>
+                    <tr>
+                        <td><%=i.getComment_contents() %></td>
+                    </tr>
+	          	<%count++;} } count=0;%>
+	          	<table id="freecomment" name="freecomment" style="display:none">
+                   <% if(count<3){
+                 for(Comment f : freeCommentlist) {%>
+                    <tr>
+                        <td><%=f.getComment_contents() %></td>
+                    </tr>
+	          	<%count++;} } count=0;%>
+	          	<table id="gradecomment" name="gradecomment" style="display:none">
+                   <% if(count<3){
+                 for(Comment g : gradeCommentlist) {%>
+                    <tr>
+                        <td><%=g.getComment_contents() %></td>
+                    </tr>
+	          	<%count++;} } count=0;%>
+	          	<table id="anonymouscomment" name="anonymouscomment" style="display:none">
+                   <% if(count<3){
+                 for(Comment a : anonymousCommentlist) {%>
+                    <tr>
+                        <td><%=a.getComment_contents() %></td>
+                    </tr>
+	          	<%count++;} } count=0;%>
                 </table>
             </fieldset>
             <br>
@@ -89,10 +154,12 @@ int count = 0;
             <fieldset>
                 <legend>내 쪽지</legend> <br>
                 <table>
-                    <tr>
-                        <td>ㅇㅇㅇ</td>
-                    </tr>
+                <tr>
+                	<td>dd</td>
+                </tr>
+                
                 </table>
+                
             </fieldset>
         </div>
 
@@ -104,23 +171,80 @@ int count = 0;
 	        	 $('#inqueryboard').css({ display: 'none'});
 	        	 $('#freeboard').css({ display: 'none'});
 	        	 $('#anonymousboard').css({ display: 'none'});
+	        	 $('#gradeboard').css({ display: 'none'});
 	        }else if($('#board').val()=='질의'){
 	        	$('#inqueryboard').css({ display: 'flex'});
 	        	$('#foodboard').css({ display: 'none'});
 	        	$('#freeboard').css({ display: 'none'});
 	        	 $('#anonymousboard').css({ display: 'none'});
+	        	 $('#gradeboard').css({ display: 'none'});
 	        }else if($('#board').val()=='자유'){
 	        	$('#inqueryboard').css({ display: 'none'});
 	        	$('#foodboard').css({ display: 'none'});
 	        	$('#freeboard').css({ display: 'flex'});
 	        	 $('#anonymousboard').css({ display: 'none'});
+	        	 $('#gradeboard').css({ display: 'none'});
 	        }else if($('#board').val()=='익명'){
 	        	$('#inqueryboard').css({ display: 'none'});
 	        	$('#foodboard').css({ display: 'none'});
 	        	$('#freeboard').css({ display: 'none'});
 	        	 $('#anonymousboard').css({ display: 'flex'});
+	        	 $('#gradeboard').css({ display: 'none'});
+	        }else if($('#board').val()=='반별'){
+	        	$('#inqueryboard').css({ display: 'none'});
+	        	$('#foodboard').css({ display: 'none'});
+	        	$('#freeboard').css({ display: 'none'});
+	        	 $('#anonymousboard').css({ display: 'none'});
+	        	 $('#gradeboard').css({ display: 'flex'});
 	        }
 	        	})
+	        })
+	        	  $(document).ready(function(){
+	        		$('#comment').on('change',function(){
+	        if($('#comment').val()=='음식'){
+	        	 $('#foodcomment').css({ display: 'flex'});
+	        	 $('#inquerycomment').css({ display: 'none'});
+	        	 $('#freecomment').css({ display: 'none'});
+	        	 $('#anonymouscomment').css({ display: 'none'});
+	        	 $('#gradecomment').css({ display: 'none'});
+	        	 $('#noticecomment').css({ display: 'none'});
+	        }else if($('#comment').val()=='공지'){
+	        	$('#noticecomment').css({ display: 'flex'});
+	        	$('#inquerycomment').css({ display: 'none'});
+	        	$('#foodcomment').css({ display: 'none'});
+	        	$('#freecomment').css({ display: 'none'});
+	        	 $('#anonymouscomment').css({ display: 'none'});
+	        	 $('#gradecomment').css({ display: 'none'});
+	        }else if($('#comment').val()=='질의'){
+	        	$('#inquerycomment').css({ display: 'flex'});
+	        	$('#foodcomment').css({ display: 'none'});
+	        	$('#freecomment').css({ display: 'none'});
+	        	 $('#anonymouscomment').css({ display: 'none'});
+	        	 $('#gradecomment').css({ display: 'none'});
+	        	 $('#noticecomment').css({ display: 'none'});
+	        }else if($('#comment').val()=='자유'){
+	        	$('#inquerycomment').css({ display: 'none'});
+	        	$('#foodcomment').css({ display: 'none'});
+	        	$('#freecomment').css({ display: 'flex'});
+	        	 $('#anonymouscomment').css({ display: 'none'});
+	        	 $('#gradecomment').css({ display: 'none'});
+	        	 $('#noticecomment').css({ display: 'none'});
+	        }else if($('#comment').val()=='익명'){
+	        	$('#inquerycomment').css({ display: 'none'});
+	        	$('#foodcomment').css({ display: 'none'});
+	        	$('#freecomment').css({ display: 'none'});
+	        	 $('#anonymouscomment').css({ display: 'flex'});
+	        	 $('#noticecomment').css({ display: 'none'});
+	        	 $('#gradecomment').css({ display: 'none'});
+	        }else if($('#comment').val()=='반별'){
+	        	$('#inquerycomment').css({ display: 'none'});
+	        	$('#foodcomment').css({ display: 'none'});
+	        	$('#freecomment').css({ display: 'none'});
+	        	 $('#noticecomment').css({ display: 'none'});
+	        	 $('#anonymouscomment').css({ display: 'none'});
+	        	 $('#gradecomment').css({ display: 'flex'});
+	        }
+	        	});
 	        })
         
             function click1() {

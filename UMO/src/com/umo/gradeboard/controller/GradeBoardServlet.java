@@ -41,8 +41,9 @@ public class GradeBoardServlet extends HttpServlet {
 		int numPerPage=10;
 		GradeBoardService service=new GradeBoardService();
 	    int totalData=service.countGradeList();
-	    
-	    List<Board> list =service.selectGradeBoardList(cPage, numPerPage);
+	    String name="";
+	    String userId="";
+	    List<Board> list =service.selectGradeBoardList(cPage, numPerPage,name,userId);
 	    
 	    String pageBar="";
 	    int totalPage=(int)Math.ceil((double)totalData/numPerPage);

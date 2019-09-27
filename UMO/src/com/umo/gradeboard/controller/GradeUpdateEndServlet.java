@@ -37,7 +37,7 @@ public class GradeUpdateEndServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(!ServletFileUpload.isMultipartContent(request)) {
 			request.setAttribute("msg", "잘못된 요청입니다.");
-			request.setAttribute("loc", "/freeBoard");
+			request.setAttribute("loc", "/gradeBoard");
 			request.getRequestDispatcher("/views/common/msg.jsp")
 			.forward(request, response);
 			return;
