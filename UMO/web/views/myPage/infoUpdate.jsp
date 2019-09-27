@@ -4,7 +4,7 @@
    <%Member m=(Member)request.getAttribute("member"); %>
 <head>
 
- <style>
+<!--  <style>
   #memberUpdate-box{
       margin-top:15%;
       margin-left:15%;
@@ -81,11 +81,11 @@ height:80%;
         font-weight:bold;
         font-family:tahoma;
         } 
-        </style>
+        </style> -->
 </head>
 <body>
 <%@ include file="/views/common/header.jsp"%>
-<section id="memberUpdate-box">
+<section id="memberUpdate-box" style="margin-top:10%;">
 <div id="updateList">
 
 <p style="text-align:center; font-size:21px;">멤버수정</p>
@@ -93,31 +93,20 @@ height:80%;
 <form name="updateFrm" method="post"onsubmit="return update_validate();">
 
 <label>멤버아이디
-
 <input type="text" id="id" name="id" value="<%=m.getMemberId()%>" readonly/>
 </label>
-
+<br>
 <label>멤버비밀번호
-
 </label>
-<input type="text" id="pw" name="pw" value="<%=m.getMemberPw()%>" />
-
+<input type="text" id="pw" name="pw" value="<%-- <%=m.getMemberPw()%> --%>" />
     <label>이름
-    
     </label>
     <input type="text" id="name"name="name" value="<%=m.getMemberName()%>"/>
-
-
-
-
   <label>이메일
-  
     </label>
     <input type="text" id="email" name="email" style="" value="<%=m.getEmail()%>"/>
-    <label>전화번호</label>
-    <input type="text" id="phone" name="phone" value="<%=m.getPhone() %>"/>
-    <label>주소</label>
-    <input type="text" id="address" name="address" value="<%=m.getAddress()%>"/>
+    <input type="hidden" id="class1" name="class1" value="<%=m.getClass1() %>"/>
+    <input type="hidden" id="khno" name="khno" value="<%=m.getKhno()%>"/>
     <br><br>
     <input type="button" onclick="fn_updateMember();" value="수정완료" id="updateCheck" style="margin-left:10%;"/>
     <input type="button" value="취소" name="cancel" id="updateCheck" onclick="acancel();"/>

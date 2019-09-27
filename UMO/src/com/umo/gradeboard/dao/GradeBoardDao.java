@@ -239,9 +239,10 @@ public class GradeBoardDao {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, bc.getBoardCommentWriter());
 			pstmt.setString(2, bc.getBoardCommentContent());
-			pstmt.setInt(3, bc.getBoardRef());
-			pstmt.setInt(4, bc.getBoardCommentLevel());
-			pstmt.setString(5, bc.getBoardCommentRef()==0?null:String.valueOf(bc.getBoardCommentRef()));
+			pstmt.setString(3, bc.getClass1());
+			pstmt.setInt(4, bc.getBoardRef());
+			pstmt.setInt(5, bc.getBoardCommentLevel());
+			pstmt.setString(6, bc.getBoardCommentRef()==0?null:String.valueOf(bc.getBoardCommentRef()));
 			result=pstmt.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();

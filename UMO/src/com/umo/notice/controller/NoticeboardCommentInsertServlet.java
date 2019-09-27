@@ -37,9 +37,9 @@ public class NoticeboardCommentInsertServlet extends HttpServlet {
 		int boardCommentRef=Integer.parseInt(request.getParameter("boardCommentRef"));
 		String writer=request.getParameter("boardWriter");
 		String content=request.getParameter("content");
+		String class1="";
 		
-		
-		BoardComment bc=new BoardComment(0,level,writer,content,boardRef,boardCommentRef,null);
+		BoardComment bc=new BoardComment(0,level,writer,content,class1,boardRef,boardCommentRef,null);
 		
 		int result=new NoticeBoardService().insertnoticeBoardComment(bc);
 		String msg="";

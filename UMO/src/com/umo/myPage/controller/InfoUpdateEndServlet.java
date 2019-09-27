@@ -37,8 +37,7 @@ public class InfoUpdateEndServlet extends HttpServlet {
 //				request.getParameter("name"),request.getParameter("email"),
 //				request.getParameter("phone"),request.getParameter("address"));
 		Member m=new Member(request.getParameter("id"),request.getParameter("pw"),request.getParameter("name"),
-				request.getParameter("email"),request.getParameter("phone"),request.getParameter("address"));
-		System.out.println(m.getMemberId()+m.getMemberPw()+m.getMemberName()+m.getEmail());
+				request.getParameter("email"),request.getParameter("class1"),Integer.parseInt(request.getParameter("khno")));
 		
 		int result=new MemberService().updateMember(m);
 		String msg="";

@@ -78,6 +78,7 @@ List<BoardComment> list=(List)request.getAttribute("comments");
 				<form action="<%=request.getContextPath()%>/grade/insertComment"
 				method="post" onsubmit="return fn_commentValidate();">
 					 <input type="hidden" name="boardRef" value="<%=gb.getNo()%>"/>
+					  <input type="hidden" name="class1" value="<%=gb.getClass1()%>"/>
 					 <input type="hidden" name="boardCommentRef" value="0"/>
 					 <input type="hidden" name="boardCommentLevel" value="1"/>
 					 <input type="hidden" name="boardWriter" value="<%=loginMember!=null?loginMember.getMemberId():""%>"/>
