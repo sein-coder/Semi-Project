@@ -24,7 +24,7 @@ public class GradeBoardService {
 	public List<Board> selectGradeBoardList(int cPage, int numPerPage,String name,String userId){
 		Connection conn=getConnection();		
 		List<Board> list=dao.selectGradeBoardList(conn, cPage, numPerPage,name,userId);
-		close(conn);	
+		close(conn);
 		return list; 
 	}
 	public Board GradeBoardContent(int no) {

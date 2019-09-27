@@ -15,7 +15,7 @@ import com.umo.myPage.model.service.MyPageService;
 /**
  * Servlet implementation class InfoUpdateEndServlet
  */
-@WebServlet("/infoUpdateEnd")
+@WebServlet(name="InfoUpdateEnd", urlPatterns="/infoUpdateEnd")
 public class InfoUpdateEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

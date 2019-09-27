@@ -65,6 +65,7 @@ public class GradeBoardDao {
 			sql = prop.getProperty("selectGradeBoardList");
 		}
 		try {
+			System.out.println("sql:"+sql);
 			pstmt = conn.prepareStatement(sql);
 			if(name.equals("myPage")) {
 				pstmt.setString(1, userId);
@@ -80,12 +81,14 @@ public class GradeBoardDao {
 				b.setNo(rs.getInt("grade_no"));
 				b.setWriter(rs.getString("grade_writer"));
 				b.setTitle(rs.getString("grade_title"));
+				b.setClass1(rs.getString("class1"));
 				b.setContent(rs.getString("grade_contents"));
 				b.setOriginal_filename(rs.getString("Original_filename"));
 				b.setRenamed_filename(rs.getString("renamed_filename"));
 				b.setDate(rs.getDate("grade_date"));
 				b.setCount(rs.getInt("grade_count"));
 				list.add(b);
+				System.out.println("반별게시판 목록"+list);
 			}
 
 		} catch (SQLException e) {
@@ -136,8 +139,9 @@ public class GradeBoardDao {
 			pstmt.setString(1, fb.getWriter());
 			pstmt.setString(2, fb.getTitle());
 			pstmt.setString(3, fb.getContent());
-			pstmt.setString(4, fb.getOriginal_filename());
-			pstmt.setString(5, fb.getRenamed_filename());		
+			pstmt.setString(4, fb.getClass1());
+			pstmt.setString(5, fb.getOriginal_filename());
+			pstmt.setString(6, fb.getRenamed_filename());		
 			result = pstmt.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();

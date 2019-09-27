@@ -7,6 +7,7 @@ public class BoardComment {
 	private int boardCommentLevel;
 	private String boardCommentWriter;
 	private String boardCommentContent;
+	private String class1;
 	private int boardRef;
 	private int boardCommentRef;
 	private Date boardCommentDate;
@@ -16,12 +17,13 @@ public class BoardComment {
 	}
 
 	public BoardComment(int boardCommentNo, int boardCommentLevel, String boardCommentWriter,
-			String boardCommentContent, int boardRef, int boardCommentRef, Date boardCommentDate) {
+			String boardCommentContent, String class1, int boardRef, int boardCommentRef, Date boardCommentDate) {
 		super();
 		this.boardCommentNo = boardCommentNo;
 		this.boardCommentLevel = boardCommentLevel;
 		this.boardCommentWriter = boardCommentWriter;
 		this.boardCommentContent = boardCommentContent;
+		this.class1 = class1;
 		this.boardRef = boardRef;
 		this.boardCommentRef = boardCommentRef;
 		this.boardCommentDate = boardCommentDate;
@@ -59,6 +61,14 @@ public class BoardComment {
 		this.boardCommentContent = boardCommentContent;
 	}
 
+	public String getClass1() {
+		return class1;
+	}
+
+	public void setClass1(String class1) {
+		this.class1 = class1;
+	}
+
 	public int getBoardRef() {
 		return boardRef;
 	}
@@ -87,10 +97,9 @@ public class BoardComment {
 	public String toString() {
 		return "BoardComment [boardCommentNo=" + boardCommentNo + ", boardCommentLevel=" + boardCommentLevel
 				+ ", boardCommentWriter=" + boardCommentWriter + ", boardCommentContent=" + boardCommentContent
-				+ ", boardRef=" + boardRef + ", boardCommentRef=" + boardCommentRef + "]";
+				+ ", class1=" + class1 + ", boardRef=" + boardRef + ", boardCommentRef=" + boardCommentRef
+				+ ", boardCommentDate=" + boardCommentDate + "]";
 	}
+
 	
-	
-	
-	
-}
+	}

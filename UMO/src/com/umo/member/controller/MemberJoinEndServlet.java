@@ -14,7 +14,7 @@ import com.umo.model.vo.Member;
 /**
  * Servlet implementation class MemberJoinEndServlet
  */
-@WebServlet("/memberJoinEnd")
+@WebServlet(name="MemberJoinEnd", urlPatterns="/memberJoinEnd")
 public class MemberJoinEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -33,17 +33,17 @@ public class MemberJoinEndServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		String id=request.getParameter("id");
-		String pw=request.getParameter("password");
+		String pw=request.getParameter("pw");
 		String name=request.getParameter("name");
 		String email=request.getParameter("email");
-		String phone=request.getParameter("phone");
-		String address=request.getParameter("address");
+		String class1=request.getParameter("class1");
+		int khno= Integer.parseInt(request.getParameter("khno"));
 		
 		
-		Member m=new Member(id,pw,name,email,phone,address);
+		Member m=new Member(id,pw,name,email,class1,khno);
 		
 		int result=new MemberService().registMember(m);
-		String msg=result>0?"���ԿϷ�":"���Խ���";
+		String msg=result>0?"완료":"실패";
 		String loc="/";
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc",loc);

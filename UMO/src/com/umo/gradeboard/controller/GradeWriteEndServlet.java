@@ -67,7 +67,8 @@ public class GradeWriteEndServlet extends HttpServlet {
 				String content=mr.getParameter("content");
 				content=content.replace("\r\n", "<br>");
 				String fileName=mr.getFilesystemName("up_file");
-				
+				String khno=mr.getParameter("khno");
+						
 				Board fb=new Board();
 				
 				
@@ -76,7 +77,7 @@ public class GradeWriteEndServlet extends HttpServlet {
 				fb.setWriter(writer);
 				fb.setContent(content);
 				fb.setOriginal_filename(fileName);
-				
+				fb.setClass1(khno);
 				int result=new GradeBoardService().GradeWrite(fb);
 				int gradeNo=new GradeBoardService().lastGradeContentNo(writer);
 				

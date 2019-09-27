@@ -101,7 +101,7 @@
         </label>
         <label>비밀번호
             <div class="label">Pw</div>
-            <input type="text" name="password" id="password" />
+            <input type="text" name="pw" id="pw" />
             </label>
             <label>비밀번호확인
     <div class="label">pw2</div>
@@ -113,25 +113,28 @@
             <div class="label">Name</div>
             <input type="text" name="name" id="name" />
             </label>
+            <label>반
+                <div class="label">반</div>
+                
+                <input type="text" name="class1" id="class1" /> 
+            </label>
+            <label>회원번호
+                <div class="label">회원번호</div>
+                
+                <input type="text" name="khno" id="khno" />
+                </label>
             
             <label>이메일
                 <div class="label">Email</div>
                 
                 <input type="text" name="email" id="email" />
                 </label>
+                
                 <!-- <span class="sp"><button id="emailidentify"  style="margin-left:73%; margin-top:-10%;" onclick="em_iden();">이메일인증</button> -->
            <!--  <div id="emailidenwindow" style="width:150px; height:27px; border:1px solid black; margin-left:36%; margin-top:-3%;"></div> -->
             </span>
-            <label>전화번호
-                <div class="label">Phone</div>
-                
-                <input type="text" name="phone" id="phone" /> 
-            </label>
-                <label>주소
-                    <div class="label">Address</div>
-                    
-                    <input type="text" name="address" id="address" /> 
-        </label>
+            
+               
         <button type="submit" id="joincheck" formaction="<%=request.getContextPath()%>/memberJoinEnd">회원가입확인</button>
         <button type="button" id="cancel" onclick="location.href='<%=request.getContextPath()%>/index.jsp'">취소</button>
         
@@ -150,6 +153,7 @@ var frm=document.frm;
 var pwc=document.pwc;
 var reg= /^[a-zA-Z][a-zA-Z0-9]{3,10}$/;
 var reg2=/^[a-zA-z][a-zA-z0-9]{5,12}$/;
+//
 var reg3=/^[가-힣]{2,4}$/;
 
 function validate(){

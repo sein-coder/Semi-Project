@@ -109,8 +109,8 @@ margin:15% 0 20% 18%;
 <form id="slick-login" method="post" >
 <h1 >로그인</h1>
 <label for="id">아이디</label><input type="text" name="userId" class="placeholder" placeholder="아이디작성하세요">
-<label for="password">password</label><input type="password" name="password" class="placeholder" placeholder="password">
-<input type="submit" value="Log In" style="margin-top:13px;" formaction="<%=request.getContextPath()%>/loginCh?">
+<label for="password">password</label><input type="password" name="pw" class="placeholder" placeholder="password">
+<input type="submit" value="Log In" style="margin-top:13px;" formaction="<%=request.getContextPath()%>/loginCh">
 
 <input type="submit" id="hweonJoin"  onclick="memberJoin()" value="회원가입" formaction="<%=request.getContextPath()%>/memberJoin">
 

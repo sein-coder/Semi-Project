@@ -9,8 +9,9 @@
 <h2>반별게시판</h2>
 <%if(loginMember!=null){ %>
 <div class="btn-group btn-group-sm"  id="btn-add">
+		
 		<input type="button" class="btn btn-default" value="글쓰기"
-			onclick="location.href='<%=request.getContextPath()%>/gradeWrite'"/>
+			onclick="location.href='<%=request.getContextPath()%>/gradeWrite'">
 	</div>
 	<%} %>
 	<table class="table table-striped table-bordered table-hover">
