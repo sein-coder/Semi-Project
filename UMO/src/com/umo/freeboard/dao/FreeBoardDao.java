@@ -54,15 +54,26 @@ public class FreeBoardDao {
 
 	}
 
-	public List<Board> selectFreeBoardList(Connection conn, int cPage, int numPerPage) {
+	public List<Board> selectFreeBoardList(Connection conn, int cPage, int numPerPage,String name,String userId) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<Board> list = new ArrayList<Board>();
-		String sql = prop.getProperty("selectFreeBoardList");
+		String sql="";
+		if(name.equals("myPage")) {
+			sql = prop.getProperty("selectMyFreeBoardList");
+		}else {
+			sql = prop.getProperty("selectFreeBoardList");
+		}
 		try {
 			pstmt = conn.prepareStatement(sql);
+			if(name.equals("myPage")) {
+				pstmt.setString(1, userId);
+				pstmt.setInt(2, (cPage-1)*numPerPage+1);
+				pstmt.setInt(3, cPage*numPerPage);
+				}else {
 			pstmt.setInt(1, cPage);
 			pstmt.setInt(2, numPerPage);
+				}
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				Board b = new Board();

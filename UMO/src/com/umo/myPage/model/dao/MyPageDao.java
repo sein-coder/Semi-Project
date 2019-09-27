@@ -20,7 +20,7 @@ import com.umo.model.vo.Member;
 public class MyPageDao {
 	private Properties prop=new Properties();
 	public MyPageDao() {
-	      String path=MemberDao.class.getResource("/sql/member/member.properties").getPath();
+	      String path=MemberDao.class.getResource("/sql/myPage/myPage-query.properties").getPath();
 	      try {
 	         prop.load(new FileReader(path));
 	      }catch(IOException e) {
@@ -65,6 +65,12 @@ public class MyPageDao {
 				sql = prop.getProperty("selectFoodCommentList");
 			}else if(comment.equals("INQUERY_COMMENT")) {
 				sql = prop.getProperty("selectinqueryCommentList");
+			}else if(comment.equals("grade_COMMENT")) {
+				sql = prop.getProperty("selectgradeCommentList");
+			}else if(comment.equals("free_COMMENT")) {
+				sql = prop.getProperty("selectfreeCommentList");
+			}else if(comment.equals("anonymous_COMMENT")) {
+				sql = prop.getProperty("selectanonymousCommentList");
 			}
 			
 		}else {

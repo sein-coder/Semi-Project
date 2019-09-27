@@ -11,7 +11,7 @@
 </style>
    <section id="notice-container">
    <h2>공지사항</h2>
-      <form action="<%=request.getContextPath()%>/freeWriteEnd" method="post" enctype="multipart/form-data">  
+      <form action="<%=request.getContextPath()%>/gradeWriteEnd" method="post" enctype="multipart/form-data">  
       <table id="tbl-notice" class="table table-striped table-bordered table-hover">
        <tr>
          <th>제목</th>

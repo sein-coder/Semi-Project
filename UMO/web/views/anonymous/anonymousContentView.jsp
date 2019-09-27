@@ -99,7 +99,7 @@ List<BoardComment> list=(List)request.getAttribute("comments");
 				%>
 				<tr class='level2'>
 				<td>
-					<sub><%=bc.getBoardCommentWriter() %></sub>
+					<sub>익명</sub>
 					<sub><%=bc.getBoardCommentDate() %></sub>
 					<br/>
 					<%=bc.getBoardCommentContent() %>

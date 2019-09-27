@@ -16,7 +16,7 @@ height:30px;
 <section id="intro" class="main style1" >
         <div class="content">
                 <h2>안녕.</h2>
-            <p>ㅎㅇㅎㅇㅎㅇ</p>
+            <p>ㅎㅇㅎㅇㅎㅇ</p>'
                 <button class="move1 cursor">이동</button>
         </div>
 </section>

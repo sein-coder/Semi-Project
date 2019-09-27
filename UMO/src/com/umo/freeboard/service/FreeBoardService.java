@@ -21,9 +21,9 @@ public class FreeBoardService {
 		close(conn);
 		return result;
 	}
-	public List<Board> selectFreeBoardList(int cPage, int numPerPage){
+	public List<Board> selectFreeBoardList(int cPage, int numPerPage,String name,String userId){
 		Connection conn=getConnection();		
-		List<Board> list=dao.selectFreeBoardList(conn, cPage, numPerPage);
+		List<Board> list=dao.selectFreeBoardList(conn, cPage, numPerPage,name,userId);
 		close(conn);	
 		return list; 
 	}

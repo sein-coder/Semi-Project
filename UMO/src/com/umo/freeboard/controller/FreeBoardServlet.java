@@ -41,8 +41,9 @@ public class FreeBoardServlet extends HttpServlet {
 		int numPerPage=10;
 		FreeBoardService service=new FreeBoardService();
 	    int totalData=service.countFreeList();
-	    
-	    List<Board> list =service.selectFreeBoardList(cPage, numPerPage);
+	    String name="";
+	    String userId="";
+	    List<Board> list =service.selectFreeBoardList(cPage, numPerPage,name,userId);
 	    
 	    String pageBar="";
 	    int totalPage=(int)Math.ceil((double)totalData/numPerPage);

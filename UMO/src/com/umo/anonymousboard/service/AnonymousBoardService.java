@@ -21,9 +21,9 @@ public class AnonymousBoardService {
 		close(conn);
 		return result;
 	}
-	public List<Board> selectanonymousBoardList(int cPage, int numPerPage){
+	public List<Board> selectanonymousBoardList(int cPage, int numPerPage,String name,String userId){
 		Connection conn=getConnection();		
-		List<Board> list=dao.selectAnonymousBoardList(conn, cPage, numPerPage);
+		List<Board> list=dao.selectAnonymousBoardList(conn, cPage, numPerPage,name,userId);
 		close(conn);	
 		return list; 
 	}
