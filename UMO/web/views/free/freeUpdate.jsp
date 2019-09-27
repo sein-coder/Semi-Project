@@ -10,8 +10,8 @@
 
 <%@ include file="/views/common/header.jsp" %>
 <style>
-
-
+	section#notice-container { align: center; margin-top: 10px; }
+	table#tbl-notice { margin-left: auto; margin-right: auto; }
 </style>
     <div class="row body" style="margin-top: 150px">
         <div class="col-lg-2"></div>

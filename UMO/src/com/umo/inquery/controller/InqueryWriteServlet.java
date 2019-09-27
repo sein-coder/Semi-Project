@@ -34,9 +34,13 @@ public class InqueryWriteServlet extends HttpServlet {
 			String outputCode = request.getParameter("outputCode");
 			String type = request.getParameter("type");
 			//outputCode 줄개행 전처리
-			inputCode = inputCode.replaceAll("(\r\n|\r|\n|\n\r)", " ");
-			outputCode = outputCode.replaceAll("(\r\n|\r|\n|\n\r)", ",");
-			
+			try {
+				inputCode = inputCode.replaceAll("(\r\n|\r|\n|\n\r)", " ");
+				outputCode = outputCode.replaceAll("(\r\n|\r|\n|\n\r)", ",");
+			}catch(NullPointerException e) {
+				inputCode = "";
+				outputCode = "";
+			}
 			request.setAttribute("type", type);
 			request.setAttribute("inputCode", inputCode);
 			request.setAttribute("outputCode", outputCode);			

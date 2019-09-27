@@ -17,7 +17,7 @@ import com.umo.model.vo.Member;
 /**
  * Servlet implementation class LoginhServlet
  */
-@WebServlet(name="LoginChServlet", urlPatterns="/loginCh")
+@WebServlet(name="LoginChServlet", urlPatterns="/loginCheck")
 public class LoginChServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -34,11 +34,11 @@ public class LoginChServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.setCharacterEncoding("UTF-8");
-		String id=request.getParameter("userId");
-		String pw=request.getParameter("pw");		
 		
-		String saveId=request.getParameter("saveId");
+		String id=request.getParameter("mb_id");
+		String pw=request.getParameter("mb_password");		
+		
+		String saveId=request.getParameter("autoCom_login");
 		
 		MemberService ms=new MemberService();
 		Member m=ms.selectId(id,pw);

@@ -10,7 +10,7 @@
     table#tbl-notice td {border:1px solid; padding: 5px 0 5px 10px; text-align:left;}
 </style>
    <section id="notice-container">
-   <h2>공지사항</h2>
+   <h2>반별게시판</h2>
       <form action="<%=request.getContextPath()%>/gradeWriteEnd" method="post" enctype="multipart/form-data">  
       <table id="tbl-notice" class="table table-striped table-bordered table-hover">
        <tr>

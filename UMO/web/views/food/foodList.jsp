@@ -6,6 +6,7 @@
 <%@ page import="java.util.List,com.umo.model.vo.Food"%>
 <%
 		List<Food> list = (List<Food>)request.getAttribute("list");
+		String pageBar = request.getAttribute("pageBar").toString();
 		String cPage = request.getAttribute("cPage").toString();
 		String tag;
 		try{
@@ -17,15 +18,15 @@
 %>
 
 <style>
-section#food-container{ margin-top:9%; width:100%; margin-bottom:20px; }
-h2{ color:gold }
-table#big-tbl{ margin-left: auto; margin-right: auto; border-spacing: 50px 20px; }
-table#sml-tbl{ border: 1px solid red;}
-img.foodimg{ width: 300px; height: 200px; }
-p.viewCount{ text-align: right; margin-top: -2px; }
-span.foodTag{ font-style:italic; }
-button#btn-add{margin-left:85%;}
-button#btn-all{margin-left:85%;}
+	section#food-container{ margin-bottom:20px; padding: 0% 0 5% 0;}
+	h2{ color:gold }
+	table#big-tbl{ margin-left: auto; margin-right: auto; border-spacing: 50px 20px; }
+	table#sml-tbl{ border: 1px solid red;}
+	img.foodimg{ width: 300px; height: 200px; }
+	p.viewCount{ text-align: right; margin-top: -2px; }
+	span.foodTag{ font-style:italic; }
+	button#btn-add{margin-left:85%; margin-top: 20px;}
+	button#btn-all{margin-left:85%; margin-top: 20px;}
 </style>
 <style>
 	* { margin: 0; padding: 0; list-style: none; }
@@ -38,8 +39,8 @@ button#btn-all{margin-left:85%;}
 	ul li.tag-item a:visited { color: black; text-decoration: none;}
 	ul li.tag-item a:hover { text-decoration: none;}
 </style>
-	<section id="food-container"  style="padding: 0% 0 5% 0;margin-top:6.3%; ">
-	<!-- <MARQUEE behavior=alternate><h2 style="width:100; height:50;">FOOD ZONE</h2></MARQUEE> -->
+	<section id="food-container">
+	
 	<% if(loginMember!=null && loginMember.getMemberId().equals("sein0728")) {%>
 		<button id="btn-add">등록</button>
 	<% } %>
@@ -94,10 +95,13 @@ button#btn-all{margin-left:85%;}
 	<% } %>
 	</table>
 	
-	<!--pageBar도 있어야함-->
-		<div id="pageBar" style="text-align: center; margin-botton: 10px;">
-			<%=request.getAttribute("pageBar") %> 
-		</div>
+	<!-- 페이징 -->
+	<nav class="pg_wrap">
+		<span class="pg">
+			<%= pageBar %>
+		</span>
+	</nav>
+    <!-- 페이징 끝 -->
 		
 		<script>
 		$("#btn-add").click(function(){

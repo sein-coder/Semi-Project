@@ -1,8 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="com.umo.model.vo.Member"%>
 
 <%@ include file="/views/common/header.jsp"%>
 
+<%
+	Member m = (Member)request.getAttribute("member");
+%>
 
 <style>
 /* 회원가입 입력 */

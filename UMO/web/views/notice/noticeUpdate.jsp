@@ -10,13 +10,11 @@
 
 <%@ include file="/views/common/header.jsp" %>
 <style>
-
-
+	section#notice-container { align: center; margin-top: 10px; }
+	table#tbl-notice { margin-left: auto; margin-right: auto; }
 </style>
-    <div class="row body" style="margin-top: 150px">
-        <div class="col-lg-2"></div>
-	<div class="col-lg-8">
 		<section id="notice-container">
+			<div>
 			<h2 style="text-align: center;">공지사항</h2>
 			<form action="<%=request.getContextPath()%>/noticeUpdateEnd?no=<%=nb.getNo() %>" method="post" enctype="multipart/form-data">
 				<input type="hidden" name="noticeNo" value="<%=nb.getNo()%>">
@@ -68,8 +66,7 @@
 			});
 			
 			</script>
+			</div>
 		</section>
-	</div>
-	<div class="col-lg-2"></div>
-    </div>
+
 <%@ include file="/views/common/footer.jsp" %>

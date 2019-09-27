@@ -8,10 +8,6 @@
 
 	    
 <style>
-	section{
-		margin-top: 10%;
-	}
-
 	table#big-table {
 		border: 2px solid goldenrod;
 		margin-left: auto;
@@ -100,7 +96,7 @@
 	<form id="frm" action ="<%=request.getContextPath() %>/board/boardFormEnd" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="writer" value="<%=loginMember!=null?loginMember.getMemberId():""%>">
 	<div>
-		<div id="thumnail" style="margin-left:auto; margin-right:auto; margin-top:100px; width: 600px; height: 400px; border: 1px solid red;">
+		<div id="thumnail" style="margin-left:auto; margin-right:auto; width: 600px; height: 400px; border: 1px solid red;">
 			<img id="thumnail_image" src="<%=request.getContextPath()%>/images/foodpoint/noimg.png" >
 		</div>
 		<input style="margin-left: auto; margin-right: auto;" id="thumnail_select" name="thumnail_select" type="file">

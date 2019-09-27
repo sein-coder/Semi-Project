@@ -34,7 +34,12 @@ public class FoodViewServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int board_no = Integer.parseInt(request.getParameter("board_no"));
-		int cPage = Integer.parseInt(request.getParameter("cPage"));
+		int cPage;
+		try{
+			cPage = Integer.parseInt(request.getParameter("cPage"));
+		}catch(NumberFormatException e) {
+			cPage = 1;
+		}
 		String tag;
 		try {
 			tag = request.getParameter("tag");

@@ -5,7 +5,7 @@
 
 <% 
      Board gb=(Board)request.getAttribute("gb");
-List<BoardComment> list=(List)request.getAttribute("comments");
+	 List<BoardComment> list=(List)request.getAttribute("comments");
 %>
 
 

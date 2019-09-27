@@ -17,15 +17,15 @@
 	
 	
 	<style>
-		section#inqueryForm-container{ width: 100%; margin-bottom: 20px; margin-top: 9em; text-align: center;}
-		div.inquery-form {width:55%; margin-left: auto; margin-right: auto;}
-		input#inquery_title { width: 400px; font-size: 25px; padding: 2px;}
-		textarea#inquery_content { resize: none; margin-left: auto; margin-right: auto; padding: 2px; width: 600px; }
+		section#inqueryForm-container{margin-bottom: 20px; margin-top:20px; text-align: center;}
+		div.inquery-form { margin-left: auto; margin-right: auto;}
+		input#inquery_title { font-size: 25px; padding: 2px;}
+		textarea#inquery_content { resize: none; margin-left: auto; margin-right: auto; padding: 2px; }
 		div#inputeditor,div#outputeditor { margin-top:20px; margin-left: auto; margin-right: auto; font-size: 15px; height: 600px; width : 600px; }
-		input#submit { margin-top: 10px; }
-		input#type { width: 75px; font-size: 20px; padding: 2px; text-align: center;}
-		table.form-tbl { margin-left: auto; margin-right: auto; padding-bottom: 10px; }
-		table.form-tbl h3{ width: 120px; text-align: center; margin-left: auto; margin-right: auto;}
+		input#submit,input#btn-cancel { margin-top: 10px; }
+		input#type {font-size: 20px; padding: 2px; text-align: center;}
+		table.form-tbl { margin-left: auto; margin-right: auto; }
+		table.form-tbl h3{text-align: center; margin-left: auto; margin-right: auto;}
 		table.form-tbl td,tr{ text-align: left; }
 		table.form-tbl td { margin-left: auto; margin-right: auto; border: 1px solid black; }
 		span#fname{position: absolute; font-size:18px; left:80px; top:28px; width: 285px; background-color: #ffffff;}

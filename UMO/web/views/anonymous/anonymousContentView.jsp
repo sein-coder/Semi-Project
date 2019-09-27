@@ -4,20 +4,19 @@
 <%@ page import="com.umo.model.vo.BoardComment,java.util.List" %>
 
 <% 
-     Board ab=(Board)request.getAttribute("ab");
-List<BoardComment> list=(List)request.getAttribute("comments");
+	Board ab=(Board)request.getAttribute("ab");
+	List<BoardComment> list=(List)request.getAttribute("comments");
 %>
 
 
    <style>
-    section#notice-container{width:600px; margin:0 auto; text-align:center; margin-top:150px; }
-    section#notice-container h2{margin:10px 0;}
+    section#notice-container h2{text-align: center; margin-top: 10px;}
     table#tbl-notice{width:500px; margin:0 auto; border:1px solid black; border-collapse:collapse; clear:both; }
     table#tbl-notice th {width: 125px; border:1px solid; padding: 5px 0; text-align:center;} 
     table#tbl-notice td {border:1px solid; padding: 5px 0 5px 10px; text-align:left;}
     </style> 
     <style>
-	table#tbl-comment{width:580px; margin:0 auto; border-collapse:collapse; clear:both;} 
+	table#tbl-comment{text-align:center; width:580px; margin:0 auto; border-collapse:collapse; clear:both;} 
 	table#tbl-comment tr td{border-bottom:1px solid; border-top:1px solid; padding:5px; text-align:left; line-height:100%;}
 	table#tbl-comment tr td:first-of-type{padding: 5px 5px 5px 50px;}
 	table#tbl-comment tr td:last-of-type {text-align:right; width: 100px;}
@@ -33,7 +32,7 @@ List<BoardComment> list=(List)request.getAttribute("comments");
 </style>
    <section id="notice-container">
    <%@ include file="/views/common/header.jsp" %>
-   <h2>공지사항</h2>
+   <h2>익명게시판</h2>
         <table id="tbl-notice" class="table table-striped table-bordered table-hover">
         <tr>
             <th>제 목</th>
@@ -63,8 +62,8 @@ List<BoardComment> list=(List)request.getAttribute("comments");
         <%} %>
        
     </table>
-     </table>
-    <div id="comment-container">
+    
+    <div id="comment-container" style="text-align: center;">
 			<div class="comment-editor">
 				<form action="<%=request.getContextPath()%>/anonymous/insertComment"
 				method="post" onsubmit="return fn_commentValidate();">

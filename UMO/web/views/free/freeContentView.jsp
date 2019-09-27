@@ -10,14 +10,13 @@
 
 
 <style>
-	section#notice-container{width:600px; margin:0 auto; text-align:center; margin-top:150px; }
-	section#notice-container h2{margin:10px 0;}
-	table#tbl-notice{width:500px; margin:0 auto; border:1px solid black; border-collapse:collapse; clear:both; }
-	table#tbl-notice th {width: 125px; border:1px solid; padding: 5px 0; text-align:center;} 
-	table#tbl-notice td {border:1px solid; padding: 5px 0 5px 10px; text-align:left;}
+    section#notice-container h2{text-align: center; margin-top: 10px;}
+    table#tbl-notice{width:500px; margin:0 auto; border:1px solid black; border-collapse:collapse; clear:both; }
+    table#tbl-notice th {width: 125px; border:1px solid; padding: 5px 0; text-align:center;} 
+    table#tbl-notice td {border:1px solid; padding: 5px 0 5px 10px; text-align:left;}
 </style> 
 <style>
-	table#tbl-comment{width:580px; margin:0 auto; border-collapse:collapse; clear:both;} 
+	table#tbl-comment{text-align:center; width:580px; margin:0 auto; border-collapse:collapse; clear:both;} 
 	table#tbl-comment tr td{border-bottom:1px solid; border-top:1px solid; padding:5px; text-align:left; line-height:100%;}
 	table#tbl-comment tr td:first-of-type{padding: 5px 5px 5px 50px;}
 	table#tbl-comment tr td:last-of-type {text-align:right; width: 100px;}
@@ -31,8 +30,11 @@
 	table#tbl-comment tr.level2 sub.comment-writer {color:#8e8eff; font-size:14px}
 	table#tbl-comment tr.level2 sub.comment-date {color:#ff9c8a; font-size:10px}
 </style>
+
+<%@ include file="/views/common/header.jsp" %>
+
    <section id="notice-container">
-   <%@ include file="/views/common/header.jsp" %>
+   <div>
    <h2>자유게시판</h2>
         <table id="tbl-notice" class="table table-striped table-bordered table-hover">
         <tr>
@@ -72,9 +74,7 @@
         <%} %>
        
     </table>
-      
-    </table>
-    <div id="comment-container">
+    <div id="comment-container" style="text-align: center;">
 			<div class="comment-editor">
 				<form action="<%=request.getContextPath()%>/free/insertComment"
 				method="post" onsubmit="return fn_commentValidate();">
@@ -123,6 +123,7 @@
 		} %>
 		
 		</table>
+	</div>
     </section>
     <script>
     $(function(){

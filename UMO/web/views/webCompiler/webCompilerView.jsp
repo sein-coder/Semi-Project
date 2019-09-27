@@ -10,9 +10,9 @@
 	
 	
 	<style>
-		section#webCompiler-container{ width: 100%; text-align: center; margin-bottom: 20px;}
-		section#webCompiler-container textarea#inputcode{ resize: none; width: 730px; font-size: 25px; margin-left: auto; margin-right: auto;}
-		div#language-container { text-align:left; margin-right: 62%; margin-left: 31%; margin-top: 7%;}
+		section#webCompiler-container{ text-align: center; margin-bottom: 20px;}
+		section#webCompiler-container textarea#inputcode{ resize: none; font-size: 25px; margin-left: auto; margin-right: auto;}
+		div#language-container { text-align:left; margin-right: 62%; margin-left: 31%; }
 		select#language-choice { position: relative; margin-top: 5px; margin-left: auto; padding-top: 5px; padding-bottom: 5px;}
 		select#language-choice option { font-size: 18px; }
 		button#btn-compiler{ font-size: 20px; color: red; padding-left: 15%; padding-right: 15%;}
@@ -21,7 +21,7 @@
 	    .as-console-wrapper { display: none !important; }
 	    div.result { text-align: left; margin-left: 30%;}
 	    div.ace_scroller { width: 680px; }
-	    button#question { position: absolute; top: 10em; right: 38.5em; }
+	    button#question { position: relative; top: 40px; left: 320px;}
 	</style>
 	
 	<section id="webCompiler-container">

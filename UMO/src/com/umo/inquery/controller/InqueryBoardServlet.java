@@ -55,31 +55,31 @@ public class InqueryBoardServlet extends HttpServlet {
 		int pageEnd = pageNo + pageBarSize - 1;
 		
 		if(pageNo==1) {
-			pageBar += "<span> [이전] </span>";
+			pageBar += "<strong class='pg_page pg_start'>이전</strong>";
 		}else {
-			pageBar += "<a href='"+request.getContextPath()+"/inquery/inqueryBoard?cPage="+(pageNo-1)+"'> [이전] </a>";
+			pageBar += "<a class='pg_page pg_start' href='"+request.getContextPath()+"/inquery/inqueryBoard?cPage="+(pageNo-1)+"'>이전</a>";
 		}
 		
 		while(!(pageNo>pageEnd||pageNo>totalPage)) {
 			if(pageNo == cPage) {
-				pageBar += "<span> "+pageNo+" </span>";
+				pageBar += "<strong class='pg_current'>"+pageNo+"</strong>";
 			}else {
-				pageBar += "<a href='"+request.getContextPath()+"/inquery/inqueryBoard?cPage="+pageNo+"'> "+pageNo+" </a>";
+				pageBar += "<a class='pg_page' href='"+request.getContextPath()+"/inquery/inqueryBoard?cPage="+pageNo+"'> "+pageNo+" </a>";
 			}
 			pageNo++;
 		}
 		
 		if(pageNo>totalPage) {
-			pageBar += "<span> [다음] </span>";
+			pageBar += "<strong class='pg_page pg_end'>다음</strong>";
 		}else {
-			pageBar += "<a href='"+request.getContextPath()+"/inquery/inqueryBoard?cPage="+pageNo+"'> [다음] </a>";
+			pageBar += "<a class='pg_page pg_end' href='"+request.getContextPath()+"/inquery/inqueryBoard?cPage="+pageNo+"'>다음</a>";
 		}
 		
 		request.setAttribute("pageBar", pageBar);
 		request.setAttribute("list", list);
 		request.setAttribute("cPage", cPage);
 
-		request.getRequestDispatcher("/views/inquery/inqueryBoard.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/inquery/inqueryListView.jsp").forward(request, response);
 	}
 
 	/**
