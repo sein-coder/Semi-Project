@@ -118,7 +118,6 @@
 							</tr>
 							<tr>
 								<td>
-									
 									<span>전화번호 :<%=f.getBoard_tel() %></span>
 								</td>
 							</tr>

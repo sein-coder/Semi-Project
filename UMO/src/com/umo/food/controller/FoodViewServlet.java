@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,8 +34,6 @@ public class FoodViewServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int board_no = Integer.parseInt(request.getParameter("board_no"));
-		Food f = new FoodService().selectFoodView(board_no);
-		List<FoodComment> list = new FoodService().selectComment(board_no);
 		int cPage = Integer.parseInt(request.getParameter("cPage"));
 		String tag;
 		try {
@@ -42,6 +41,33 @@ public class FoodViewServlet extends HttpServlet {
 		}catch(NullPointerException e) {
 			tag = "";
 		}
+		
+		Cookie[] cookies = request.getCookies();
+		String boardCookieVal="";
+		boolean hasRead = false;//읽었는지 안읽었는지 구분하는 기준
+		
+		if(cookies!=null) {
+			for(Cookie c : cookies) {
+				String name = c.getName(); //key값
+				String value = c.getValue(); //value값
+				if("boardCookie".equals(name)) {
+					boardCookieVal = value;//이전값 보관
+					if(value.contains("|"+board_no+"|")) {
+						hasRead = true;
+						break;
+					}
+				}
+			}
+		}
+
+		if(!hasRead) {
+			Cookie c = new Cookie("boardCookie", boardCookieVal+"|"+ board_no +"|");
+			c.setMaxAge(-1);
+			response.addCookie(c);
+		}
+		
+		Food f = new FoodService().selectFoodView(board_no,hasRead);
+		List<FoodComment> list = new FoodService().selectComment(board_no);
 		
 		request.setAttribute("f",f);
 		request.setAttribute("list", list);

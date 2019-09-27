@@ -36,11 +36,7 @@ public class LoginChServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		String id=request.getParameter("userId");
-		String pw=request.getParameter("pw");
-		System.out.println(id+pw);
-		
-		
-		
+		String pw=request.getParameter("pw");		
 		
 		String saveId=request.getParameter("saveId");
 		
@@ -78,7 +74,7 @@ public class LoginChServlet extends HttpServlet {
 			   request.setAttribute("msg", msg);
 			   request.setAttribute("loc", loc);
 			   RequestDispatcher rs=request.getRequestDispatcher(view);
-					rs.forward(request, response);   
+			   rs.forward(request, response);   
 			  
 			}
 //		request.setAttribute("loginMember", m);

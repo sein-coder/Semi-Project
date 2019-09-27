@@ -28,15 +28,15 @@ select#searchType,#search-btn{margin-left:50px;width:20%;height:800%;display:inl
 <%} %>
 		<%if(type!=null||keyword!=null) { %>
 		<select id="numPerPage" name="numPerPage">
-			<option value="3개" <%=numPerPage.equals("3개")?"selected":"" %>>3개</option>	
-			<option value="5개" <%=numPerPage.equals("5개")?"selected":"" %>>5개</option>
-			<option value="10개" <%=numPerPage.equals("10개")?"selected":"" %>>10개</option>
+			<option value="3" <%=numPerPage.equals("3")?"selected":"" %>>3</option>	
+			<option value="5" <%=numPerPage.equals("5")?"selected":"" %>>5</option>
+			<option value="10" <%=numPerPage.equals("10")?"selected":"" %>>10</option>
 		</select>
 		<% }else {%>
 		<select id="numPerPage" name="numPerPage">
-			<option value="3개" <%=numPerPage.equals("3개")?"selected":"" %>>3개</option>	
-			<option value="5개" <%=numPerPage.equals("5개")?"selected":"" %>>5개</option>
-			<option value="10개" <%=numPerPage.equals("10개")?"selected":"" %>>10개</option>
+			<option value="3" <%=numPerPage.equals("3")?"selected":"" %>>3</option>	
+			<option value="5" <%=numPerPage.equals("5")?"selected":"" %>>5</option>
+			<option value="10" <%=numPerPage.equals("10")?"selected":"" %>>10</option>
 		</select>
 		<% } %>
    <table class="table table-striped table-bordered table-hover">

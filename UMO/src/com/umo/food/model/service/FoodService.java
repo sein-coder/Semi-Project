@@ -42,9 +42,17 @@ public class FoodService {
 		}return result;
 	}
 
-	public Food selectFoodView(int board_no) {
+	public Food selectFoodView(int board_no, boolean hasRead) {
 		Connection conn=getConnection();
 		Food f= dao.selectFoodView(conn,board_no);
+		if(!hasRead && f != null) {
+			int result = dao.updateReadCount(conn, board_no);
+			if(result>0) {
+				commit(conn);
+			}else {
+				rollback(conn);
+			}
+		}
 		close(conn);
 		return f;
 	}

@@ -38,7 +38,7 @@ public class FoodUpdateServlet extends HttpServlet {
 			tag = "";
 		}
 		
-		Food f =new FoodService().selectFoodView(board_no);		
+		Food f =new FoodService().selectFoodView(board_no,true);		
 		
 		request.setAttribute("f", f);
 		request.setAttribute("cPage", cPage);

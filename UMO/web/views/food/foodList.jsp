@@ -56,7 +56,7 @@ button#btn-all{margin-left:85%;}
 			<td>
 			<table id="sml-tbl">
 				<tr>
-					<td>
+					<td colspan="2">
 					<a href='<%=request.getContextPath()%>/food/foodView?board_no=<%=f.getBoard_No()%>&cPage=<%=cPage%>&tag=<%=tag.equals("")?"":tag%>'>
 						<img class="foodimg" alt="img" src="<%=request.getContextPath() %>/upload/food/thumnail/<%= f.getBoard_Thumbnail() %>" >
 					</a>
@@ -64,13 +64,13 @@ button#btn-all{margin-left:85%;}
 					</td>
 				</tr>
 				<tr>
-					<td><%= f.getBoard_Title() %></td>		
+					<td colspan="2"><%= f.getBoard_Title() %></td>		
 				</tr>
 				<tr>
-					<td><%= f.getBoard_Grade() %></td>
+					<td><%= f.getBoard_tel()%></td>
 				</tr>
 				<tr>
-					<td><%= f.getBoard_No()%></td><!-- 각 게시판 번호 -->
+					<td><%= f.getBoard_MAP()%></td>
 				</tr>
 				
 			</table>  

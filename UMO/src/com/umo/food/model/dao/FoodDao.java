@@ -66,6 +66,7 @@ public class FoodDao {
 				f.setWriting_Status(rs.getString("writing_status").charAt(0));
 				f.setBoard_Grade(rs.getInt("board_grade"));
 				f.setBoard_menu(rs.getString("board_menu"));
+				f.setBoard_tel(rs.getString("board_tel"));
 				list.add(f);
 			}
 		}catch(SQLException e) {
@@ -325,6 +326,22 @@ public class FoodDao {
 		}finally {
 			close(rs);
 			close(stmt);
+		}
+		return result;
+	}
+
+	public int updateReadCount(Connection conn, int board_no) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("updateReadCount");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, board_no);
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
 		}
 		return result;
 	}
