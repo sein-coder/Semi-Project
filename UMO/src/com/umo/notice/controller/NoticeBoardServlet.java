@@ -33,12 +33,17 @@ public class NoticeBoardServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		int cPage;
+		int numPerPage;
 		try {
 			cPage=Integer.parseInt(request.getParameter("cPage"));
 		} catch (NumberFormatException e) {
 		    cPage=1;
 		}
-		int numPerPage=10;
+		try {
+			numPerPage=Integer.parseInt(request.getParameter("numPerPage"));
+		}catch (NumberFormatException e) {
+			numPerPage =10;
+		}
 	    NoticeBoardService service=new NoticeBoardService();
 	    int totalData=service.countNoticeList();
 	    
@@ -56,7 +61,7 @@ public class NoticeBoardServlet extends HttpServlet {
 			pageBar+="<strong class='pg_page pg_start'>다음</strong>";
 		}else {
 			pageBar+="<a class='pg_page pg_start' href='"+request.getContextPath()
-			+"/noticeBoard?cPage="+(pageNo-1)+"'>이전</a>";
+			+"/noticeBoard?cPage="+(pageNo-1)+"&numPerPage="+numPerPage+"'>이전</a>";
 		}
 		//중간 클릭한 페이지(숫자) 만들기
 		while(!(pageNo>pageEnd||pageNo>totalPage)) {
@@ -64,7 +69,7 @@ public class NoticeBoardServlet extends HttpServlet {
 				pageBar+="<strong class='pg_current'>"+pageNo+"</strong>";
 			}else {
 				pageBar+="<a class='pg_page' href='"+request.getContextPath()
-				+"/noticeBoard?cPage="+pageNo+"'>"+pageNo+"</a>";
+				+"/noticeBoard?cPage="+pageNo+"&numPerPage="+numPerPage+"'>"+pageNo+"</a>";
 			}
 			pageNo++;
 		}
@@ -74,13 +79,14 @@ public class NoticeBoardServlet extends HttpServlet {
 		}
 		else {
 			pageBar+="<a class='pg_page pg_end' href='"+request.getContextPath()
-			+"/noticeBoard?cPage="+pageNo+"'>다음</a>";
+			+"/noticeBoard?cPage="+pageNo+"&numPerPage="+numPerPage+"'>다음</a>";
 			
 		}
 		
 		request.setAttribute("cPage",cPage);
 		request.setAttribute("pageBar",pageBar);
 	    request.setAttribute("list", list);
+	    request.setAttribute("numPerPage", numPerPage);
 	    
 	    System.out.println("실행");
 	    
