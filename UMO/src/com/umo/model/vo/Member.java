@@ -6,22 +6,31 @@ public class Member {
 private String memberId;
 private String memberPw;
 private String memberName;
-private String email;
 private String class1;
+private String email;
 private int khno;
+private Date join_date;
+private int attendance_count;
+private char grade;
+private int point;
 
 public Member() {
 	// TODO Auto-generated constructor stub
 }
 
-public Member(String memberId, String memberPw, String memberName, String email, String class1, int khno) {
+public Member(String memberId, String memberPw, String memberName, String class1, String email, int khno,
+		Date join_date, int attendance_count, char grade, int point) {
 	super();
 	this.memberId = memberId;
 	this.memberPw = memberPw;
 	this.memberName = memberName;
-	this.email = email;
 	this.class1 = class1;
+	this.email = email;
 	this.khno = khno;
+	this.join_date = join_date;
+	this.attendance_count = attendance_count;
+	this.grade = grade;
+	this.point = point;
 }
 
 public String getMemberId() {
@@ -48,20 +57,20 @@ public void setMemberName(String memberName) {
 	this.memberName = memberName;
 }
 
-public String getEmail() {
-	return email;
-}
-
-public void setEmail(String email) {
-	this.email = email;
-}
-
 public String getClass1() {
 	return class1;
 }
 
 public void setClass1(String class1) {
 	this.class1 = class1;
+}
+
+public String getEmail() {
+	return email;
+}
+
+public void setEmail(String email) {
+	this.email = email;
 }
 
 public int getKhno() {
@@ -72,10 +81,43 @@ public void setKhno(int khno) {
 	this.khno = khno;
 }
 
+public Date getJoin_date() {
+	return join_date;
+}
+
+public void setJoin_date(Date join_date) {
+	this.join_date = join_date;
+}
+
+public int getAttendance_count() {
+	return attendance_count;
+}
+
+public void setAttendance_count(int attendance_count) {
+	this.attendance_count = attendance_count;
+}
+
+public char getGrade() {
+	return grade;
+}
+
+public void setGrade(char grade) {
+	this.grade = grade;
+}
+
+public int getPoint() {
+	return point;
+}
+
+public void setPoint(int point) {
+	this.point = point;
+}
+
 @Override
 public String toString() {
-	return "Member [memberId=" + memberId + ", memberPw=" + memberPw + ", memberName=" + memberName + ", email=" + email
-			+ ", class1=" + class1 + ", khno=" + khno + "]";
+	return "Member [memberId=" + memberId + ", memberPw=" + memberPw + ", memberName=" + memberName + ", class1="
+			+ class1 + ", email=" + email + ", khno=" + khno + ", join_date=" + join_date + ", attendance_count="
+			+ attendance_count + ", grade=" + grade + ", point=" + point + "]";
 }
 
 

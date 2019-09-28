@@ -65,7 +65,6 @@ public class GradeBoardDao {
 			sql = prop.getProperty("selectGradeBoardList");
 		}
 		try {
-			System.out.println("sql:"+sql);
 			pstmt = conn.prepareStatement(sql);
 			if(name.equals("myPage")) {
 				pstmt.setString(1, userId);
@@ -88,7 +87,6 @@ public class GradeBoardDao {
 				b.setDate(rs.getDate("grade_date"));
 				b.setCount(rs.getInt("grade_count"));
 				list.add(b);
-				System.out.println("반별게시판 목록"+list);
 			}
 
 		} catch (SQLException e) {

@@ -36,10 +36,9 @@ public class MemberJoinEndServlet extends HttpServlet {
 		String name=request.getParameter("mb_name");
 		String email=request.getParameter("mb_email");
 		String class1=request.getParameter("class1");
-		int khno= Integer.parseInt(request.getParameter("khno"));
+		int khno= Integer.parseInt(request.getParameter("mb_khNum"));
 
-		
-		Member m=new Member(id,pw,name,email,class1,khno);
+		Member m = new Member();
 		m.setMemberId(id);
 		m.setMemberPw(pw);
 		m.setMemberName(name);
