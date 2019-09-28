@@ -8,6 +8,7 @@ public class Board {
 	private String writer;
 	private String title;
 	private String content;
+	private String class1;
 	private String original_filename;
 	private String renamed_filename;
 	private Date date;
@@ -20,13 +21,14 @@ public class Board {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Board(int no, String writer, String title, String content, String original_filename, String renamed_filename,
-			Date date, int count, char writing_status, int board_grade, String boardType) {
+	public Board(int no, String writer, String title, String content, String class1, String original_filename,
+			String renamed_filename, Date date, int count, char writing_status, int board_grade, String boardType) {
 		super();
 		this.no = no;
 		this.writer = writer;
 		this.title = title;
 		this.content = content;
+		this.class1 = class1;
 		this.original_filename = original_filename;
 		this.renamed_filename = renamed_filename;
 		this.date = date;
@@ -66,6 +68,14 @@ public class Board {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public String getClass1() {
+		return class1;
+	}
+
+	public void setClass1(String class1) {
+		this.class1 = class1;
 	}
 
 	public String getOriginal_filename() {
@@ -126,10 +136,10 @@ public class Board {
 
 	@Override
 	public String toString() {
-		return "Board [no=" + no + ", writer=" + writer + ", title=" + title + ", content=" + content
-				+ ", original_filename=" + original_filename + ", renamed_filename=" + renamed_filename + ", date="
-				+ date + ", count=" + count + ", writing_status=" + writing_status + ", board_grade=" + board_grade
-				+ ", boardType=" + boardType + "]";
+		return "Board [no=" + no + ", writer=" + writer + ", title=" + title + ", content=" + content + ", class1="
+				+ class1 + ", original_filename=" + original_filename + ", renamed_filename=" + renamed_filename
+				+ ", date=" + date + ", count=" + count + ", writing_status=" + writing_status + ", board_grade="
+				+ board_grade + ", boardType=" + boardType + "]";
 	}
 	
 	

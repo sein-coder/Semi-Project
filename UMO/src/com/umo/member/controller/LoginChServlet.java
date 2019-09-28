@@ -18,6 +18,7 @@ import com.umo.model.vo.Member;
  * Servlet implementation class LoginhServlet
  */
 @WebServlet(name="LoginChServlet", urlPatterns="/loginCheck")
+
 public class LoginChServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -34,7 +35,7 @@ public class LoginChServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+
 		String id=request.getParameter("mb_id");
 		String pw=request.getParameter("mb_password");		
 		

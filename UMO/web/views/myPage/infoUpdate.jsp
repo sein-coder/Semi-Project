@@ -5,6 +5,7 @@
 
 <head>
 
+<<<<<<< HEAD
   <style>
     #memberUpdate-box {
       margin-top: 10%;
@@ -14,6 +15,30 @@
       height: 100%;
       /* margin: 0 auto; */
       border: 1px solid black;
+=======
+<!--  <style>
+  #memberUpdate-box{
+      margin-top:15%;
+      margin-left:15%;
+      margin-bottom:15%;
+      width:73%;
+      height:88%;
+      margin:0 auto;
+      
+  }
+       
+        #updateList{
+            border:solid 2px #b7ddf2;
+            background:gray;
+            padding-bottom:15%;
+            width:65%;
+            height:80%;
+            margin:15% 0 0 15%;
+           
+           
+            
+        }
+>>>>>>> refs/remotes/origin/purum
 
     }
 
@@ -64,6 +89,7 @@ line-height:30px;
         } */
     #updatelist input {
 
+<<<<<<< HEAD
       font-size: 12px;
 
       border: solid 1px #aacfe4;
@@ -88,17 +114,38 @@ line-height:30px;
       font-family: tahoma;
     }
   </style>
+=======
+        
+         #updateCheck{
+         
+        width:110px;
+        height:31px;
+        background-color:lightslategray;
+        color:black;
+        font-size:11px;
+        font-weight:bold;
+        font-family:tahoma;
+        } 
+        </style> -->
+>>>>>>> refs/remotes/origin/purum
 </head>
 
 <body>
+<<<<<<< HEAD
   <%@ include file="/views/common/header.jsp"%>
   <section id="memberUpdate-box" style="overflow:hidden;">
     <div id="updateList" >
+=======
+<%@ include file="/views/common/header.jsp"%>
+<section id="memberUpdate-box" style="margin-top:10%;">
+<div id="updateList">
+>>>>>>> refs/remotes/origin/purum
 
       <p style="text-align:center; font-size:21px;">멤버수정</p>
       <br>
       <form name="updateFrm" method="post" onsubmit="return update_validate();">
 
+<<<<<<< HEAD
         <label>멤버아이디<input type="text" id="id" name="id" value="<%=m.getMemberId()%>" readonly /></label>
         <label>멤버비밀번호<input type="text" id="pw" name="pw" value="<%=m.getMemberPw()%>" /></label>
         <label>이름<input type="text" id="name" name="name" value="<%=m.getMemberName()%>" /></label>
@@ -136,4 +183,53 @@ line-height:30px;
   <br>
   
   <%@ include file="/views/common/footer.jsp"%>
+=======
+<label>멤버아이디
+<input type="text" id="id" name="id" value="<%=m.getMemberId()%>" readonly/>
+</label>
+<br>
+<label>멤버비밀번호
+</label>
+<input type="text" id="pw" name="pw" value="<%-- <%=m.getMemberPw()%> --%>" />
+    <label>이름
+    </label>
+    <input type="text" id="name"name="name" value="<%=m.getMemberName()%>"/>
+  <label>이메일
+    </label>
+    <input type="text" id="email" name="email" style="" value="<%=m.getEmail()%>"/>
+    <input type="hidden" id="class1" name="class1" value="<%=m.getClass1() %>"/>
+    <input type="hidden" id="khno" name="khno" value="<%=m.getKhno()%>"/>
+    <br><br>
+    <input type="button" onclick="fn_updateMember();" value="수정완료" id="updateCheck" style="margin-left:10%;"/>
+    <input type="button" value="취소" name="cancel" id="updateCheck" onclick="acancel();"/>
+    
+    
+</form>
+</div>
+</section>
+<br>
+<script>
+function update_validate(){
+    //정규표현식 이용해서 제한사항작성
+    return true;
+ }
+ 
+function fn_updateMember(){
+    //수정된정보를 서블릿에 전송
+    updateFrm.action="<%=request.getContextPath()%>/infoUpdateEnd";
+    console.log(updateFrm.action);            	
+    updateFrm.submit();//데이터전송!
+    
+ }
+function acancel(){
+	
+	<%-- updateFrm.action="<%=request.getContextPath()%>/myPage?userId=<%=m.getMemberId()%>";
+	console.log(updateFrm.action="<%=request.getContextPath()%>/myPage?userId=<%=m.getMemberId()%>");
+	updateFrm.submit(); --%>
+	location.href="myPage?userId=<%=m.getMemberId()%>";
+}
+</script>
+<br>
+<%@ include file="/views/common/footer.jsp"%>
+>>>>>>> refs/remotes/origin/purum
 </body>

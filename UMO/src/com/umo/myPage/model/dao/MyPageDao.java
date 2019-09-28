@@ -43,6 +43,8 @@ public class MyPageDao {
 					m.setMemberPw(rs.getString("member_password"));
 					m.setMemberName(rs.getString("member_name"));
 					m.setEmail(rs.getString("member_email"));
+					m.setClass1(rs.getString("class"));
+					m.setKhno(rs.getInt("kh_cno"));
 	         }
 	      }catch(SQLException e) {
 	         e.printStackTrace();

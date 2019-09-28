@@ -5,6 +5,7 @@ import java.util.Date;
 public class Comment {
 	private int comment_no;
 	private String comment_writer;
+	private String class1;
 	private String comment_contents;
 	private String updatecode;
 	private Date comment_date;
@@ -14,11 +15,12 @@ public class Comment {
 	public Comment() {
 		// TODO Auto-generated constructor stub
 	}
-	public Comment(int comment_no, String comment_writer, String comment_contents, String updatecode, Date comment_date,
-			int board_no_ref, int comment_level, int comment_refno) {
+	public Comment(int comment_no, String comment_writer, String class1, String comment_contents, String updatecode,
+			Date comment_date, int board_no_ref, int comment_level, int comment_refno) {
 		super();
 		this.comment_no = comment_no;
 		this.comment_writer = comment_writer;
+		this.class1 = class1;
 		this.comment_contents = comment_contents;
 		this.updatecode = updatecode;
 		this.comment_date = comment_date;
@@ -37,6 +39,12 @@ public class Comment {
 	}
 	public void setComment_writer(String comment_writer) {
 		this.comment_writer = comment_writer;
+	}
+	public String getClass1() {
+		return class1;
+	}
+	public void setClass1(String class1) {
+		this.class1 = class1;
 	}
 	public String getComment_contents() {
 		return comment_contents;
@@ -76,11 +84,10 @@ public class Comment {
 	}
 	@Override
 	public String toString() {
-		return "Comment [comment_no=" + comment_no + ", comment_writer=" + comment_writer + ", comment_contents="
-				+ comment_contents + ", updatecode=" + updatecode + ", comment_date=" + comment_date + ", board_no_ref="
-				+ board_no_ref + ", comment_level=" + comment_level + ", comment_refno=" + comment_refno + "]";
+		return "Comment [comment_no=" + comment_no + ", comment_writer=" + comment_writer + ", class1=" + class1
+				+ ", comment_contents=" + comment_contents + ", updatecode=" + updatecode + ", comment_date="
+				+ comment_date + ", board_no_ref=" + board_no_ref + ", comment_level=" + comment_level
+				+ ", comment_refno=" + comment_refno + "]";
 	}
-	
-	
-	
+		
 }

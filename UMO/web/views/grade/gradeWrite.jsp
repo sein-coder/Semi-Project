@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+    <%
+    
+    %>
 <%@ include file="/views/common/header.jsp" %>
 <style>
     section#notice-container{width:600px; margin:0 auto; margin-top:150px; text-align:center;}
@@ -28,6 +30,9 @@
        <tr>
          <th>내용</th>
          <td><textarea rows="5" cols="50" name="content"></textarea></td>
+       </tr>
+       <tr>
+       	<td><input type="hidden" name="khno" value="<%=loginMember.getKhno()%>"></td>
        </tr>
        <tr>
          <td colspan="2" style="text-align:center;"><input type="submit" value="등록"/></td>

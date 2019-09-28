@@ -33,14 +33,15 @@ public class InfoUpdateEndServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
-//		Member m=new Member(request.getParameter("id"),request.getParameter("pw"),
-//				request.getParameter("name"),request.getParameter("email"),
-//				request.getParameter("phone"),request.getParameter("address"));
-		Member m=new Member(request.getParameter("id"),request.getParameter("pw"),request.getParameter("name"),
-				request.getParameter("email"),request.getParameter("phone"),request.getParameter("address"));
-		System.out.println(m.getMemberId()+m.getMemberPw()+m.getMemberName()+m.getEmail());
+
+		Member m = new Member();
+		m.setMemberId(request.getParameter("mb_id"));
+		m.setMemberPw(request.getParameter("mb_password"));
+		m.setMemberName(request.getParameter("mb_name"));
+		m.setEmail(request.getParameter("mb_email"));
+		m.setClass1("R");
+		m.setKhno(Integer.parseInt(request.getParameter("mb_khNum")));
+
 		int result=new MemberService().updateMember(m);
 		String msg="";
 	      String loc="";

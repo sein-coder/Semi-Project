@@ -30,16 +30,22 @@ public class MemberJoinEndServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		String id=request.getParameter("mb_id");
 		String pw=request.getParameter("mb_password");
 		String name=request.getParameter("mb_name");
 		String email=request.getParameter("mb_email");
-		String phone=request.getParameter("phone");
-		String address=request.getParameter("address");
+		String class1=request.getParameter("class1");
+		int khno= Integer.parseInt(request.getParameter("khno"));
+
 		
-		Member m=new Member(id,pw,name,email,phone,address);
-		
+		Member m=new Member(id,pw,name,email,class1,khno);
+		m.setMemberId(id);
+		m.setMemberPw(pw);
+		m.setMemberName(name);
+		m.setEmail(email);
+		m.setClass1(class1);
+		m.setKhno(khno);
 		
 		int result=new MemberService().registMember(m);
 		String msg=result>0?"성공":"실패";

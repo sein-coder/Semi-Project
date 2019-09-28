@@ -38,9 +38,9 @@ public int insertMember(Connection conn,Member m)
 		pstmt.setString(1,m.getMemberId());
 		pstmt.setString(2,m.getMemberPw() );
 		pstmt.setString(3, m.getMemberName());
-		pstmt.setString(4,m.getEmail());
-		pstmt.setString(5, m.getPhone());
-		pstmt.setString(6, m.getAddress());
+		pstmt.setString(4, m.getClass1());
+		pstmt.setString(5,m.getEmail());
+		pstmt.setInt(6,m.getKhno());
 		result=pstmt.executeUpdate();
 	}catch(SQLException e)
 	{
@@ -69,7 +69,9 @@ public int insertMember(Connection conn,Member m)
 				m.setMemberId(rs.getString("member_id"));
 				m.setMemberPw(rs.getString("member_password"));
 				m.setMemberName(rs.getString("member_name"));
+				m.setClass1(rs.getString("class"));
 				m.setEmail(rs.getString("member_email"));
+				m.setKhno(rs.getInt("kh_cNo"));
 			}
 			
 		}catch(SQLException e) {
@@ -84,16 +86,16 @@ public int insertMember(Connection conn,Member m)
 	      PreparedStatement pstmt=null;
 	      int result=0;
 	      String sql=prop.getProperty("updateMember");
+	      System.out.println(m.getMemberPw());
 	      try {
 	        pstmt=conn.prepareStatement(sql);
-	 		pstmt.setString(1,m.getMemberPw());
-	 		pstmt.setString(2, m.getMemberName());
-	 		pstmt.setString(3,m.getEmail());
-	 		pstmt.setString(4, m.getPhone());
-	 		pstmt.setString(5, m.getAddress());
-	 		pstmt.setString(6,m.getMemberId());
-	 		result=pstmt.executeUpdate();      
-
+			pstmt.setString(1,m.getMemberPw() );
+			pstmt.setString(2, m.getMemberName());
+			pstmt.setString(3,m.getEmail());
+			pstmt.setString(4, m.getClass1());
+			pstmt.setInt(5,m.getKhno());
+			pstmt.setString(6,m.getMemberId());
+	 		result=pstmt.executeUpdate();        
 	      }catch(SQLException e) {
 	         e.printStackTrace();
 	      }finally {

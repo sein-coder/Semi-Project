@@ -68,21 +68,18 @@ public class GradeWriteEndServlet extends HttpServlet {
 				content=content.replace("\r\n", "<br>");
 				String fileName=mr.getFilesystemName("up_file");
 				String khno=mr.getParameter("khno");
-				
+
 				Board fb=new Board();
-				
-				
-				
+
 				fb.setTitle(title);
 				fb.setWriter(writer);
 				fb.setContent(content);
 				fb.setOriginal_filename(fileName);
 				fb.setClass1(khno);
-				
+
 				int result=new GradeBoardService().GradeWrite(fb);
 				int gradeNo=new GradeBoardService().lastGradeContentNo(writer);
 				
-						
 				String msg="";
 				String loc="";
 				//뷰에서 다른 뷰로 이동하는 주소
@@ -98,11 +95,7 @@ public class GradeWriteEndServlet extends HttpServlet {
 				request.setAttribute("loc", loc);
 				
 				request.getRequestDispatcher(view).forward(request, response);
-				
-				
-				
-		
-		
+
 	}
 
 	/**

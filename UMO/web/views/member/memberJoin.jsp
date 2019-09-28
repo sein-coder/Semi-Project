@@ -71,12 +71,10 @@
 								id="reg_mb_khNum" 
 								class="frm_input half_input required" size="5"
 								maxlength="5" placeholder="KH학생번호"><span class="frm_info">5자리 학생번호 입력</span></li>
-
 							<li><input type="text" name="mb_email" value=""
 								id="reg_mb_email" 
 								class="frm_input email half_input required" size="70"
 								maxlength="100" placeholder="E-mail"></li>
-
 						</ul>
 					</div>
 				</div>
@@ -87,12 +85,20 @@
 			</form>
 		</div>
 	</div>
-	<script>
-
 	
-	
-	</script>
-</div>
+<script>
+/* var password2=document.getElementById("password2");
+var id=document.getElementById("id");
+var password=document.getElementById("password");
+var name=document.getElementById("name");
+var email=document.getElementById("email");
+var frm=document.frm;
+var pwc=document.pwc;
+var reg= /^[a-zA-Z][a-zA-Z0-9]{3,10}$/;
+var reg2=/^[a-zA-z][a-zA-z0-9]{5,12}$/;
+//
+var reg3=/^[가-힣]{2,4}$/; */
+</script>
 
 
 <!-- 콘텐츠 끝 -->
