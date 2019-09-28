@@ -27,18 +27,18 @@ public class InqueryService {
 		return result;
 	}
 
-	public int selectBoardCount() {
+	public int selectBoardCount(String sfl,String stx) {
 		Connection conn = getConnection();
-		int result = dao.selectBoardCount(conn);
+		int result = dao.selectBoardCount(conn,sfl,stx);
 		
 		close(conn);
 		
 		return result;
 	}
 
-	public List<Inquery> selectInqueryBoardList(int cPage, int numPerPage,String name,String userId) {
+	public List<Inquery> selectInqueryBoardList(int cPage, int numPerPage,String name,String userId,String sfl,String stx) {
 		Connection conn = getConnection();
-		List<Inquery> list = dao.selectInqueryBoardList(conn,cPage,numPerPage,name,userId);
+		List<Inquery> list = dao.selectInqueryBoardList(conn,cPage,numPerPage,name,userId,sfl,stx);
 		close(conn);
 		return list;
 	}

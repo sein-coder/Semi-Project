@@ -48,31 +48,34 @@ public class MainPageBoardServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String type = request.getParameter("ajax");
+		
+		String sfl = null;
+		String stx = null;
 
 		switch (type) {
 		case "inquery":
-			List<Inquery> inquerylist = new InqueryService().selectInqueryBoardList(1, 6, "", "");
+			List<Inquery> inquerylist = new InqueryService().selectInqueryBoardList(1, 6, "", "",sfl,stx);
 
 			response.setContentType("application/json; charset=UTF-8");
 			new Gson().toJson(inquerylist,response.getWriter());
 			
 			break;
 		case "anonymous":
-			List<Board> anonymouslist = new AnonymousBoardService().selectanonymousBoardList(1, 6, "", "");
+			List<Board> anonymouslist = new AnonymousBoardService().selectanonymousBoardList(1, 6, "", "",sfl,stx);
 
 			response.setContentType("application/json; charset=UTF-8");
 			new Gson().toJson(anonymouslist,response.getWriter());
 			
 			break;
 		case "grade":
-			List<Board> gradelist = new GradeBoardService().selectGradeBoardList(1, 6, "", "");
+			List<Board> gradelist = new GradeBoardService().selectGradeBoardList(1, 6, "", "",sfl,stx);
 
 			response.setContentType("application/json; charset=UTF-8");
 			new Gson().toJson(gradelist,response.getWriter());
 			
 			break;
 		case "free":
-			List<Board> freelist = new FreeBoardService().selectFreeBoardList(1, 6, "", "");
+			List<Board> freelist = new FreeBoardService().selectFreeBoardList(1, 6, "", "",sfl,stx);
 
 			response.setContentType("application/json; charset=UTF-8");
 			new Gson().toJson(freelist,response.getWriter());

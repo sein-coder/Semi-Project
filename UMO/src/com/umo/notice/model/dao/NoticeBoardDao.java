@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -34,14 +35,17 @@ public class NoticeBoardDao {
 	}
 
 	// 공�??��?�� ?���? �? �??��
-	public int countNoticeList(Connection conn) {
-		PreparedStatement pstmt = null;
+	public int countNoticeList(Connection conn,String sfl,String stx) {
+		Statement stmt = null;
 		ResultSet rs = null;
 		int result = 0;
-		String sql = prop.getProperty("countNoticeList");
+		String sql = "SELECT COUNT(*)AS CNT FROM Notice_board";
+		if(sfl!=null&&stx!=null) {
+			sql+=" where "+sfl+" like '%"+stx+"%'";
+		}
 		try {
-			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
 			if (rs.next()) {
 				result = rs.getInt("cnt");
 			}
@@ -49,23 +53,37 @@ public class NoticeBoardDao {
 			e.printStackTrace();
 		} finally {
 			close(rs);
-			close(pstmt);
+			close(stmt);
 		}
 		return result;
 
 	}
 
 	// 공�??��?�� ?���? 리스?�� 불러?���?
-	public List<NoticeBoard> selectNoticeBoardList(Connection conn, int cPage, int numPerPage) {
-		PreparedStatement pstmt = null;
+	public List<NoticeBoard> selectNoticeBoardList(Connection conn, int cPage, int numPerPage,String sfl,String stx) {
+		Statement stmt = null;
 		ResultSet rs = null;
 		List<NoticeBoard> list = new ArrayList<NoticeBoard>();
-		String sql = prop.getProperty("selectNoticeBoardList");
+
+		String sql="";
+		int start=(cPage-1)*numPerPage+1;
+		int end=cPage*numPerPage;
+		
+		if(sfl!=null&&stx!=null) { //검색용
+			sql="SELECT * FROM "
+					+ "(SELECT ROWNUM AS RNUM, A.* FROM "
+					+ "(SELECT * FROM NOTICE_BOARD where "+sfl+" like '%"+stx+"%' ORDER BY NOTICE_DATE DESC)A ) "
+					+ "WHERE RNUM BETWEEN "+ start+" AND "+end;
+		}else { //전체검색
+			sql="SELECT * FROM "
+					+ "(SELECT ROWNUM AS RNUM, A.* FROM "
+					+ "(SELECT * FROM NOTICE_BOARD ORDER BY NOTICE_DATE DESC)A ) "
+					+ "WHERE RNUM BETWEEN "+start+" AND "+end;
+		}
+		
 		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, cPage);
-			pstmt.setInt(2, numPerPage);
-			rs = pstmt.executeQuery();
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				NoticeBoard nb = new NoticeBoard();
 				nb.setNo(rs.getInt("Notice_no"));
@@ -84,7 +102,7 @@ public class NoticeBoardDao {
 			e.printStackTrace();
 		} finally {
 			close(rs);
-			close(pstmt);
+			close(stmt);
 		}
 		return list;
 	}

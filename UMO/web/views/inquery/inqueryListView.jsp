@@ -5,6 +5,8 @@
 <%
 	List<Inquery> list = (List<Inquery>)request.getAttribute("list");
 	String pageBar = request.getAttribute("pageBar").toString();
+	String cPage = request.getAttribute("cPage").toString();
+	String numPerPage = request.getAttribute("numPerPage").toString();
 %>
 
 <%@ include file = "/views/common/header.jsp" %>
@@ -22,6 +24,14 @@
 					onsubmit="return fboardlist_submit(this);" method="post">
 
 					<div class="tbl_head01 tbl_wrap">
+					<div id="numPerPage-container">
+						페이지 회원수 :
+						<select name="numPerPage" id="numPerPage">
+							<option value="10" <%=numPerPage.equals("10")?"selected":"" %>>10</option>
+							<option value="5" <%=numPerPage.equals("5")?"selected":"" %>>5</option>
+							<option value="3" <%=numPerPage.equals("3")?"selected":"" %>>3</option>
+						</select>	
+					</div>
 						<table>
 							<caption>질의 게시판</caption>
 							<thead>
@@ -73,14 +83,12 @@
 						<input type="hidden" name="bo_table" value="gnsetting"> <input
 							type="hidden" name="sca" value=""> <input type="hidden"
 							name="sop" value="and"> <select name="sfl" id="sfl">
-							<option value="wr_subject">제목</option>
-							<option value="wr_content">내용</option>
-							<option value="wr_subject||wr_content">제목+내용</option>
-							<option value="mb_id,1">회원아이디</option>
-							<option value="mb_id,0">회원아이디(코)</option>
-							<option value="wr_name,1">글쓴이</option>
-							<option value="wr_name,0">글쓴이(코)</option>
-						</select> <input type="text" name="stx" value="" required id="stx"
+							<option value="board_title">제목</option>
+							<option value="board_contents">내용</option>
+							<option value="board_writer">작성자</option>
+							<option value="code_type">코드종류</option>
+							<option value="board_title||board_contents">제목+내용</option>
+						</select> <input type="text" name="stx" value="" id="stx"
 							class="sch_input" size="25" maxlength="20"
 							placeholder="검색어를 입력해주세요">
 						<button type="submit" value="검색" class="sch_btn">
@@ -102,5 +110,10 @@
 		</div>
 	</div>
 </div>
+<script>
+		$("#numPerPage").on("change",function(){
+			location.href='<%= request.getContextPath() %>/inquery/inqueryBoard?numPerPage='+$("#numPerPage").val()+'&cPage=1';
+		});
+</script>
 
 <%@ include file = "/views/common/footer.jsp" %>

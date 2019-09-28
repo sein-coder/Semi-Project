@@ -15,15 +15,15 @@ import com.umo.model.vo.NoticeBoard;
 
 public class GradeBoardService {
 	private GradeBoardDao dao= new GradeBoardDao();
-	public int countGradeList() {	
+	public int countGradeList(String sfl,String stx) {	
 		Connection conn=getConnection();	
-		int result=dao.countGradeList(conn);
+		int result=dao.countGradeList(conn,sfl,stx);
 		close(conn);
 		return result;
 	}
-	public List<Board> selectGradeBoardList(int cPage, int numPerPage,String name,String userId){
+	public List<Board> selectGradeBoardList(int cPage, int numPerPage,String name,String userId,String sfl,String stx){
 		Connection conn=getConnection();		
-		List<Board> list=dao.selectGradeBoardList(conn, cPage, numPerPage,name,userId);
+		List<Board> list=dao.selectGradeBoardList(conn, cPage, numPerPage,name,userId,sfl,stx);
 		close(conn);
 		return list; 
 	}

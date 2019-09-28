@@ -39,61 +39,91 @@
 	ul li.tag-item a:visited { color: black; text-decoration: none;}
 	ul li.tag-item a:hover { text-decoration: none;}
 </style>
-	<section id="food-container">
-	
-	<% if(loginMember!=null && loginMember.getMemberId().equals("sein0728")) {%>
-		<button id="btn-add">등록</button>
-	<% } %>
-	<% if(request.getParameter("tag")!=null) { %>
-		<button id="btn-all" onclick="location.href='<%=request.getContextPath()%>/food/foodList'">전체보기</button>
-	<% } %>
+
+<% if(loginMember!=null && loginMember.getMemberId().equals("sein0728")) {%>
+	<button id="btn-add">등록</button>
+<% } %>
+<% if(request.getParameter("tag")!=null) { %>
+	<button id="btn-all" onclick="location.href='<%=request.getContextPath()%>/food/foodList'">전체보기</button>
+<% } %>
 
 <%-- 	<% if(loginMember != null) { %> --%>
 	<%-- <% } %> --%>
-	
-	<table id ="big-tbl">
-	<% for(Food f : list) {%>
-		<% if(count==0 || count==4)  {%><tr> <% }%>
-			<td>
-			<table id="sml-tbl">
-				<tr>
-					<td colspan="2">
-					<a href='<%=request.getContextPath()%>/food/foodView?board_no=<%=f.getBoard_No()%>&cPage=<%=cPage%>&tag=<%=tag.equals("")?"":tag%>'>
-						<img class="foodimg" alt="img" src="<%=request.getContextPath() %>/upload/food/thumnail/<%= f.getBoard_Thumbnail() %>" >
-					</a>
-					
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2"><%= f.getBoard_Title() %></td>		
-				</tr>
-				<tr>
-					<td><%= f.getBoard_tel()%></td>
-				</tr>
-				<tr>
-					<td><%= f.getBoard_MAP()%></td>
-				</tr>
+<div id="wrapper">
+	<div id="container_wr">
+		<div id="container">
+			<h2 id="container_title">
+				<span title="맛집 게시판">맛집 게시판</span>
+			</h2>
+			<!-- 게시판 목록 시작 { -->
+			<div id="bo_list" style="width: 100%">	
+				<table id ="big-tbl">
+				<% for(Food f : list) {%>
+					<% if(count==0 || count==4)  {%><tr> <% }%>
+						<td>
+						<table id="sml-tbl">
+							<tr>
+								<td colspan="2">
+								<a href='<%=request.getContextPath()%>/food/foodView?board_no=<%=f.getBoard_No()%>&cPage=<%=cPage%>&tag=<%=tag.equals("")?"":tag%>'>
+									<img class="foodimg" alt="img" src="<%=request.getContextPath() %>/upload/food/thumnail/<%= f.getBoard_Thumbnail() %>" >
+								</a>
+								
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2"><%= f.getBoard_Title() %></td>		
+							</tr>
+							<tr>
+								<td><%= f.getBoard_tel()%></td>
+							</tr>
+							<tr>
+								<td><%= f.getBoard_MAP()%></td>
+							</tr>
+							
+						</table>  
+						
+							<div class="content">							
+						        <ul id="tag-list">
+						        	<% 
+						        	if(f.getBoard_menu()!=null) {
+						        	for(String str : f.getBoard_menu().split(",")) { %>
+						        		<li class="tag-item"><a href='<%=request.getContextPath()%>/food/foodTagSearch?tag=<%=str%>'>#<%= str %></a></li>
+						        	<% } 
+						        	} else { %>
+						        	<% } %>
+						        </ul>
+						    </div>
 				
-			</table>  
-			
-				<div class="content">							
-			        <ul id="tag-list">
-			        	<% 
-			        	if(f.getBoard_menu()!=null) {
-			        	for(String str : f.getBoard_menu().split(",")) { %>
-			        		<li class="tag-item"><a href='<%=request.getContextPath()%>/food/foodTagSearch?tag=<%=str%>'>#<%= str %></a></li>
-			        	<% } 
-			        	} else { %>
-			        	<% } %>
-			        </ul>
-			    </div>
+							<p class="viewCount">조회:<%=f.getBoard_Count() %></p>
+						</td>
+					<% count ++; %>
+					<% if(count==4 || count==8) {%> </tr> <% } %>
+				<% } %>
+				</table>
 	
-				<p class="viewCount">조회:<%=f.getBoard_Count() %></p>
-			</td>
-		<% count ++; %>
-		<% if(count==4 || count==8) {%> </tr> <% } %>
-	<% } %>
-	</table>
+	<!-- 게시판 검색 시작 { -->
+	<div>
+		<fieldset id="bo_sch">
+			<legend>게시물 검색</legend>
+	
+			<form name="fsearch" method="get">
+				<input type="hidden" name="bo_table" value="gnsetting"> <input
+					type="hidden" name="sca" value=""> <input type="hidden"
+					name="sop" value="and"> <select name="sfl" id="sfl">
+					<option value="board_title">제목</option>
+					<option value="board_contents">내용</option>
+					<option value="board_writer">작성자</option>
+					<option value="board_title||board_contents">제목+내용</option>
+				</select> <input type="text" name="stx" value="" id="stx"
+					class="sch_input" size="25" maxlength="20"
+					placeholder="검색어를 입력해주세요">
+				<button type="submit" value="검색" class="sch_btn">
+					<i class="fa fa-search" aria-hidden="true"></i>
+				</button>
+			</form>
+		</fieldset>
+	</div>
+	<!-- 게시판 검색 끝 -->
 	
 	<!-- 페이징 -->
 	<nav class="pg_wrap">
@@ -102,13 +132,16 @@
 		</span>
 	</nav>
     <!-- 페이징 끝 -->
+			</div>
+		</div>
+	</div>
+</div>    
 		
-		<script>
-		$("#btn-add").click(function(){
-			location.href="<%=request.getContextPath()%>/food/foodForm";
-		});	
-		</script>
+<script>
+$("#btn-add").click(function(){
+	location.href="<%=request.getContextPath()%>/food/foodForm";
+});	
+</script>
 
-	</section>
 <%@ include file="/views/common/footer.jsp"%>	
 

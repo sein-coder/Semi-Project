@@ -15,15 +15,15 @@ import com.umo.model.vo.NoticeBoard;
 
 public class AnonymousBoardService {
 	private AnonymousBoardDao dao= new AnonymousBoardDao();
-	public int countanonymousList() {	
+	public int countanonymousList(String sfl,String stx) {	
 		Connection conn=getConnection();	
-		int result=dao.countAnonymousList(conn);
+		int result=dao.countAnonymousList(conn,sfl,stx);
 		close(conn);
 		return result;
 	}
-	public List<Board> selectanonymousBoardList(int cPage, int numPerPage,String name,String userId){
+	public List<Board> selectanonymousBoardList(int cPage, int numPerPage,String name,String userId,String sfl,String stx){
 		Connection conn=getConnection();		
-		List<Board> list=dao.selectAnonymousBoardList(conn, cPage, numPerPage,name,userId);
+		List<Board> list=dao.selectAnonymousBoardList(conn, cPage, numPerPage,name,userId,sfl,stx);
 		close(conn);	
 		return list; 
 	}

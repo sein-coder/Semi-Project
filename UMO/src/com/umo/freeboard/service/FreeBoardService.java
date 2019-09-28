@@ -15,15 +15,15 @@ import com.umo.model.vo.NoticeBoard;
 
 public class FreeBoardService {
 	private FreeBoardDao dao= new FreeBoardDao();
-	public int countFreeList() {	
+	public int countFreeList(String sfl,String stx) {	
 		Connection conn=getConnection();	
-		int result=dao.countFreeList(conn);
+		int result=dao.countFreeList(conn,sfl,stx);
 		close(conn);
 		return result;
 	}
-	public List<Board> selectFreeBoardList(int cPage, int numPerPage,String name,String userId){
+	public List<Board> selectFreeBoardList(int cPage, int numPerPage,String name,String userId,String sfl,String stx){
 		Connection conn=getConnection();		
-		List<Board> list=dao.selectFreeBoardList(conn, cPage, numPerPage,name,userId);
+		List<Board> list=dao.selectFreeBoardList(conn, cPage, numPerPage,name,userId,sfl,stx);
 		close(conn);	
 		return list; 
 	}

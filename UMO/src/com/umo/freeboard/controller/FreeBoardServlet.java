@@ -44,12 +44,20 @@ public class FreeBoardServlet extends HttpServlet {
 		} catch (NumberFormatException e) {
 			numPerPage = 10;			
 		}
+		//sfl는 선택창
+		//stx는 검색어
+		String sfl=request.getParameter("sfl");
+		String stx=request.getParameter("stx");	
+		
+		if(sfl!=null&&sfl.contains("board")) {
+			sfl = sfl.replaceAll("board", "free");
+		}
 		
 		FreeBoardService service=new FreeBoardService();
-	    int totalData=service.countFreeList();
+	    int totalData=service.countFreeList(sfl,stx);
 	    String name="";
 	    String userId="";
-	    List<Board> list =service.selectFreeBoardList(cPage, numPerPage,name,userId);
+	    List<Board> list =service.selectFreeBoardList(cPage, numPerPage,name,userId,sfl,stx);
 	    
 	    String pageBar="";
 	    int totalPage=(int)Math.ceil((double)totalData/numPerPage);
@@ -63,7 +71,7 @@ public class FreeBoardServlet extends HttpServlet {
 			pageBar+="<strong class='pg_page pg_start'>다음</strong>";
 		}else {
 			pageBar+="<a class='pg_page pg_start' href='"+request.getContextPath()
-			+"/freeBoard?cPage="+(pageNo-1)+"'>이전</a>";
+			+"/freeBoard?cPage="+(pageNo-1)+"&numPerPage="+numPerPage+"'>이전</a>";
 		}
 		//중간 클릭한 페이지(숫자) 만들기
 		while(!(pageNo>pageEnd||pageNo>totalPage)) {
@@ -71,7 +79,7 @@ public class FreeBoardServlet extends HttpServlet {
 				pageBar+="<strong class='pg_current'>"+pageNo+"</strong>";
 			}else {
 				pageBar+="<a class='pg_page' href='"+request.getContextPath()
-				+"/freeBoard?cPage="+pageNo+"'>"+pageNo+"</a>";
+				+"/freeBoard?cPage="+pageNo+"&numPerPage="+numPerPage+"'>"+pageNo+"</a>";
 			}
 			pageNo++;
 		}
@@ -81,7 +89,7 @@ public class FreeBoardServlet extends HttpServlet {
 		}
 		else {
 			pageBar+="<a class='pg_page pg_end' href='"+request.getContextPath()
-			+"/freeBoard?cPage="+pageNo+"'>다음</a>";
+			+"/freeBoard?cPage="+pageNo+"&numPerPage="+numPerPage+"'>다음</a>";
 			
 		}
 		
@@ -91,6 +99,7 @@ public class FreeBoardServlet extends HttpServlet {
 	    request.setAttribute("numPerPage", numPerPage);
 	    request.setAttribute("board_type", "free");
 	    request.setAttribute("titlename", "자유");
+	    request.setAttribute("numPerPage", numPerPage);
 	    
 		request.getRequestDispatcher("/views/board/boardListView.jsp").forward(request, response);
 		

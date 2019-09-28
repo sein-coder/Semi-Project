@@ -34,20 +34,27 @@ public class NoticeBoardServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		int cPage;
 		int numPerPage;
+		
 		try {
 			cPage=Integer.parseInt(request.getParameter("cPage"));
 		} catch (NumberFormatException e) {
 		    cPage=1;
 		}
+		
 		try {
 			numPerPage=Integer.parseInt(request.getParameter("numPerPage"));
 		}catch (NumberFormatException e) {
 			numPerPage =10;
 		}
+		//sfl는 선택창
+		//stx는 검색어
+		String sfl=request.getParameter("sfl");
+		String stx=request.getParameter("stx");	
+		
 	    NoticeBoardService service=new NoticeBoardService();
-	    int totalData=service.countNoticeList();
+	    int totalData=service.countNoticeList(sfl,stx);
 	    
-	    List<NoticeBoard> list =service.selectNoticeBoardList(cPage, numPerPage);
+	    List<NoticeBoard> list =service.selectNoticeBoardList(cPage, numPerPage,sfl,stx);
 	    
 	    String pageBar="";
 	    int totalPage=(int)Math.ceil((double)totalData/numPerPage);
@@ -86,13 +93,9 @@ public class NoticeBoardServlet extends HttpServlet {
 		request.setAttribute("cPage",cPage);
 		request.setAttribute("pageBar",pageBar);
 	    request.setAttribute("list", list);
-	    request.setAttribute("numPerPage", numPerPage);
+	    request.setAttribute("numPerPage", numPerPage);	    
 	    
-	    System.out.println("실행");
-	    
-		request.getRequestDispatcher("/views/notice/noticeListView.jsp").forward(request, response);
-		
-	    
+		request.getRequestDispatcher("/views/notice/noticeListView.jsp").forward(request, response);	    
 	}
 
 	/**

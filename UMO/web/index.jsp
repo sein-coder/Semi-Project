@@ -25,7 +25,8 @@
                 </div>
                 <div style="float:left; margin-left: 44px; margin-right: 0%;" class="lt_wr">
                     <div class="lat">
-                        <h2 class="lat_title"><a href="">반별게시판</a></h2>
+                        <h2 class=
+                        "lat_title"><a href="">반별게시판</a></h2>
                         <ul id="gradeBoard">						
 						</ul>
                         <a href="" class="lt_more"><i class="fa fa-plus"
@@ -94,9 +95,9 @@
                     <fieldset>
                         <div class="ol_wr">
                             <label for="ol_id" id="ol_idlabel"></label>
-                            <input type="text" id="ol_id" name="mb_id" required="" maxlength="20" placeholder="아이디">
+                            <input type="text" id="ol_id" name="mb_id" required maxlength="20" placeholder="아이디">
                             <label for="ol_pw" id="ol_pwlabel"></label>
-                            <input type="password" name="mb_password" id="ol_pw" required="" maxlength="20"
+                            <input type="password" name="mb_password" id="ol_pw" required maxlength="20"
                                 placeholder="비밀번호">
                             <input type="submit" id="ol_submit" value="로그인" class="btn_b02">
                         </div>
@@ -124,6 +125,7 @@
                                 aria-hidden="true"></i></a>
                     </span>
                     <strong><%= loginMember.getMemberId() %></strong>
+                    <a href="<%= request.getContextPath() %>/myPage" id="ol_after_logout" class="btn_b04">마이페이지</a>
                     <a href="<%= request.getContextPath() %>/logout" id="ol_after_logout" class="btn_b04">로그아웃</a>
                 </header>
                 <ul id="ol_after_private">

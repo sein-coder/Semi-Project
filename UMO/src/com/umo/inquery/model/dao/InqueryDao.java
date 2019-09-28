@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -62,14 +63,17 @@ public class InqueryDao {
 	}
 
 
-	public int selectBoardCount(Connection conn) {
-		PreparedStatement pstmt = null;
+	public int selectBoardCount(Connection conn,String sfl,String stx) {
+		Statement stmt = null;
 		ResultSet rs = null;
-		String sql = prop.getProperty("selectBoardCount");
+		String sql = "select count(*) from Inquery_board";
 		int result = 0;
+		if(sfl!=null&&stx!=null) {
+			sql+=" where "+sfl+" like '%"+stx+"%'";
+		}
 		try {
-			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
 			if(rs.next()) {
 				result = rs.getInt(1);
 			}
@@ -77,33 +81,49 @@ public class InqueryDao {
 			e.printStackTrace();
 		}finally {
 			close(rs);
-			close(pstmt);
+			close(stmt);
 		}
 		return result;
 	}
 
 
-	public List<Inquery> selectInqueryBoardList(Connection conn, int cPage, int numPerPage,String name,String userId) {
-		PreparedStatement pstmt = null;
+	public List<Inquery> selectInqueryBoardList(Connection conn, int cPage, int numPerPage,String name,String userId,String sfl,String stx) {
+		Statement stmt = null;
 		ResultSet rs = null;
 		List<Inquery> list = new ArrayList();
+		
 		String sql="";
+		int start=(cPage-1)*numPerPage+1;
+		int end=cPage*numPerPage;
+		
 		if(name.equals("myPage")) {
-			sql = prop.getProperty("selectMyInqueryBoardList");
+			if(sfl!=null&&stx!=null) {
+				sql = "select * from  "
+						+ "(select rownum as rnum, a.* from "
+						+ "(select * from Inquery_board where "+sfl+" like '%"+stx+"%' order by board_date desc)a where board_writer=?)"
+						+ " where rnum between "+start+" and "+end;
 			}else {
-		sql = prop.getProperty("selectInqueryBoardList");
+				sql = "select * from  "
+						+ "(select rownum as rnum, a.* from "
+						+ "(select * from Inquery_board order by board_date desc)a where board_writer=?)"
+						+ " where rnum between "+start+" and "+end;
 			}
+		}else {
+			if(sfl!=null&&stx!=null) {
+				sql = "SELECT * FROM "
+						+ "(SELECT ROWNUM AS RNUM, A.* FROM "
+						+ "(SELECT * FROM Inquery_board where "+sfl+" like '%"+stx+"%' ORDER BY board_date DESC)A ) "
+						+ "WHERE RNUM BETWEEN "+start+" and "+end;
+			}else {
+				sql = "SELECT * FROM "
+						+ "(SELECT ROWNUM AS RNUM, A.* FROM "
+						+ "(SELECT * FROM Inquery_board ORDER BY board_date DESC)A ) "
+						+ "WHERE RNUM BETWEEN "+start+" and "+end;
+			}
+		}
 		try {
-			pstmt = conn.prepareStatement(sql);
-			if(name.equals("myPage")) {
-				pstmt.setString(1, userId);
-				pstmt.setInt(2, (cPage-1)*numPerPage+1);
-				pstmt.setInt(3, cPage*numPerPage);
-				}else {
-			pstmt.setInt(1, (cPage-1)*numPerPage+1);
-			pstmt.setInt(2, cPage*numPerPage);
-				}
-			rs = pstmt.executeQuery();
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
 			while(rs.next()) {
 				Inquery inquery = new Inquery();
 				inquery.setBoard_No(rs.getInt("Board_No"));
@@ -125,7 +145,7 @@ public class InqueryDao {
 			e.printStackTrace();
 		}finally {
 			close(rs);
-			close(pstmt);
+			close(stmt);
 		}
 		
 		

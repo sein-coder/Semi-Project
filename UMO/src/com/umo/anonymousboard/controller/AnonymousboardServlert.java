@@ -31,20 +31,31 @@ public class AnonymousboardServlert extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
+
 		int cPage;
+		int numPerPage;
+		
 		try {
 			cPage=Integer.parseInt(request.getParameter("cPage"));
 		} catch (NumberFormatException e) {
 		    cPage=1;
 		}
-		int numPerPage=10;
+		
+		try {
+			numPerPage=Integer.parseInt(request.getParameter("numPerPage"));
+		}catch (NumberFormatException e) {
+			numPerPage =10;
+		}
+		//sfl는 선택창
+		//stx는 검색어
+		String sfl=request.getParameter("sfl");
+		String stx=request.getParameter("stx");	
+		
 		AnonymousBoardService service=new AnonymousBoardService();
-	    int totalData=service.countanonymousList();
+	    int totalData=service.countanonymousList(sfl,stx);
 	    String name="";
 	    String userId="";
-	    List<Board> list =service.selectanonymousBoardList(cPage,numPerPage,name,userId);
+	    List<Board> list =service.selectanonymousBoardList(cPage,numPerPage,name,userId,sfl,stx);
 	    
 	    String pageBar="";
 	    int totalPage=(int)Math.ceil((double)totalData/numPerPage);
@@ -58,7 +69,7 @@ public class AnonymousboardServlert extends HttpServlet {
 			pageBar+="<strong class='pg_page pg_start'>이전</strong>";
 		}else {
 			pageBar+="<a class='pg_page pg_start' href='"+request.getContextPath()
-			+"/anonymousBoard?cPage="+(pageNo-1)+"'>이전</a>";
+			+"/anonymousBoard?cPage="+(pageNo-1)+"&numPerPage="+numPerPage+"'>이전</a>";
 		}
 		//중간 클릭한 페이지(숫자) 만들기
 		while(!(pageNo>pageEnd||pageNo>totalPage)) {
@@ -66,7 +77,7 @@ public class AnonymousboardServlert extends HttpServlet {
 				pageBar+="<strong class='pg_current'>"+pageNo+"</strong>";
 			}else {
 				pageBar+="<a class='pg_page' href='"+request.getContextPath()
-				+"/anonymousBoard?cPage="+pageNo+"'>"+pageNo+"</a>";
+				+"/anonymousBoard?cPage="+pageNo+"&numPerPage="+numPerPage+"'>"+pageNo+"</a>";
 			}
 			pageNo++;
 		}
@@ -76,7 +87,7 @@ public class AnonymousboardServlert extends HttpServlet {
 		}
 		else {
 			pageBar+="<a class='pg_page pg_end' href='"+request.getContextPath()
-			+"/anonymousBoard?cPage="+pageNo+"'>다음</a>";
+			+"/anonymousBoard?cPage="+pageNo+"&numPerPage="+numPerPage+"'>다음</a>";
 			
 		}
 		
@@ -85,6 +96,7 @@ public class AnonymousboardServlert extends HttpServlet {
 	    request.setAttribute("list", list);
 	    request.setAttribute("board_type", "anonymous");
 	    request.setAttribute("titlename", "익명");
+	    request.setAttribute("numPerPage", numPerPage);
 	    
 		request.getRequestDispatcher("/views/board/boardListView.jsp").forward(request, response);
 		

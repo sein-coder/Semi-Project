@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -33,14 +34,17 @@ public class FreeBoardDao {
 
 	}
 
-	public int countFreeList(Connection conn) {
-		PreparedStatement pstmt = null;
+	public int countFreeList(Connection conn,String sfl,String stx) {
+		Statement stmt = null;
 		ResultSet rs = null;
 		int result = 0;
-		String sql = prop.getProperty("countFreeList");
+		String sql = "SELECT COUNT(*)AS CNT FROM free_board";
+		if(sfl!=null&&stx!=null) {
+			sql+=" where "+sfl+" like '%"+stx+"%'";
+		}
 		try {
-			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
 			if (rs.next()) {
 				result = rs.getInt("cnt");
 			}
@@ -48,33 +52,49 @@ public class FreeBoardDao {
 			e.printStackTrace();
 		} finally {
 			close(rs);
-			close(pstmt);
+			close(stmt);
 		}
 		return result;
 
 	}
 
-	public List<Board> selectFreeBoardList(Connection conn, int cPage, int numPerPage,String name,String userId) {
-		PreparedStatement pstmt = null;
+	public List<Board> selectFreeBoardList(Connection conn, int cPage, int numPerPage,String name,String userId,String sfl,String stx) {
+		Statement stmt = null;
 		ResultSet rs = null;
 		List<Board> list = new ArrayList<Board>();
+
 		String sql="";
+		int start=(cPage-1)*numPerPage+1;
+		int end=cPage*numPerPage;
+
 		if(name.equals("myPage")) {
-			sql = prop.getProperty("selectMyFreeBoardList");
+			if(sfl!=null&&stx!=null) {
+				sql = "select * from  "
+						+ "(select rownum as rnum, a.* from "
+						+ "(select * from free_BOARD where "+sfl+" like '%"+stx+"%' order by Free_DATE desc)a where free_writer=?)"
+						+ " where rnum between "+start+" and "+end;
+			}else {
+				sql = "select * from  "
+						+ "(select rownum as rnum, a.* from "
+						+ "(select * from free_BOARD order by Free_DATE desc)a where free_writer=?)"
+						+ " where rnum between "+start+" and "+end;
+			}
 		}else {
-			sql = prop.getProperty("selectFreeBoardList");
+			if(sfl!=null&&stx!=null) {
+				sql = "SELECT * FROM "
+						+ "(SELECT ROWNUM AS RNUM, A.* FROM "
+						+ "(SELECT * FROM free_BOARD where "+sfl+" like '%"+stx+"%' ORDER BY Free_DATE DESC)A ) "
+						+ "WHERE RNUM BETWEEN "+start+" and "+end;
+			}else {
+				sql = "SELECT * FROM "
+						+ "(SELECT ROWNUM AS RNUM, A.* FROM "
+						+ "(SELECT * FROM free_BOARD ORDER BY Free_DATE DESC)A ) "
+						+ "WHERE RNUM BETWEEN "+start+" and "+end;
+			}
 		}
 		try {
-			pstmt = conn.prepareStatement(sql);
-			if(name.equals("myPage")) {
-				pstmt.setString(1, userId);
-				pstmt.setInt(2, (cPage-1)*numPerPage+1);
-				pstmt.setInt(3, cPage*numPerPage);
-				}else {
-			pstmt.setInt(1, cPage);
-			pstmt.setInt(2, numPerPage);
-				}
-			rs = pstmt.executeQuery();
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				Board b = new Board();
 				b.setNo(rs.getInt("Free_no"));
@@ -92,7 +112,7 @@ public class FreeBoardDao {
 			e.printStackTrace();
 		} finally {
 			close(rs);
-			close(pstmt);
+			close(stmt);
 		}
 		return list;
 	}
