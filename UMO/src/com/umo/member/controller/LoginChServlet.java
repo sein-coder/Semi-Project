@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import com.umo.member.model.service.MemberService;
 import com.umo.model.vo.Member;
-
+import static com.umo.session.model.vo.LoginSessionCount.loginMemberCount;
 /**
  * Servlet implementation class LoginhServlet
  */
@@ -52,7 +52,8 @@ public class LoginChServlet extends HttpServlet {
 			
 			HttpSession session=request.getSession();
 			session.setAttribute("loginMember", m);
-			
+			loginMemberCount += 1;
+			System.out.println(loginMemberCount);
 			if(saveId!=null)
 			{
 				Cookie c=new Cookie("saveId",id);
@@ -63,6 +64,7 @@ public class LoginChServlet extends HttpServlet {
 				c.setMaxAge(10);
 				response.addCookie(c);
 			}
+			
 			view="/";
 			response.sendRedirect(request.getContextPath());
 			

@@ -20,6 +20,8 @@
 	href="<%=request.getContextPath()%>/css/outlogin_basic_style.css">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/visit_basic_style.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/board_basic_style.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://use.fontawesome.com/3b5ffe2c0a.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/se2/js/HuskyEZCreator.js" charset="utf-8"></script>

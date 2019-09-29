@@ -1,25 +1,27 @@
-package com.umo.member.controller;
+package com.umo.session.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import static com.umo.session.model.vo.LoginSessionCount.loginMemberCount;
 
+import com.umo.model.vo.Member;
+import static com.umo.session.model.vo.LoginSessionCount.loginMemberCount;
 /**
- * Servlet implementation class LogoutServlet
+ * Servlet implementation class SessionServlet
  */
-@WebServlet("/logout")
-public class LogoutServlet extends HttpServlet {
+@WebServlet("/sessionServlet")
+public class SessionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LogoutServlet() {
+    public SessionServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,16 +30,12 @@ public class LogoutServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		HttpSession session=request.getSession(false);
-		String views="index.jsp";
-		if(session!=null) {
-			session.invalidate();
-			loginMemberCount -=1;
-			System.out.println(loginMemberCount);
-			response.sendRedirect(views);
-			
-		}
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		out.append("현재접속자 수 : ");
+		String count = String.valueOf(loginMemberCount);
+		out.append(count);
 	}
 
 	/**

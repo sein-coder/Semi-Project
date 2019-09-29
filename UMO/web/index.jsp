@@ -173,7 +173,21 @@
 <!-- 콘텐츠 끝 -->
 
 <script type="text/javascript" src="./js/index.js"></script>
+<script>
+$(document).ready(function(){
+	console.log("실행");
+	$.ajax({
+		url:"<%= request.getContextPath() %>/sessionServlet",
+		dataType:"text",
+		type:"post",
+		suceess:function(data){
+			console.log("성공");
+			console.log(data);
+		}
+	});
+});
 
+</script>
 <!-- 하단 시작  -->
 <%@ include file="/views/common/footer.jsp"%>
 <!-- 하단 끝 -->
