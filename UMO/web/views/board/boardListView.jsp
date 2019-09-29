@@ -58,7 +58,11 @@
                                         <a href="<%=request.getContextPath()%>/<%= board_type %>ContentView?<%= board_type %>No=<%=b.getNo()%>"><%= b.getTitle() %></a>
                                      </div>
                                    </td>
+                                   <%if(b.getWriter()==null||board_type.equals("anonymous")){ %>
+ 								   <td class="td_name sv_use" style="text-align: center;">익명</td>
+								   <%}else{ %>
 								   <td class="td_name sv_use" style="text-align: center;"><%= b.getWriter() %></td>
+								   <%} %>
 								   <td class="td_num"><%= b.getCount() %></td>
 								   <td class="td_datetime"><%= b.getDate() %></td>
 								</tr>

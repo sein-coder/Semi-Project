@@ -63,7 +63,7 @@ public class AnonymousBoardDao {
 		Statement stmt = null;
 		ResultSet rs = null;
 		List<Board> list = new ArrayList<Board>();
-		
+		System.out.println("selectAnonymousBoardList");
 		String sql="";
 		int start=(cPage-1)*numPerPage+1;
 		int end=cPage*numPerPage;
@@ -72,12 +72,12 @@ public class AnonymousBoardDao {
 			if(sfl!=null&&stx!=null) {
 				sql = "select * from  "
 						+ "(select rownum as rnum, a.* from "
-						+ "(select * from anonymous_board where "+sfl+" like '%"+stx+"%' order by board_date desc)a where board_writer=?)"
+						+ "(select * from anonymous_board where "+sfl+" like '%"+stx+"%' order by board_date desc)a where board_writer='"+userId+"')"
 						+ " where rnum between "+start+" and "+end;
 			}else {
 				sql = "select * from  "
 						+ "(select rownum as rnum, a.* from "
-						+ "(select * from anonymous_board order by board_date desc)a where board_writer=?)"
+						+ "(select * from anonymous_board order by board_date desc)a where board_writer='"+userId+"')"
 						+ " where rnum between "+start+" and "+end;
 			}
 		}else {

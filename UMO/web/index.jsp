@@ -125,7 +125,7 @@
                                 aria-hidden="true"></i></a>
                     </span>
                     <strong><%= loginMember.getMemberId() %></strong>
-                    <a href="<%= request.getContextPath() %>/myPage" id="ol_after_logout" class="btn_b04">마이페이지</a>
+                    <a href="<%= request.getContextPath() %>/myPage?userId=<%= loginMember.getMemberId() %>" id="ol_after_logout" class="btn_b04">마이페이지</a>
                     <a href="<%= request.getContextPath() %>/logout" id="ol_after_logout" class="btn_b04">로그아웃</a>
                 </header>
                 <ul id="ol_after_private">

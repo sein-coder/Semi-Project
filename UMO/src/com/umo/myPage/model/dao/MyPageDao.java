@@ -56,6 +56,7 @@ public class MyPageDao {
 	public List<Comment> selectNoticeCommentList(Connection conn, int cPage, int numPerPage,String name,String userId,String comment) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		System.out.println(userId+"comment");
 		List<Comment> list = new ArrayList();
 		String sql="";
 		if(name.equals("myPage")) {

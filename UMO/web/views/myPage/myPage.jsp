@@ -49,7 +49,7 @@ int count = 0;
                 <% if(count<3){
                  for(Food f : foodlist) {%>
                     <tr>
-                        <td><a href="<%=request.getContextPath() %>/images/food/<%= f.getBoard_Thumbnail()%>">food <%=f.getBoard_Title()+" "+f.getBoard_Contents()+" "+f.getBoard_Writer()%></a></td>
+                        <td><a href="<%=request.getContextPath()%>/food/foodView?board_no=<%=f.getBoard_No()%>"> <%=f.getBoard_Title()+" "+f.getBoard_Contents()%></a></td>
                     </tr>
 	          	<%count++;} } count=0;%>
                 </table>
@@ -106,7 +106,7 @@ int count = 0;
                    <% if(count<3){
                  for(Comment n : NoticeCommentlist) {%>
                     <tr>
-                        <td><%=n.getComment_contents() %></td>
+                        <td><a href="<%=request.getContextPath()%>/noticeContentView?noticeNo=<%=n.getBoard_no_ref()%>"><%=n.getComment_contents() %></td>
                     </tr>
 	          	<%count++;} } count=0;%>
                 </table>
@@ -114,7 +114,7 @@ int count = 0;
                    <% if(count<3){
                  for(Comment f : FoodCommentlist) {%>
                     <tr>
-                        <td><%=f.getComment_contents() %></td>
+                        <td><a href="<%=request.getContextPath()%>/food/foodView?board_no=<%=f.getBoard_no_ref()%>"><%=f.getComment_contents() %></td>
                     </tr>
 	          	<%count++;} } count=0;%>
                 </table>
@@ -122,28 +122,28 @@ int count = 0;
                    <% if(count<3){
                  for(Comment i : inqueryCommentlist) {%>
                     <tr>
-                        <td><%=i.getComment_contents() %></td>
+                        <td><a href="<%=request.getContextPath()%>/inquery/inqueryView?Board_No=<%=i.getBoard_no_ref()%>"><%=i.getComment_contents() %></a></td>
                     </tr>
 	          	<%count++;} } count=0;%>
 	          	<table id="freecomment" name="freecomment" style="display:none">
                    <% if(count<3){
                  for(Comment f : freeCommentlist) {%>
                     <tr>
-                        <td><%=f.getComment_contents() %></td>
+                        <td><a href="<%=request.getContextPath()%>/freeContentView?freeNo=<%=f.getBoard_no_ref()%>"><%=f.getComment_contents() %></a></td>
                     </tr>
 	          	<%count++;} } count=0;%>
 	          	<table id="gradecomment" name="gradecomment" style="display:none">
                    <% if(count<3){
                  for(Comment g : gradeCommentlist) {%>
                     <tr>
-                        <td><%=g.getComment_contents() %></td>
+                        <td><a href="<%=request.getContextPath()%>/gradeContentView?gradeNo=<%=g.getBoard_no_ref()%>"><%=g.getComment_contents() %></a></td>
                     </tr>
 	          	<%count++;} } count=0;%>
 	          	<table id="anonymouscomment" name="anonymouscomment" style="display:none">
                    <% if(count<3){
                  for(Comment a : anonymousCommentlist) {%>
                     <tr>
-                        <td><%=a.getComment_contents() %></td>
+                        <td><a href="<%=request.getContextPath()%>/anonymousContentView?anonymousNo=<%=a.getBoard_no_ref()%>"><%=a.getComment_contents() %></a></td>
                     </tr>
 	          	<%count++;} } count=0;%>
                 </table>

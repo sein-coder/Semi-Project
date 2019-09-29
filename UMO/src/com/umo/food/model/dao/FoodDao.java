@@ -57,21 +57,21 @@ public class FoodDao {
 		Statement stmt = null;
 		ResultSet rs = null;
 		List<Food> list = new ArrayList();
-		
+		System.out.println(userId+"foodboard");
 		String sql="";
 		int start=(cPage-1)*numPerPage+1;
 		int end=cPage*numPerPage;
-		
+		System.out.println(sfl+stx);
 		if(name.equals("myPage")) {
 			if(sfl!=null&&stx!=null) {
 				sql = "select * from  "
 						+ "(select rownum as rnum, a.* from "
-						+ "(select * from food_board where "+sfl+" like '%"+stx+"%' order by board_date desc)a where board_writer=?)"
+						+ "(select * from food_board where "+sfl+" like '%"+stx+"%' order by board_date desc)a where board_writer= '"+userId+"')"
 						+ " where rnum between "+start+" and "+end;
 			}else {
 				sql = "select * from  "
 						+ "(select rownum as rnum, a.* from "
-						+ "(select * from food_board order by board_date desc)a where board_writer=?)"
+						+ "(select * from food_board order by board_date desc)a where board_writer= '"+userId+"')"
 						+ " where rnum between "+start+" and "+end;
 			}
 		}else {
@@ -104,7 +104,7 @@ public class FoodDao {
 				f.setBoard_Count(rs.getInt("board_count"));
 				f.setWriting_Status(rs.getString("writing_status").charAt(0));
 				f.setBoard_Grade(rs.getInt("board_grade"));
-				f.setBoard_tag(rs.getString("board_tag"));
+//				f.setBoard_tag(rs.getString("board_tag"));
 				f.setBoard_tel(rs.getString("board_tel"));
 				list.add(f);
 			}
