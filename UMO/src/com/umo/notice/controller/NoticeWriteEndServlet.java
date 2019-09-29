@@ -34,7 +34,7 @@ public class NoticeWriteEndServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 				if(!ServletFileUpload.isMultipartContent(request)) {
-					request.setAttribute("msg", "ê³µì??‚¬?•­ ?‘?„±?š”ë¥?![form:enctype ê´?ë¦¬ì?—ê²? ë¬¸ì˜ ?•˜?„¸?š”]");
+					request.setAttribute("msg", "ê³µï¿½??ï¿½ï¿½?ï¿½ï¿½ ?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ï¿½?![form:enctype ï¿½?ë¦¬ì?ï¿½ï¿½ï¿½? ë¬¸ì˜ ?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½]");
 					request.setAttribute("loc", "/");
 					request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 					return;
@@ -45,13 +45,13 @@ public class NoticeWriteEndServlet extends HttpServlet {
 				
 				String saveDir=root+"/upload/notice";
 			    
-				//?—…ë¡œë“œ ?ŒŒ?¼?¬ê¸? ?„¤? •
+				//?ï¿½ï¿½ë¡œë“œ ?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ï¿½? ?ï¿½ï¿½?ï¿½ï¿½
 				int maxSize=1024*1024*10;
 				
-				//multipartRequest ê°ì²´?ƒ?„±
+				//multipartRequest ê°ì²´?ï¿½ï¿½?ï¿½ï¿½
 				
-				//ê°ì²´?ƒ?„±?‹œ ë§¤ê°œë©´ìˆ˜ê°? ?ˆ?Š” ?ƒ?„±?ë¥? ?´?š©
-				//ë§¤ê°œë³??ˆ˜ : 1.request 2.?ŒŒ?¼???¥ê²½ë¡œ 3.?ŒŒ?¼ìµœë??¬ê¸? 4.?¸ì½”ë”©ê°? 5.rename? •ì±?(?ŒŒ?¼?´ë¦?) ì¤‘ë³µ?˜ë©? ?•ˆ?¨
+				//ê°ì²´?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ ë§¤ê°œë©´ìˆ˜ï¿½? ?ï¿½ï¿½?ï¿½ï¿½ ?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ï¿½? ?ï¿½ï¿½?ï¿½ï¿½
+				//ë§¤ê°œï¿½??ï¿½ï¿½ : 1.request 2.?ï¿½ï¿½?ï¿½ï¿½???ï¿½ï¿½ê²½ë¡œ 3.?ï¿½ï¿½?ï¿½ï¿½ìµœï¿½??ï¿½ï¿½ï¿½? 4.?ï¿½ï¿½ì½”ë”©ï¿½? 5.rename?ï¿½ï¿½ï¿½?(?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ï¿½?) ì¤‘ë³µ?ï¿½ï¿½ï¿½? ?ï¿½ï¿½?ï¿½ï¿½
 				MultipartRequest mr=new MultipartRequest(
 						request,
 						saveDir,
@@ -66,6 +66,8 @@ public class NoticeWriteEndServlet extends HttpServlet {
 				content=content.replace("\r\n", "<br>");
 				String fileName=mr.getFilesystemName("up_file");
 				
+				System.out.println("ê³µì§€ë‚´ìš©í™•ì¸:"+content);
+				
 				NoticeBoard nb=new NoticeBoard();
 				
 				
@@ -77,18 +79,18 @@ public class NoticeWriteEndServlet extends HttpServlet {
 				
 				int result=new NoticeBoardService().noticeWrite(nb);
 				int noticeNo=new NoticeBoardService().lastNoticeContentNo(writer);
-				System.out.println("ìµœì‹ ê³µì??‚¬?•­ no:"+noticeNo);
+				System.out.println("ìµœì‹ ê³µï¿½??ï¿½ï¿½?ï¿½ï¿½ no:"+noticeNo);
 				
 						
 				String msg="";
 				String loc="";
-				//ë·°ì—?„œ ?‹¤ë¥? ë·°ë¡œ ?´?™?•˜?Š” ì£¼ì†Œ
+				//ë·°ì—?ï¿½ï¿½ ?ï¿½ï¿½ï¿½? ë·°ë¡œ ?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ ì£¼ì†Œ
 				String view="/views/common/msg.jsp";//index.jsp
 				
 				if(result>0) {
-					msg="ê³µì??‚¬?•­ ?“±ë¡? ?„±ê³?"; loc="/noticeContentView?noticeNo="+noticeNo;
+					msg="ê³µï¿½??ï¿½ï¿½?ï¿½ï¿½ ?ï¿½ï¿½ï¿½? ?ï¿½ï¿½ï¿½?"; loc="/noticeContentView?noticeNo="+noticeNo;
 				}else {
-					msg="ê³µì??‚¬?•­ ?“±ë¡? ?‹¤?Œ¨"; loc="/noticeWriteEnd";
+					msg="ê³µï¿½??ï¿½ï¿½?ï¿½ï¿½ ?ï¿½ï¿½ï¿½? ?ï¿½ï¿½?ï¿½ï¿½"; loc="/noticeWriteEnd";
 				}
 				
 				request.setAttribute("msg", msg);
@@ -98,7 +100,7 @@ public class NoticeWriteEndServlet extends HttpServlet {
 				
 				
 				
-				System.out.println("?“±ë¡ì™„ë£?");
+				System.out.println("?ï¿½ï¿½ë¡ì™„ï¿½?");
 		
 		
 	}

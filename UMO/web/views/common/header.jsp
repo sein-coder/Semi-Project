@@ -16,6 +16,7 @@ String saveId=null;
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/style.css" type="text/css"/>
 <script src="<%=request.getContextPath() %>/js/jquery-3.4.1.min.js"></script>
 <script src="<%=request.getContextPath() %>/js/header.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/se2/js/HuskyEZCreator.js" charset="utf-8"></script>
 
 <body>
   <!-- Header -->
