@@ -38,11 +38,16 @@ public class NoticeBoardService {
 		return nb;
 	}
 	//?��로운 공�? ?��?��
-	public int noticeWrite(NoticeBoard nb) {
+	public int noticeWrite(NoticeBoard nb,String writer) {
 		Connection conn=getConnection();
 		int result=dao.noticeWrite(conn,nb);
 		
-		if(result>0) {commit(conn);}
+		if(result>0) {
+			int result2=dao.updatePoint(conn,writer);
+			if(result2>0) {
+				commit(conn);			
+			}
+		}	
 		else {rollback(conn);}
 		
 		return result;

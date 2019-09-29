@@ -129,6 +129,7 @@
                     <a href="<%= request.getContextPath() %>/logout" id="ol_after_logout" class="btn_b04">로그아웃</a>
                 </header>
                 <ul id="ol_after_private">
+                
                     <li>
                         <a href="" target="_blank" id="ol_after_memo" class="win_memo">
                             <span class="sound_only">안 읽은 </span>쪽지<br>
@@ -168,7 +169,6 @@
             <!-- } 접속자집계 끝 -->
         </div>
     </div>
-
 </div>
 <!-- 콘텐츠 끝 -->
 

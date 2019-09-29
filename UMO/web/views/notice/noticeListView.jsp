@@ -5,6 +5,7 @@
 <%@ include file="/views/common/header.jsp" %>
 
 <%
+
 	String cPage = request.getAttribute("cPage").toString();
 	String pageBar = request.getAttribute("pageBar").toString();
 	String numPerPage = request.getAttribute("numPerPage").toString();
@@ -57,7 +58,8 @@
                                      </div>
                                    </td>
 								   <td class="td_name sv_use" style="text-align: center;"><%= nb.getWriter() %></td>
-								   <td class="td_num"><%= nb.getCount() %></td>
+								   <td class="td_num">
+								   	<a href="<%=request.getContextPath()%>/noticeContentView?noticeNo=<%=nb.getNo()%>"><%=nb.getCount() %></a></td>
 								   <td class="td_datetime"><%= nb.getDate() %></td>
 								</tr>
 								<% } %>

@@ -33,11 +33,11 @@ public class AnonymousBoardService {
 		close(conn);
 		return b;
 	}
-	public int anonymousWrite(Board ab) {
+	public int anonymousWrite(Board ab,String writer) {
 		Connection conn=getConnection();
 		int result=dao.anonymousWrite(conn,ab);
 		
-		if(result>0) {commit(conn);}
+		if(result>0) {commit(conn);}	
 		else {rollback(conn);}
 		
 		return result;

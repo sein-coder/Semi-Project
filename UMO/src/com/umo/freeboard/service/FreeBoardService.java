@@ -71,6 +71,7 @@ public class FreeBoardService {
 		Connection conn=getConnection();
 		Board b=dao.freeBoardContent(conn,no);
 		if(!hasRead&&b!=null) {
+			System.out.println("실행");
 			int result=dao.updateReadCount(conn,no);
 			if(result>0) {commit(conn);}
 			else {rollback(conn);}

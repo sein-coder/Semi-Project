@@ -78,7 +78,7 @@ public class AnonymousWriteEndServlet extends HttpServlet {
 				ab.setContent(content);
 				ab.setOriginal_filename(fileName);
 				
-				int result=new AnonymousBoardService().anonymousWrite(ab);
+				int result=new AnonymousBoardService().anonymousWrite(ab,writer);
 				int anonymousNo=new AnonymousBoardService().lastAnonymousContentNo(writer);
 				
 						

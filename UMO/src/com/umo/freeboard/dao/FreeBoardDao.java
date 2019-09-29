@@ -234,6 +234,7 @@ public class FreeBoardDao {
 		PreparedStatement pstmt=null;
 		int result=0;
 		String sql=prop.getProperty("updateReadCount");
+		System.out.println(sql);
 		try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1, no);
