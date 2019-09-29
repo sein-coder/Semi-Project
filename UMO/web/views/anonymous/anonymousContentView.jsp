@@ -56,6 +56,7 @@
         <tr>
             <th colspan="2">
                 <input type="button" class="btn btn-default" value="수정하기" onclick="location.href='<%=request.getContextPath()%>/anonymousUpdate?anonymousNo=<%=ab.getNo()%>'"/>
+                <input type="button" class="btn btn-list" value="목록" onclick="location.href='<%=request.getContextPath() %>/anonymousBoard?anonymousNo=<%=ab.getNo() %>'"/>
                 <input type="button" class="btn btn-default" value="삭제하기" onclick="location.href='<%=request.getContextPath()%>/anonymousDelete?anonymousNo=<%=ab.getNo() %>'"/>
             </th>
         </tr>

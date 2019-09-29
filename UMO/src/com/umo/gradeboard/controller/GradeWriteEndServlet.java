@@ -77,7 +77,7 @@ public class GradeWriteEndServlet extends HttpServlet {
 				fb.setOriginal_filename(fileName);
 				fb.setClass1(khno);
 
-				int result=new GradeBoardService().GradeWrite(fb);
+				int result=new GradeBoardService().GradeWrite(fb,writer);
 				int gradeNo=new GradeBoardService().lastGradeContentNo(writer);
 				
 				String msg="";

@@ -189,17 +189,17 @@ public class FreeBoardDao {
 		return no;
 
 	}
-	public int freeUpdate(Connection conn,NoticeBoard nb) {
+	public int freeUpdate(Connection conn,Board fb) {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		int result=0;
 		String sql=prop.getProperty("freeUpdate");
 		try {
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, nb.getTitle());
-			pstmt.setString(2, nb.getContent());
-			pstmt.setString(3, nb.getOriginal_filename());
-			pstmt.setInt(4, nb.getNo());
+			pstmt.setString(1, fb.getTitle());
+			pstmt.setString(2, fb.getContent());
+			pstmt.setString(3, fb.getOriginal_filename());
+			pstmt.setInt(4, fb.getNo());
 			result=pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -328,5 +328,23 @@ public class FreeBoardDao {
 		}finally {
 			close(pstmt);
 		}return result;
+	}
+
+	public int updatePoint(Connection conn, String writer) {
+		Statement stmt=null;
+		int result2=0;
+		
+		String sql="";
+		sql="update Member set point=point+10 where Member_id='"+writer+"'";
+		
+		try {
+			stmt=conn.createStatement();
+			result2=stmt.executeUpdate(sql);
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			}
+		return result2;
 	}
 }

@@ -20,7 +20,7 @@
                         </ul>
                         
                         <a href="<%=request.getContextPath()%>/views/board/boardListView.jsp" class="lt_more"><i class="fa fa-plus"
-                                aria-hidden="true"></i></a>
+                       aria-hidden="true"></i></a>
                     </div>
                 </div>
                 <div style="float:left; margin-left: 44px; margin-right: 0%;" class="lt_wr">
@@ -173,6 +173,10 @@
 <!-- 콘텐츠 끝 -->
 
 <script type="text/javascript" src="./js/index.js"></script>
+
+<script>
+	console.log("<%= loginMember !=null ? loginMember.getPoint() : "" %>");
+</script>
 
 <!-- 하단 시작  -->
 <%@ include file="/views/common/footer.jsp"%>

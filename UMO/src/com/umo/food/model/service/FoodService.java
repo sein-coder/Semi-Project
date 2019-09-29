@@ -33,11 +33,15 @@ public class FoodService {
 	}
 
 
-	public int insertBoard(Food f) {
+	public int insertBoard(Food f,String writer) {
 		Connection conn = getConnection();
 		int result = dao.insertBoard(conn,f);
+		
 		if(result>0) {
+			int result2=dao.updatePoint(conn,writer);
+			if(result2>0) {
 			commit(conn);
+			}
 		}else {
 			rollback(conn);
 		}return result;

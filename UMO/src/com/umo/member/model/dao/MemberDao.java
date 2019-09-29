@@ -72,6 +72,7 @@ public int insertMember(Connection conn,Member m)
 				m.setClass1(rs.getString("class"));
 				m.setEmail(rs.getString("member_email"));
 				m.setKhno(rs.getInt("kh_cNo"));
+				m.setPoint(rs.getInt("point"));
 			}
 			
 		}catch(SQLException e) {
