@@ -13,7 +13,9 @@ import javax.servlet.http.HttpSession;
 
 import com.umo.member.model.service.MemberService;
 import com.umo.model.vo.Member;
-import static com.umo.session.model.vo.LoginSessionCount.loginMemberCount;
+import com.umo.session.model.service.SessionService;
+
+import static com.umo.session.model.vo.LoginSessionCount.loginMemberList;;
 /**
  * Servlet implementation class LoginhServlet
  */
@@ -48,12 +50,33 @@ public class LoginChServlet extends HttpServlet {
 		String loc="/";
 		String view="";
 		
+		//login business logic
 		if(m!=null) {
 			
-			HttpSession session=request.getSession();
-			session.setAttribute("loginMember", m);
-			loginMemberCount += 1;
-			System.out.println(loginMemberCount);
+			if(loginMemberList.size() == 0) {
+				loginMemberList.add(m);
+				request.getSession().setAttribute("loginMember", m);
+			}
+			else {
+				for(int i=0; i<loginMemberList.size(); i++) {
+					if(m.getMemberId().equals((loginMemberList.get(i)).getMemberId())) {							
+					   
+						msg="이미 로그인 된 회원입니다.";
+					    view="views/common/msg.jsp";
+					    
+					    request.setAttribute("msg", msg);
+					    request.setAttribute("loc", loc);
+					    request.getRequestDispatcher(view).forward(request, response);
+					    return;
+					}
+					
+					if(i == loginMemberList.size()-1) {
+						loginMemberList.add(m);
+						request.getSession().setAttribute("loginMember", m);
+						break;
+					}
+				}
+			}
 			if(saveId!=null)
 			{
 				Cookie c=new Cookie("saveId",id);
@@ -65,23 +88,21 @@ public class LoginChServlet extends HttpServlet {
 				response.addCookie(c);
 			}
 			
-			view="/";
-			response.sendRedirect(request.getContextPath());
+			//Session Log insert
+			new SessionService().insesrtLog(id);
 			
-			}else {
-				
-				
-				msg="등록되지않은 회원입니다.";
-				
-			   view="views/common/msg.jsp";
-			   request.setAttribute("msg", msg);
-			   request.setAttribute("loc", loc);
-			   RequestDispatcher rs=request.getRequestDispatcher(view);
-			   rs.forward(request, response);   
-			  
-			}
-//		request.setAttribute("loginMember", m);
-		
+			//Current login Member Counting
+			request.getSession().setAttribute("loginCount" ,loginMemberList.size());
+			response.sendRedirect(request.getContextPath());
+		}
+		else {
+		   msg="등록되지않은 회원입니다.";
+			
+		   view="views/common/msg.jsp";
+		   request.setAttribute("msg", msg);
+		   request.setAttribute("loc", loc);
+		   request.getRequestDispatcher(view).forward(request, response);   
+		}
 	}
 
 	/**

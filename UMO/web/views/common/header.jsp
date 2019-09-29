@@ -27,10 +27,26 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/se2/js/HuskyEZCreator.js" charset="utf-8"></script>
 
 </head>
-<!-- loginMember객체 생성 -->
 <%@ page import="com.umo.model.vo.Member" %>
+<script>
+	$(document).ready(function(){
+		$.ajax({
+			url:"<%=request.getContextPath()%>/sessionServlet",
+			dataType:"text",
+			type : "post", 
+			success : function(data){
+				console.log("성공");
+			}
+		});
+	});
+</script>
+<!-- loginMember객체 생성 -->
 <% 
 	Member loginMember = (Member)request.getSession().getAttribute("loginMember");
+	int loginCount = request.getSession().getAttribute("loginCount")!=null?(int)request.getSession().getAttribute("loginCount"):0;
+	int todayLogin = request.getSession().getAttribute("todayLogin")!=null?(int)request.getSession().getAttribute("todayLogin"):0;
+	int allLogin = request.getSession().getAttribute("allLogin")!=null?(int)request.getSession().getAttribute("allLogin"):0;
+	int maxLogin = request.getSession().getAttribute("maxLogin")!=null?(int)request.getSession().getAttribute("maxLogin"):0;
 %>
 
 <!-- 상단 -->

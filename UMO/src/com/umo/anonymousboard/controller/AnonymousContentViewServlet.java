@@ -61,12 +61,15 @@ public class AnonymousContentViewServlet extends HttpServlet {
 		}
 		AnonymousBoardService service=new AnonymousBoardService();
 		
-		Board ab= service.selectanonymousBoard(no,hasRead);
+		Board b= service.selectanonymousBoard(no,hasRead);
 		List<BoardComment> list=service.selectanonymousBoardComment(no);
 		
-		request.setAttribute("ab", ab);
+		request.setAttribute("b", b);
 		request.setAttribute("comments", list);
-		request.getRequestDispatcher("/views/anonymous/anonymousContentView.jsp").forward(request, response);
+	    request.setAttribute("board_type", "anonymous");
+	    request.setAttribute("titlename", "익명");
+	    
+		request.getRequestDispatcher("/views/board/boardContentView.jsp").forward(request, response);
 		
 	}
 

@@ -60,9 +60,14 @@ public class NoticeContentViewServlet extends HttpServlet {
 		NoticeBoardService service=new NoticeBoardService();
 		
 		NoticeBoard nb= service.selectnoticeBoard(no,hasRead);
+		NoticeBoard prenb= service.selectnoticeBoard(no-1,hasRead);
+		NoticeBoard nextnb= service.selectnoticeBoard(no+1,hasRead);
 		List<BoardComment> list=service.selectnoticeBoardComment(no);
 		
 		request.setAttribute("nb", nb);
+		request.setAttribute("prenb", prenb);
+		request.setAttribute("nextnb", nextnb);
+		
 		request.setAttribute("comments", list);
 		request.getRequestDispatcher("/views/notice/noticeContentView.jsp").forward(request, response);
 		

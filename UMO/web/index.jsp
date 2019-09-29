@@ -155,14 +155,14 @@
             <section id="visit">
                 <h2><i class="fa fa-users" aria-hidden="true"></i> 접속자집계</h2>
                 <dl>
-                    <dt><span class="color_1"></span> 오늘</dt>
-                    <dd><strong class="color_1">12</strong></dd>
-                    <dt><span class="color_2"></span> 어제</dt>
-                    <dd><strong class="color_2">13</strong></dd>
+                    <dt><span class="color_1"></span> 현재</dt>
+                    <dd><strong class="color_1"><%= loginCount %></strong></dd>
+                    <dt><span class="color_2"></span> 오늘</dt>
+                    <dd><strong class="color_2"><%= todayLogin %></strong></dd>
                     <dt><span class="color_3"></span> 최대</dt>
-                    <dd><strong class="color_3">26</strong></dd>
+                    <dd><strong class="color_3"><%= maxLogin %></strong></dd>
                     <dt><span class="color_4"></span> 전체</dt>
-                    <dd><strong class="color_4">5,697</strong></dd>
+                    <dd><strong class="color_4"><%= allLogin %></strong></dd>
                 </dl>
             </section>
             <!-- } 접속자집계 끝 -->
@@ -173,21 +173,6 @@
 <!-- 콘텐츠 끝 -->
 
 <script type="text/javascript" src="./js/index.js"></script>
-<script>
-$(document).ready(function(){
-	console.log("실행");
-	$.ajax({
-		url:"<%= request.getContextPath() %>/sessionServlet",
-		dataType:"text",
-		type:"post",
-		suceess:function(data){
-			console.log("성공");
-			console.log(data);
-		}
-	});
-});
-
-</script>
 <!-- 하단 시작  -->
 <%@ include file="/views/common/footer.jsp"%>
 <!-- 하단 끝 -->

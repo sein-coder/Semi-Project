@@ -1,7 +1,8 @@
 package com.umo.session.controller;
 
+import static com.umo.session.model.vo.LoginSessionCount.loginMemberList;
+
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,7 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.umo.model.vo.Member;
-import static com.umo.session.model.vo.LoginSessionCount.loginMemberCount;
+import com.umo.session.model.service.SessionService;
+import static com.umo.session.model.vo.LoginSessionCount.maxLogin;
 /**
  * Servlet implementation class SessionServlet
  */
@@ -30,12 +32,19 @@ public class SessionServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html;charset=UTF-8");
-		PrintWriter out = response.getWriter();
-		out.append("현재접속자 수 : ");
-		String count = String.valueOf(loginMemberCount);
-		out.append(count);
+		
+		int todayLogin = new SessionService().selectTodayLogin();
+		int allLogin = new SessionService().selectallLogin();
+		
+		if(maxLogin<loginMemberList.size()) {
+			maxLogin = loginMemberList.size();
+		}
+		
+		request.getSession().setAttribute("todayLogin", todayLogin);
+		request.getSession().setAttribute("allLogin", allLogin);
+		request.getSession().setAttribute("maxLogin", maxLogin);
+		request.getSession().setAttribute("loginCount",loginMemberList.size());
+		
 	}
 
 	/**
