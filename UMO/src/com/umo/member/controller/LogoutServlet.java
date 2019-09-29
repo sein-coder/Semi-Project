@@ -37,7 +37,7 @@ public class LogoutServlet extends HttpServlet {
 		if(session!=null) {
 			for(int i=0; i<loginMemberList.size(); i++) {
 				if(((Member)session.getAttribute("loginMember")).getMemberId()
-						.equals(loginMemberList.get(i))) {
+						.equals(loginMemberList.get(i).getMemberId())) {
 					loginMemberList.remove(i);
 					break;
 				}
