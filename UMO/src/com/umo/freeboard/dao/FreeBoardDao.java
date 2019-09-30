@@ -71,12 +71,12 @@ public class FreeBoardDao {
 			if(sfl!=null&&stx!=null) {
 				sql = "select * from  "
 						+ "(select rownum as rnum, a.* from "
-						+ "(select * from free_BOARD where "+sfl+" like '%"+stx+"%' order by Free_DATE desc)a where free_writer=?)"
+						+ "(select * from free_BOARD where "+sfl+" like '%"+stx+"%' order by Free_DATE desc)a where free_writer='"+userId+"')"
 						+ " where rnum between "+start+" and "+end;
 			}else {
 				sql = "select * from  "
 						+ "(select rownum as rnum, a.* from "
-						+ "(select * from free_BOARD order by Free_DATE desc)a where free_writer=?)"
+						+ "(select * from free_BOARD order by Free_DATE desc)a where free_writer='"+userId+"')"
 						+ " where rnum between "+start+" and "+end;
 			}
 		}else {

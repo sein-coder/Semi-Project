@@ -69,37 +69,17 @@
 
 					<div class="bo_fx">
 						<ul class="btn_bo_user">
+						<%if(loginMember!=null&&loginMember.getMemberId().equals("admin")){ %>
 							<li><a href="<%= request.getContextPath() %>/noticeWrite"
 								class="btn_b02 btn"><i class="fa fa-pencil"
 									aria-hidden="true"></i> 글쓰기</a></li>
+									<%} %>
 						</ul>
 					</div>
 
 				</form>
 
-				<!-- 게시판 검색 시작 { -->
-				<fieldset id="bo_sch">
-					<legend>게시물 검색</legend>
-
-					<form name="fsearch" method="get">
-						<input type="hidden" name="bo_table" value="gnsetting"> 
-						<input type="hidden" name="sca" value=""> 
-						<input type="hidden" name="sop" value="and"> 
-						<select name="sfl" id="sfl">
-							<option value="notice_title">제목</option>
-							<option value="notice_contents">내용</option>
-							<option value="notice_writer">작성자</option>
-							<option value="notice_title||notice_contents">제목+내용</option>
-						</select> 
-						<input type="text" name="stx" value="" id="stx" 
-							class="sch_input" size="25" maxlength="20"
-							placeholder="검색어를 입력해주세요">
-						<button type="submit" value="검색" class="sch_btn">
-							<i class="fa fa-search" aria-hidden="true"></i>
-						</button>
-					</form>
-				</fieldset>
-				<!-- 게시판 검색 끝 -->
+					
 				
 				<!-- 페이징 -->
 				<nav class="pg_wrap">

@@ -27,6 +27,24 @@ public class MyPageDao {
 	         e.printStackTrace();
 	      }
 	   }
+	public int selectAttendance(Connection conn,String userId,int attendance) {
+	      PreparedStatement pstmt=null;
+	      ResultSet rs=null;
+	      String sql=prop.getProperty("selectAttendance");
+	      try {
+	         pstmt=conn.prepareStatement(sql);
+	         pstmt.setString(1, userId);
+	         rs=pstmt.executeQuery();
+	         if(rs.next()) {
+	        	 attendance=rs.getInt("ceil(ABS(join_date-sysdate))");
+	         }
+	      }catch(SQLException e) {
+	         e.printStackTrace();
+	      }finally {
+	         close(rs);
+	         close(pstmt);
+	      }return attendance;
+	   }
 	
 	public Member selectOne(Connection conn,String userId) {
 	      PreparedStatement pstmt=null;

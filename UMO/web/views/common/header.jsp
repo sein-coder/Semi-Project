@@ -60,7 +60,7 @@
 	<div class="hd_sch_wr">
 		<fieldset id="hd_sch">
 			<legend>사이트 내 전체검색</legend>
-			<form name="fsearchbox" method="get" action="" onsubmit="">
+			<form name="fsearchbox" method="get" action="<%=request.getContextPath()%>/allboardsearch">
 				<input type="text" name="stx" id="sch_stx" maxlength="20"
 					placeholder="검색어를 입력해주세요">
 				<button type="submit" id="sch_submit" value="검색">

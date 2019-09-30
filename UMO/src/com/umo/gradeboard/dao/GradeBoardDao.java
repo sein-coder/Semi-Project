@@ -71,12 +71,12 @@ public class GradeBoardDao {
 			if(sfl!=null&&stx!=null) {
 				sql = "select * from  "
 						+ "(select rownum as rnum, a.* from "
-						+ "(select * from grade_BOARD where "+sfl+" like '%"+stx+"%' order by grade_DATE desc)a where grade_writer=?)"
+						+ "(select * from grade_BOARD where "+sfl+" like '%"+stx+"%' order by grade_DATE desc)a where grade_writer='"+userId+"')"
 						+ " where rnum between "+start+" and "+end;
 			}else {
 				sql = "select * from  "
 						+ "(select rownum as rnum, a.* from "
-						+ "(select * from grade_BOARD order by grade_DATE desc)a where grade_writer=?)"
+						+ "(select * from grade_BOARD order by grade_DATE desc)a where grade_writer='"+userId+"')"
 						+ " where rnum between "+start+" and "+end;
 			}
 		}else {

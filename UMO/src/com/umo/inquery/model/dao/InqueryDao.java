@@ -100,12 +100,12 @@ public class InqueryDao {
 			if(sfl!=null&&stx!=null) {
 				sql = "select * from  "
 						+ "(select rownum as rnum, a.* from "
-						+ "(select * from Inquery_board where "+sfl+" like '%"+stx+"%' order by board_date desc)a where board_writer=?)"
+						+ "(select * from Inquery_board where "+sfl+" like '%"+stx+"%' order by board_date desc)a where board_writer='"+userId+"')"
 						+ " where rnum between "+start+" and "+end;
 			}else {
 				sql = "select * from  "
 						+ "(select rownum as rnum, a.* from "
-						+ "(select * from Inquery_board order by board_date desc)a where board_writer=?)"
+						+ "(select * from Inquery_board order by board_date desc)a where board_writer='"+userId+"')"
 						+ " where rnum between "+start+" and "+end;
 			}
 		}else {
