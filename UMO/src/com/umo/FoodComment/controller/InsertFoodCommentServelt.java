@@ -45,7 +45,7 @@ public class InsertFoodCommentServelt extends HttpServlet {
 		foodComment.setComment_Writer(writer);
 		foodComment.setComment_Contents(content);
 		
-		int result=new FoodService().insertFoodComment(foodComment);
+		int result=new FoodService().insertFoodComment(foodComment,writer);
 		
 		String msg="";
 		String loc="/food/foodView?board_no="+boardRef;

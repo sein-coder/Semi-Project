@@ -41,7 +41,8 @@ public class GradeboardCommentInsertServlet extends HttpServlet {
 		
 		BoardComment bc=new BoardComment(0,level,writer,content,class1,boardRef,boardCommentRef,null);
 		
-		int result=new GradeBoardService().insertGradeBoardComment(bc);
+		int result=new GradeBoardService().insertGradeBoardComment(bc,writer);
+		
 		String msg="";
 		String loc="";
 		String view="/views/common/msg.jsp";

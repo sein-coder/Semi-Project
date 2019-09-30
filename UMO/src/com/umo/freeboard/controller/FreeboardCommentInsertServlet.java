@@ -41,7 +41,7 @@ public class FreeboardCommentInsertServlet extends HttpServlet {
 		
 		BoardComment bc=new BoardComment(0,level,writer,content,class1,boardRef,boardCommentRef,null);
 		
-		int result=new FreeBoardService().insertFreeBoardComment(bc);
+		int result=new FreeBoardService().insertFreeBoardComment(bc,writer);
 		String msg="";
 		String loc="/freeContentView?freeNo="+boardRef;
 		String view="/views/common/msg.jsp";

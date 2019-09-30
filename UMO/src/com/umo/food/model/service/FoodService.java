@@ -96,11 +96,13 @@ public class FoodService {
 		
 	}
 
-	public int insertFoodComment(FoodComment foodComment) {
+	public int insertFoodComment(FoodComment foodComment,String writer) {
 		Connection conn=getConnection();
 		int result=dao.insertFoodComment(conn,foodComment);
 		if(result>0) {
-			commit(conn);
+			int result3=dao.updateCommentPoint(conn,writer);
+			if(result3>0) {
+			commit(conn);}
 		}else {
 			rollback(conn);
 		}

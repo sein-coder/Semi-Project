@@ -85,11 +85,14 @@ public class InqueryService {
 		return list;
 	}
 
-	public int insertInqueryComment(InqueryComment inqueryComment) {
+	public int insertInqueryComment(InqueryComment inqueryComment,String writer) {
 		Connection conn = getConnection();
 		int result = dao.insertInqueryComment(conn,inqueryComment);
 		if(result>0) {
-			commit(conn);
+			int result3=dao.uppdateCommentPoint(conn,writer);
+			if(result3>0) {				
+				commit(conn);
+			}
 		}else {
 			rollback(conn);
 		}
