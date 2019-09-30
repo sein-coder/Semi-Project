@@ -8,7 +8,7 @@
 
 <%
 
-String path = request.getSession().getServletContext().getRealPath("/") + File.separator + "upload/food/contentimg"; // 이미지가 저장될 주소
+String path = request.getSession().getServletContext().getRealPath("/") + File.separator + request.getSession().getAttribute("board_path"); // 이미지가 저장될 주소
 String filename = "";
 
 if(request.getContentLength() > 10*1024*1024 ){

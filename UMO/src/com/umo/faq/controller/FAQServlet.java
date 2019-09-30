@@ -1,4 +1,4 @@
-package com.umo.question.controller;
+package com.umo.faq.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class QuestionWriteEndServlet
+ * Servlet implementation class FAQServlet
  */
-@WebServlet("/question/question/questionWriteEndServlet")
-public class QuestionWriteEndServlet extends HttpServlet {
+@WebServlet("/faqServlet")
+public class FAQServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QuestionWriteEndServlet() {
+    public FAQServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,11 +26,8 @@ public class QuestionWriteEndServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String inputCode = request.getParameter("inputCode");
-		String outputCode = request.getParameter("outputCode");
 		
-		System.out.println(inputCode);
-		System.out.println(outputCode);
+		request.getRequestDispatcher("views/common/FAQ.jsp").forward(request, response);
 		
 	}
 

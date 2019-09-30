@@ -67,7 +67,7 @@
 
 					<div class="bo_fx">
 						<ul class="btn_bo_user">
-							<li><a href="<%= request.getContextPath() %>/inquery/inqueryWrite"
+							<li><a href="<%= request.getContextPath() %>/webCopiler/webCopilerView"
 								class="btn_b02 btn"><i class="fa fa-pencil"
 									aria-hidden="true"></i> 글쓰기</a></li>
 						</ul>

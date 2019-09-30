@@ -102,6 +102,8 @@ public class GradeBoardServlet extends HttpServlet {
 	    request.setAttribute("titlename", "반별");
 	    request.setAttribute("numPerPage", numPerPage);
 	    
+	    request.getSession().setAttribute("board_path", "upload/grade/contentimg");
+	    
 		request.getRequestDispatcher("/views/board/boardListView.jsp").forward(request, response);
 		
 		

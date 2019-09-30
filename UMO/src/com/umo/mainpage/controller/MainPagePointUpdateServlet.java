@@ -1,23 +1,28 @@
-package com.umo.question.controller;
+package com.umo.mainpage.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.umo.member.model.service.MemberService;
+import com.umo.model.vo.Member;
+
 /**
- * Servlet implementation class QuestionWriteServlet
+ * Servlet implementation class MainPagePointUpdateServlet
  */
-@WebServlet("/question/questionWriteServlet")
-public class QuestionWriteServlet extends HttpServlet {
+@WebServlet("/mainPagePointUpdateServlet")
+public class MainPagePointUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QuestionWriteServlet() {
+    public MainPagePointUpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,16 +31,11 @@ public class QuestionWriteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String inputCode = request.getParameter("inputCode");
-		String outputCode = request.getParameter("outputCode");
-		//outputCode 줄개행 전처리
-		inputCode = inputCode.replaceAll("(\r\n|\r|\n|\n\r)", " ");
-		outputCode = outputCode.replaceAll("(\r\n|\r|\n|\n\r)", ",");
-		
-		request.setAttribute("inputCode", inputCode);
-		request.setAttribute("outputCode", outputCode);	
-		
-		request.getRequestDispatcher("/views/question/questionForm.jsp").forward(request, response);
+		String Member_id = request.getSession().getAttribute("loginMember").toString();
+		Member member = new MemberService().selectPointId(Member_id);
+
+		response.setContentType("application/json; charset=UTF-8");
+		new Gson().toJson(member,response.getWriter());
 	}
 
 	/**

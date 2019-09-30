@@ -99,7 +99,8 @@ public class FreeBoardServlet extends HttpServlet {
 	    request.setAttribute("numPerPage", numPerPage);
 	    request.setAttribute("board_type", "free");
 	    request.setAttribute("titlename", "자유");
-	    request.setAttribute("numPerPage", numPerPage);
+	    
+	    request.getSession().setAttribute("board_path", "upload/free/contentimg");
 	    
 		request.getRequestDispatcher("/views/board/boardListView.jsp").forward(request, response);
 		

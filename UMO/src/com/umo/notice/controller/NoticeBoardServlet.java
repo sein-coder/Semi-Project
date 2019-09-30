@@ -95,6 +95,8 @@ public class NoticeBoardServlet extends HttpServlet {
 	    request.setAttribute("list", list);
 	    request.setAttribute("numPerPage", numPerPage);	    
 	    
+	    request.getSession().setAttribute("board_path", "upload/notice/contentimg");
+	    
 		request.getRequestDispatcher("/views/notice/noticeListView.jsp").forward(request, response);	    
 	}
 

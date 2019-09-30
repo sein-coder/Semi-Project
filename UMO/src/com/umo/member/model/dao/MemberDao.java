@@ -102,13 +102,35 @@ public int insertMember(Connection conn,Member m)
 	      }finally {
 	         close(pstmt);
 	      }return result;
-	   }	
-		
-	
-		
-		
-		
-		}
+	   }
+	public Member selectPointId(Connection conn, String member_id) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		Member m=null;
+		String sql=prop.getProperty("selectOne");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, member_id);
+			rs=pstmt.executeQuery();
+			if(rs.next())
+			{
+				m=new Member();
+				m.setMemberId(rs.getString("member_id"));
+				m.setMemberPw(rs.getString("member_password"));
+				m.setMemberName(rs.getString("member_name"));
+				m.setClass1(rs.getString("class"));
+				m.setEmail(rs.getString("member_email"));
+				m.setKhno(rs.getInt("kh_cNo"));
+				m.setPoint(rs.getInt("point"));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return m;
+	}	
+}
 
 
 	

@@ -57,7 +57,6 @@ public class FoodDao {
 		Statement stmt = null;
 		ResultSet rs = null;
 		List<Food> list = new ArrayList();
-		System.out.println(userId+"foodboard");
 		String sql="";
 		int start=(cPage-1)*numPerPage+1;
 		int end=cPage*numPerPage;

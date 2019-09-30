@@ -17,7 +17,7 @@
 		select#language-choice option { font-size: 18px; }
 		button#btn-compiler{ font-size: 20px; color: red; padding-left: 15%; padding-right: 15%;}
 		div.title { font-size: 1.67em; font-weight: bold; text-align: center; }
-	    div#editor,div#result { margin-top:20px; margin-left: auto; margin-right: auto; font-size: 15px; height:300px; width: 700px; border: 1px solid black;}
+	    div#editor,div#result { margin-top:20px; margin-left: auto; margin-right: auto; font-size: 15px; height:300px; width:700px; border: 1px solid black;}
 	    .as-console-wrapper { display: none !important; }
 	    div.result { text-align: left; margin-left: 30%;}
 	    div.ace_scroller { width: 680px; }
@@ -31,8 +31,6 @@
 		언어 선택 :
 		<select name="language-choice" id="language-choice">
 			<option value="Java" selected>Java</option>
-			<option value="HTML">HTML</option>
-			<option value="javaScript">javaScript</option>
 		</select>
 		</div>
 		
@@ -82,9 +80,9 @@
 	    editor.getSession().setValue(code);
 	    commitChanges();
 	    
-	    var resulteditor = ace.edit('result');
-	    resulteditor.getSession().setMode("ace/mode/java");
-	    
+		var resulteditor = ace.edit('result');
+	    resulteditor.getSession().setMode();
+
 	    // Main Logic
 	    setTimeout(formatCode, 500); // Format sample Java after 1 second.
 	
@@ -124,19 +122,23 @@
 					"language-choice":$("#language-choice").val()},
 				dataType:"text",
 				success:function(data){
-					if($("#result").css("display") == "none") {
-						$("#result").show('slow');
-						$("html").animate({scrollTop : ($("#result").offset().top)}, 500);
-					}else{
-						$("html").animate({scrollTop : ($("#result").offset().top)}, 500);
-					}
 					var CodeResult = data.substring(1,data.length-1).split(",");
 					for(var i = 0 ; i<CodeResult.length-1; i++){
 						result += CodeResult[i].split(",")+"\n";
 					}
-					resulteditor.getSession().setValue(result);
-					$("#outputCode").val(resulteditor.getSession().getValue());
+					$("#outputCode").val(result);
+					resulteditor.resize();
 		    		resulteditor.setReadOnly(true);
+					resulteditor.getSession().setValue($("#outputCode").val());
+					
+					setTimeout(function() {
+						if($("#result").css("display") == "none") {
+								$("#result").show('slow');
+								$("html").animate({scrollTop : ($("#result").offset().top)}, 500);
+						}else{
+								$("html").animate({scrollTop : ($("#result").offset().top)}, 500);
+						}
+						}, 2000);
 				}
     		});
     	}

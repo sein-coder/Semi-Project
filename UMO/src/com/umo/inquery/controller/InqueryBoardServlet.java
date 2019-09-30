@@ -94,6 +94,8 @@ public class InqueryBoardServlet extends HttpServlet {
 		request.setAttribute("cPage", cPage);
 		request.setAttribute("numPerPage", numPerPage);	 
 		
+		request.getSession().setAttribute("board_path", "upload/inquery/contentimg");
+		
 		request.getRequestDispatcher("/views/inquery/inqueryListView.jsp").forward(request, response);
 	}
 

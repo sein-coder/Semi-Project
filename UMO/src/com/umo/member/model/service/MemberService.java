@@ -22,7 +22,6 @@ public class MemberService {
 		else {rollback(conn);}
 		
 		return result;
-		
 	}
 	
 	public Member selectId(String id,String pw)
@@ -31,9 +30,8 @@ public class MemberService {
 		Member m=dao.selectId(conn,id,pw);
 		close(conn);
 		return m;
-		
-		
 	}
+	
 	public int updateMember(Member m) {
 	      Connection conn=getConnection();
 	      int result=dao.updateMember(conn,m);
@@ -41,7 +39,14 @@ public class MemberService {
 	      else {rollback(conn);}
 	      close(conn);
 	      return result;
-	   }
+	}
+
+	public Member selectPointId(String member_id) {
+		Connection conn=getConnection();
+		Member m=dao.selectPointId(conn,member_id);
+		close(conn);
+		return m;
+	}
 
 
 

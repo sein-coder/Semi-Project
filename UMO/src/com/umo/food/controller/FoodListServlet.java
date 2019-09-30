@@ -77,6 +77,8 @@ public class FoodListServlet extends HttpServlet {
 		request.setAttribute("list", list);
 		request.setAttribute("cPage", cPage);
 		
+		request.getSession().setAttribute("board_path", "upload/food/contentimg");
+		
 		request.getRequestDispatcher("/views/food/foodList.jsp").forward(request,response);
 		
 	}

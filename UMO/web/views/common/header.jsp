@@ -28,6 +28,14 @@
 
 </head>
 <%@ page import="com.umo.model.vo.Member" %>
+<!-- loginMember객체 생성 -->
+<% 
+	Member loginMember = (Member)request.getSession().getAttribute("loginMember");
+	int loginCount = request.getSession().getAttribute("loginCount")!=null?(int)request.getSession().getAttribute("loginCount"):0;
+	int todayLogin = request.getSession().getAttribute("todayLogin")!=null?(int)request.getSession().getAttribute("todayLogin"):0;
+	int allLogin = request.getSession().getAttribute("allLogin")!=null?(int)request.getSession().getAttribute("allLogin"):0;
+	int maxLogin = request.getSession().getAttribute("maxLogin")!=null?(int)request.getSession().getAttribute("maxLogin"):0;
+%>
 <script>
 	$(document).ready(function(){
 		$.ajax({
@@ -39,27 +47,22 @@
 			}
 		});
 		
-<%-- 		 setInterval(function () {
+	setInterval(function () {
+		if(<%=loginMember!=null?true:false%>) {
 			 $.ajax({
 					url:"<%=request.getContextPath()%>/sessionServlet",
 					dataType:"text",
 					type : "post", 
 					success : function(data){
-					console.log("성공");
+					console.log("Member성공");
+					console.log(data);
 				}
 			});
-		 }, 5000 ); --%>
-	});
+		}
+	}, 5000 );
+});
 	
 </script>
-<!-- loginMember객체 생성 -->
-<% 
-	Member loginMember = (Member)request.getSession().getAttribute("loginMember");
-	int loginCount = request.getSession().getAttribute("loginCount")!=null?(int)request.getSession().getAttribute("loginCount"):0;
-	int todayLogin = request.getSession().getAttribute("todayLogin")!=null?(int)request.getSession().getAttribute("todayLogin"):0;
-	int allLogin = request.getSession().getAttribute("allLogin")!=null?(int)request.getSession().getAttribute("allLogin"):0;
-	int maxLogin = request.getSession().getAttribute("maxLogin")!=null?(int)request.getSession().getAttribute("maxLogin"):0;
-%>
 
 <!-- 상단 -->
 <div id="hd_wrapper">
@@ -79,19 +82,11 @@
 					<i class="fa fa-search" aria-hidden="true"></i>
 				</button>
 			</form>
-
-			<script>
-                    function fsearchbox_submit() {
-
-                    }
-                </script>
-
 		</fieldset>
-
 
 	</div>
 	<ul id="hd_qnb">
-		<li><a href=""><i class="fa fa-question" aria-hidden="true"></i><span>FAQ</span></a></li>
+		<li><a href="<%= request.getContextPath() %>/faqServlet"><i class="fa fa-question" aria-hidden="true"></i><span>FAQ</span></a></li>
 		<li><a href=""><i class="fa fa-comments" aria-hidden="true"></i><span>1:1문의</span></a></li>
 		<li><a href=""><i class="fa fa-user" aria-hidden="true"></i><span>내정보</span></a></li>
 	</ul>
@@ -106,17 +101,17 @@
 					<i class="fa fa-bars" aria-hidden="true"></i>
 				</button></li>
 			<li class="gnb_1dli" style="margin-left: 5%"><a href="<%=request.getContextPath() %>/noticeBoard" 
-			    class="gnb_1da">공지사항</a></li>
+			    class="gnb_1da">공지 사항</a></li>
 			<li class="gnb_1dli" style="margin-left: 5%"><a href="<%=request.getContextPath() %>/anonymousBoard" 
-			    class="gnb_1da">익명게시판</a></li>
+			    class="gnb_1da">익명 게시판</a></li>
 			<li class="gnb_1dli" style="margin-left: 5%"><a href="<%=request.getContextPath() %>/freeBoard"
-				class="gnb_1da">자유게시판</a></li>
+				class="gnb_1da">자유 게시판</a></li>
 			<li class="gnb_1dli" style="margin-left: 5%"><a href="<%=request.getContextPath() %>/gradeBoard"
-				class="gnb_1da">반별게시판</a></li>
+				class="gnb_1da">반별 게시판</a></li>
 			<li class="gnb_1dli" style="margin-left: 5%"><a href="<%=request.getContextPath() %>/inquery/inqueryBoard"
-				class="gnb_1da">코딩게시판</a></li>
+				class="gnb_1da">질의 게시판</a></li>
 			<li class="gnb_1dli" style="margin-left: 5%"><a href="<%=request.getContextPath() %>/food/foodList"
-				class="gnb_1da">맛집게시판</a></li>
+				class="gnb_1da">맛집 게시판</a></li>
 
 		</ul>
 		<div id="gnb_all">
@@ -162,14 +157,14 @@
 	</div>
 </nav>
 <script>
-					$(function() {
-						$(".gnb_menu_btn").click(function() {
-							$("#gnb_all").show();
-						});
-						$(".gnb_close_btn").click(function() {
-							$("#gnb_all").hide();
-						});
-					});
-				</script>
+	$(function() {
+		$(".gnb_menu_btn").click(function() {
+			$("#gnb_all").show();
+		});
+		$(".gnb_close_btn").click(function() {
+			$("#gnb_all").hide();
+		});
+	});
+</script>
 
 <!-- 상단 끝 -->

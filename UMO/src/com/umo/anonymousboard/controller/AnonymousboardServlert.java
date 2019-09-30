@@ -98,6 +98,8 @@ public class AnonymousboardServlert extends HttpServlet {
 	    request.setAttribute("titlename", "익명");
 	    request.setAttribute("numPerPage", numPerPage);
 	    
+	    request.getSession().setAttribute("board_path", "upload/anonymous/contentimg");
+	    
 		request.getRequestDispatcher("/views/board/boardListView.jsp").forward(request, response);
 		
 		

@@ -86,7 +86,7 @@
 						<span class="nb_date"><%= prenb!=null?prenb.getDate():"" %></span></li>
 					<li class="btn_next"><span class="nb_tit"><i
 						class="fa fa-caret-down" aria-hidden="true"></i> 다음글</span>
-						<% if(prenb!=null&&nextnb.getTitle()!=null) { %>
+						<% if(nextnb!=null&&nextnb.getTitle()!=null) { %>
 						<a href="<%=request.getContextPath()%>/noticeContentView?noticeNo=<%=nextnb.getNo()%>"><%= nextnb.getTitle() %></a> 
 						<% } else { %>
 						<a href="">다음 글이 없습니다.</a> 

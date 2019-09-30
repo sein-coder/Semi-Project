@@ -64,7 +64,6 @@ public class AnonymousBoardDao {
 		Statement stmt = null;
 		ResultSet rs = null;
 		List<Board> list = new ArrayList<Board>();
-		System.out.println("selectAnonymousBoardList");
 		String sql="";
 		int start=(cPage-1)*numPerPage+1;
 		int end=cPage*numPerPage;
