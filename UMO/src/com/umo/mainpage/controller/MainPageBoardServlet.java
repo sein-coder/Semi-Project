@@ -48,7 +48,6 @@ public class MainPageBoardServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String type = request.getParameter("ajax");
-		
 		String sfl = null;
 		String stx = null;
 
@@ -87,6 +86,13 @@ public class MainPageBoardServlet extends HttpServlet {
 			response.setContentType("application/json; charset=UTF-8");
 			new Gson().toJson(foodlist,response.getWriter());
 			
+			break;
+		case "notice":
+			List<Board> noticelist = new NoticeBoardService().selectNoticeboardList(1, 1, "", "",sfl,stx);
+	
+			response.setContentType("application/json; charset=UTF-8");
+			new Gson().toJson(noticelist,response.getWriter());
+		
 			break;
 		}
 		

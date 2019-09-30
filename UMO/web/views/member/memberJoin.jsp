@@ -38,7 +38,9 @@
 							<li>
 							    <input type="text" name="mb_id" value="" id="reg_mb_id"
 								 class="frm_input half_input required" minlength="3"
-								maxlength="20" placeholder="아이디"><span id="msg_mb_id"></span>
+								maxlength="20" placeholder="아이디"><span id="msg_mb_id">
+								<input class="btn_b02 btn" type="button" onclick="idduplicate();" value="중복확인" style="width:7%; height:13%;"/>
+								</span>
 								<span class="frm_info">영문자, 숫자, _ 만 입력 가능. 최소 3자이상 입력하세요.</span>
 							</li>
 							<li>
@@ -98,7 +100,208 @@ var reg= /^[a-zA-Z][a-zA-Z0-9]{3,10}$/;
 var reg2=/^[a-zA-z][a-zA-z0-9]{5,12}$/;
 //
 var reg3=/^[가-힣]{2,4}$/; */
+
+/* function validate(){
+
+	if(!reg.test(id.value)){
+		
+	    alert("아이디는 4자이상 10자이하를 입력해야합니다.");
+	    return false;
+	}
+	 if(!reg2.test(password.value)){
+	     alert("비밀번호는 5자이상 12자이하를 입력해야합니다.");
+	     return false;
+	 }
+	if(!reg3.test(name.value())){
+	    alert("한글이름만 되며 2글자이상이여야 합니다.");
+	    return false;
+	}
+
+
+	frm.action="/index.jsp";
+
+	} */
+
+
+
+	
+
 </script>
+
+<script>
+var studentNum=$("#reg_mb_khNum");
+
+
+var pwcheck=$("#pwcheck");
+var namecheck=$("#namecheck");
+var emailcheck=$("#emailcheck");
+
+/* $(document).ready(function(){
+	$("#fregisterform").submit(function()
+	{
+		var id=$("#reg_mb_id");
+	
+		  var reg= /^[a-zA-Z][a-zA-Z0-9]{3,10}$/;
+	if(id.val()=='')
+		{
+		  idcheck.text("아이디를 입력하세요");
+            id.focus();
+            return false;
+		
+		}
+	 else if(!reg.test(id.val()))
+     {
+                idcheck.text("4자이상입력 11자이하입력,앞에는 영문자");
+                idcheck.css("color","red");
+                id.focus();
+                return false;
+            }
+	 else{
+		 idcheck.text("");
+	 }
+	var reg2=/^[a-zA-z][a-zA-z0-9]{5,12}$/;
+	var pw=$("#reg_mb_password");
+	var pw2=$("#reg_mb_password_re");
+
+    if(pw.val() =='') {
+        pwcheck.text("비밀번호를 입력하세요!");
+        pw.focus();
+        return false;
+    }
+    else if(!reg2.test(pw.val())){
+        pwcheck.text("첫글자는 영문자이며 6~12자이내로 입력");
+        pw.focus();
+        return false;
+    }
+   
+    
+   
+    if(pw2.val() =='') {
+        pwcheck.text("비밀번호확인란에 비밀번호를 다시 한번 더 입력하세요!");
+        pw2.focus();
+        return false;
+    }
+    else if(pw.val()!= pw2.val()){
+        pwcheck.text('입력한 두 개의 비밀번호가 일치하지 않습니다');
+        pw2.focus();
+        return false;
+    }
+	
+   
+   
+	var reg3=/^[가-힣]{2,4}$/;
+	var name=$("#reg_mb_name");
+if( name.val() =='') {
+    namecheck.text("이름을 입력하세요");
+    name.focus();
+    return false;
+}
+
+	else if (!reg3.test(name.val())) {
+        namecheck.text("2자이상입력,한글만 가능");
+        name.focus();
+        return false;
+    }
+    
+var reg4 = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+var email=$("#reg_mb_email");
+
+if(email.val() ==""){
+	emailcheck.text("이메일입력");
+	
+    email.focus();
+    return false;
+} 
+else if (!reg4.test(email.val())) {
+	emailcheck.text("이메일 주소가 유효하지 않습니다.예:g30w@naver.com");
+    email.focus();
+    return false;
+}
+	
+
+
+
+	});
+	
+	
+	
+	
+
+    }) */
+
+    /* ${pageContext.request.ContextPath}/member/idcheck?memberId="+id */
+    var id=$("#reg_mb_id");
+    var idcheck=$("#idcheck"); 
+    $(document).ready(function(){
+    	
+    });
+    function idduplicate()
+    {
+    	$.ajax({
+    		url:"/idcheck",
+    		type:post,
+    		data:{"id":id},
+    		success:(function(data)
+    	{
+    		if(data==1)
+    			{
+    			idcheck.text("아이디가 존재합니다.");
+    			id.focus();
+    			return false;
+    			}
+    		else{
+    			idcheck.text("사용가능합니다.");
+    			
+    		}
+    			
+    	})
+    	
+    	});
+    	}
+    	
+   
+    	
+    
+    
+
+    <%-- 	$(document).ready(function(){
+    		
+    	
+	$("#fregisterform").submit(function(){
+		
+		
+    			var reg= /^[a-zA-Z][a-zA-Z0-9]{3,10}$/;
+    			
+    			 $.ajax({
+    		        	url : "<%=request.getContextPath()%>/idcheck", 
+    		        	dataType:"json",
+    		        	data: { "id": $("#reg_mb_id").val(), "reg": reg },
+    		        	type : "get",
+    		        	beforeSend:function(data){
+    		        		if(!reg.test(id))
+    		        			
+    		        	
+    		        	},
+    		        	
+    		        		 success : function() {
+    		        		idcheck.text("");
+    		        			 
+    		               },
+    		        	 error:function()
+    		        	 {
+    		        		 idcheck.text("4자이상입력");
+  		        			id.focus()
+  		        			return false;
+    		        	 }
+    		        	
+    		              
+    		              
+    			 });
+    			   	
+	});
+    	}); --%>
+</script>
+
 
 
 <!-- 콘텐츠 끝 -->

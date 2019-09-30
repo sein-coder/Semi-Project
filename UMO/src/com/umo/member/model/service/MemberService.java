@@ -48,6 +48,15 @@ public class MemberService {
 		return m;
 	}
 
+	public Member idCheck(String id)
+	{
+	Connection conn=getConnection();
+	Member m=dao.idCheck(conn,id);
+	
+	close(conn);
+	return m;
+	
+}
 
 
 

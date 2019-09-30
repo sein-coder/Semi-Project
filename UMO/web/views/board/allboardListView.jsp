@@ -95,7 +95,7 @@
 
 					<div class="bo_fx">
 						<ul class="btn_bo_user">
-							<li><a href="<%= request.getContextPath() %>noticeBoard?bo_table=gnsetting&sca=&sop=and&sfl=notice_title%7C%7Cnotice_contents&stx=<%=stx %>"
+							<li><a href="<%= request.getContextPath() %>/noticeBoard?bo_table=gnsetting&sca=&sop=and&sfl=notice_title%7C%7Cnotice_contents&stx=<%=stx %>"
 								class="btn_b02 btn"> 더보기</a></li>
 						</ul>
 					</div>

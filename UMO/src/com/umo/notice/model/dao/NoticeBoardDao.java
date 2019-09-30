@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.umo.model.vo.Board;
 import com.umo.model.vo.BoardComment;
 import com.umo.model.vo.NoticeBoard;
 
@@ -320,7 +321,6 @@ public class NoticeBoardDao {
 		return result;
 	
 }
-
 	public int updatePoint(Connection conn, String writer) {
 		Statement stmt = null;
 		int result2 =0;
@@ -355,5 +355,64 @@ public class NoticeBoardDao {
 			close(stmt);
 		}
 		return result3;
+	}
+	
+	public List<Board> selectNoticeboardList(Connection conn, int cPage, int numPerPage,String name,String userId,String sfl,String stx) {
+		Statement stmt = null;
+		ResultSet rs = null;
+		List<Board> list = new ArrayList<Board>();
+
+		String sql="";
+		int start=(cPage-1)*numPerPage+1;
+		int end=cPage*numPerPage;
+
+		if(name.equals("myPage")) {
+			if(sfl!=null&&stx!=null) {
+				sql = "select * from  "
+						+ "(select rownum as rnum, a.* from "
+						+ "(select * from notice_BOARD where "+sfl+" like '%"+stx+"%' order by notice_DATE desc)a where notice_writer='"+userId+"')"
+						+ " where rnum between "+start+" and "+end;
+			}else {
+				sql = "select * from  "
+						+ "(select rownum as rnum, a.* from "
+						+ "(select * from notice_BOARD order by notice_DATE desc)a where notice_writer='"+userId+"')"
+						+ " where rnum between "+start+" and "+end;
+			}
+		}else {
+			if(sfl!=null&&stx!=null) {
+				sql = "SELECT * FROM "
+						+ "(SELECT ROWNUM AS RNUM, A.* FROM "
+						+ "(SELECT * FROM notice_BOARD where "+sfl+" like '%"+stx+"%' ORDER BY notice_DATE DESC)A ) "
+						+ "WHERE RNUM BETWEEN "+start+" and "+end;
+			}else {
+				sql = "SELECT * FROM "
+						+ "(SELECT ROWNUM AS RNUM, A.* FROM "
+						+ "(SELECT * FROM notice_BOARD ORDER BY notice_DATE DESC)A ) "
+						+ "WHERE RNUM BETWEEN "+start+" and "+end;
+			}
+		}
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				Board b = new Board();
+				b.setNo(rs.getInt("notice_no"));
+				b.setWriter(rs.getString("notice_writer"));
+				b.setTitle(rs.getString("notice_title"));
+				b.setContent(rs.getString("notice_contents"));
+				b.setOriginal_filename(rs.getString("Original_filename"));
+				b.setRenamed_filename(rs.getString("renamed_filename"));
+				b.setDate(rs.getDate("notice_date"));
+				b.setCount(rs.getInt("notice_count"));
+				list.add(b);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(stmt);
+		}
+		return list;
 	}
 }

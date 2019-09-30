@@ -103,6 +103,7 @@ public int insertMember(Connection conn,Member m)
 	         close(pstmt);
 	      }return result;
 	   }
+	
 	public Member selectPointId(Connection conn, String member_id) {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -129,8 +130,37 @@ public int insertMember(Connection conn,Member m)
 			close(rs);
 			close(pstmt);
 		}return m;
-	}	
+	}		
+		
+	public Member idCheck(Connection conn,String id)
+	{
+		 PreparedStatement pstmt=null;
+	      ResultSet rs=null;
+	      Member m=null;
+	      String sql=prop.getProperty("idcheck");
+	      
+	      try {
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1, id);
+				rs=pstmt.executeQuery();
+				if(rs.next()) {
+					m=new Member();
+					m.setMemberId(rs.getString("member_id"));
+					m.setMemberName(rs.getString("member_name"));
+					m.setClass1(rs.getString("class"));
+					m.setEmail(rs.getString("member_email"));
+					m.setKhno(rs.getInt("kh_cno"));
+				    m.setJoin_date(rs.getDate("join_date"));
+				}
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rs);
+				close(pstmt);
+			}return m;
+		}
 }
+
 
 
 	
