@@ -104,7 +104,7 @@ public class FoodDao {
 				f.setBoard_Count(rs.getInt("board_count"));
 				f.setWriting_Status(rs.getString("writing_status").charAt(0));
 				f.setBoard_Grade(rs.getInt("board_grade"));
-//				f.setBoard_tag(rs.getString("board_tag"));
+				f.setBoard_tag(rs.getString("board_tag"));
 				f.setBoard_tel(rs.getString("board_tel"));
 				list.add(f);
 			}

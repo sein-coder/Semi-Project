@@ -58,8 +58,9 @@ public class MyPageServlet extends HttpServlet {
 		List<Board> freelist =new FreeBoardService().selectFreeBoardList(cPage, numPerPage,name,userId,null,null);	
 		 List<Board> gradelist =new GradeBoardService().selectGradeBoardList(cPage, numPerPage,name,userId,null,null);
 		
-		 
-		 
+		int attendance=0; 
+		attendance=new MyPageService().selectAttendance(userId,attendance);
+		
 		String comment="Notice_Comment";
 		List<Comment> NoticeCommentlist = new MyPageService().selectCommentList(cPage,numPerPage,name,userId,comment);
 		comment="Food_Comment";
@@ -73,7 +74,7 @@ public class MyPageServlet extends HttpServlet {
 		comment="anonymous_COMMENT";
 		List<Comment> anonymousCommentlist = new MyPageService().selectCommentList(cPage,numPerPage,name,userId,comment);
 		
-		
+		request.setAttribute("attendance", attendance);
 		request.setAttribute("gradelist", gradelist);
 		request.setAttribute("gradeCommentlist", gradeCommentlist);
 		request.setAttribute("freeCommentlist", freeCommentlist);

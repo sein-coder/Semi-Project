@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List, com.umo.model.vo.*" %>
 <%
+int attendance=(Integer)(request.getAttribute("attendance"));
 List<Food> foodlist = (List<Food>)request.getAttribute("foodlist");
 List<Board> anonymouslist = (List<Board>)request.getAttribute("anonymousBoardList");
 List<Inquery> inquerylist = (List<Inquery>)request.getAttribute("inquerylist"); 
@@ -21,13 +22,13 @@ int count = 0;
 <%@ include file="/views/common/header.jsp"%>
 <section id="intro" class="main style12">
         <div>
-            <div class="content" style="margin-left:10%;">
+            <div class="content" >
                 <button onclick="click1();">전체보기</button>
                 <button onclick="click2();">게시글</button>
                 <button onclick="click3();">댓글</button>
                 <button onclick="click4();">쪽지</button>
                 <div style="margin-left:0 auto; ">
-                    <p>출석은~일</p>
+                    <p>가입일로부터 <%=attendance %>일 </p>
                     <button onclick="infoUpdate();">정보수정</button>
                 </div>
         <br>
@@ -42,7 +43,67 @@ int count = 0;
 				  <option value="질의">질의</option>
 				  <option value="반별">반별</option>
 			</select>
-        
+        <div id="wrapper">
+	<div id="container_wr">
+		<div id="container freeboard" style="display:none">
+			<h2 id="container_title"> 
+				<span title="자유 게시판">자유 게시판</span>
+			</h2>
+			<!-- 게시판 목록 시작 { -->
+			<div id="bo_list" style="width: 100%">
+
+				<form name="fboardlist" id="fboardlist" action=""
+					onsubmit="return fboardlist_submit(this);" method="post">
+
+					<div class="tbl_head01 tbl_wrap">
+					
+						<table>
+							<caption>자유 게시판</caption>
+							<thead>
+								<tr>
+									<th width="10%" style="text-align: left;">번호</th>
+									<th width="60%">제목</th>
+									<th width="10%">글쓴이</th>
+									<th width="10%"><a href="">조회 <i class="fa fa-sort"
+											aria-hidden="true"></i></a></th>
+									<th width="10%"><a href="">날짜 <i class="fa fa-sort"
+											aria-hidden="true"></i></a></th>
+								</tr>
+							</thead>
+							<tbody>
+								<% for(Board b : freelist) { %>
+							<%
+							if(count<5) {%>
+								<tr>
+								   <td class="td_num2"><%= b.getNo() %></td>
+								   <td class="td_subject" style="padding-left:0px">
+                                     <div class="bo_tit">
+                                        <a href="<%=request.getContextPath()%>/freeContentView?freeNo=<%=b.getNo()%>"><%= b.getTitle() %></a>
+                                     </div>
+                                   </td>
+								   <td class="td_name sv_use" style="text-align: center;"><%= b.getWriter() %></td>
+								   <td class="td_num"><%= b.getCount() %></td>
+								   <td class="td_datetime"><%= b.getDate() %></td>
+								</tr>
+								<%count++; } 
+							}count=0;%>
+							</tbody>
+						</table>
+					</div>
+
+					<div class="bo_fx">
+						<ul class="btn_bo_user">
+							<li><a href="<%= request.getContextPath() %>/freeBoard"
+								class="btn_b02 btn"> 더보기</a></li>
+						</ul>
+					</div>
+
+				</form>
+				
+			</div>
+		</div>
+	</div>
+</div>
             <fieldset>
                 <legend>내 게시글</legend> <br>
                 <table id="foodboard">
@@ -155,7 +216,7 @@ int count = 0;
                 <legend>내 쪽지</legend> <br>
                 <table>
                 <tr>
-                	<td>dd</td>
+                	<td></td>
                 </tr>
                 
                 </table>
