@@ -20,7 +20,7 @@
                         </ul>
                         
                         <a href="<%=request.getContextPath()%>/views/board/boardListView.jsp" class="lt_more"><i class="fa fa-plus"
-                                aria-hidden="true"></i></a>
+                       aria-hidden="true"></i></a>
                     </div>
                 </div>
                 <div style="float:left; margin-left: 44px; margin-right: 0%;" class="lt_wr">
@@ -129,6 +129,7 @@
                     <a href="<%= request.getContextPath() %>/logout" id="ol_after_logout" class="btn_b04">로그아웃</a>
                 </header>
                 <ul id="ol_after_private">
+                
                     <li>
                         <a href="" target="_blank" id="ol_after_memo" class="win_memo">
                             <span class="sound_only">안 읽은 </span>쪽지<br>
@@ -168,11 +169,18 @@
             <!-- } 접속자집계 끝 -->
         </div>
     </div>
-
 </div>
 <!-- 콘텐츠 끝 -->
 
 <script type="text/javascript" src="./js/index.js"></script>
+<<<<<<< HEAD
+=======
+
+<script>
+	console.log("<%= loginMember !=null ? loginMember.getPoint() : "" %>");
+</script>
+
+>>>>>>> refs/remotes/origin/jy3
 <!-- 하단 시작  -->
 <%@ include file="/views/common/footer.jsp"%>
 <!-- 하단 끝 -->

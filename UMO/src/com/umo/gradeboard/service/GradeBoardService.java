@@ -33,11 +33,16 @@ public class GradeBoardService {
 		close(conn);
 		return b;
 	}
-	public int GradeWrite(Board fb) {
+	public int GradeWrite(Board fb,String writer) {
 		Connection conn=getConnection();
 		int result=dao.GradeWrite(conn,fb);
 		
-		if(result>0) {commit(conn);}
+		if(result>0) {
+			int result2=dao.updatePoint(conn,writer);
+			if(result2>0) {
+				commit(conn);
+			}
+		}
 		else {rollback(conn);}
 		
 		return result;

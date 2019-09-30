@@ -332,4 +332,21 @@ public class GradeBoardDao {
 			close(pstmt);
 		}return result;
 	}
+
+	public int updatePoint(Connection conn, String writer) {
+		Statement stmt=null;
+		int result2=0;
+		
+		String sql="";
+		sql="update Member set point =point+10 where Member_id='"+writer+"'";
+		try {
+			stmt=conn.createStatement();
+			result2=stmt.executeUpdate(sql);
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+		}
+		return result2;
+	}
 }

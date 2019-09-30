@@ -93,7 +93,7 @@ public class FoodBoardFormEndServlet extends HttpServlet {
 		f.setBoard_Grade(grade);
 		f.setBoard_MAP(road_address);
 		
-		int result = new FoodService().insertBoard(f);
+		int result = new FoodService().insertBoard(f,writer);
 		  
 		String msg=""; 
 		String loc=""; 

@@ -17,6 +17,7 @@ import com.umo.model.vo.Board;
 import com.umo.model.vo.BoardComment;
 import com.umo.model.vo.NoticeBoard;
 import com.umo.notice.model.dao.NoticeBoardDao;
+import com.umo.model.vo.Member;
 
 public class AnonymousBoardDao {
 	private Properties prop = new Properties();
@@ -310,5 +311,6 @@ public class AnonymousBoardDao {
 		return result;
 	
 }
-	
+
 }
+

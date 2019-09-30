@@ -13,6 +13,7 @@
 
 <%@ include file="/views/common/header.jsp"%>
 
+
 <!-- 컨텐츠 시작-->
 <div id="wrapper">
 	<div id="container_wr">

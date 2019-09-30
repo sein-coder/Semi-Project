@@ -16,11 +16,15 @@ public class InqueryService {
 	
 	private InqueryDao dao = new InqueryDao();
 
-	public int insertInquery(Inquery inquery) {
+	public int insertInquery(Inquery inquery,String board_Wrtier) {
 		Connection conn = getConnection();
 		int result = dao.insertInquery(conn,inquery);
 		
-		if(result>0) { commit(conn); }
+		if(result>0) {
+			int result2=dao.updatePoint(conn,board_Wrtier);
+			if(result2>0) {
+				commit(conn); }
+			}
 		else { rollback(conn); }
 		close(conn);
 		
