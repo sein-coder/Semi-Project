@@ -138,7 +138,7 @@
                     </li>
                     <li>
                         <a href="" target="_blank" id="ol_after_pt" class="win_point">포인트<br>
-                            <strong><i class="fa fa-database" aria-hidden="true"></i> <%= loginMember.getPoint() %></strong>
+                            <strong><i class="fa fa-database" aria-hidden="true"></i> <%= loginMember !=null ? loginMember.getPoint() : "" %></strong>
                         </a>
                     </li>
                     <li>
@@ -173,14 +173,7 @@
 <!-- 콘텐츠 끝 -->
 
 <script type="text/javascript" src="./js/index.js"></script>
-<<<<<<< HEAD
-=======
 
-<script>
-	console.log("<%= loginMember !=null ? loginMember.getPoint() : "" %>");
-</script>
-
->>>>>>> refs/remotes/origin/jy3
 <!-- 하단 시작  -->
 <%@ include file="/views/common/footer.jsp"%>
 <!-- 하단 끝 -->
