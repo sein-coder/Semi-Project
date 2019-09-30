@@ -50,13 +50,20 @@ public class MemberService {
 
 	public Member idCheck(String id)
 	{
-	Connection conn=getConnection();
-	Member m=dao.idCheck(conn,id);
-	
-	close(conn);
+		Connection conn=getConnection();
+		Member m=dao.idCheck(conn,id);
+		
+		close(conn);
 	return m;
-	
-}
+	}	
+
+	public Member findId(int kH_No) {
+		Connection conn=getConnection();
+		Member m=dao.findId(conn,kH_No);
+		
+		close(conn);
+		return m;
+	}
 
 
 

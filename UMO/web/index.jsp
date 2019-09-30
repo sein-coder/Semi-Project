@@ -105,7 +105,7 @@
                             </div>
                             <div id="ol_svc">
                                 <a href="<%=request.getContextPath() %>/memberJoin"><b>회원가입</b></a> /
-                                <a href="" id="ol_password_lost">정보찾기</a>
+                                <a href="<%=request.getContextPath() %>/infoFindServlet" id="ol_password_lost">정보찾기</a>
                             </div>
                         </div>
 
