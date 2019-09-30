@@ -313,4 +313,21 @@ public class InqueryDao {
 		return result2;
 	}
 
+
+	public int uppdateCommentPoint(Connection conn,String writer) {
+		Statement stmt=null;
+		int result3=0;
+		String sql="";
+		
+		sql="Update Member set point=point+5 where Member_id='"+writer+"'";
+		try {
+			stmt=conn.createStatement();
+			result3=stmt.executeUpdate(sql);
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+		}return result3;
+	}
+
 }

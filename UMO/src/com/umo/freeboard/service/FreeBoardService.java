@@ -90,11 +90,13 @@ public class FreeBoardService {
 		close(conn);
 		return list;
 	}
-	public int insertFreeBoardComment(BoardComment bc) {
+	public int insertFreeBoardComment(BoardComment bc,String writer) {
 		Connection conn=getConnection();
 		int result=dao.insertFreeBoardComment(conn,bc);
 		if(result>0) {
-			commit(conn);
+			int result3=dao.updateCommentPoint(conn,writer);
+			if(result3>0) {
+			commit(conn);}
 		}else {rollback(conn);}
 		close(conn);
 		return result;

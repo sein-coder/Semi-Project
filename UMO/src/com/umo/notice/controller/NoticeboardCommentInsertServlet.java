@@ -36,13 +36,14 @@ public class NoticeboardCommentInsertServlet extends HttpServlet {
 		int level=Integer.parseInt(request.getParameter("boardCommentLevel"));
 		int boardCommentRef=Integer.parseInt(request.getParameter("boardCommentRef"));
 		String writer=request.getParameter("boardWriter");
+		//String boardCommentWriter=request.getParameter("boardCommentWriter");
 		
 		String content=request.getParameter("wr_content");
 		String class1="";
 		
 		BoardComment bc=new BoardComment(0,level,writer,content,class1,boardRef,boardCommentRef,null);
 		
-		int result=new NoticeBoardService().insertnoticeBoardComment(bc);
+		int result=new NoticeBoardService().insertnoticeBoardComment(bc,writer);
 		String msg="";
 		String loc="/noticeContentView?noticeNo="+boardRef;
 		String view="/views/common/msg.jsp";

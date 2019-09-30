@@ -337,4 +337,23 @@ public class NoticeBoardDao {
 		}
 		return result2;
 	}
+
+	//댓글 등록시 포인트 5점 부여
+	public int updateCommentPoint(Connection conn, String writer) {
+		Statement stmt=null;
+		int result3 = 0;
+		
+		String sql="";
+		sql="update Member set point=point+5 where Member_Id='"+writer+"'";
+		try {
+			stmt=conn.createStatement();
+			result3=stmt.executeUpdate(sql);
+			//System.out.println(sql);
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+		}
+		return result3;
+	}
 }

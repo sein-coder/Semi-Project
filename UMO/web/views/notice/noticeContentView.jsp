@@ -68,9 +68,10 @@
 				</ul>
 
 				<ul class="bo_v_com">
-					<li><a href=""
-						class="btn_b01 btn"><i class="fa fa-list" aria-hidden="true"></i>
+					<li><a href="<%=request.getContextPath()%>/noticeBoard" class="btn_b01 btn"><i class="fa fa-list" aria-hidden="true"></i>
 							목록</a></li>
+					
+					
 					<li><a href="" class="btn_b02 btn"><i
 							class="fa fa-pencil" aria-hidden="true"></i> 글쓰기</a></li>
 				</ul>
@@ -193,6 +194,8 @@
 			</aside>
           </article>
 
+
+
      </div>
 
 		<!-- } 게시글 읽기 끝 -->
@@ -204,6 +207,11 @@
 <!-- } 콘텐츠 끝 -->
 
 <script>
+	//목록
+	$("#btn_b01 btn").on("click",function(){
+		location.href="<%=request.getContextPath()%>/noticeBoard";
+	});
+
 	$("[name=content]").focus(function(){
 		if(<%=loginMember==null%>){
 			fn_loginAlert();

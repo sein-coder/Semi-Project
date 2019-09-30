@@ -43,7 +43,7 @@ public class InsertInqueryCommentServelt extends HttpServlet {
 		inqueryComment.setComment_writer(writer);
 		inqueryComment.setComment_contents(content);
 		
-		int result = new InqueryService().insertInqueryComment(inqueryComment);
+		int result = new InqueryService().insertInqueryComment(inqueryComment,writer);
 
 		String msg = "";
 		String loc = "/inquery/inqueryView?Board_No="+boardRef;
