@@ -38,7 +38,19 @@
 				console.log("성공");
 			}
 		});
+		
+<%-- 		 setInterval(function () {
+			 $.ajax({
+					url:"<%=request.getContextPath()%>/sessionServlet",
+					dataType:"text",
+					type : "post", 
+					success : function(data){
+					console.log("성공");
+				}
+			});
+		 }, 5000 ); --%>
 	});
+	
 </script>
 <!-- loginMember객체 생성 -->
 <% 

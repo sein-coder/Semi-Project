@@ -45,6 +45,7 @@ public class SessionServlet extends HttpServlet {
 		request.getSession().setAttribute("maxLogin", maxLogin);
 		request.getSession().setAttribute("loginCount",loginMemberList.size());
 		
+		response.sendRedirect("/");
 	}
 
 	/**
