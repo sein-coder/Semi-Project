@@ -69,7 +69,7 @@
 				</ul>
 
 				<ul class="bo_v_com">
-					<li><a href=""
+					<li><a href="<%=request.getContextPath()%>/<%= board_type %>Board"
 						class="btn_b01 btn"><i class="fa fa-list" aria-hidden="true"></i>
 							목록</a></li>
 					<li><a href="" class="btn_b02 btn"><i

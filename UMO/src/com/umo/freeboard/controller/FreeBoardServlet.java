@@ -32,6 +32,14 @@ public class FreeBoardServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		if(request.getSession().getAttribute("loginMember")==null) {
+			System.out.println("실행");
+			request.setAttribute("msg", "로그인을 하셔야 열람 가능합니다.");
+			request.setAttribute("loc","/");
+			request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
+			return;
+		}
+		
 		int cPage;
 		int numPerPage;
 		try {

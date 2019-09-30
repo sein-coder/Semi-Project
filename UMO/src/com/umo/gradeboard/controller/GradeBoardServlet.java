@@ -32,6 +32,13 @@ public class GradeBoardServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		if(request.getSession().getAttribute("loginMember")==null) {
+			request.setAttribute("msg", "로그인을 하셔야 열람 가능합니다.");
+			request.setAttribute("loc","/");
+			request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
+			return;
+		}
+		
 		int cPage;
 		int numPerPage;
 		

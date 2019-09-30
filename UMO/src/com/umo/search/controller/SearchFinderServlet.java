@@ -31,11 +31,7 @@ public class SearchFinderServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String type=request.getParameter("searchType");
-		String keyword=request.getParameter("searchKeyword");
-		
-		System.out.println(type+" "+keyword);
-		
-	
+		String keyword=request.getParameter("searchKeyword");	
 		
 		int cPage;//현재 페이지 
 		try {

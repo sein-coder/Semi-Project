@@ -31,10 +31,10 @@
 <!-- loginMember객체 생성 -->
 <% 
 	Member loginMember = (Member)request.getSession().getAttribute("loginMember");
-	int loginCount = request.getSession().getAttribute("loginCount")!=null?(int)request.getSession().getAttribute("loginCount"):0;
-	int todayLogin = request.getSession().getAttribute("todayLogin")!=null?(int)request.getSession().getAttribute("todayLogin"):0;
-	int allLogin = request.getSession().getAttribute("allLogin")!=null?(int)request.getSession().getAttribute("allLogin"):0;
-	int maxLogin = request.getSession().getAttribute("maxLogin")!=null?(int)request.getSession().getAttribute("maxLogin"):0;
+	int loginCount = application.getAttribute("loginCount")!=null?(int)application.getAttribute("loginCount"):0;
+	int todayLogin = application.getAttribute("todayLogin")!=null?(int)application.getAttribute("todayLogin"):0;
+	int allLogin = application.getAttribute("allLogin")!=null?(int)application.getAttribute("allLogin"):0;
+	int maxLogin = application.getAttribute("maxLogin")!=null?(int)application.getAttribute("maxLogin"):0;
 %>
 <script>
 	$(document).ready(function(){
@@ -43,24 +43,18 @@
 			dataType:"text",
 			type : "post", 
 			success : function(data){
-				console.log("성공");
+				$("#loginCount").val(<%=loginCount%>);
+				$("#todayLogin").val(<%=todayLogin%>);
+				$("#allLogin").val(<%=allLogin%>);
+				$("#maxLogin").val(<%=maxLogin%>);
+				$("#login-visit").load(window.location.href+" #login-visit");
 			}
-		});
-		
-	setInterval(function () {
-		if(<%=loginMember!=null?true:false%>) {
-			 $.ajax({
-					url:"<%=request.getContextPath()%>/sessionServlet",
-					dataType:"text",
-					type : "post", 
-					success : function(data){
-					console.log("Member성공");
-					console.log(data);
-				}
-			});
-		}
-	}, 5000 );
+	});
 });
+	
+setInterval(function(){
+	$("#login-visit").load(window.location.href+" #login-visit");
+},5000)
 	
 </script>
 

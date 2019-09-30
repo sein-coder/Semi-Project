@@ -151,17 +151,19 @@
 
             <!-- 접속자집계 시작 { -->
             <section id="visit">
-                <h2><i class="fa fa-users" aria-hidden="true"></i> 접속자집계</h2>
-                <dl>
-                    <dt><span class="color_1"></span> 현재</dt>
-                    <dd><strong class="color_1"><%= loginCount %></strong></dd>
-                    <dt><span class="color_2"></span> 오늘</dt>
-                    <dd><strong class="color_2"><%= todayLogin %></strong></dd>
-                    <dt><span class="color_3"></span> 최대</dt>
-                    <dd><strong class="color_3"><%= maxLogin %></strong></dd>
-                    <dt><span class="color_4"></span> 전체</dt>
-                    <dd><strong class="color_4"><%= allLogin %></strong></dd>
-                </dl>
+            	<div id="login-visit">
+	                <h2><i class="fa fa-users" aria-hidden="true"></i> 접속자집계</h2>
+	                <dl>
+	                    <dt><span class="color_1"></span> 현재</dt>
+	                    <dd><strong id="loginCount" class="color_1"><%= loginCount %></strong></dd>
+	                    <dt><span class="color_2"></span> 오늘</dt>
+	                    <dd><strong id="todayLogin" class="color_2"><%= todayLogin %></strong></dd>
+	                    <dt><span class="color_3"></span> 최대</dt>
+	                    <dd><strong id="maxLogin" class="color_3"><%= maxLogin %></strong></dd>
+	                    <dt><span class="color_4"></span> 누적</dt>
+	                    <dd><strong id="allLogin" class="color_4"><%= allLogin %></strong></dd>
+	                </dl>
+                </div>
             </section>
             <!-- } 접속자집계 끝 -->
         </div>

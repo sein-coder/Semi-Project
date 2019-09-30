@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.umo.inquery.model.service.InqueryService;
 import com.umo.model.vo.Inquery;
 import com.umo.model.vo.InqueryComment;
+import com.umo.model.vo.Member;
 
 /**
  * Servlet implementation class InqueryViewServlet
@@ -31,7 +32,8 @@ public class InqueryViewServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
+		
 		int Board_No = Integer.parseInt(request.getParameter("Board_No"));
 		
 		Inquery inquery = new InqueryService().selectBoardView(Board_No);

@@ -10,11 +10,11 @@
   <error-page>
 	<!-- <exception-type>java.lang.NullPointerException</exception-type> -->
 	<error-code>500</error-code>
-	<location>/views/common/error.jsp</location>
+	<location>/views/common/loginError.jsp</location>
   </error-page>
     <error-page>
 	<exception-type>java.lang.NullPointerException</exception-type>
-	<location>/views/common/error.jsp</location>
+	<location>/views/common/loginError.jsp</location>
   </error-page>
   <error-page>
 	<error-code>404</error-code>

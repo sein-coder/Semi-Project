@@ -60,7 +60,6 @@ public class FoodDao {
 		String sql="";
 		int start=(cPage-1)*numPerPage+1;
 		int end=cPage*numPerPage;
-		System.out.println(sfl+stx);
 		if(name.equals("myPage")) {
 			if(sfl!=null&&stx!=null) {
 				sql = "select * from  "

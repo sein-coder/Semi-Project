@@ -4,6 +4,7 @@ import static com.umo.session.model.vo.LoginSessionCount.loginMemberList;
 
 import java.io.IOException;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,7 +33,6 @@ public class SessionServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		int todayLogin = new SessionService().selectTodayLogin();
 		int allLogin = new SessionService().selectallLogin();
 		
@@ -40,10 +40,11 @@ public class SessionServlet extends HttpServlet {
 			maxLogin = loginMemberList.size();
 		}
 		
-		request.getSession().setAttribute("todayLogin", todayLogin);
-		request.getSession().setAttribute("allLogin", allLogin);
-		request.getSession().setAttribute("maxLogin", maxLogin);
-		request.getSession().setAttribute("loginCount",loginMemberList.size());
+		ServletContext application = this.getServletContext();
+		application.setAttribute("todayLogin", todayLogin);
+		application.setAttribute("allLogin", allLogin);
+		application.setAttribute("maxLogin", maxLogin);
+		application.setAttribute("loginCount",loginMemberList.size());
 	}
 
 	/**
