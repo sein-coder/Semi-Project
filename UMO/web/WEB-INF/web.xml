@@ -5,8 +5,21 @@
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
     <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
+  <error-page>
+	<!-- <exception-type>java.lang.NullPointerException</exception-type> -->
+	<error-code>500</error-code>
+	<location>/views/common/error.jsp</location>
+  </error-page>
+    <error-page>
+	<exception-type>java.lang.NullPointerException</exception-type>
+	<location>/views/common/error.jsp</location>
+  </error-page>
+  <error-page>
+	<error-code>404</error-code>
+	<location>/views/common/error.jsp</location>
+  </error-page>
+  
+  
 </web-app>

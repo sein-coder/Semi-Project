@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.umo.board.model.service.BoardService;
 import com.umo.model.vo.NoticeBoard;
 import com.umo.notice.model.service.NoticeBoardService;
 

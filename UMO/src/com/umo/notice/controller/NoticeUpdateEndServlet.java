@@ -13,7 +13,6 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
-import com.umo.board.model.service.BoardService;
 import com.umo.model.vo.NoticeBoard;
 import com.umo.notice.model.service.NoticeBoardService;
 
