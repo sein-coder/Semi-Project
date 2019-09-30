@@ -19,7 +19,7 @@
                         <ul id="anonymousBoard">
                         </ul>
                         
-                        <a href="<%=request.getContextPath()%>/views/board/boardListView.jsp" class="lt_more"><i class="fa fa-plus"
+                        <a href="<%=request.getContextPath()%>/anonymousBoard" class="lt_more"><i class="fa fa-plus"
                                 aria-hidden="true"></i></a>
                     </div>
                 </div>
@@ -29,7 +29,7 @@
                         "lat_title"><a href="">반별게시판</a></h2>
                         <ul id="gradeBoard">						
 						</ul>
-                        <a href="" class="lt_more"><i class="fa fa-plus"
+                        <a href="<%=request.getContextPath()%>/gradeBoard" class="lt_more"><i class="fa fa-plus"
                                 aria-hidden="true"></i></a>
             
                     </div>
@@ -40,7 +40,7 @@
                         <h2 class="lat_title"><a href="">코딩게시판</a></h2>
                         <ul id="inqueryBoard">
                         </ul>
-                        <a href="" class="lt_more"><i class="fa fa-plus"
+                        <a href="<%=request.getContextPath()%>/inquery/inqueryBoard" class="lt_more"><i class="fa fa-plus"
                                 aria-hidden="true"></i></a>
             
                     </div>
@@ -50,7 +50,7 @@
                         <h2 class="lat_title"><a href="">자유게시판</a></h2>
                         <ul id="freeBoard">
                         </ul>
-                        <a href="" class="lt_more"><i class="fa fa-plus"
+                        <a href="<%=request.getContextPath()%>/freeBoard" class="lt_more"><i class="fa fa-plus"
                                 aria-hidden="true"></i></a>
             
                     </div>
@@ -67,7 +67,7 @@
                     <ul id="foodBoard">
                     </ul>
 
-                    <a href="" class="lt_more"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                    <a href="<%=request.getContextPath()%>/food/foodList" class="lt_more"><i class="fa fa-plus" aria-hidden="true"></i></a>
 
                 </div>
                 <!-- } 사진 최신글2 끝 -->
@@ -78,11 +78,10 @@
         <div id="aside">
 
             <div class="notice">
-                <h2><a href=""><i class="fa fa-bullhorn" aria-hidden="true"></i></a>
+                <h2><a href="<%= request.getContextPath() %>/noticeBoard"><i class="fa fa-bullhorn" aria-hidden="true"></i></a>
                 </h2>
-                <ul>
-                    <li class="empty_li">게시물이 없습니다.</li>
-                </ul>
+                <ul id="noticeboard">
+                   </ul>
 
             </div>
 

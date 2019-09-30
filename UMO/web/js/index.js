@@ -90,6 +90,25 @@ $(document).ready(function(){
 	$.ajax({
 		url : "./mainPageBoardServlet", 
 		dataType:"json",
+		data : {"ajax":"notice"},
+		type : "post", 
+		success : function(data){
+			for(var i=0; i<data.length; i++){
+				var li = $("<li class='empty_li'>");
+				var a = $("<a>");
+				a.html(data[i]["title"]);
+				a.attr("href","./noticeContentView?noticeNo="+data[i]["no"]);
+				
+				li.append(a);
+				
+				$("#noticeboard").append(li)
+			}
+		}
+	});
+	
+	$.ajax({
+		url : "./mainPageBoardServlet", 
+		dataType:"json",
 		data : {"ajax":"food"},
 		type : "post", 
 		success : function(data){ 

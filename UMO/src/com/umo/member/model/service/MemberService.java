@@ -43,6 +43,15 @@ public class MemberService {
 	      return result;
 	   }
 
+	public Boolean idCheck(String id)
+	{
+	Connection conn=getConnection();
+	Boolean m=dao.idCheck(conn,id);
+	
+	close(conn);
+	return m;
+	
+}
 
 
 

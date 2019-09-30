@@ -8,6 +8,7 @@ import static common.template.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.List;
 
+import com.umo.model.vo.Board;
 import com.umo.model.vo.BoardComment;
 import com.umo.model.vo.NoticeBoard;
 import com.umo.notice.model.dao.NoticeBoardDao;
@@ -110,5 +111,10 @@ public class NoticeBoardService {
 		close(conn);
 		return result;
 	}
-
+	public List<Board> selectNoticeboardList(int cPage, int numPerPage,String name,String userId,String sfl,String stx){
+		Connection conn=getConnection();		
+		List<Board> list=dao.selectNoticeboardList(conn, cPage, numPerPage,name,userId,sfl,stx);
+		close(conn);	
+		return list; 
+	}
 }
