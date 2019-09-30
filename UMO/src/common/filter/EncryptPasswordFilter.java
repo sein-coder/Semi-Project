@@ -26,13 +26,6 @@ import javax.servlet.http.HttpServletRequestWrapper;
 //@WebFilter("/EncryptPasswordFilter")
 public class EncryptPasswordFilter extends HttpServletRequestWrapper  {
 
-    /**
-     * Default constructor. 
-     */
-   
-    /**
-     * @see HttpServletRequestWrapper#HttpServletRequestWrapper(HttpServletRequest)
-     */
     public EncryptPasswordFilter(HttpServletRequest request) {
         super(request);
         // TODO Auto-generated constructor stub
@@ -42,18 +35,12 @@ public class EncryptPasswordFilter extends HttpServletRequestWrapper  {
 	public String getParameter(String key) {
 		// TODO Auto-generated method stub
 		String value="";
-		if(key!=null&&(key.equals("pw")))
-		{
-		value=getEncryptPw(super.getParameter(key));
-			
+		if(key!=null&&(key.equals("mb_password"))) {
+			value=getEncryptPw(super.getParameter(key));	
 		}else {
 			value=super.getParameter(key);
-			
-			
 		}
 		return value;
-		
-		
 	}
 
 	private static String getEncryptPw(String pw)

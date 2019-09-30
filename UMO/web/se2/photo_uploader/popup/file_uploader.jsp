@@ -5,6 +5,7 @@
 <%@page import="java.io.File"%>
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@ page contentType="text/html; charset=UTF-8" %>
+
 <%
 
 String path = request.getSession().getServletContext().getRealPath("/") + File.separator + "upload/food/contentimg"; // 이미지가 저장될 주소
@@ -34,11 +35,11 @@ if(request.getContentLength() > 10*1024*1024 ){
 			File targetFile = new File(path + File.separator + moveFileName);
 			sourceFile.renameTo(targetFile);
 			filename = moveFileName;
-			System.out.println("upfile : " + upfile);
+/* 			System.out.println("upfile : " + upfile);
 			System.out.println("targetFile : " + targetFile);
 			System.out.println("moveFileName : " + moveFileName);
 			System.out.println("filename : " + filename);
-			System.out.println("moveFileName : " + moveFileName);
+			System.out.println("moveFileName : " + moveFileName); */
 			
 			sourceFile.delete();
 			
@@ -72,6 +73,7 @@ if(request.getContentLength() > 10*1024*1024 ){
 //             alert(e); 
 	    }
 	}
+	
 	fileAttach();
 	this.window.close();
 </script>

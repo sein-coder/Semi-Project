@@ -42,8 +42,13 @@ public class InqueryUpdate extends HttpServlet {
 			outputCode = request.getParameter("outputCode").replaceAll("(\r\n|\r|\n|\n\r)", ",");
 		}
 		else {
-			inputCode = inquery.getInputCode().replaceAll("(\r\n|\r|\n|\n\r)", " ");
-			outputCode = inquery.getOutputCode().replaceAll("(\r\n|\r|\n|\n\r)", ",");			
+			try {
+				inputCode = inquery.getInputCode().replaceAll("(\r\n|\r|\n|\n\r)", " ");
+				outputCode = inquery.getOutputCode().replaceAll("(\r\n|\r|\n|\n\r)", ",");
+			}catch(NullPointerException e) {
+				inputCode = "";
+				outputCode = "";
+			}
 		}
 		request.setAttribute("inputCode", inputCode);
 		request.setAttribute("outputCode", outputCode);		

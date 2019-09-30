@@ -29,28 +29,67 @@ public class FoodDao {
 			e.printStackTrace();
 		}
 	}
-	
-	public List<Food> selectFoodList(Connection conn, int cPage, int numPerPage,String name,String userId) {
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		List<Food> list = new ArrayList();
-		String sql="";
-		if(name.equals("myPage")) {
-		sql = prop.getProperty("selectMyFoodList");
-		}else {
-		sql = prop.getProperty("selectFoodList");
+
+	public int selectCountFood_Board(Connection conn,String sfl,String stx) {
+		Statement stmt = null;
+		int result=0;//테이블 개수마다 처리하는 거니까 int 쓰는것
+		ResultSet rs=null;//select는 언제나 resultSet쓰기
+		String sql="select count(*) from food_board";
+		if(sfl!=null&&stx!=null) {
+			sql+=" where "+sfl+" like '%"+stx+"%'";
 		}
 		try {
-			pstmt = conn.prepareStatement(sql);
-			if(name.equals("myPage")) {
-				pstmt.setString(1, userId);
-				pstmt.setInt(2, (cPage-1)*numPerPage+1);
-				pstmt.setInt(3, cPage*numPerPage);
-				}else {
-					pstmt.setInt(1, (cPage-1)*numPerPage+1);
-					pstmt.setInt(2, cPage*numPerPage);
-				}
-			rs = pstmt.executeQuery();
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			if(rs.next()) {
+				result =rs.getInt(1);
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(stmt);
+		}return result;
+	}
+	
+	public List<Food> selectFoodList(Connection conn, int cPage, int numPerPage,String name,String userId,String sfl,String stx) {
+		Statement stmt = null;
+		ResultSet rs = null;
+		List<Food> list = new ArrayList();
+		System.out.println(userId+"foodboard");
+		String sql="";
+		int start=(cPage-1)*numPerPage+1;
+		int end=cPage*numPerPage;
+		System.out.println(sfl+stx);
+		if(name.equals("myPage")) {
+			if(sfl!=null&&stx!=null) {
+				sql = "select * from  "
+						+ "(select rownum as rnum, a.* from "
+						+ "(select * from food_board where "+sfl+" like '%"+stx+"%' order by board_date desc)a where board_writer= '"+userId+"')"
+						+ " where rnum between "+start+" and "+end;
+			}else {
+				sql = "select * from  "
+						+ "(select rownum as rnum, a.* from "
+						+ "(select * from food_board order by board_date desc)a where board_writer= '"+userId+"')"
+						+ " where rnum between "+start+" and "+end;
+			}
+		}else {
+			if(sfl!=null&&stx!=null) {
+				sql = "SELECT * FROM "
+						+ "(SELECT ROWNUM AS RNUM, A.* FROM "
+						+ "(SELECT * FROM food_board where "+sfl+" like '%"+stx+"%' ORDER BY Board_DATE DESC)A ) "
+						+ "WHERE RNUM BETWEEN "+start+" and "+end;
+			}else {
+				sql = "SELECT * FROM "
+						+ "(SELECT ROWNUM AS RNUM, A.* FROM "
+						+ "(SELECT * FROM food_board ORDER BY Board_DATE DESC)A ) "
+						+ "WHERE RNUM BETWEEN "+start+" and "+end;
+			}
+		}
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
 			while(rs.next()) {
 				Food f = new Food();
 				f.setBoard_No(rs.getInt("board_no"));
@@ -65,36 +104,16 @@ public class FoodDao {
 				f.setBoard_Count(rs.getInt("board_count"));
 				f.setWriting_Status(rs.getString("writing_status").charAt(0));
 				f.setBoard_Grade(rs.getInt("board_grade"));
-				f.setBoard_menu(rs.getString("board_menu"));
+				f.setBoard_tag(rs.getString("board_tag"));
+				f.setBoard_tel(rs.getString("board_tel"));
 				list.add(f);
 			}
 		}catch(SQLException e) {
 				e.printStackTrace();
 		}finally {
 			close(rs);
-			close(pstmt);
+			close(stmt);
 		}return list;
-	}
-
-	public int selectCountFood_Board(Connection conn) {
-		PreparedStatement pstmt = null;
-		int result=0;//테이블 개수마다 처리하는 거니까 int 쓰는것
-		ResultSet rs=null;//select는 언제나 resultSet쓰기
-		String sql=prop.getProperty("selectCountFood_Board");
-		
-		try {
-			pstmt=conn.prepareStatement(sql);
-			rs=pstmt.executeQuery();
-			if(rs.next()) {
-				result =rs.getInt(1);
-			}
-			
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rs);
-			close(pstmt);
-		}return result;
 	}
 
 	public int insertBoard(Connection conn, Food f) {
@@ -116,7 +135,7 @@ public class FoodDao {
 			pstmt.setString(11, f.getBoard_foodbill());
 			pstmt.setString(12, f.getBoard_park());
 			pstmt.setString(13, f.getBoard_open());		
-			pstmt.setString(14,f.getBoard_menu());			
+			pstmt.setString(14,f.getBoard_tag());			
 			result=pstmt.executeUpdate();
 		}catch (SQLException e) {
 			e.printStackTrace();
@@ -150,7 +169,7 @@ public class FoodDao {
 				f.setBoard_foodtype(rs.getString("board_foodtype"));
 				f.setBoard_foodbill(rs.getString("board_foodbill"));
 				f.setBoard_open(rs.getString("board_open"));
-				f.setBoard_menu(rs.getString("board_menu"));
+				f.setBoard_tag(rs.getString("board_tag"));
 				f.setBoard_park(rs.getString("board_park"));
 				f.setBoard_tel(rs.getString("board_tel"));
 			}
@@ -177,7 +196,7 @@ public class FoodDao {
 			pstmt.setString(6, f.getBoard_foodbill());
 			pstmt.setString(7, f.getBoard_park());
 			pstmt.setString(8, f.getBoard_open());		
-			pstmt.setString(9,f.getBoard_menu());			
+			pstmt.setString(9,f.getBoard_tag());			
 			pstmt.setString(10, f.getBoard_Contents());
 			pstmt.setInt(11, f.getBoard_Grade());
 			pstmt.setString(12, f.getBoard_MAP());
@@ -297,7 +316,7 @@ public class FoodDao {
 				f.setBoard_Count(rs.getInt("board_count"));
 				f.setWriting_Status(rs.getString("writing_status").charAt(0));
 				f.setBoard_Grade(rs.getInt("board_grade"));
-				f.setBoard_menu(rs.getString("board_menu"));
+				f.setBoard_tag(rs.getString("board_tag"));
 				list.add(f);
 			}
 		}catch(SQLException e) {
@@ -313,7 +332,7 @@ public class FoodDao {
 		Statement stmt = null;
 		ResultSet rs = null;
 		int result = 0;
-		String sql = "select count(*) from food_board where board_menu like '%"+tag+"%'";
+		String sql = "select count(*) from food_board where board_tag like '%"+tag+"%'";
 		try {
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
@@ -327,6 +346,39 @@ public class FoodDao {
 			close(stmt);
 		}
 		return result;
+	}
+
+	public int updateReadCount(Connection conn, int board_no) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("updateReadCount");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, board_no);
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int updatePoint(Connection conn, String writer) {
+		Statement stmt=null;
+		int result2=0;
+		
+		String sql="";
+		sql="update Member set point=point=10 where Member_id='"+writer+"'";
+		try {
+			stmt=conn.createStatement();
+			result2=stmt.executeUpdate(sql);
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+		}
+		return result2;
 	}
 	
 }

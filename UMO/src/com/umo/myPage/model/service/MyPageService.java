@@ -14,6 +14,12 @@ import com.umo.myPage.model.dao.MyPageDao;
 public class MyPageService {
 	private MyPageDao dao=new MyPageDao();
 	
+	public int selectAttendance(String userId,int attendance) {
+	      Connection conn=getConnection();
+	      attendance=dao.selectAttendance(conn,userId,attendance);
+	      close(conn);
+	      return attendance;
+	   }
 	public Member selectOne(String userId) {
 	      Connection conn=getConnection();
 	      Member m=dao.selectOne(conn,userId);

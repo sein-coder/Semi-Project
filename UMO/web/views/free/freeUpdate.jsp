@@ -10,8 +10,8 @@
 
 <%@ include file="/views/common/header.jsp" %>
 <style>
-
-
+	section#notice-container { align: center; margin-top: 10px; }
+	table#tbl-notice { margin-left: auto; margin-right: auto; }
 </style>
     <div class="row body" style="margin-top: 150px">
         <div class="col-lg-2"></div>
@@ -47,7 +47,7 @@
 					</tr>
 					<tr>
 						<th>내용</th>
-						<td><textarea rows="5" cols="50" name="content"><%=content %></textarea></td>
+						<td><textarea rows="5" cols="50" id="content" name="content"><%=content %></textarea></td>
 					</tr>
 					<tr>
 						<td colspan="2" style="text-align: center;"><input
@@ -55,21 +55,39 @@
 					</tr>
 				</table>
 			</form>
-			<script>
-			
-			$(function(){
-				$('[name=up_file]').change(function(){
-					if($(this).val()!=""){
-						$("#fname").hide();
-					}else{
-						$("#fname").show();
-					}
-				});
-			});
-			
-			</script>
 		</section>
 	</div>
 	<div class="col-lg-2"></div>
     </div>
+<script>
+
+$(function(){
+	$('[name=up_file]').change(function(){
+		if($(this).val()!=""){
+			$("#fname").hide();
+		}else{
+			$("#fname").show();
+		}
+	});
+});
+//에디터 설정부분
+var oEditors = [];
+nhn.husky.EZCreator.createInIFrame({
+ oAppRef: oEditors,
+ elPlaceHolder: "content",
+ sSkinURI: "<%=request.getContextPath()%>/se2/SmartEditor2Skin.html",
+ fCreator: "createSEditor2"
+});
+
+// textArea에 이미지 첨부
+function pasteHTML(filepath){
+    var sHTML = '<img src="<%=request.getContextPath()%>/upload/free/contentimg/'+filepath+'">';
+    oEditors.getById["content"].exec("PASTE_HTML", [sHTML]);
+}
+$(this).submit(function(){
+	oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []); 
+});
+
+
+</script>
 <%@ include file="/views/common/footer.jsp" %>

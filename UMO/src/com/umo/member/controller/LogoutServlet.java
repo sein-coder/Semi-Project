@@ -8,6 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.umo.model.vo.Member;
+
+import static com.umo.session.model.vo.LoginSessionCount.loginMemberList;;
+
 /**
  * Servlet implementation class LogoutServlet
  */
@@ -31,7 +35,17 @@ public class LogoutServlet extends HttpServlet {
 		HttpSession session=request.getSession(false);
 		String views="index.jsp";
 		if(session!=null) {
+			for(int i=0; i<loginMemberList.size(); i++) {
+				if(((Member)session.getAttribute("loginMember")).getMemberId()
+						.equals(loginMemberList.get(i).getMemberId())) {
+					loginMemberList.remove(i);
+					break;
+				}
+			}
+				
 			session.invalidate();
+			
+			
 			response.sendRedirect(views);
 			
 		}

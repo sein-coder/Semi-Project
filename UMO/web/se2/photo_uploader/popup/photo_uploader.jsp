@@ -1,6 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="com.oreilly.servlet.MultipartRequest, com.oreilly.servlet.multipart.DefaultFileRenamePolicy, java.util.*, java.io.*"%>
-
 <style type="text/css">
 /* NHN Web Standard 1Team JJS 120106 */ 
 /* Common */
@@ -35,7 +34,7 @@ h1{color:#333;font-size:14px;letter-spacing:-1px}
 .pop_container2{padding:46px 60px 20px}
 .pop_container2 .dsc{margin-top:6px;color:#666;line-height:18px}
 .pop_container2 .dsc strong{color:#13b72a}
-.upload{margin:0 4px 0 0;_margin:0;padding:6px 0 4px 6px;border:solid 1px #d5d5d5;color:#a1a1a1;font-size:12px;border-right-color:#efefef;border-bottom-color:#efefef;length:300px;}
+.upload{margin:0 4px 0 0;_margin:0;padding:6px 0 4px 6px;border:solid 1px #d5d5d5;color:black;font-size:12px;border-right-color:#efefef;border-bottom-color:#efefef;length:300px;}
 :root  .upload{padding:6px 0 2px 6px;}
 </style>
 
@@ -47,7 +46,6 @@ h1{color:#333;font-size:14px;letter-spacing:-1px}
 	function fn_imageUp5() {
 		document.editor_upimage5.submit();
 	}
-	
 </script>
 
 </head>
@@ -67,7 +65,7 @@ h1{color:#333;font-size:14px;letter-spacing:-1px}
     	<!-- content -->
 		<form id="editor_upimage" name="editor_upimage" action="file_uploader.jsp" method="post" enctype="multipart/form-data" onSubmit="return false;">
         <div id="pop_content2">
-			<input type="file" class="upload" id="uploadInputBox" name="Filedata">
+			<input type="file" class="upload" id="uploadInputBox" name="Filedata" style="color: black;">
             <p class="dsc" id="info"><strong>10MB</strong>이하의 이미지 파일만 등록할 수 있습니다.<br>(JPG, GIF, PNG, BMP)</p>
         </div>
 		</form>
@@ -111,6 +109,8 @@ h1{color:#333;font-size:14px;letter-spacing:-1px}
     </div>
         <!-- //content -->
     </div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 
     <!-- //container -->
     <!-- footer -->

@@ -78,7 +78,7 @@ public class FreeWriteEndServlet extends HttpServlet {
 				fb.setContent(content);
 				fb.setOriginal_filename(fileName);
 				
-				int result=new FreeBoardService().freeWrite(fb);
+				int result=new FreeBoardService().freeWrite(fb,writer);
 				int freeNo=new FreeBoardService().lastFreeContentNo(writer);
 				
 						

@@ -12,22 +12,25 @@
 	Inquery inquery = (Inquery)request.getAttribute("inquery");
 	List<InqueryComment> list = (List<InqueryComment>)request.getAttribute("list");
 
-	String inputCode = "입력 코드가 없습니다. ";
-	String outputCode = "출력 코드가 없습니다.";
+	String inputCode = "";
+	String outputCode = "";
 	if(inquery!=null && inquery.getInputCode()!=null && inquery.getOutputCode()!=null ) {
 		inputCode = inquery.getInputCode().replaceAll("(\r\n|\r|\n|\n\r)", " ");
 		outputCode = inquery.getOutputCode().replaceAll("(\r\n|\r|\n|\n\r)", ",");
+	}else {
+		inputCode = "입력 코드가 없습니다. ";
+		outputCode = "출력 코드가 없습니다.";
 	}
 %>
 
 <%@ include file = "/views/common/header.jsp" %>
 	
 <style>
-	section#inquery-container { width:600px; margin-top: 170px; margin-bottom: 50px; margin-left: auto; margin-right: auto; text-align:center; }
-	table#tbl-inquery{width:100%; border:1px solid black; border-collapse:collapse; }
-    table#tbl-inquery th, table#tbl-inquery td {border:1px solid; padding: 5px 0; text-align:center;} 
-	div#inputeditor,div#outputeditor { font-size: 15px; }
-	button.btn {margin-left: auto; margin-right: auto; margin-top: 5px; } 
+	button.btn {margin-left: auto; margin-right: auto; margin-top: 5px; }
+    section#inquery-container h2{text-align: center; margin-top: 10px;}
+    table#tbl-inquery{width:500px; margin:0 auto; border:1px solid black; border-collapse:collapse; clear:both; }
+    table#tbl-inquery th {width: 125px; border:1px solid; padding: 5px 0; text-align:center;} 
+    table#tbl-inquery td {border:1px solid; padding: 5px 0 5px 10px; text-align:left;}
 </style>
 <style>
 	table#tbl-comment{width:580px; margin:0 auto; border-collapse:collapse; clear:both;} 
@@ -46,6 +49,7 @@
 </style>
 	
 	<section id="inquery-container">
+		<div align="center">
 		<h2 style="text-align: center;"><%= inquery.getBoard_Title()%></h2>
 		<table id="tbl-inquery" style="border: 1px solid red; margin-left: auto; margin-right: auto; font-size: 18px;">
 			<tr>
@@ -95,7 +99,7 @@
 				</td>
 			</tr>
 		</table>
-			<button class="btn" onclick="location.href='<%= request.getContextPath() %>/inquery/inqueryBoard'">목록</button>
+		<button class="btn" onclick="location.href='<%= request.getContextPath() %>/inquery/inqueryBoard'">목록</button>
 			<% if(loginMember!=null && loginMember.getMemberId().equals(inquery.getBoard_Writer())) { %>
 				<button class="btn" onclick="location.href='<%= request.getContextPath() %>/inquery/inqueryUpdate?Board_No=<%=inquery.getBoard_No()%>'">수정</button>
 				<button class="btn" onclick="location.href='<%= request.getContextPath() %>/inquery/inqueryDelete?Board_No=<%=inquery.getBoard_No()%>'">삭제</button>
@@ -157,7 +161,7 @@
 			} 
 		} %>
 		</table>
-			
+		</div>
 		<script>
 		
 		//editor초기화
@@ -253,7 +257,7 @@
 	    function fn_loginAlert(){
 	    	alert("로그인 후 이용하세요!");
 	    	$("[name=content]").blur();
-	    	location.href="<%=request.getContextPath()%>/memberLogin";
+	    	location.href="<%=request.getContextPath()%>/";
 	    }
 	    
 	    

@@ -15,16 +15,16 @@ import com.umo.model.vo.NoticeBoard;
 
 public class GradeBoardService {
 	private GradeBoardDao dao= new GradeBoardDao();
-	public int countGradeList() {	
+	public int countGradeList(String sfl,String stx) {	
 		Connection conn=getConnection();	
-		int result=dao.countGradeList(conn);
+		int result=dao.countGradeList(conn,sfl,stx);
 		close(conn);
 		return result;
 	}
-	public List<Board> selectGradeBoardList(int cPage, int numPerPage,String name,String userId){
+	public List<Board> selectGradeBoardList(int cPage, int numPerPage,String name,String userId,String sfl,String stx){
 		Connection conn=getConnection();		
-		List<Board> list=dao.selectGradeBoardList(conn, cPage, numPerPage,name,userId);
-		close(conn);	
+		List<Board> list=dao.selectGradeBoardList(conn, cPage, numPerPage,name,userId,sfl,stx);
+		close(conn);
 		return list; 
 	}
 	public Board GradeBoardContent(int no) {
@@ -33,11 +33,16 @@ public class GradeBoardService {
 		close(conn);
 		return b;
 	}
-	public int GradeWrite(Board fb) {
+	public int GradeWrite(Board fb,String writer) {
 		Connection conn=getConnection();
 		int result=dao.GradeWrite(conn,fb);
 		
-		if(result>0) {commit(conn);}
+		if(result>0) {
+			int result2=dao.updatePoint(conn,writer);
+			if(result2>0) {
+				commit(conn);
+			}
+		}
 		else {rollback(conn);}
 		
 		return result;

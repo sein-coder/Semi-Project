@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -33,14 +34,17 @@ public class GradeBoardDao {
 
 	}
 
-	public int countGradeList(Connection conn) {
-		PreparedStatement pstmt = null;
+	public int countGradeList(Connection conn,String sfl,String stx) {
+		Statement stmt = null;
 		ResultSet rs = null;
 		int result = 0;
-		String sql = prop.getProperty("countGradeList");
+		String sql = "SELECT COUNT(*)AS CNT FROM grade_board";
+		if(sfl!=null&&stx!=null) {
+			sql+=" where "+sfl+" like '%"+stx+"%'";
+		}
 		try {
-			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
 			if (rs.next()) {
 				result = rs.getInt("cnt");
 			}
@@ -48,38 +52,55 @@ public class GradeBoardDao {
 			e.printStackTrace();
 		} finally {
 			close(rs);
-			close(pstmt);
+			close(stmt);
 		}
 		return result;
 
 	}
 
-	public List<Board> selectGradeBoardList(Connection conn, int cPage, int numPerPage,String name,String userId) {
-		PreparedStatement pstmt = null;
+	public List<Board> selectGradeBoardList(Connection conn, int cPage, int numPerPage,String name,String userId,String sfl,String stx) {
+		Statement stmt = null;
 		ResultSet rs = null;
 		List<Board> list = new ArrayList<Board>();
+		
 		String sql="";
+		int start=(cPage-1)*numPerPage+1;
+		int end=cPage*numPerPage;
+		
 		if(name.equals("myPage")) {
-			sql = prop.getProperty("selectMyGradeBoardList");
+			if(sfl!=null&&stx!=null) {
+				sql = "select * from  "
+						+ "(select rownum as rnum, a.* from "
+						+ "(select * from grade_BOARD where "+sfl+" like '%"+stx+"%' order by grade_DATE desc)a where grade_writer='"+userId+"')"
+						+ " where rnum between "+start+" and "+end;
+			}else {
+				sql = "select * from  "
+						+ "(select rownum as rnum, a.* from "
+						+ "(select * from grade_BOARD order by grade_DATE desc)a where grade_writer='"+userId+"')"
+						+ " where rnum between "+start+" and "+end;
+			}
 		}else {
-			sql = prop.getProperty("selectGradeBoardList");
+			if(sfl!=null&&stx!=null) {
+				sql = "SELECT * FROM "
+						+ "(SELECT ROWNUM AS RNUM, A.* FROM "
+						+ "(SELECT * FROM grade_BOARD where "+sfl+" like '%"+stx+"%' ORDER BY grade_DATE DESC)A ) "
+						+ "WHERE RNUM BETWEEN "+start+" and "+end;
+			}else {
+				sql = "SELECT * FROM "
+						+ "(SELECT ROWNUM AS RNUM, A.* FROM "
+						+ "(SELECT * FROM grade_BOARD ORDER BY grade_DATE DESC)A ) "
+						+ "WHERE RNUM BETWEEN "+start+" and "+end;
+			}
 		}
 		try {
-			pstmt = conn.prepareStatement(sql);
-			if(name.equals("myPage")) {
-				pstmt.setString(1, userId);
-				pstmt.setInt(2, (cPage-1)*numPerPage+1);
-				pstmt.setInt(3, cPage*numPerPage);
-				}else {
-			pstmt.setInt(1, cPage);
-			pstmt.setInt(2, numPerPage);
-				}
-			rs = pstmt.executeQuery();
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				Board b = new Board();
 				b.setNo(rs.getInt("grade_no"));
 				b.setWriter(rs.getString("grade_writer"));
 				b.setTitle(rs.getString("grade_title"));
+				b.setClass1(rs.getString("class1"));
 				b.setContent(rs.getString("grade_contents"));
 				b.setOriginal_filename(rs.getString("Original_filename"));
 				b.setRenamed_filename(rs.getString("renamed_filename"));
@@ -92,7 +113,7 @@ public class GradeBoardDao {
 			e.printStackTrace();
 		} finally {
 			close(rs);
-			close(pstmt);
+			close(stmt);
 		}
 		return list;
 	}
@@ -136,8 +157,9 @@ public class GradeBoardDao {
 			pstmt.setString(1, fb.getWriter());
 			pstmt.setString(2, fb.getTitle());
 			pstmt.setString(3, fb.getContent());
-			pstmt.setString(4, fb.getOriginal_filename());
-			pstmt.setString(5, fb.getRenamed_filename());		
+			pstmt.setString(4, fb.getClass1());
+			pstmt.setString(5, fb.getOriginal_filename());
+			pstmt.setString(6, fb.getRenamed_filename());		
 			result = pstmt.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -235,9 +257,10 @@ public class GradeBoardDao {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, bc.getBoardCommentWriter());
 			pstmt.setString(2, bc.getBoardCommentContent());
-			pstmt.setInt(3, bc.getBoardRef());
-			pstmt.setInt(4, bc.getBoardCommentLevel());
-			pstmt.setString(5, bc.getBoardCommentRef()==0?null:String.valueOf(bc.getBoardCommentRef()));
+			pstmt.setString(3, bc.getClass1());
+			pstmt.setInt(4, bc.getBoardRef());
+			pstmt.setInt(5, bc.getBoardCommentLevel());
+			pstmt.setString(6, bc.getBoardCommentRef()==0?null:String.valueOf(bc.getBoardCommentRef()));
 			result=pstmt.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -308,5 +331,22 @@ public class GradeBoardDao {
 		}finally {
 			close(pstmt);
 		}return result;
+	}
+
+	public int updatePoint(Connection conn, String writer) {
+		Statement stmt=null;
+		int result2=0;
+		
+		String sql="";
+		sql="update Member set point =point+10 where Member_id='"+writer+"'";
+		try {
+			stmt=conn.createStatement();
+			result2=stmt.executeUpdate(sql);
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+		}
+		return result2;
 	}
 }

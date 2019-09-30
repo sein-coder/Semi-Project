@@ -115,7 +115,11 @@ margin:15% 0 20% 28%;
 <h1 >로그인</h1>
 <label for="id">아이디</label><input type="text" name="userId" class="placeholder" placeholder="아이디작성하세요">
 <label for="password">password</label><input type="password" name="pw" class="placeholder" placeholder="password">
+<<<<<<< HEAD
 <input type="submit" id="logcheck" value="Log In" style="margin-top:13px;" onclick="return logincheck();"  formaction="<%=request.getContextPath()%>/loginCh?"  >
+=======
+<input type="submit" value="Log In" style="margin-top:13px;" formaction="<%=request.getContextPath()%>/loginCh">
+>>>>>>> refs/remotes/origin/purum
 
 <input type="submit" id="hweonJoin"   value="회원가입" formaction="<%=request.getContextPath()%>/memberJoin">
 

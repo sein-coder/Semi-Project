@@ -17,7 +17,7 @@
 	}
 %>
 	<style>
-		section#foodview-container{margin-top: 150px;margin-left: auto;margin-right: auto;align:center;width:100%;}
+		section#foodview-container{margin-left: auto;margin-right: auto;align:center;width:100%;}
 		div#div-container{margin-left:auto; margin-right: auto; }
 		table#big-table {border: 2px solid goldenrod; margin-top:5px; margin-left: auto;margin-right: auto;border-spacing: 0px;}
 		table#sml-table {border: 2px solid goldenrod; margin-left: auto;margin-right: auto;border-spacing: 50px 20px; width: 1000px; height: 100px; }
@@ -77,7 +77,7 @@
 	<input type="hidden" name="writer" value="<%=loginMember!=null?loginMember.getMemberId():""%>"> 
 	
 	<div id="div-container">
-		<div id="thumnail" style="margin-left:auto; margin-right:auto; margin-top:200px; width: 600px; height: 400px; border: 1px solid red;">
+		<div id="thumnail" style="margin-left:auto; margin-right:auto; width: 600px; height: 400px; border: 1px solid red;">
 			<img src="<%=request.getContextPath() %>/upload/food/thumnail/<%= f.getBoard_Thumbnail() %>" style="width: 600px; height: 400px" >
 		</div>
 		<table id="big-table">
@@ -118,7 +118,6 @@
 							</tr>
 							<tr>
 								<td>
-									
 									<span>전화번호 :<%=f.getBoard_tel() %></span>
 								</td>
 							</tr>
@@ -256,7 +255,7 @@
 
 	<script>
 	//해시태그 표시 및 추가
-	var tags = "<%=f.getBoard_menu()%>".split(",")
+	var tags = "<%=f.getBoard_tag()%>".split(",")
 
 	$.each(tags,function(i,item){
 		if(item!='null') {

@@ -14,7 +14,8 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.umo.freeboard.service.FreeBoardService;
-import com.umo.model.vo.NoticeBoard;
+import com.umo.model.vo.Board;;
+
 
 /**
  * Servlet implementation class NoticeUpdateServlet
@@ -70,14 +71,15 @@ public class FreeUpdateEndServlet extends HttpServlet {
 		}else {
 			fileName=oriFile;
 		}
-		NoticeBoard nb=new NoticeBoard();
-		nb.setTitle(title);
-		nb.setWriter(writer);
-		nb.setContent(content);
-		nb.setOriginal_filename(fileName);
-		nb.setNo(Integer.parseInt(mr.getParameter("no")));
+		Board fb=new Board();
+		fb.setTitle(title);
+		fb.setWriter(writer);
+		fb.setContent(content);
+		fb.setOriginal_filename(fileName);
+		fb.setNo(Integer.parseInt(mr.getParameter("no")));
 		
-		int result=new FreeBoardService().freeUpdate(nb);
+		
+		int result=new FreeBoardService().freeUpdate(fb);
 		String msg="";
 		String loc="";
 		String views="/views/common/msg.jsp";

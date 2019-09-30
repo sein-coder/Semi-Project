@@ -36,10 +36,10 @@ public class AnonymousboardCommentInsertServlet extends HttpServlet {
 		int level=Integer.parseInt(request.getParameter("boardCommentLevel"));
 		int boardCommentRef=Integer.parseInt(request.getParameter("boardCommentRef"));
 		String writer=request.getParameter("boardWriter");
-		String content=request.getParameter("content");
+		String content=request.getParameter("wr_content");
+		String class1="";
 		
-		
-		BoardComment bc=new BoardComment(0,level,writer,content,boardRef,boardCommentRef,null);
+		BoardComment bc=new BoardComment(0,level,writer,content,class1,boardRef,boardCommentRef,null);
 		
 		int result=new AnonymousBoardService().insertanonymousBoardComment(bc);
 		String msg="";

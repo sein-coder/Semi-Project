@@ -77,7 +77,7 @@ public class NoticeWriteEndServlet extends HttpServlet {
 				nb.setContent(content);
 				nb.setOriginal_filename(fileName);
 				
-				int result=new NoticeBoardService().noticeWrite(nb);
+				int result=new NoticeBoardService().noticeWrite(nb,writer);
 				int noticeNo=new NoticeBoardService().lastNoticeContentNo(writer);
 				System.out.println("최신공�??��?�� no:"+noticeNo);
 				

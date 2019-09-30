@@ -16,29 +16,33 @@ public class InqueryService {
 	
 	private InqueryDao dao = new InqueryDao();
 
-	public int insertInquery(Inquery inquery) {
+	public int insertInquery(Inquery inquery,String board_Wrtier) {
 		Connection conn = getConnection();
 		int result = dao.insertInquery(conn,inquery);
 		
-		if(result>0) { commit(conn); }
+		if(result>0) {
+			int result2=dao.updatePoint(conn,board_Wrtier);
+			if(result2>0) {
+				commit(conn); }
+			}
 		else { rollback(conn); }
 		close(conn);
 		
 		return result;
 	}
 
-	public int selectBoardCount() {
+	public int selectBoardCount(String sfl,String stx) {
 		Connection conn = getConnection();
-		int result = dao.selectBoardCount(conn);
+		int result = dao.selectBoardCount(conn,sfl,stx);
 		
 		close(conn);
 		
 		return result;
 	}
 
-	public List<Inquery> selectInqueryBoardList(int cPage, int numPerPage,String name,String userId) {
+	public List<Inquery> selectInqueryBoardList(int cPage, int numPerPage,String name,String userId,String sfl,String stx) {
 		Connection conn = getConnection();
-		List<Inquery> list = dao.selectInqueryBoardList(conn,cPage,numPerPage,name,userId);
+		List<Inquery> list = dao.selectInqueryBoardList(conn,cPage,numPerPage,name,userId,sfl,stx);
 		close(conn);
 		return list;
 	}

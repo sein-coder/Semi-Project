@@ -18,33 +18,46 @@ public class FoodService {
 	
 	private FoodDao dao = new FoodDao();//sql문을 실행하는 메소드들을 모아둔 클래스
 	
-	public List<Food> selectFoodList(int cPage, int numPerPage,String name,String userId) {//foodlist를 select해주는 service 클래스의 메소드
+	public int selectCountFood_Board(String sfl,String stx) {
+		Connection conn=getConnection();
+		int result=dao.selectCountFood_Board(conn,sfl,stx);
+		close(conn);
+		return result;
+	}
+	
+	public List<Food> selectFoodList(int cPage, int numPerPage,String name,String userId,String sfl,String stx) {//foodlist를 select해주는 service 클래스의 메소드
 		Connection conn  = getConnection();//db와 연결해주는 static 메소드
-		List<Food> list = dao.selectFoodList(conn,cPage,numPerPage,name,userId);//select * from Food_board;를 실행할 메소드 
+		List<Food> list = dao.selectFoodList(conn,cPage,numPerPage,name,userId,sfl,stx);//select * from Food_board;를 실행할 메소드 
 		close(conn);
 		return list;
 	}
 
-	public int selectCountFood_Board() {
-		Connection conn=getConnection();
-		int result=dao.selectCountFood_Board(conn);
-		close(conn);
-		return result;
-	}
 
-	public int insertBoard(Food f) {
+	public int insertBoard(Food f,String writer) {
 		Connection conn = getConnection();
 		int result = dao.insertBoard(conn,f);
+		
 		if(result>0) {
+			int result2=dao.updatePoint(conn,writer);
+			if(result2>0) {
 			commit(conn);
+			}
 		}else {
 			rollback(conn);
 		}return result;
 	}
 
-	public Food selectFoodView(int board_no) {
+	public Food selectFoodView(int board_no, boolean hasRead) {
 		Connection conn=getConnection();
 		Food f= dao.selectFoodView(conn,board_no);
+		if(!hasRead && f != null) {
+			int result = dao.updateReadCount(conn, board_no);
+			if(result>0) {
+				commit(conn);
+			}else {
+				rollback(conn);
+			}
+		}
 		close(conn);
 		return f;
 	}

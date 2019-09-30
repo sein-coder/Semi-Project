@@ -1,133 +1,175 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import="com.umo.model.vo.Member" %>
- <% Member loginMember=(Member)session.getAttribute("loginMember");
-Cookie[] cookies=request.getCookies();
-String saveId=null;
-/* System.out.println(m.getMemberId()); */
-%>
-
-   
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
 <head>
-<meta charset="UTF-8">
-<title>프로젝트</title>
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/style.css" type="text/css"/>
-<script src="<%=request.getContextPath() %>/js/jquery-3.4.1.min.js"></script>
-<script src="<%=request.getContextPath() %>/js/header.js"></script>
+<meta charset="utf-8">
+<meta http-equiv="imagetoolbar" content="no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>우마오</title>
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/default.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/connect_style.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/latest_basic_style.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/latest_pic_basic_style.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/latest_notice_style.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/outlogin_basic_style.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/visit_basic_style.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/board_basic_style.css">
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="https://use.fontawesome.com/3b5ffe2c0a.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/se2/js/HuskyEZCreator.js" charset="utf-8"></script>
 
-<body>
-  <!-- Header -->
-    <div class="menuview">
-        <br><br><br>
-        <br><br><br>
-        <%if(loginMember==null) {%>
-            <a href="<%=request.getContextPath()%>/memberJoin">회원가입</a>&nbsp;&nbsp;
-            <a href="<%=request.getContextPath()%>/memberLogin">로그인</a>
-            <%}else{ %>
-            <a href="<%=request.getContextPath() %>/myPage?userId=<%=loginMember.getMemberId()%>">마이페이지</a>
-            <a href="<%=request.getContextPath() %>/logout">로그아웃</a>
-            <%} %>
-        <br>
-        <p>출석일은 ~일</p>
-        <button class="calendarbutton" onclick="calendarbutton();">달력</button>
-        <div class="calendarview" style="display:none;">
-            <table id="calendar" border="3" align="center" style="border-color:rgb(48, 84, 202) ">
-                <tr>
-                    <td><label onclick="prevCalendar()" style="cursor: pointer">
-                            <</label> </td> <td align="center" id="tbCalendarYM" colspan="5">
-                                yyyy년 m월</td>
-                    <td><label onclick="nextCalendar()" style="cursor: pointer">>
-    
-                        </label></td>
-                </tr>
-                <tr>
-                    <td align="center">
-                        <font color="red">일
-                    </td>
-                    <td align="center">월</td>
-                    <td align="center">화</td>
-                    <td align="center">수</td>
-                    <td align="center">목</td>
-                    <td align="center">금</td>
-                    <td align="center">
-                        <font color="skyblue">토
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <br><br>
-        <ul>
-            <li class="menu" type="none">
-                <a class="menuLink"><img src="" alt="즐겨찾기" /></a>
-                <ul class="hide">
-                    <li><a href="" class="submenuLink">반별게시판</a></li>
-                    <li><a href="" class="submenuLink">익명게시판</a></li>
-                    <li><a href="" class="submenuLink">코드게시판</a></li>
-                    <li><a href="" class="submenuLink">강사게시판</a></li>
-                    <li><a href="" class="submenuLink">칭찬게시판</a></li>
-                </ul>
-            </li><br>
-    </div>
-    <div>
-        <header id="header">
-            <h2><a href="<%=request.getContextPath() %>/index.jsp" style="color:inherit;text-decoration: none;">kh</a></h2>
-            <div class="menu2">
-                <div class="left-menu">
-                    <a href="javascript:doDisplay();"><img id="guidebutton"
-                            src="https://www.iei.or.kr/resources/images/common/menu_open.png"></a>
-                </div>
-                <div class="center-menu">
-                    <a href="#"><button id="dropdown-btn" class="dropdown gecipan1"
-                            style="color: black">공지</button></a>
-                    <a href="index.html"><button id="dropdown-btn" class="dropdown gecipan2"
-                            style="color: black">게시판</button></a>
-                    <a href="index.html"><button id="dropdown-btn" class="dropdown gecipan3"
-                            style="color: black">자극방</button></a>
-                    <a href="index.html"><button id="dropdown-btn" class="dropdown gecipan4"
-                            style="color: black">게임방</button></a>
-                    <a href="<%=request.getContextPath()%>/food/foodList"><button id="dropdown-btn" class="dropdown gecipan6"
-                            style="color: black">맛집추천</button></a>
-                    <a href="<%=request.getContextPath()%>/webCopiler/webCopilerView"><button id="dropdown-btn" class="dropdown gecipan7"
-                            style="color: black">코드방</button></a>
-                     <a href="<%=request.getContextPath()%>/admin/Memberlist"><button id="dropdown-btn" class="dropdown gecipan7"
-                            style="color: black">회원관리</button></a>        
-                </div>
-                  <% if(loginMember==null){ %>
-                            <div class="right-menu">
-                                <a href="<%=request.getContextPath() %>/memberJoin" style="color:inherit;text-decoration: none;">회원가입</a>
-                                <a href="<%=request.getContextPath() %>/memberLogin" style="color:inherit;text-decoration: none;">로그인</a>
-                            </div>	
-                            <%}else{ %>
-                            <div class="right-menu">
-                            
-                            <a href="<%=request.getContextPath() %>/myPage?userId=<%=loginMember.getMemberId()%>" style="color:inherit; text-decoration: none;">마이페이지</a>
-                            <a href="<%=request.getContextPath() %>/logout">로그아웃</a>
-                            </div>
-                            <%} %>
-                            </div>
-        </header>
-        <div class="subcenter-menu">
-            <div id="subcenter-menu1">
-                <a href="<%=request.getContextPath() %>/noticeBoard"><button id="dropdown-btn" class="dropdown" style="color: black">새로운소식</button></a>
-                <a href="오시는길.html"><button id="dropdown-btn" class="dropdown" style="color: black">오시는길</button></a>
-            </div>
-            <div id="subcenter-menu2">
-                <a href="<%=request.getContextPath()%>/freeBoard"><button id="dropdown-btn" class="dropdown" style="color: black">자유게시판</button></a>
-                <a href="<%=request.getContextPath()%>/anonymousBoard"><button id="dropdown-btn" class="dropdown" style="color: black">익명게시판</button></a>
-                <a href="<%=request.getContextPath()%>/gradeBoard"><button id="dropdown-btn" class="dropdown" style="color: black">반별게시판</button></a>
-                <a href="<%= request.getContextPath()%>/inquery/inqueryBoard"><button id="dropdown-btn" class="dropdown" style="color: black">코드 질의게시판</button></a>
-            </div>
-        </div>
-    </div>
-    <!-- Header -->  
+</head>
+<%@ page import="com.umo.model.vo.Member" %>
+<script>
+	$(document).ready(function(){
+		$.ajax({
+			url:"<%=request.getContextPath()%>/sessionServlet",
+			dataType:"text",
+			type : "post", 
+			success : function(data){
+				console.log("성공");
+			}
+		});
+		
+<%-- 		 setInterval(function () {
+			 $.ajax({
+					url:"<%=request.getContextPath()%>/sessionServlet",
+					dataType:"text",
+					type : "post", 
+					success : function(data){
+					console.log("성공");
+				}
+			});
+		 }, 5000 ); --%>
+	});
 	
-	
-	
-	
-	
-	
-	
-	
+</script>
+<!-- loginMember객체 생성 -->
+<% 
+	Member loginMember = (Member)request.getSession().getAttribute("loginMember");
+	int loginCount = request.getSession().getAttribute("loginCount")!=null?(int)request.getSession().getAttribute("loginCount"):0;
+	int todayLogin = request.getSession().getAttribute("todayLogin")!=null?(int)request.getSession().getAttribute("todayLogin"):0;
+	int allLogin = request.getSession().getAttribute("allLogin")!=null?(int)request.getSession().getAttribute("allLogin"):0;
+	int maxLogin = request.getSession().getAttribute("maxLogin")!=null?(int)request.getSession().getAttribute("maxLogin"):0;
+%>
+
+<!-- 상단 -->
+<div id="hd_wrapper">
+
+	<a href="<%=request.getContextPath()%>/index.jsp"><img
+		src="<%=request.getContextPath()%>/images/umoLogo.png" alt="우마오"
+		width="200px" height="115px"
+		style="position: relative; left: 120px;"></a>
+
+	<div class="hd_sch_wr">
+		<fieldset id="hd_sch">
+			<legend>사이트 내 전체검색</legend>
+			<form name="fsearchbox" method="get" action="<%=request.getContextPath()%>/allboardsearch">
+				<input type="text" name="stx" id="sch_stx" maxlength="20"
+					placeholder="검색어를 입력해주세요">
+				<button type="submit" id="sch_submit" value="검색">
+					<i class="fa fa-search" aria-hidden="true"></i>
+				</button>
+			</form>
+
+			<script>
+                    function fsearchbox_submit() {
+
+                    }
+                </script>
+
+		</fieldset>
+
+
+	</div>
+	<ul id="hd_qnb">
+		<li><a href=""><i class="fa fa-question" aria-hidden="true"></i><span>FAQ</span></a></li>
+		<li><a href=""><i class="fa fa-comments" aria-hidden="true"></i><span>1:1문의</span></a></li>
+		<li><a href=""><i class="fa fa-user" aria-hidden="true"></i><span>내정보</span></a></li>
+	</ul>
+</div>
+
+<nav id="gnb">
+	<h2>메인메뉴</h2>
+	<div class="gnb_wrap">
+		<ul id="gnb_1dul">
+			<li class="gnb_1dli gnb_mnal"><button type="button"
+					class="gnb_menu_btn">
+					<i class="fa fa-bars" aria-hidden="true"></i>
+				</button></li>
+			<li class="gnb_1dli" style="margin-left: 5%"><a href="<%=request.getContextPath() %>/noticeBoard" 
+			    class="gnb_1da">공지사항</a></li>
+			<li class="gnb_1dli" style="margin-left: 5%"><a href="<%=request.getContextPath() %>/anonymousBoard" 
+			    class="gnb_1da">익명게시판</a></li>
+			<li class="gnb_1dli" style="margin-left: 5%"><a href="<%=request.getContextPath() %>/freeBoard"
+				class="gnb_1da">자유게시판</a></li>
+			<li class="gnb_1dli" style="margin-left: 5%"><a href="<%=request.getContextPath() %>/gradeBoard"
+				class="gnb_1da">반별게시판</a></li>
+			<li class="gnb_1dli" style="margin-left: 5%"><a href="<%=request.getContextPath() %>/inquery/inqueryBoard"
+				class="gnb_1da">코딩게시판</a></li>
+			<li class="gnb_1dli" style="margin-left: 5%"><a href="<%=request.getContextPath() %>/food/foodList"
+				class="gnb_1da">맛집게시판</a></li>
+
+		</ul>
+		<div id="gnb_all">
+			<h2>전체메뉴</h2>
+			<ul class="gnb_al_ul">
+				<li class="gnb_al_li"><a href="<%=request.getContextPath() %>/noticeBoard" class="gnb_al_a">공지사항</a></li>
+				<li class="gnb_al_li"><a href="<%=request.getContextPath() %>/anonymousBoard" class="gnb_al_a">익명게시판</a></li>
+				
+				<li class="gnb_al_li"><a href="<%=request.getContextPath() %>/freeBoard" class="gnb_al_a">자유게시판</a>
+					<ul>
+						<li><a href="" target="_self"><i
+								class="fa fa-caret-right" aria-hidden="true"></i>1</a></li>
+						<li><a href="" target="_self"><i
+								class="fa fa-caret-right" aria-hidden="true"></i>2</a></li>
+					</ul></li>
+				<li class="gnb_al_li"><a href="<%=request.getContextPath() %>/gradeBoard" class="gnb_al_a">반별게시판</a>
+					<ul>
+						<li><a href="" target="_self"><i
+								class="fa fa-caret-right" aria-hidden="true"></i>R클래스</a></li>
+						<li><a href="" target="_self"><i
+								class="fa fa-caret-right" aria-hidden="true"></i>?클래스</a></li>
+					</ul></li>
+				<li class="gnb_al_li"><a href="<%=request.getContextPath() %>/inquery/inqueryBoard" class="gnb_al_a">코딩게시판</a>
+					<ul>
+						<li><a href="<%=request.getContextPath() %>/inquery/inqueryBoard" target="_self"><i
+								class="fa fa-caret-right" aria-hidden="true"></i>코드 질의 게시판</a></li>
+						<li><a href="<%= request.getContextPath() %>/webCopiler/webCopilerView" target="_self"><i
+								class="fa fa-caret-right" aria-hidden="true"></i>컴파일러</a></li>
+					</ul></li>
+				<li class="gnb_al_li"><a href="<%=request.getContextPath() %>/food/foodList" class="gnb_al_a">맛집게시판</a>
+					<ul>
+						<li><a href="" target="_self"><i
+								class="fa fa-caret-right" aria-hidden="true"></i>1</a></li>
+						<li><a href="" target="_self"><i
+								class="fa fa-caret-right" aria-hidden="true"></i>2</a></li>
+					</ul></li>
+
+			</ul>
+			<button type="button" class="gnb_close_btn">
+				<i class="fa fa-times" aria-hidden="true"></i>
+			</button>
+		</div>
+	</div>
+</nav>
+<script>
+					$(function() {
+						$(".gnb_menu_btn").click(function() {
+							$("#gnb_all").show();
+						});
+						$(".gnb_close_btn").click(function() {
+							$("#gnb_all").hide();
+						});
+					});
+				</script>
+
+<!-- 상단 끝 -->

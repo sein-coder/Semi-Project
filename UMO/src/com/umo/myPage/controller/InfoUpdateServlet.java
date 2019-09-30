@@ -35,9 +35,8 @@ public class InfoUpdateServlet extends HttpServlet {
 		
 		String id=request.getParameter("id");
 		Member m=new MyPageService().selectOne(id);
-	      request.setAttribute("member", m);
-		request.getRequestDispatcher("/views/myPage/infoUpdate.jsp")
-		.forward(request, response);
+	    request.setAttribute("member", m);
+		request.getRequestDispatcher("/views/member/infoUpdate.jsp").forward(request, response);
 	}
 
 	/**

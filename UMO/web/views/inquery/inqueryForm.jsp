@@ -7,6 +7,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.6.8/beautify.js"></script>
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" rel="stylesheet"/>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/se2/js/HuskyEZCreator.js" charset="utf-8"></script>
 	
 <%
 	Inquery inquery = (Inquery)request.getAttribute("inquery");
@@ -33,7 +34,7 @@
 
 	<section id="inqueryForm-container">
 	<div class="inquery-form">
-		<form action="<%=request.getContextPath() %>/inquery/inqueryWriteEnd?code-type="+<%= type %> method="post" enctype="multipart/form-data">
+		<form id="frm" action="<%=request.getContextPath() %>/inquery/inqueryWriteEnd?code-type="+<%= type %> method="post" enctype="multipart/form-data">
 			<input type="hidden" name="writer" value='<%=((Member)session.getAttribute("loginMember")).getMemberId()%>'>
 			<table class="form-tbl" style="border: 1px solid black;">
 				<tr>
@@ -88,6 +89,25 @@
 	</div>
 	
 	<script>
+		//에디터 설정부분
+		var oEditors = [];
+		nhn.husky.EZCreator.createInIFrame({
+		 oAppRef: oEditors,
+		 elPlaceHolder: "inquery-content",
+		 sSkinURI: "<%=request.getContextPath()%>/se2/SmartEditor2Skin.html",
+		 fCreator: "createSEditor2"
+		});
+	
+		// textArea에 이미지 첨부
+		function pasteHTML(filepath){
+		    var sHTML = '<img src="<%=request.getContextPath()%>/upload/inquery/contentimg/'+filepath+'">';
+		    oEditors.getById["inquery-content"].exec("PASTE_HTML", [sHTML]);
+		}
+		
+		$("#frm").submit(function(){
+			oEditors.getById["inquery-content"].exec("UPDATE_CONTENTS_FIELD", []); 					
+		});
+	
 		//editor 입력코드와 출력 자료에 적용
 		var inputCode = ace.edit('inputeditor');
 		var outputCode = ace.edit('outputeditor'); 

@@ -61,12 +61,15 @@ public class GradeContentViewServlet extends HttpServlet {
 		}
 		GradeBoardService service=new GradeBoardService();
 		
-		Board gb= service.selectGradeBoard(no,hasRead);
+		Board b= service.selectGradeBoard(no,hasRead);
 		List<BoardComment> list=service.selectGradeBoardComment(no);
 		
-		request.setAttribute("gb", gb);
+		request.setAttribute("b", b);
 		request.setAttribute("comments", list);
-		request.getRequestDispatcher("/views/grade/gradeContentView.jsp").forward(request, response);
+	    request.setAttribute("board_type", "grade");
+	    request.setAttribute("titlename", "반별");
+		
+		request.getRequestDispatcher("/views/board/boardContentView.jsp").forward(request, response);
 		
 	}
 

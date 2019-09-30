@@ -15,15 +15,15 @@ import com.umo.model.vo.NoticeBoard;
 
 public class FreeBoardService {
 	private FreeBoardDao dao= new FreeBoardDao();
-	public int countFreeList() {	
+	public int countFreeList(String sfl,String stx) {	
 		Connection conn=getConnection();	
-		int result=dao.countFreeList(conn);
+		int result=dao.countFreeList(conn,sfl,stx);
 		close(conn);
 		return result;
 	}
-	public List<Board> selectFreeBoardList(int cPage, int numPerPage,String name,String userId){
+	public List<Board> selectFreeBoardList(int cPage, int numPerPage,String name,String userId,String sfl,String stx){
 		Connection conn=getConnection();		
-		List<Board> list=dao.selectFreeBoardList(conn, cPage, numPerPage,name,userId);
+		List<Board> list=dao.selectFreeBoardList(conn, cPage, numPerPage,name,userId,sfl,stx);
 		close(conn);	
 		return list; 
 	}
@@ -33,11 +33,16 @@ public class FreeBoardService {
 		close(conn);
 		return b;
 	}
-	public int freeWrite(Board fb) {
+	public int freeWrite(Board fb,String writer) {
 		Connection conn=getConnection();
 		int result=dao.freeWrite(conn,fb);
 		
-		if(result>0) {commit(conn);}
+		if(result>0) {
+			int result2=dao.updatePoint(conn,writer);
+			if(result2>0) {
+				commit(conn);				
+				}
+			}
 		else {rollback(conn);}
 		
 		return result;
@@ -48,10 +53,10 @@ public class FreeBoardService {
 		close(conn);
 		return no;
 	}
-	public int freeUpdate(NoticeBoard nb) {
-		System.out.println(nb.getOriginal_filename()+" "+nb.getRenamed_filename());
+	public int freeUpdate(Board fb) {
+		System.out.println(fb.getOriginal_filename()+" "+fb.getRenamed_filename());
 		Connection conn=getConnection();
-		int result=dao.freeUpdate(conn,nb);
+		int result=dao.freeUpdate(conn,fb);
 		
 		if(result>0) {commit(conn);}
 		else {rollback(conn);}
@@ -71,6 +76,7 @@ public class FreeBoardService {
 		Connection conn=getConnection();
 		Board b=dao.freeBoardContent(conn,no);
 		if(!hasRead&&b!=null) {
+			System.out.println("실행");
 			int result=dao.updateReadCount(conn,no);
 			if(result>0) {commit(conn);}
 			else {rollback(conn);}

@@ -61,12 +61,15 @@ public class FreeContentViewServlet extends HttpServlet {
 		}
 		FreeBoardService service=new FreeBoardService();
 		
-		Board fb= service.selectfreeBoard(no,hasRead);
+		Board b= service.selectfreeBoard(no,hasRead);
 		List<BoardComment> list=service.selectFreeBoardComment(no);
 		
-		request.setAttribute("fb", fb);
+		request.setAttribute("b", b);
 		request.setAttribute("comments", list);
-		request.getRequestDispatcher("/views/free/freeContentView.jsp").forward(request, response);
+	    request.setAttribute("board_type", "free");
+	    request.setAttribute("titlename", "자유");
+	    
+		request.getRequestDispatcher("/views/board/boardContentView.jsp").forward(request, response);
 		
 	}
 

@@ -11,7 +11,7 @@ public class NoticeBoard {
 	private String original_filename;
 	private String renamed_filename;
 	private Date date;
-	private int count;
+	private int count;//조회수
 	private char writing_status;
 	private int board_grade;//추천수 통계
 	private String boardType; //게시판 종류

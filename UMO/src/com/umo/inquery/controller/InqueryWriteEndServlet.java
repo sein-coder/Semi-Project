@@ -75,7 +75,7 @@ public class InqueryWriteEndServlet extends HttpServlet {
 		
 		
 		InqueryService service = new InqueryService();
-		int result = service.insertInquery(inquery);
+		int result = service.insertInquery(inquery,board_Writer);
 			  
 		String msg = ""; String loc = "";
 			 

@@ -33,16 +33,28 @@ public class NoticeBoardServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		int cPage;
+		int numPerPage;
+		
 		try {
 			cPage=Integer.parseInt(request.getParameter("cPage"));
 		} catch (NumberFormatException e) {
 		    cPage=1;
 		}
-		int numPerPage=10;
+		
+		try {
+			numPerPage=Integer.parseInt(request.getParameter("numPerPage"));
+		}catch (NumberFormatException e) {
+			numPerPage =10;
+		}
+		//sfl는 선택창
+		//stx는 검색어
+		String sfl=request.getParameter("sfl");
+		String stx=request.getParameter("stx");	
+		
 	    NoticeBoardService service=new NoticeBoardService();
-	    int totalData=service.countNoticeList();
+	    int totalData=service.countNoticeList(sfl,stx);
 	    
-	    List<NoticeBoard> list =service.selectNoticeBoardList(cPage, numPerPage);
+	    List<NoticeBoard> list =service.selectNoticeBoardList(cPage, numPerPage,sfl,stx);
 	    
 	    String pageBar="";
 	    int totalPage=(int)Math.ceil((double)totalData/numPerPage);
@@ -52,38 +64,38 @@ public class NoticeBoardServlet extends HttpServlet {
 	    
 	  //pageBar 소스코드작성!
 		//[이전]만들기
-		if(pageNo==1) {
-			pageBar+="<li><span>[이전]</span></li>";
+	    if(pageNo==1) {
+			pageBar+="<strong class='pg_page pg_start'>다음</strong>";
 		}else {
-			pageBar+="<a href='"+request.getContextPath()
-			+"/noticeBoard?cPage="+(pageNo-1)+"'><span>[이전]</span></a>";
+			pageBar+="<a class='pg_page pg_start' href='"+request.getContextPath()
+			+"/noticeBoard?cPage="+(pageNo-1)+"&numPerPage="+numPerPage+"'>이전</a>";
 		}
 		//중간 클릭한 페이지(숫자) 만들기
 		while(!(pageNo>pageEnd||pageNo>totalPage)) {
 			if(pageNo==cPage) {
-				pageBar+="<li>"+"<a href='#'>"+pageNo+"</a>"+"</li>";
+				pageBar+="<strong class='pg_current'>"+pageNo+"</strong>";
 			}else {
-				pageBar+="<li>"+"<a href='"+request.getContextPath()
-				+"/noticeBoard?cPage="+pageNo+"'>"+pageNo+"</a>"+"</li>";
+				pageBar+="<a class='pg_page' href='"+request.getContextPath()
+				+"/noticeBoard?cPage="+pageNo+"&numPerPage="+numPerPage+"'>"+pageNo+"</a>";
 			}
 			pageNo++;
 		}
 		//[다음]만들기
 		if(pageNo>totalPage) {
-			pageBar+="<li><span>[다음]</span></li>";
+			pageBar+="<strong class='pg_page pg_end'>다음</strong>";
 		}
 		else {
-			pageBar+="<li><a href='"+request.getContextPath()
-			+"/noticeBoard?cPage="+pageNo+"'><span>[다음]</span></a></li>";
+			pageBar+="<a class='pg_page pg_end' href='"+request.getContextPath()
+			+"/noticeBoard?cPage="+pageNo+"&numPerPage="+numPerPage+"'>다음</a>";
 			
 		}
 		
 		request.setAttribute("cPage",cPage);
 		request.setAttribute("pageBar",pageBar);
-	    request.setAttribute("list", list);	
-		request.getRequestDispatcher("/views/notice/noticeBoard.jsp").forward(request, response);
-		
+	    request.setAttribute("list", list);
+	    request.setAttribute("numPerPage", numPerPage);	    
 	    
+		request.getRequestDispatcher("/views/notice/noticeListView.jsp").forward(request, response);	    
 	}
 
 	/**

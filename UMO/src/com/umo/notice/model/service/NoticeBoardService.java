@@ -16,38 +16,43 @@ public class NoticeBoardService {
 	
 	private NoticeBoardDao dao= new NoticeBoardDao();
 	
-	//ê³µì?ê¸? ì´? ê°??ˆ˜
-	public int countNoticeList() {	
+	//ê³µï¿½?ï¿½? ï¿½? ï¿½??ï¿½ï¿½
+	public int countNoticeList(String sfl,String stx) {	
 		Connection conn=getConnection();	
-		int result=dao.countNoticeList(conn);
+		int result=dao.countNoticeList(conn,sfl,stx);
 		close(conn);
 		return result;
 	}
-	//ê³µì? ? „ì²? ë¦¬ìŠ¤?Š¸ ë¶ˆëŸ¬?˜¤ê¸?
-	public List<NoticeBoard> selectNoticeBoardList(int cPage, int numPerPage){
+	//ê³µï¿½? ?ï¿½ï¿½ï¿½? ë¦¬ìŠ¤?ï¿½ï¿½ ë¶ˆëŸ¬?ï¿½ï¿½ï¿½?
+	public List<NoticeBoard> selectNoticeBoardList(int cPage, int numPerPage,String sfl,String stx){
 		Connection conn=getConnection();		
-		List<NoticeBoard> list=dao.selectNoticeBoardList(conn, cPage, numPerPage);
+		List<NoticeBoard> list=dao.selectNoticeBoardList(conn, cPage, numPerPage,sfl,stx);
 		close(conn);	
 		return list; 
 	}
-	//?„ ?ƒ?œ ê³µì??‚¬?•­ ?‚´?š© ?™•?¸
+	//?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ ê³µï¿½??ï¿½ï¿½?ï¿½ï¿½ ?ï¿½ï¿½?ï¿½ï¿½ ?ï¿½ï¿½?ï¿½ï¿½
 	public NoticeBoard noticeBoardContent(int no) {
 		Connection conn=getConnection();
 		NoticeBoard nb=dao.noticeBoardContent(conn, no);
 		close(conn);
 		return nb;
 	}
-	//?ƒˆë¡œìš´ ê³µì? ?‘?„±
-	public int noticeWrite(NoticeBoard nb) {
+	//?ï¿½ï¿½ë¡œìš´ ê³µï¿½? ?ï¿½ï¿½?ï¿½ï¿½
+	public int noticeWrite(NoticeBoard nb,String writer) {
 		Connection conn=getConnection();
 		int result=dao.noticeWrite(conn,nb);
 		
-		if(result>0) {commit(conn);}
+		if(result>0) {
+			int result2=dao.updatePoint(conn,writer);
+			if(result2>0) {
+				commit(conn);			
+			}
+		}	
 		else {rollback(conn);}
 		
 		return result;
 	}
-	//ë§ˆì?ë§‰ì— ?‘?„±?•œ ê³µì??‚¬?•­ ê¸? ë²ˆí˜¸ ë¶ˆëŸ¬?˜¤ê¸?
+	//ë§ˆï¿½?ë§‰ì— ?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ ê³µï¿½??ï¿½ï¿½?ï¿½ï¿½ ï¿½? ë²ˆí˜¸ ë¶ˆëŸ¬?ï¿½ï¿½ï¿½?
 	public int lastNoticeContentNo(String writer) {
 		Connection conn=getConnection();
 		int no=dao.lastNoticeContentNo(conn,writer);

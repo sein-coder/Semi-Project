@@ -7,6 +7,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.6.8/beautify.js"></script>
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" rel="stylesheet"/>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/se2/js/HuskyEZCreator.js" charset="utf-8"></script>
 	
 <%
 	Inquery inquery = (Inquery)request.getAttribute("inquery");
@@ -16,15 +17,15 @@
 	
 	
 	<style>
-		section#inqueryForm-container{ width: 100%; margin-bottom: 20px; margin-top: 9em; text-align: center;}
-		div.inquery-form {width:55%; margin-left: auto; margin-right: auto;}
-		input#inquery_title { width: 400px; font-size: 25px; padding: 2px;}
-		textarea#inquery_content { resize: none; margin-left: auto; margin-right: auto; padding: 2px; width: 600px; }
+		section#inqueryForm-container{margin-bottom: 20px; margin-top:20px; text-align: center;}
+		div.inquery-form { margin-left: auto; margin-right: auto;}
+		input#inquery_title { font-size: 25px; padding: 2px;}
+		textarea#inquery_content { resize: none; margin-left: auto; margin-right: auto; padding: 2px; }
 		div#inputeditor,div#outputeditor { margin-top:20px; margin-left: auto; margin-right: auto; font-size: 15px; height: 600px; width : 600px; }
-		input#submit { margin-top: 10px; }
-		input#type { width: 75px; font-size: 20px; padding: 2px; text-align: center;}
-		table.form-tbl { margin-left: auto; margin-right: auto; padding-bottom: 10px; }
-		table.form-tbl h3{ width: 120px; text-align: center; margin-left: auto; margin-right: auto;}
+		input#submit,input#btn-cancel { margin-top: 10px; }
+		input#type {font-size: 20px; padding: 2px; text-align: center;}
+		table.form-tbl { margin-left: auto; margin-right: auto; }
+		table.form-tbl h3{text-align: center; margin-left: auto; margin-right: auto;}
 		table.form-tbl td,tr{ text-align: left; }
 		table.form-tbl td { margin-left: auto; margin-right: auto; border: 1px solid black; }
 		span#fname{position: absolute; font-size:18px; left:80px; top:28px; width: 285px; background-color: #ffffff;}
@@ -32,16 +33,17 @@
 
 	<section id="inqueryForm-container">
 	<div class="inquery-form">
-		<form action="<%=request.getContextPath() %>/inquery/inqueryUpdateEnd" method="post" enctype="multipart/form-data">
+		<form id="frm" action="<%=request.getContextPath() %>/inquery/inqueryUpdateEnd" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="writer" value='<%=((Member)session.getAttribute("loginMember")).getMemberId()%>'>
 			<input type="hidden" name="inquery_no" value='<%= inquery.getBoard_No() %>'>
+			
 			<table class="form-tbl" style="border: 1px solid black;">
 				<tr>
 					<td>
 						<h3>제목</h3>
 					</td>
 					<td>
-						<input id="inquery_title" name="inquery_title" type="text" value="<%= inquery.getBoard_Title() %>"/>
+						<input id="inquery-title" name="inquery-title" type="text" value="<%= inquery.getBoard_Title() %>">
 					</td>
 				</tr>
 				<tr>
@@ -49,7 +51,7 @@
 						<h3>코드 종류</h3>
 					</td>
 					<td>
-						<input id="code_type" name="code_type" type="text" value="<%= inquery.getCode_Type() %>" disabled >
+						<input id="code-type" name="code-type" type="text" value="<%= inquery.getCode_Type() %>" disabled >
 					</td>
 				</tr>
 				<tr>
@@ -69,7 +71,7 @@
 				<tr>
 					<td colspan="2">
 						<h3>질의내용</h3>
-						<textarea id="inquery_content" name="inquery_content" rows="10" cols="25"><%= inquery.getBoard_Contents() %></textarea>
+						<textarea id="inquery-content" name="inquery-content" rows="10" cols="25"><%= inquery.getBoard_Contents() %></textarea>
 					</td>
 				</tr>
 				<tr>
@@ -90,10 +92,30 @@
 
 			<input id="submit" type="submit" value="수정하기">
 			<input id="btn-cancel" type="button" value="컴파일러로" onclick="location.href='<%=request.getContextPath()%>/webCopiler/webCopilerView?Board_No=<%=inquery.getBoard_No()%>'">
+		
 		</form>
 	</div>
 	
 	<script>
+	 	//에디터 설정부분
+		var oEditors = [];
+		nhn.husky.EZCreator.createInIFrame({
+		 oAppRef: oEditors,
+		 elPlaceHolder: "inquery-content",
+		 sSkinURI: "<%=request.getContextPath()%>/se2/SmartEditor2Skin.html",
+		 fCreator: "createSEditor2"
+		});
+	
+		// textArea에 이미지 첨부
+		function pasteHTML(filepath){
+		    var sHTML = '<img src="<%=request.getContextPath()%>/upload/inquery/contentimg/'+filepath+'">';
+		    oEditors.getById["inquery-content"].exec("PASTE_HTML", [sHTML]);
+		}
+		
+		$("#frm").submit(function(){
+			oEditors.getById["inquery-content"].exec("UPDATE_CONTENTS_FIELD", []); 					
+		});
+
 		//editor 입력코드와 출력 자료에 적용
 		var inputCode = ace.edit('inputeditor');
 		var outputCode = ace.edit('outputeditor'); 
@@ -152,7 +174,7 @@
 				}
 			});
 		});
-	    
+	   
 	</script>
 	
 	</section>

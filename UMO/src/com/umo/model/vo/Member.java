@@ -6,40 +6,28 @@ public class Member {
 private String memberId;
 private String memberPw;
 private String memberName;
+private String class1;
 private String email;
-private String phone;
-private String address;
-private Date join_Date;
-private int kh_cNo;
+private int khno;
+private Date join_date;
 private int attendance_count;
-private int grade;
+private char grade;
 private int point;
 
 public Member() {
 	// TODO Auto-generated constructor stub
 }
 
-public Member(String memberId, String memberPw, String memberName, String email, String phone, String address) {
+public Member(String memberId, String memberPw, String memberName, String class1, String email, int khno,
+		Date join_date, int attendance_count, char grade, int point) {
 	super();
 	this.memberId = memberId;
 	this.memberPw = memberPw;
 	this.memberName = memberName;
+	this.class1 = class1;
 	this.email = email;
-	this.phone = phone;
-	this.address = address;
-}
-
-public Member(String memberId, String memberPw, String memberName, String email, String phone, String address,
-		Date join_Date, int kh_cNo, int attendance_count, int grade, int point) {
-	super();
-	this.memberId = memberId;
-	this.memberPw = memberPw;
-	this.memberName = memberName;
-	this.email = email;
-	this.phone = phone;
-	this.address = address;
-	this.join_Date = join_Date;
-	this.kh_cNo = kh_cNo;
+	this.khno = khno;
+	this.join_date = join_date;
 	this.attendance_count = attendance_count;
 	this.grade = grade;
 	this.point = point;
@@ -69,6 +57,14 @@ public void setMemberName(String memberName) {
 	this.memberName = memberName;
 }
 
+public String getClass1() {
+	return class1;
+}
+
+public void setClass1(String class1) {
+	this.class1 = class1;
+}
+
 public String getEmail() {
 	return email;
 }
@@ -77,36 +73,20 @@ public void setEmail(String email) {
 	this.email = email;
 }
 
-public String getPhone() {
-	return phone;
+public int getKhno() {
+	return khno;
 }
 
-public void setPhone(String phone) {
-	this.phone = phone;
+public void setKhno(int khno) {
+	this.khno = khno;
 }
 
-public String getAddress() {
-	return address;
+public Date getJoin_date() {
+	return join_date;
 }
 
-public void setAddress(String address) {
-	this.address = address;
-}
-
-public Date getJoin_Date() {
-	return join_Date;
-}
-
-public void setJoin_Date(Date join_Date) {
-	this.join_Date = join_Date;
-}
-
-public int getKh_cNo() {
-	return kh_cNo;
-}
-
-public void setKh_cNo(int kh_cNo) {
-	this.kh_cNo = kh_cNo;
+public void setJoin_date(Date join_date) {
+	this.join_date = join_date;
 }
 
 public int getAttendance_count() {
@@ -117,11 +97,11 @@ public void setAttendance_count(int attendance_count) {
 	this.attendance_count = attendance_count;
 }
 
-public int getGrade() {
+public char getGrade() {
 	return grade;
 }
 
-public void setGrade(int grade) {
+public void setGrade(char grade) {
 	this.grade = grade;
 }
 
@@ -135,11 +115,10 @@ public void setPoint(int point) {
 
 @Override
 public String toString() {
-	return "Member [memberId=" + memberId + ", memberPw=" + memberPw + ", memberName=" + memberName + ", email=" + email
-			+ ", phone=" + phone + ", address=" + address + ", join_Date=" + join_Date + ", kh_cNo=" + kh_cNo
-			+ ", attendance_count=" + attendance_count + ", grade=" + grade + ", point=" + point + "]";
+	return "Member [memberId=" + memberId + ", memberPw=" + memberPw + ", memberName=" + memberName + ", class1="
+			+ class1 + ", email=" + email + ", khno=" + khno + ", join_date=" + join_date + ", attendance_count="
+			+ attendance_count + ", grade=" + grade + ", point=" + point + "]";
 }
-
 
 
 

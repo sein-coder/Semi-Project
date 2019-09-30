@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
 
 <%@ include file="/views/common/header.jsp" %>
+
 <style>
-    section#notice-container{width:1000px; margin:0 auto; margin-top:150px; text-align:center;}
     section#notice-container h2{margin:10px 0;}
     table#tbl-notice{width:500px; margin:0 auto; border:1px solid black; border-collapse:collapse; clear:both; }
     table#tbl-notice th {width: 125px; border:1px solid; padding: 5px 0; text-align:center;} 
@@ -27,13 +27,18 @@
        </tr>
        <tr>
          <th>내용</th>
+<<<<<<< HEAD
          <td> <textarea name="content" id="content" rows="10" cols="100"></textarea></td>
+=======
+         <td><textarea rows="5" cols="50" id="content" name="content"></textarea></td>
+>>>>>>> refs/remotes/origin/master2.0
        </tr>
        <tr>
          <td colspan="2" style="text-align:center;"><input type="submit" value="등록"/></td>
        </tr>  
       </table>
       </form>
+<<<<<<< HEAD
    
    
    <script type="text/javascript">
@@ -55,6 +60,31 @@
        oEditors.getById["content"].exec("PASTE_HTML", [sHTML]);
    }
    </script>
+=======
+>>>>>>> refs/remotes/origin/master2.0
    </section>
+   
+   <!-- <script src="./js/TextEditor.js"></script> -->
+   
+   <script>
+		//에디터 설정부분
+		var oEditors = [];
+		nhn.husky.EZCreator.createInIFrame({
+		 oAppRef: oEditors,
+		 elPlaceHolder: "content",
+		 sSkinURI: "<%=request.getContextPath()%>/se2/SmartEditor2Skin.html",
+		 fCreator: "createSEditor2"
+		});
+	
+		// textArea에 이미지 첨부
+		function pasteHTML(filepath){
+		    var sHTML = '<img src="<%=request.getContextPath()%>/upload/notice/contentimg/'+filepath+'">';
+		    oEditors.getById["content"].exec("PASTE_HTML", [sHTML]);
+		}
+		$(this).submit(function(){
+			oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []); 
+		});
+   </script>
+   
 
 <%@ include file="/views/common/footer.jsp" %>

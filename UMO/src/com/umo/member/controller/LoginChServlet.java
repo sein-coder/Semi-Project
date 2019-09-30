@@ -13,11 +13,14 @@ import javax.servlet.http.HttpSession;
 
 import com.umo.member.model.service.MemberService;
 import com.umo.model.vo.Member;
+import com.umo.session.model.service.SessionService;
 
+import static com.umo.session.model.vo.LoginSessionCount.loginMemberList;;
 /**
  * Servlet implementation class LoginhServlet
  */
-@WebServlet(name="LoginChServlet", urlPatterns="/loginCh")
+@WebServlet(name="LoginChServlet", urlPatterns="/loginCheck")
+
 public class LoginChServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -34,15 +37,11 @@ public class LoginChServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.setCharacterEncoding("UTF-8");
-		String id=request.getParameter("userId");
-		String pw=request.getParameter("pw");
-		System.out.println(id+pw);
+
+		String id=request.getParameter("mb_id");
+		String pw=request.getParameter("mb_password");		
 		
-		
-		
-		
-		String saveId=request.getParameter("saveId");
+		String saveId=request.getParameter("autoCom_login");
 		
 		MemberService ms=new MemberService();
 		Member m=ms.selectId(id,pw);
@@ -51,11 +50,33 @@ public class LoginChServlet extends HttpServlet {
 		String loc="/";
 		String view="";
 		
+		//login business logic
 		if(m!=null) {
 			
-			HttpSession session=request.getSession();
-			session.setAttribute("loginMember", m);
-			
+			if(loginMemberList.size() == 0) {
+				loginMemberList.add(m);
+				request.getSession().setAttribute("loginMember", m);
+			}
+			else {
+				for(int i=0; i<loginMemberList.size(); i++) {
+					if(m.getMemberId().equals((loginMemberList.get(i)).getMemberId())) {							
+					   
+						msg="이미 로그인 된 회원입니다.";
+					    view="views/common/msg.jsp";
+					    
+					    request.setAttribute("msg", msg);
+					    request.setAttribute("loc", loc);
+					    request.getRequestDispatcher(view).forward(request, response);
+					    return;
+					}
+					
+					if(i == loginMemberList.size()-1) {
+						loginMemberList.add(m);
+						request.getSession().setAttribute("loginMember", m);
+						break;
+					}
+				}
+			}
 			if(saveId!=null)
 			{
 				Cookie c=new Cookie("saveId",id);
@@ -66,23 +87,22 @@ public class LoginChServlet extends HttpServlet {
 				c.setMaxAge(10);
 				response.addCookie(c);
 			}
-			view="/";
-			response.sendRedirect(request.getContextPath());
 			
-			}else {
-				
-				
-				msg="등록되지않은 회원입니다.";
-				
-			   view="views/common/msg.jsp";
-			   request.setAttribute("msg", msg);
-			   request.setAttribute("loc", loc);
-			   RequestDispatcher rs=request.getRequestDispatcher(view);
-					rs.forward(request, response);   
-			  
-			}
-//		request.setAttribute("loginMember", m);
-		
+			//Session Log insert
+			new SessionService().insesrtLog(id);
+			
+			//Current login Member Counting
+			request.getSession().setAttribute("loginCount" ,loginMemberList.size());
+			response.sendRedirect(request.getContextPath());
+		}
+		else {
+		   msg="등록되지않은 회원입니다.";
+			
+		   view="views/common/msg.jsp";
+		   request.setAttribute("msg", msg);
+		   request.setAttribute("loc", loc);
+		   request.getRequestDispatcher(view).forward(request, response);   
+		}
 	}
 
 	/**
