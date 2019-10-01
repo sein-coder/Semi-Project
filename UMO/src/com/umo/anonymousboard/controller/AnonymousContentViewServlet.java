@@ -61,7 +61,10 @@ public class AnonymousContentViewServlet extends HttpServlet {
 			
 		}
 		AnonymousBoardService service=new AnonymousBoardService();
-		
+		String boardid=service.selectid(no);
+		if(boardid==null) {
+			boardid="";
+		}
 		Board b= service.selectanonymousBoard(no,hasRead);
 		
 		Board preb= null;
@@ -89,6 +92,7 @@ public class AnonymousContentViewServlet extends HttpServlet {
 		
 		List<BoardComment> list=service.selectanonymousBoardComment(no);
 		
+		request.setAttribute("boardid", boardid);
 		request.setAttribute("b", b);
 		request.setAttribute("preb", preb);
 		request.setAttribute("nextb", nextb);

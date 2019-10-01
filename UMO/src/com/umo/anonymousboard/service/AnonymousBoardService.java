@@ -102,4 +102,10 @@ public class AnonymousBoardService {
 		close(conn);
 		return result;
 	}
+	public String selectid(int no) {	
+		Connection conn=getConnection();	
+		String result=dao.selectid(conn,no);
+		close(conn);
+		return result;
+	}
 }

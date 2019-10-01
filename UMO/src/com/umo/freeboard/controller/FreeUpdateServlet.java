@@ -32,10 +32,11 @@ public class FreeUpdateServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int no=Integer.parseInt(request.getParameter("freeNo"));
 		
-		Board nb=new FreeBoardService().freeBoardContent(no);
-		
-		request.setAttribute("nb", nb);
-		request.getRequestDispatcher("/views/free/freeUpdate.jsp").forward(request, response);
+		Board b=new FreeBoardService().freeBoardContent(no);
+		request.setAttribute("board_type", "free");
+	    request.setAttribute("titlename", "자유");
+		request.setAttribute("b", b);
+		request.getRequestDispatcher("/views/board/boardUpdate.jsp").forward(request, response);
 		
 		
 	}

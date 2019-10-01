@@ -61,7 +61,7 @@ public class FreeContentViewServlet extends HttpServlet {
 			
 		}
 		FreeBoardService service=new FreeBoardService();
-		
+		String boardid=service.selectid(no);
 		Board b= service.selectfreeBoard(no,hasRead);
 		
 		Board preb= null;
@@ -88,7 +88,7 @@ public class FreeContentViewServlet extends HttpServlet {
 		}
 		
 		List<BoardComment> list=service.selectFreeBoardComment(no);
-		
+		request.setAttribute("boardid", boardid);
 		request.setAttribute("b", b);
 		request.setAttribute("preb", preb);
 		request.setAttribute("nextb", nextb);

@@ -14,7 +14,7 @@
 			</h2>
 
 			<!-- 게시물 읽기 시작 { -->
-          <form action="<%=request.getContextPath()%>/noticeWriteEnd" method="post" enctype="multipart/form-data">  
+          <form action="<%=request.getContextPath()%>/noticeWriteEnd?writer=<%=loginMember.getMemberId() %>" method="post" enctype="multipart/form-data">  
 			<article id="bo_v" style="width: 100%; height: auto !important;">
 		
 				<header>

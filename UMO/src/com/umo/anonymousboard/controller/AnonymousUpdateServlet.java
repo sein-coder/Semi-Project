@@ -32,10 +32,11 @@ public class AnonymousUpdateServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int no=Integer.parseInt(request.getParameter("anonymousNo"));
 		
-		Board nb=new AnonymousBoardService().anonymousBoardContent(no);
-		
-		request.setAttribute("nb", nb);
-		request.getRequestDispatcher("/views/anonymous/anonymousUpdate.jsp").forward(request, response);
+		Board b=new AnonymousBoardService().anonymousBoardContent(no);
+		request.setAttribute("board_type", "anonymous");
+	    request.setAttribute("titlename", "익명");
+		request.setAttribute("b", b);
+		request.getRequestDispatcher("/views/board/boardUpdate.jsp").forward(request, response);
 		
 		
 	}

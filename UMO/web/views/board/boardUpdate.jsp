@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ page import="com.umo.model.vo.Board" %>
 
 <%@ include file="/views/common/header.jsp"%>
 
 <%
+	Board nb=(Board)request.getAttribute("b");
+	String content=nb.getContent();
+	content=content.replace("<br>", "\r\n");
 	String titlename = request.getAttribute("titlename").toString();
 	String board_type = request.getAttribute("board_type").toString();
 %>
@@ -18,12 +21,12 @@
 			</h2>
 
 			<!-- 게시물 읽기 시작 { -->
-          <form action="<%=request.getContextPath()%>/<%= board_type %>WriteEnd" method="post" enctype="multipart/form-data">  
+          <form action="<%=request.getContextPath()%>/<%= board_type %>UpdateEnd?no=<%=nb.getNo() %>" method="post" enctype="multipart/form-data">  
 			<article id="bo_v" style="width: 100%; height: auto !important;">
 		
 				<header>
 					<h2 id="bo_v_title">
-						<input type="text" name="title" class="frm_input full_input_title required" size="50" maxlength="200" required="required" placeholder="제목" autocomplete="off">
+						<input type="text" name="title" class="frm_input full_input_title required" size="50" maxlength="200" required="required" placeholder="제목" value="<%=nb.getTitle()%>" autocomplete="off">
 					</h2>
 				</header>
 
@@ -43,7 +46,7 @@
 
 					<!-- 본문 내용 시작 { -->
 					<div id="bo_v_con">
-						<textarea rows="10" cols="89" id="content" name="content"></textarea>
+						<textarea rows="10" cols="89" id="content" name="content"><%=content %></textarea>
 					</div>
 					<!-- } 본문 내용 끝 -->
 

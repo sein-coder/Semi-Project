@@ -32,10 +32,12 @@ public class GradeUpdateServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int no=Integer.parseInt(request.getParameter("gradeNo"));
 		
-		Board gb=new GradeBoardService().GradeBoardContent(no);
+		Board b=new GradeBoardService().GradeBoardContent(no);
 		
-		request.setAttribute("gb", gb);
-		request.getRequestDispatcher("/views/grade/gradeUpdate.jsp").forward(request, response);
+		request.setAttribute("b", b);
+		request.setAttribute("board_type", "grade");
+	    request.setAttribute("titlename", "반별");
+		request.getRequestDispatcher("/views/board/boardUpdate.jsp").forward(request, response);
 		
 		
 	}

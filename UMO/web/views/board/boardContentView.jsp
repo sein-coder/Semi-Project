@@ -4,6 +4,7 @@
 <%@ page import="com.umo.model.vo.BoardComment,java.util.List" %>
 
 <% 
+	String boardid = request.getAttribute("boardid").toString();
     Board b=(Board)request.getAttribute("b");
 	Board preb=(Board)request.getAttribute("preb");
 	Board nextb=(Board)request.getAttribute("nextb");
@@ -76,8 +77,12 @@
 					<li><a href="<%=request.getContextPath()%>/<%= board_type %>Board"
 						class="btn_b01 btn"><i class="fa fa-list" aria-hidden="true"></i>
 							목록</a></li>
-					<li><a href="" class="btn_b02 btn"><i
-							class="fa fa-pencil" aria-hidden="true"></i> 글쓰기</a></li>
+							<%if(loginMember!=null&&loginMember.getMemberId().equals(boardid)){ %>
+					<li><a href="<%=request.getContextPath()%>/<%= board_type %>Update?<%=board_type %>No=<%=b.getNo() %>" class="btn_b02 btn"><i
+							class="fa fa-pencil" aria-hidden="true"></i> 수정</a></li>
+					<li><a href="<%=request.getContextPath()%>/<%= board_type %>Delete?<%=board_type %>No=<%=b.getNo() %>" class="btn_b02 btn"><i
+							class="fa fa-pencil" aria-hidden="true"></i> 삭제</a></li>
+							<%} %>
 				</ul>
 
 				<ul class="bo_v_nb">
