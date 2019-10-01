@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.umo.gradeboard.service.GradeBoardService;
 import com.umo.model.vo.Board;
 import com.umo.model.vo.BoardComment;
+import com.umo.model.vo.NoticeBoard;
+import com.umo.notice.model.service.NoticeBoardService;
 
 /**
  * Servlet implementation class FreeContentViewServlet
@@ -59,12 +61,39 @@ public class GradeContentViewServlet extends HttpServlet {
 			response.addCookie(c);
 			
 		}
-		GradeBoardService service=new GradeBoardService();
+		GradeBoardService service=new GradeBoardService();		
 		
 		Board b= service.selectGradeBoard(no,hasRead);
+		
+		Board preb= null;
+		Board nextb = null;
+		
+		int i = 1;
+		
+		while(true) {
+			preb = service.GradeBoardContent(no-i);
+			if(preb.getNo()!=0 || i > service.countGradeList(null, null)) {
+				break;
+			}
+			i=i+1;
+		}
+		
+		i = 1;
+		
+		while(true) {
+			nextb = service.GradeBoardContent(no+i);
+			if(nextb.getNo()!=0 || i > service.countGradeList(null, null)) {
+				break;
+			}
+			i=i+1;
+		}
+		
 		List<BoardComment> list=service.selectGradeBoardComment(no);
 		
 		request.setAttribute("b", b);
+		request.setAttribute("preb", preb);
+		request.setAttribute("nextb", nextb);
+		
 		request.setAttribute("comments", list);
 	    request.setAttribute("board_type", "grade");
 	    request.setAttribute("titlename", "반별");

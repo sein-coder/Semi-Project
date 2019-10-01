@@ -4,17 +4,21 @@
 
 <%@ include file="/views/common/header.jsp"%>
 
+<%
+	String titlename = request.getAttribute("titlename").toString();
+	String board_type = request.getAttribute("board_type").toString();
+%>
 
 <!-- 컨텐츠 시작-->
 <div id="wrapper">
 	<div id="container_wr">
 		<div id="container">
 			<h2 id="container_title">
-				<span title="공지사항">공지사항</span>
+				<span title="<%= titlename %> 게시판"><%= titlename %> 게시판</span>
 			</h2>
 
 			<!-- 게시물 읽기 시작 { -->
-          <form action="<%=request.getContextPath()%>/noticeWriteEnd" method="post" enctype="multipart/form-data">  
+          <form action="<%=request.getContextPath()%>/<%= board_type %>WriteEnd" method="post" enctype="multipart/form-data">  
 			<article id="bo_v" style="width: 100%; height: auto !important;">
 		
 				<header>
@@ -25,7 +29,12 @@
 
 				<section id="bo_v_info">
 					<h2>페이지 정보</h2>
-					<strong><span class="sv_member">작성자 : <%=loginMember.getMemberId()%></span></strong>
+					<% if(board_type.equals("anonymous")) { %>
+						<strong><span class="sv_member">작성자 : 익명</span></strong>
+					<% } else { %>
+						<strong><span class="sv_member">작성자 : <%=loginMember.getMemberId()%></span></strong>
+						<input type="hidden" name="writer" value="<%= loginMember.getMemberId() %>">
+					<% } %>
 				</section>
 
 				<section id="bo_v_atc">
@@ -82,7 +91,7 @@ nhn.husky.EZCreator.createInIFrame({
 
 // textArea에 이미지 첨부
 function pasteHTML(filepath){
-    var sHTML = '<img src="<%=request.getContextPath()%>/upload/notice/contentimg/'+filepath+'">';
+    var sHTML = '<img src="<%=request.getContextPath()%>/upload/<%= board_type %>/contentimg/'+filepath+'">';
     oEditors.getById["content"].exec("PASTE_HTML", [sHTML]);
 }
 $(this).submit(function(){

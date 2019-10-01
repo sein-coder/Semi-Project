@@ -28,8 +28,11 @@ public class FreeWriteServlert extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		request.getRequestDispatcher("/views/free/freeWrite.jsp").forward(request, response);
+		
+		request.setAttribute("titlename", "자유");
+		request.setAttribute("board_type","free");
+		
+		request.getRequestDispatcher("/views/board/boardWriter.jsp").forward(request, response);
 		
 	}
 

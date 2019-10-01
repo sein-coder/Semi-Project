@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.umo.freeboard.service.FreeBoardService;
+import com.umo.gradeboard.service.GradeBoardService;
 import com.umo.model.vo.Board;
 import com.umo.model.vo.BoardComment;
 
@@ -62,9 +63,36 @@ public class FreeContentViewServlet extends HttpServlet {
 		FreeBoardService service=new FreeBoardService();
 		
 		Board b= service.selectfreeBoard(no,hasRead);
+		
+		Board preb= null;
+		Board nextb = null;
+		
+		int i = 1;
+		
+		while(true) {
+			preb = service.freeBoardContent(no-i);
+			if(preb.getNo()!=0 || i > service.countFreeList(null, null)) {
+				break;
+			}
+			i=i+1;
+		}
+		
+		i = 1;
+		
+		while(true) {
+			nextb = service.freeBoardContent(no+i);
+			if(nextb.getNo()!=0 || i > service.countFreeList(null, null)) {
+				break;
+			}
+			i=i+1;
+		}
+		
 		List<BoardComment> list=service.selectFreeBoardComment(no);
 		
 		request.setAttribute("b", b);
+		request.setAttribute("preb", preb);
+		request.setAttribute("nextb", nextb);
+		
 		request.setAttribute("comments", list);
 	    request.setAttribute("board_type", "free");
 	    request.setAttribute("titlename", "자유");

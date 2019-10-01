@@ -211,6 +211,34 @@ public int insertMember(Connection conn,Member m)
 			close(rs);
 			close(pstmt);
 		}return m;
+	}
+	public Member findPw(Connection conn, String id, int kH_No) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		Member m=null;
+		String sql=prop.getProperty("findPw");
+		  
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setInt(2, kH_No);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				m=new Member();
+				m.setMemberId(rs.getString("member_id"));
+				m.setMemberName(rs.getString("member_name"));
+				m.setClass1(rs.getString("class"));
+				m.setEmail(rs.getString("member_email"));
+				m.setKhno(rs.getInt("kh_cno"));
+				m.setJoin_date(rs.getDate("join_date"));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return m;
 	}	
 }
 

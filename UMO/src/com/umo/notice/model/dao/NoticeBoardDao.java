@@ -41,9 +41,11 @@ public class NoticeBoardDao {
 		ResultSet rs = null;
 		int result = 0;
 		String sql = "SELECT COUNT(*)AS CNT FROM Notice_board";
+
 		if(sfl!=null&&stx!=null) {
 			sql+=" where "+sfl+" like '%"+stx+"%'";
 		}
+		
 		try {
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);

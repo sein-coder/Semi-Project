@@ -10,7 +10,7 @@
             <a href="">개인정보처리방침</a>
             <a href="">서비스이용약관</a>
         </div>
-        <div id="ft_catch"><img src="<%=request.getContextPath()%>/images/khLogo.png" alt="우마오"></div>
+        <div id="ft_catch"><img src="<%=request.getContextPath()%>/images/umoCLogo.png" alt="우마오"></div>
         <div id="ft_copy">Copyright © <b>소유하신 도메인.</b> All rights reserved.</div>
     </div>
 

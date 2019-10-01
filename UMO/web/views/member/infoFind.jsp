@@ -55,20 +55,20 @@
 					<h2>비밀번호 찾기</h2>
 					<ul>
 						<li>
-						    <input type="text" name="mb_id" value="" id="reg_mb_id"
+						    <input type="text" name="mb_id" value="" id="findPw_id"
 							 class="frm_input half_input required" minlength="3"
 							maxlength="20" placeholder="아이디" required="required"><span id="msg_mb_id"></span>
 							<span class="frm_info">영문자, 숫자, _ 만 입력 가능. 최소 3자이상 입력하세요.</span>
 						</li>
 
 						<li><input type="text" name="mb_khNum" value=""
-							id="reg_mb_khNum" 
+							id="findPw_khNum" 
 							class="frm_input half_input required" size="5"
 							maxlength="5" placeholder="KH학생번호" required="required"><span class="frm_info">5자리 학생번호 입력</span>
 						</li>
 					</ul>
 					<div class="btn_confirm">
-						<input type="button" value="비밀번호 찾기" id="btn_submit" class="btn_submit"> 
+						<input type="button" value="비밀번호 찾기" id="btn_findPw" class="btn_submit"> 
 					</div>
 				</div>
 				</form>
@@ -84,7 +84,7 @@ $("#btn_findId").click(function(){
 	$.ajax({
 		url:'<%=request.getContextPath()%>/infoFindIdEnd',
 		dataType:"json",
-		data:{"Id":$("#findId_khNum").val()},
+		data:{"khNum":$("#findId_khNum").val()},
 		type : "post",
 		success : function(data){
 			var setting = 'width=400px, height=400px, top=5, left=20, scrollbars=no';
@@ -92,6 +92,25 @@ $("#btn_findId").click(function(){
 				window.open("<%=request.getContextPath()%>/views/member/popup/findPopup.jsp?id=찾은아이디가 없습니다.","",setting);
 			}else{
 				window.open("<%=request.getContextPath()%>/views/member/popup/findPopup.jsp?id="+data['memberId'],"",setting);							
+			}
+		}
+	});
+});
+
+$("#btn_findPw").click(function(){
+	console.log($("#findId_khNum").val());
+	$.ajax({
+		url:'<%=request.getContextPath()%>/infoFindPwEnd',
+		dataType:"text",
+		data:{"Id":$("#findPw_id").val(),
+			"khNum":$("#findPw_khNum").val()},
+		type : "post",
+		success : function(data){
+			var setting = 'width=400px, height=400px, top=5, left=20, scrollbars=no';
+			if(data==null){
+				window.open("<%=request.getContextPath()%>/views/member/popup/findPopup.jsp?pw=아이디나 KH번호를 다시 확인해주세요.","",setting);
+			}else{
+				window.open("<%=request.getContextPath()%>/views/member/popup/findPopup.jsp?pw="+data,"",setting);							
 			}
 		}
 	});

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.umo.anonymousboard.service.AnonymousBoardService;
+import com.umo.freeboard.service.FreeBoardService;
 import com.umo.model.vo.Board;
 import com.umo.model.vo.BoardComment;
 
@@ -62,9 +63,36 @@ public class AnonymousContentViewServlet extends HttpServlet {
 		AnonymousBoardService service=new AnonymousBoardService();
 		
 		Board b= service.selectanonymousBoard(no,hasRead);
+		
+		Board preb= null;
+		Board nextb = null;
+		
+		int i = 1;
+		
+		while(true) {
+			preb = service.anonymousBoardContent(no-i);
+			if(preb.getNo()!=0 || i > service.countanonymousList(null, null)) {
+				break;
+			}
+			i=i+1;
+		}
+		
+		i = 1;
+		
+		while(true) {
+			nextb = service.anonymousBoardContent(no+i);
+			if(nextb.getNo()!=0 || i > service.countanonymousList(null, null)) {
+				break;
+			}
+			i=i+1;
+		}
+		
 		List<BoardComment> list=service.selectanonymousBoardComment(no);
 		
 		request.setAttribute("b", b);
+		request.setAttribute("preb", preb);
+		request.setAttribute("nextb", nextb);
+		
 		request.setAttribute("comments", list);
 	    request.setAttribute("board_type", "anonymous");
 	    request.setAttribute("titlename", "익명");

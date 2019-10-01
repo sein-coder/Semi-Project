@@ -29,7 +29,10 @@ public class AnonymousWrite extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		request.getRequestDispatcher("/views/anonymous/anonymousWrite.jsp").forward(request, response);
+		request.setAttribute("titlename", "익명");
+		request.setAttribute("board_type","anonymous");
+		
+		request.getRequestDispatcher("/views/board/boardWriter.jsp").forward(request, response);
 		
 	}
 

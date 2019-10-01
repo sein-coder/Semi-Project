@@ -34,7 +34,7 @@ public class InfoFindIdEnd extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
-		int KH_No = Integer.parseInt(request.getParameter("Id"));
+		int KH_No = Integer.parseInt(request.getParameter("khNum"));
 		
 		Member m = new MemberService().findId(KH_No);
 

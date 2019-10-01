@@ -43,7 +43,7 @@ public class EncryptPasswordFilter extends HttpServletRequestWrapper  {
 		return value;
 	}
 
-	private static String getEncryptPw(String pw)
+	public static String getEncryptPw(String pw)
 	{
 		MessageDigest md=null;
 		try {

@@ -27,7 +27,7 @@
 	<div id="container_wr">
 		<div id="container">
 			<h2 id="container_title">
-				<span title="회원 가입">회원 가입</span>
+				<span title="회원 정보 수정">회원 정보 수정</span>
 			</h2>
 
 			<!-- 회원정보 입력/수정 시작 { -->

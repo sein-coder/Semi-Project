@@ -29,10 +29,10 @@ public class GradeWriteServlert extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
+		request.setAttribute("titlename", "반별");
+		request.setAttribute("board_type","grade");
 		
-		
-		
-		request.getRequestDispatcher("/views/grade/gradeWrite.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/board/boardWriter.jsp").forward(request, response);
 		
 	}
 

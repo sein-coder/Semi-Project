@@ -82,12 +82,14 @@
 								   <td class="td_num2"><%= nb.getNo() %></td>
 								   <td class="td_subject" style="padding-left:0px">
                                      <div class="bo_tit">
-                                        <a href="<%=request.getContextPath()%>/noticeContentView?noticeNo=<%=nb.getNo()%>"><%= nb.getTitle() %></a>
+                                        <a href="<%=request.getContextPath()%>/noticeContentView?noticeNo=<%=nb.getNo()%>&cPage=<%= cPage %>
+									&numPerPage=<%= numPerPage %>&orderType=<%= orderType %>"><%= nb.getTitle() %></a>
                                      </div>
                                    </td>
 								   <td class="td_name sv_use" style="text-align: center;"><%= nb.getWriter() %></td>
 								   <td class="td_num">
-								   	<a href="<%=request.getContextPath()%>/noticeContentView?noticeNo=<%=nb.getNo()%>"><%=nb.getCount() %></a></td>
+								   	<a href="<%=request.getContextPath()%>/noticeContentView?noticeNo=<%=nb.getNo()%>&cPage=<%= cPage %>
+									&numPerPage=<%= numPerPage %>&orderType=<%= orderType %>"><%=nb.getCount() %></a></td>
 								   <td class="td_datetime"><%= nb.getDate() %></td>
 								</tr>
 								<% } %>

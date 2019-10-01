@@ -34,6 +34,7 @@ public class NoticeContentViewServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int no=Integer.parseInt((request.getParameter("noticeNo")));
+		
 		Cookie[] cookies=request.getCookies();
 		String boardCookieVal="";
 		boolean hasRead=false;
@@ -60,8 +61,30 @@ public class NoticeContentViewServlet extends HttpServlet {
 		NoticeBoardService service=new NoticeBoardService();
 		
 		NoticeBoard nb= service.selectnoticeBoard(no,hasRead);
-		NoticeBoard prenb= service.selectnoticeBoard(no-1,true);
-		NoticeBoard nextnb= service.selectnoticeBoard(no+1,true);
+		NoticeBoard prenb= null;
+		NoticeBoard nextnb = null;
+		
+		int i = 1;
+		
+		while(true) {
+			prenb = service.noticeBoardContent(no-i);
+			if(prenb.getNo()!=0 || i > service.countNoticeList(null, null)) {
+				break;
+			}
+			i=i+1;
+		}
+		
+		i = 1;
+		
+		while(true) {
+			nextnb = service.noticeBoardContent(no+i);
+			if(nextnb.getNo()!=0 || i > service.countNoticeList(null, null)) {
+				break;
+			}
+			i=i+1;
+		}
+
+		
 		List<BoardComment> list=service.selectnoticeBoardComment(no);
 		
 		request.setAttribute("nb", nb);
