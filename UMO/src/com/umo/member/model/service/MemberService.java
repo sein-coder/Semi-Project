@@ -60,11 +60,15 @@ public class MemberService {
 	public Member findId(int kH_No) {
 		Connection conn=getConnection();
 		Member m=dao.findId(conn,kH_No);
-		
+		return m;
+   }
+	
+	public Member selectOne(String userId) {
+		Connection conn=getConnection();
+		Member m=dao.selectOne(conn,userId);
+
 		close(conn);
 		return m;
 	}
-
-
 
 }
