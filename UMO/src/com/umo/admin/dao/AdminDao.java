@@ -167,7 +167,7 @@ public class AdminDao {
 				m.setMemberName(rs.getString("member_name"));
 				m.setClass1(rs.getString("class"));
 				m.setEmail(rs.getString("member_email"));
-				m.setKhno(rs.getLong("kh_cno"));
+				m.setKhno(rs.getInt("kh_cno"));
 				m.setJoin_date(rs.getDate("join_date"));
 				list.add(m);				
 			}
@@ -231,7 +231,7 @@ public class AdminDao {
 				m.setMemberName(rs.getString("member_name"));
 				m.setClass1(rs.getString("class"));
 				m.setEmail(rs.getString("member_email"));
-				m.setKhno(rs.getLong("kh_cNo"));
+				m.setKhno(rs.getInt("kh_cNo"));
 				m.setJoin_date(rs.getDate("join_date"));
 				list.add(m);
 			}

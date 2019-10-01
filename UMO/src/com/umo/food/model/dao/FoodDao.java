@@ -394,23 +394,7 @@ public class FoodDao {
 		}return result3;
 	}
 
-	public int insertFoodScrap(Connection conn,String board_type,int board_no,String memberId) {
-		PreparedStatement pstmt=null;
-		int result= 0;
-		String sql = prop.getProperty("insertFoodScrap");
-		try {
-			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1,board_no);
-			pstmt.setString(2, board_type);
-			pstmt.setString(3, memberId);
-			result=pstmt.executeUpdate();	
-		}catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-		}return result;
-	
-	}
+
 }
 	
 

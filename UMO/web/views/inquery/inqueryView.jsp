@@ -52,6 +52,13 @@
 		<div align="center">
 		<h2 style="text-align: center;"><%= inquery.getBoard_Title()%></h2>
 		<table id="tbl-inquery" style="border: 1px solid red; margin-left: auto; margin-right: auto; font-size: 18px;">
+		<tr>
+			<td colspan="5">
+                <a href="<%=request.getContextPath() %>/scrap/scrapViewServlet?board_type=inquery&board_no=<%=inquery.getBoard_No()%>" target="_blank" id="ol_after_scrap" class="win_scrap">스크랩<br>
+                <strong class="scrap"><i class="fa fa-thumb-tack" aria-hidden="true"></i></strong>
+                </a>
+            </td>
+		</tr>	
 			<tr>
 				<th style="width: 10%;">
 					<%= inquery.getBoard_No() %>

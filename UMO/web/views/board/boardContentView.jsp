@@ -29,6 +29,13 @@
 			<header>
 				<h2 id="bo_v_title">
 					<span class="bo_v_tit"><%=b.getTitle()%></span>
+					<tr>
+						<td>
+                       		<a href="<%=request.getContextPath() %>/scrap/scrapViewServlet?board_type=board&board_no=<%=b.getNo()%>" target="_blank" id="ol_after_scrap" class="win_scrap">스크랩<br>
+                           	<strong class="scrap"><i class="fa fa-thumb-tack" aria-hidden="true"></i></strong>
+                        	</a>
+                  	 	</td>				
+					</tr>
 				</h2>
 			</header>
 

@@ -9,14 +9,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.umo.food.model.service.FoodService;
-import com.umo.model.vo.Food;
 import com.umo.model.vo.Member;
+import com.umo.model.vo.Scrap;
+import com.umo.scrap.service.ScrapService;
 
 /**
  * Servlet implementation class ScrapViewServlet
  */
-@WebServlet("/scrap/ScrapViewServlet")
+@WebServlet("/scrap/scrapViewServlet")
 public class ScrapViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -32,22 +32,14 @@ public class ScrapViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/views/scrap/ScrapView.jsp").forward(request, response);
 		
+		String member_id = ((Member)request.getSession().getAttribute("loginMember")).getMemberId();
 		
-		String board_type=request.getParameter("board_type");
-		int board_no=Integer.parseInt(request.getParameter("board_no"));
-		String memberId = ((Member)request.getSession().getAttribute("loginMember")).getMemberId();
+		List<Scrap> list = new ScrapService().selectScrapList(member_id);
 		
-		//type, 글번호, 스크랩한 사람
-		
-		int result= new FoodService().insertFoodScrap(board_type,board_no,memberId);
+		request.getRequestDispatcher("/views/scrap/scrapView.jsp").forward(request, response);
 		
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

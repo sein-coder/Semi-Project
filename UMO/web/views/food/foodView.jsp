@@ -106,10 +106,10 @@
 									<span>제목:<%=f.getBoard_Title() %></span>
 								</td>
 							<td>
-                       			 <a href="<%=request.getContextPath() %>/scrap/ScrapViewServlet?type=food" target="_blank" id="ol_after_scrap" class="win_scrap">스크랩<br>
+                       			 <a href="<%=request.getContextPath() %>/scrap/scrapViewServlet?board_type=food&board_no=<%=f.getBoard_No()%>" target="_blank" id="ol_after_scrap" class="win_scrap">스크랩<br>
                            	 	<strong class="scrap"><i class="fa fa-thumb-tack" aria-hidden="true"></i></strong>
                         		</a>
-                  	 			</td>
+                  	 		</td>
 							</tr>
 							<tr>
 								<td>

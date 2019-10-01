@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.List,com.umo.model.vo.Scrap" %>
 <%
-	String type=(String)request.getAttribute("type");
+	List<Scrap> list = (List<Scrap>)request.getAttribute("list");
+	Scrap scrap = (Scrap)request.getAttribute("scrap");
 %>
 <style>
 table#list_bar{bold:1px; margin-left: auto; margin-right: auto;  border: 1px solid #444444; background: lightgray; 
@@ -33,17 +35,33 @@ table#list_bar{bold:1px; margin-left: auto; margin-right: auto;  border: 1px sol
 							<caption width="200px">스크랩모음</caption>
 							<thead>
 								<tr>
-									<th width="10%" style="text-align: left;">번호</th>
+								
 									<th width="10%" style="text-align: left;">게시판종류</th>
 									<th width="10%" style="text-align: left;">제목</th>
 									<th width="10%" style="text-align: left;">글쓴이</th>
 									<th width="10%" style="text-align: left;">날짜</th>
 								</tr>
 							</thead>
-							<tr>
-								<td><a href="<%=request.getContextPath() %>/scrap/ScrapViewServlet?board_no=<%=%>"></a></td>
-								
+							<tbody>
+								<% for(Scrap s:list) {%>
+									<% if(s!=null){ %>
+								<tr>
+								    <td class="type"><%=s.getBoard_type() %></td> 
+									<td class="title"><%=s.getBoard_title() %></td>
+									<%if(s.getBoard_writer()==null||s.getBoard_type().equals("anonymous")){ %>
+ 								   <td class="name">익명</td>
+								   <%}else{ %>
+									<td class="writer"><%=s.getBoard_writer() %></td>
+									<%} %>
+									<td class="date"><%=s.getBoard_date() %></td>
 							</tr>
+							<% } else {%>
+								<tr>
+									<td>스크랩한 내용이 없습니다.</td>
+								</tr>
+							<% } %>
+							<% } %>
+							</tbody>
 						</table>
 					
 				</div>
@@ -57,3 +75,4 @@ table#list_bar{bold:1px; margin-left: auto; margin-right: auto;  border: 1px sol
 
 
 </section>
+<%@ include file = "/views/common/footer.jsp" %>
