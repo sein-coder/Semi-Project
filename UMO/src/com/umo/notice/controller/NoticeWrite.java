@@ -29,7 +29,7 @@ public class NoticeWrite extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		request.getRequestDispatcher("/views/notice/noticeWrite.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/notice/noticeWrite2.jsp").forward(request, response);
 		
 	}
 

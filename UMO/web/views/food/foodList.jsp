@@ -54,7 +54,7 @@
 		<h2 id="container_title">
 			<span title="맛집 게시판">맛집 게시판</span>
 		</h2>
-		<div id="container_foodList">
+		 <div id="container_foodList">
 
 			<!-- 게시판 목록 시작 { -->
 			<div id="bo_list" style="width: 100%">

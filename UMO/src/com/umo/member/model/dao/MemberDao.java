@@ -2,6 +2,8 @@
 package com.umo.member.model.dao;
 
 
+import static common.template.JDBCTemplate.close;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
@@ -11,8 +13,6 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import com.umo.model.vo.Member;
-
-import static common.template.JDBCTemplate.close;
 
 public class MemberDao {
 private Properties prop=new Properties();
@@ -40,7 +40,7 @@ public int insertMember(Connection conn,Member m)
 		pstmt.setString(3, m.getMemberName());
 		pstmt.setString(4, m.getClass1());
 		pstmt.setString(5,m.getEmail());
-		pstmt.setInt(6,m.getKhno());
+		pstmt.setInt(6, m.getKhno());
 		result=pstmt.executeUpdate();
 	}catch(SQLException e)
 	{

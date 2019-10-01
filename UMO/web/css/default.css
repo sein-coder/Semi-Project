@@ -288,6 +288,7 @@ box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
 .tbl_frm01 textarea {padding:2px 2px 3px}
 .frm_input {height:40px;}
 .full_input{width:100%}
+.full_input_title{width:97%;}
 .half_input{width:49.5%;}
 .tbl_frm01 textarea, .write_div textarea {width:100%;height:100px}
 .tbl_frm01 a {text-decoration:none}

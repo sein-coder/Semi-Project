@@ -117,12 +117,13 @@
              <section id="ol_after" class="ol">
                 <header id="ol_after_hd">
                     <h2>나의 회원정보</h2>
-                    <span class="profile_img">
-                        <img src="" alt=""><a href="<%= request.getContextPath() %>/infoUpdate?id=<%= loginMember.getMemberId() %>" id="ol_after_info" title="정보수정"><i class="fa fa-cog"
-                                aria-hidden="true"></i></a>
-                    </span>
-                    <strong><%= loginMember.getMemberId() %></strong>
-                    <a href="<%= request.getContextPath() %>/myPage?userId=<%= loginMember.getMemberId() %>" id="ol_after_logout" class="btn_b04">마이페이지</a>
+					<span class="profile_img"> <img
+						src="<%=request.getContextPath()%>/images/icon/icon1.png"
+						alt="profile_img"> <a href="" id="ol_after_info"
+						title="정보수정"><i class="fa fa-cog" aria-hidden="true"></i></a>
+					</span> 
+					<strong><%=loginMember.getMemberId()%></strong>
+                    <a href="<%=request.getContextPath()%>/myPage?userId=<%= loginMember.getMemberId() %>" id="ol_after_logout" class="btn_b04">마이페이지</a>
                     <a href="<%= request.getContextPath() %>/logout" id="ol_after_logout" class="btn_b04">로그아웃</a>
                 </header>
                 <ul id="ol_after_private">
