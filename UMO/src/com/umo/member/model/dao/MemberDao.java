@@ -240,6 +240,28 @@ public int insertMember(Connection conn,Member m)
 		}
 		return m;
 	}	
+	public Member numCheck(Connection conn,int khnum,String name) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		Member m=null;
+		String sql=prop.getProperty("numCheck");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+			pstmt.setInt(2, khnum);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				m=new Member();
+				m.setMemberName(rs.getString("member_name"));
+				m.setKhno(rs.getInt("kh_cno"));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return m;
+	}	
 }
 
 

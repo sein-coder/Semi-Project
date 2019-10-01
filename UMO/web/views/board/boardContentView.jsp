@@ -34,8 +34,12 @@
 
 			<section id="bo_v_info">
 				<h2>페이지 정보</h2>
-				<strong><span
-					class="sv_member"><%=b.getWriter()%></span></strong><strong><a
+				<%if(b.getWriter()==null||board_type.equals("anonymous")){ %>
+			   <strong><span class="sv_member">익명</span></strong>
+				   <%}else{ %>
+				<strong><span class="sv_member"><%=b.getWriter()%></span></strong>
+					<%} %>
+					<strong><a
 					href="#bo_vc"> <i class="fa fa-commenting-o" aria-hidden="true"></i>
 						<%=list.size() %>건(댓글)</a></strong>
 					<strong>
@@ -111,8 +115,13 @@
 						if(bc.getBoardCommentLevel()==1){
 					%>
 					<header style="z-index: 2">
+						<%if(bc.getBoardCommentWriter()==null||board_type.equals("anonymous")){ %>
+			   			<h2>익명 댓글</h2>
+						<span class="sv_member">익명 댓글</span>
+				   <%}else{ %>
 						<h2><%=bc.getBoardCommentWriter() %>님의 댓글</h2>
 						<span class="sv_member"><%=bc.getBoardCommentWriter() %>의 댓글</span>
+						<%} %>
 						<span class="bo_vc_hdinfo"><i class="fa fa-clock-o"
 							aria-hidden="true"></i> <time
 								datetime="2019-09-29T16:47:00+09:00"><%=bc.getBoardCommentDate() %></time></span>
@@ -130,8 +139,13 @@
 					<!-- 레벨2댓글 구현부 -->
 					<% } else { %>
 					<header style="z-index: 2">
+						 <%if(bc.getBoardCommentWriter()==null||board_type.equals("anonymous")){ %>
+			   			<h2>익명 댓글</h2>
+						<span class="sv_member">익명 댓글</span>
+				   <%}else{ %>
 						<h2><%=bc.getBoardCommentWriter() %>님의 답변</h2>
 						<span class="sv_member"><%=bc.getBoardCommentWriter() %>의 답변</span>
+						<%} %>
 						<span class="bo_vc_hdinfo"><i class="fa fa-clock-o"
 							aria-hidden="true"></i> <time
 								datetime="2019-09-29T16:47:00+09:00"><%= bc.getBoardCommentDate() %></time></span>
