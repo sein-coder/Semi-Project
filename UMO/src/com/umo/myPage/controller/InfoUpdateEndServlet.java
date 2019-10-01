@@ -39,8 +39,8 @@ public class InfoUpdateEndServlet extends HttpServlet {
 		m.setMemberPw(request.getParameter("mb_password"));
 		m.setMemberName(request.getParameter("mb_name"));
 		m.setEmail(request.getParameter("mb_email"));
-		m.setClass1("R");
-		m.setKhno(Integer.parseInt(request.getParameter("mb_khNum")));
+		m.setClass1(request.getParameter("mb_class"));
+		m.setKhno(Long.parseLong(request.getParameter("mb_khNum")));
 
 		int result=new MemberService().updateMember(m);
 		String msg="";

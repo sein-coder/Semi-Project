@@ -29,6 +29,11 @@ int count = 0;
                 <div style="margin-left:0 auto; ">
                     <p>출석은~일</p>
                     <button onclick="infoUpdate();">정보수정</button>
+                    
+                    
+                    <%if(loginMember.getMemberId().equals("admin")){ %>
+                    <button onclick="memberManage();">멤버관리</button>
+                    <%} %>
                 </div>
         <br>
 
@@ -269,8 +274,17 @@ int count = 0;
             }
  			
             function infoUpdate() {
-            	 location.href="<%=request.getContextPath()%>/infoUpdate?id=<%=m.getMemberId()%>";
+            	 location.href="<%=request.getContextPath()%>/infoUpdate?id=<%=loginMember.getMemberId()%>";
+            	 
             }
+            
+            function memberManage()
+            {
+            	location.href="<%=request.getContextPath() %>/membermanage";
+            	
+            	
+            }
+            
         </script>
 
 

@@ -28,23 +28,23 @@ public class MyPageDao {
 	      }
 	   }
 	
-	public Member selectOne(Connection conn,String userId) {
+	public Member selectOne(Connection conn,String id) {
 	      PreparedStatement pstmt=null;
 	      ResultSet rs=null;
 	      Member m=null;
 	      String sql=prop.getProperty("selectOne");
 	      try {
 	         pstmt=conn.prepareStatement(sql);
-	         pstmt.setString(1, userId);
+	         pstmt.setString(1, id);
 	         rs=pstmt.executeQuery();
 	         if(rs.next()) {
 	        	 m=new Member();
 					m.setMemberId(rs.getString("member_id"));
 					m.setMemberPw(rs.getString("member_password"));
 					m.setMemberName(rs.getString("member_name"));
-					m.setEmail(rs.getString("member_email"));
 					m.setClass1(rs.getString("class"));
-					m.setKhno(rs.getInt("kh_cno"));
+					m.setEmail(rs.getString("member_email"));
+					m.setKhno(rs.getLong("kh_cno"));
 	         }
 	      }catch(SQLException e) {
 	         e.printStackTrace();

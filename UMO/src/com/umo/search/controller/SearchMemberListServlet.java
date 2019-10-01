@@ -2,6 +2,7 @@ package com.umo.search.controller;
 
 import java.io.IOException;
 import com.umo.admin.service.AdminService;
+import java.util.List;
 import com.umo.model.vo.Member;
 
 import javax.servlet.ServletException;

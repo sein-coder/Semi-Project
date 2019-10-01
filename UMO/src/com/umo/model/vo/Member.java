@@ -8,7 +8,7 @@ private String memberPw;
 private String memberName;
 private String class1;
 private String email;
-private int khno;
+private long khno;
 private Date join_date;
 private int attendance_count;
 private char grade;
@@ -18,7 +18,7 @@ public Member() {
 	// TODO Auto-generated constructor stub
 }
 
-public Member(String memberId, String memberPw, String memberName, String class1, String email, int khno,
+public Member(String memberId, String memberPw, String memberName, String class1, String email, long khno,
 		Date join_date, int attendance_count, char grade, int point) {
 	super();
 	this.memberId = memberId;
@@ -73,11 +73,11 @@ public void setEmail(String email) {
 	this.email = email;
 }
 
-public int getKhno() {
+public long getKhno() {
 	return khno;
 }
 
-public void setKhno(int khno) {
+public void setKhno(long khno) {
 	this.khno = khno;
 }
 
@@ -111,13 +111,6 @@ public int getPoint() {
 
 public void setPoint(int point) {
 	this.point = point;
-}
-
-@Override
-public String toString() {
-	return "Member [memberId=" + memberId + ", memberPw=" + memberPw + ", memberName=" + memberName + ", class1="
-			+ class1 + ", email=" + email + ", khno=" + khno + ", join_date=" + join_date + ", attendance_count="
-			+ attendance_count + ", grade=" + grade + ", point=" + point + "]";
 }
 
 

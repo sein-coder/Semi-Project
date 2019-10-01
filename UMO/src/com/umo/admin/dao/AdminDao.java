@@ -15,6 +15,7 @@ import java.util.Properties;
 
 import com.umo.admin.dao.AdminDao;
 import com.umo.model.vo.Board;
+import com.umo.model.vo.Member;
 
 public class AdminDao {
 	private Properties prop=new Properties();
@@ -130,7 +131,121 @@ public class AdminDao {
 		return result;
 	}
 
-
+	public int adoptCountMember(Connection conn) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int result=0;
+		String sql=prop.getProperty("adoptCountMember");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				result=rs.getInt(1);
+			}
+		    }catch (SQLException e) {
+			e.printStackTrace();
+		  }finally {
+			        close(rs);
+			        close(pstmt);
+		           }return result;
+	}
+	
+	public List<Member> adoptMemberList(Connection conn,int cPage,int numPerPage)
+	{
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Member> list=new ArrayList();
+		String sql=prop.getProperty("adoptMemberList");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, (cPage-1)*numPerPage+1);
+			pstmt.setInt(2, cPage*numPerPage);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Member m=new Member();
+				m.setMemberId(rs.getString("member_id"));
+				m.setMemberName(rs.getString("member_name"));
+				m.setClass1(rs.getString("class"));
+				m.setEmail(rs.getString("member_email"));
+				m.setKhno(rs.getLong("kh_cno"));
+				m.setJoin_date(rs.getDate("join_date"));
+				list.add(m);				
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return list;
+		
+		
+		
+	}
+	
+	public int selectMemberco(Connection conn,String type,String word)
+	{
+		Statement stmt=null;
+		int result=0;
+		ResultSet rs=null;
+		String sql="";
+		sql="select count(*) from member "+ " where "+type+" like '%"+word+"%'";
+		
+		try {
+			stmt=conn.createStatement();
+			rs=stmt.executeQuery(sql);
+			if(rs.next())
+			{
+				result=rs.getInt(1);
+			}
+			
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rs);
+		}
+		return result;
+		
+		
+	}
+	
+	public List<Member> findmembertype(Connection conn,int cPage,int numPerPage,String type,String word)
+	{
+		Statement stmt=null;
+		ResultSet rs=null;
+		List<Member> list=new ArrayList();
+		String sql="";
+		int start=(cPage-1)*numPerPage+1;
+		int end=cPage*numPerPage;
+		
+		sql="select * from (select rownum as rnum, a.* "+ "from (select * from member "
+				+ "where "+type+" like '%"+word+"%')a)  where rnum between "+start+" and "+end;
+		try {
+			stmt=conn.createStatement();
+			rs=stmt.executeQuery(sql);
+			while(rs.next())
+			{
+				Member m=new Member();
+				m.setMemberId(rs.getString("member_id"));
+				m.setMemberName(rs.getString("member_name"));
+				m.setClass1(rs.getString("class"));
+				m.setEmail(rs.getString("member_email"));
+				m.setKhno(rs.getLong("kh_cNo"));
+				m.setJoin_date(rs.getDate("join_date"));
+				list.add(m);
+			}
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rs);
+		}return list;
+		
+		
+	}
+	
 	
 	
 }

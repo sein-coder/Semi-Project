@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.umo.admin.dao.AdminDao;
 import com.umo.model.vo.Board;
+import com.umo.model.vo.Member;
 
 
 public class AdminService {
@@ -42,6 +43,41 @@ public class AdminService {
 		return result;
 	}
 	
-	
+	public int adoptCountMember()
+	{
+		Connection conn=getConnection();
+		int result=dao.adoptCountMember(conn);
+		close(conn);
+		return result;
+	}
 
+	public List<Member> adoptMemberList(int cPage,int numPerPage){
+		Connection conn=getConnection();
+		List<Member> list=dao.adoptMemberList(conn,cPage,numPerPage);
+		close(conn);
+		return list;
+	}
+	
+	public int selectMemberco(String type,String word)
+	{
+		Connection conn=getConnection();
+		int result=dao.selectMemberco(conn,type,word);
+		close(conn);
+		return result;
+		
+		
+	}
+	
+	public List<Member> findmembertype(int cPage,int numPerPage,String type,String word)
+	{
+		Connection conn=getConnection();
+		List<Member> list=dao.findmembertype(conn,cPage,numPerPage,type,word);
+				close(conn);
+				return list;
+		
+		
+	}
+	
+	
+	
 }
