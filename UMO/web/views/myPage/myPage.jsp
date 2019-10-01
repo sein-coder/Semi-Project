@@ -30,6 +30,9 @@ int count = 0;
 	button#btn-add{margin-left:85%; margin-top: 20px;}
 	button#btn-all{margin-left:85%; margin-top: 20px;}
 </style>
+<div id="wrapper">
+	<div id="container_wr">
+		<div id="container">
 <section id="intro" class="main style12">
 <br>
 <div class="bo_fx" style="margin-right:1%;">
@@ -53,9 +56,9 @@ int count = 0;
                 </div>
         		<br>
 
-        <div class="mypagediv" id="mypost" style="border-top: 2px solid rgb(67, 106, 233);border-bottom:2px solid rgb(67, 106, 233); ">
+        <div class="mypagediv" id="mypost" style="border-top: 2px solid rgb(67, 106, 233);border-bottom:2px solid rgb(67, 106, 233); height: 400px ">
         	<br>
-        	<select id="board" name="board" style="width:5%">
+        	<select id="board" name="board" style="width:8%">
 				  <option value="음식" selected="selected">음식</option>
 				   <option value="자유">자유</option>
 			    	<option value="익명">익명</option>
@@ -370,9 +373,9 @@ int count = 0;
 	</div>
 </div>
 </div>
-        <div class="mypagediv" id="mycomment">
+        <div class="mypagediv" id="mycomment" style="height: 400p;">
         <br>
-        <select id="comment" name="comment" style="width:5%">
+        <select id="comment" name="comment" style="width:8%">
 				  <option value="공지" selected="selected">공지</option>
 				   <option value="음식">음식</option>
 				   <option value="자유">자유</option>
@@ -879,5 +882,8 @@ int count = 0;
 
 
     </section>
+ </div>
+ </div>
+ </div>
 
 <%@ include file="/views/common/footer.jsp"%>

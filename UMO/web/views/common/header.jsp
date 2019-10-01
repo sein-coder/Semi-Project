@@ -82,7 +82,7 @@ setInterval(function(){
 	<ul id="hd_qnb">
 		<li><a href="<%= request.getContextPath() %>/faqServlet"><i class="fa fa-question" aria-hidden="true"></i><span>FAQ</span></a></li>
 		<li><a href=""><i class="fa fa-comments" aria-hidden="true"></i><span>1:1문의</span></a></li>
-		<li><a href=""><i class="fa fa-user" aria-hidden="true"></i><span>내정보</span></a></li>
+		<li><a href="<%=request.getContextPath()%>/infoUpdate?id=<%=loginMember.getMemberId()%>"><i class="fa fa-user" aria-hidden="true"></i><span>내정보</span></a></li>
 	</ul>
 </div>
 

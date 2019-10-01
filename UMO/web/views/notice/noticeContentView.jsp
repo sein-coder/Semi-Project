@@ -127,18 +127,22 @@
 								onclick="comment_delete();" class="btn_b03">삭제</a></li>
 						</ul>
 					</div>
+					</article>
 					<!-- 레벨2댓글 구현부 -->
+					
 					<% } else { %>
+					<article style="margin-left: 50px">
 					<header style="z-index: 2">
 						<h2><%=bc.getBoardCommentWriter() %>님의 답변</h2>
 						<span class="sv_member"><%=bc.getBoardCommentWriter() %>의 답변</span>
 						<span class="bo_vc_hdinfo"><i class="fa fa-clock-o"
 							aria-hidden="true"></i> <time
 								datetime="2019-09-29T16:47:00+09:00"><%= bc.getBoardCommentDate() %></time></span>
+							
 					</header>
 					<!-- 댓글 출력 -->
 					<div class="cmt_contents">
-						<p style="text-align: right;"><%=bc.getBoardCommentContent() %></p>
+						<p><%=bc.getBoardCommentContent() %></p>
 						<ul class="bo_vc_act">
 							<!-- <li><button class="btn_b03">답변</button></li> -->
 							<li><a
@@ -146,16 +150,10 @@
 								onclick="comment_delete();" class="btn_b03">삭제</a></li>
 						</ul>
 					</div>
+			    	</article>
 					<% 	} 
 						} 
 					} %>
-
-					<input type="hidden" value="" id="">
-					<textarea id="save_comment" style="display: none">123</textarea>
-					<!-- 무슨 의도로 만든지 물어보기 -->
-
-				</article>
-
 			</section>
 			<!-- } 댓글 끝 -->
 
@@ -229,7 +227,7 @@
 			html+='<input type="hidden" name="boardCommentLevel" value="2"/>';
 			html+='<input type="hidden" name="boardWriter" value="<%=loginMember!=null?loginMember.getMemberId():""%>"/>';					
 			html+='<textarea name="wr_content" cols="60" rows="3"></textarea>';
-			html+='<input type="submit" value="등록">';
+			html+='<input type="submit" value="등록" style="margin-left: 5px; margin-bottom: 15px">';
 			html+='</form></td>';
 			tr.html(html);
 			tr.insertAfter($(this).parent().parent()).children("td").slideDown(800);

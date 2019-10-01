@@ -8,7 +8,6 @@
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/default.css">
 <script src="https://use.fontawesome.com/3b5ffe2c0a.js"></script>
-
 <%@ page import="java.util.List,com.umo.memo.model.vo.Memo" %>
 <% 
 	List<Memo> list = (List<Memo>)request.getAttribute("list");

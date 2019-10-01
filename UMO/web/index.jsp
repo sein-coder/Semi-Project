@@ -129,6 +129,7 @@
                 <ul id="ol_after_private">
                 
                     <li>
+
                         <a href="<%=request.getContextPath()%>/memoListServlet?userId=<%= loginMember.getMemberId() %>"
                          id="ol_after_memo" class="win_memo" 
                          onclick="window.open(this.href,'_blank','width=400px, height=400px, top=5, left=20, scrollbars=no'); return false">

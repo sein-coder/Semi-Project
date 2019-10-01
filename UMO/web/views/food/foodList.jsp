@@ -29,7 +29,6 @@
 </style>
 <style>
 	* { margin: 0; padding: 0; list-style: none; }
-    ul { padding: 16px 0; }
     ul li { display: inline-block; margin: 0 1px; font-size: 14px; letter-spacing: -.5px; }
     form { padding-top: 0px; }
     ul li.tag-item { padding: 4px 8px; background-color: #777; color: #000; }
@@ -50,7 +49,7 @@
 	<%-- <% } %> --%>
 <div id="wrapper">
 	<div id="container_wr">
-	 <div id="container">
+	  <div id="container">
 		<h2 id="container_title">
 			<span title="맛집 게시판">맛집 게시판</span>
 		</h2>
