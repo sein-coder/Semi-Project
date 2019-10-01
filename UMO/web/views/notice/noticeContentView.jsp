@@ -124,9 +124,11 @@
 						<p><%=bc.getBoardCommentContent() %></p>
 						<ul class="bo_vc_act">
 							<li><button id="btn-reply" class="btn_b03" value="<%= bc.getBoardCommentNo() %>">답변</button></li>
-							<li><a
-								href='<%=request.getContextPath()%>/notice/deleteComment?noticeNo=<%=bc.getBoardCommentNo()%>'
+							<li>
+							<%if(loginMember!=null&&loginMember.getMemberId().equals(bc.getBoardCommentWriter())){ %>
+							<a href='<%=request.getContextPath()%>/notice/deleteComment?noticeNo=<%=bc.getBoardCommentNo()%>&writer=<%=bc.getBoardCommentWriter()%>'
 								onclick="comment_delete();" class="btn_b03">삭제</a></li>
+								<%} %>
 						</ul>
 					</div>
 					</article>
@@ -210,7 +212,7 @@
 <script>
 	
 
-	$("[name=content]").focus(function(){
+	$("[name=wr_content]").focus(function(){
 		if(<%=loginMember==null%>){
 			fn_loginAlert();
 		}

@@ -136,9 +136,11 @@
 						<p><%=bc.getBoardCommentContent() %></p>
 						<ul class="bo_vc_act">
 							<li><button id="btn-reply" class="btn_b03" value="<%= bc.getBoardCommentNo() %>">답변</button></li>
-							<li><a
-								href='<%=request.getContextPath()%>/<%= board_type %>/deleteComment?<%= board_type %>No=<%=bc.getBoardCommentNo()%>'
+							<%if(loginMember!=null&&loginMember.getMemberId().equals(bc.getBoardCommentWriter())){ %>
+							<li>
+							<a href='<%=request.getContextPath()%>/<%= board_type %>/deleteComment?<%= board_type %>No=<%=bc.getBoardCommentNo()%>'
 								onclick="comment_delete();" class="btn_b03">삭제</a></li>
+								<%} %>
 						</ul>
 					</div>
 					<!-- 레벨2댓글 구현부 -->
@@ -229,13 +231,13 @@
 			fn_loginAlert();
 		}
 	})
-
 	$("#btn-reply").click(function(){
-    		console.log("실행");
+ <%if(!board_type.equals("anonymous")){ %>
 			if(<%=loginMember==null%>){
     			fn_loginAlert();
     			return;
     		}
+			<%}%>
     		var tr=$("<tr>");
     		var html="<td style='display:none;text-align:left;' colpsan='2'>";
     		html+="<form action='<%=request.getContextPath()%>/<%= board_type %>/insertComment' method='post'>";
