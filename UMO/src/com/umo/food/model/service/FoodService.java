@@ -11,6 +11,7 @@ import java.util.List;
 import com.umo.food.model.dao.FoodDao;
 import com.umo.model.vo.Food;
 import com.umo.model.vo.FoodComment;
+import com.umo.food.model.service.*;
 
 
 
@@ -136,7 +137,16 @@ public class FoodService {
 		close(conn);
 		return result;
 	}
-	}	
+	
+	public int insertFoodScrap(String board_type,int board_no,String memberId) {
+		Connection conn=getConnection();
+		int result=dao.insertFoodScrap(conn,board_type,board_no,memberId);
+		close(conn);
+		return result;
+	}
+	
+	
+}	
 	
 	
 	
