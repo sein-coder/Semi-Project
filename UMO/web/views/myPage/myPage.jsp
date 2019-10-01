@@ -46,8 +46,12 @@ int count = 0;
                 <div style="margin-left:0 auto; ">
                 <br>
                     <p>가입일로부터 <%=attendance %>일 지났습니다.</p>
+                    <button onclick="infoUpdate();">정보수정</button>
+                    <%if(loginMember.getMemberId().equals("admin")){ %>
+                    <button onclick="memberManage();">멤버관리</button>
+                    <%} %>
                 </div>
-        <br>
+        		<br>
 
         <div class="mypagediv" id="mypost" style="border-top: 2px solid rgb(67, 106, 233);border-bottom:2px solid rgb(67, 106, 233); ">
         	<br>
@@ -863,8 +867,14 @@ int count = 0;
             }
  			
             function infoUpdate() {
-            	 location.href="<%=request.getContextPath()%>/infoUpdate?id=<%=m.getMemberId()%>";
+            	 location.href="<%=request.getContextPath()%>/infoUpdate?id=<%=loginMember.getMemberId()%>";
+            	 
             }
+            
+            function memberManage()
+            {
+            	location.href="<%=request.getContextPath() %>/membermanage";
+            }  
         </script>
 
 

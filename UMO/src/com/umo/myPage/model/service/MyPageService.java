@@ -20,9 +20,10 @@ public class MyPageService {
 	      close(conn);
 	      return attendance;
 	   }
-	public Member selectOne(String userId) {
+	
+	public Member selectOne(String id) {
 	      Connection conn=getConnection();
-	      Member m=dao.selectOne(conn,userId);
+	      Member m=dao.selectOne(conn,id);
 	      close(conn);
 	      return m;
 	   }

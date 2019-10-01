@@ -27,7 +27,7 @@
 	<div id="container_wr">
 		<div id="container">
 			<h2 id="container_title">
-				<span title="회원 가입">회원 가입</span>
+				<span title="정보수정">정보수정</span>
 			</h2>
 
 			<!-- 회원정보 입력/수정 시작 { -->
@@ -40,20 +40,38 @@
 						<h2>사이트 이용정보 입력</h2>
 						<ul>
 							<li>
+<<<<<<< HEAD
 							    <input type="text" name="mb_id" value="<%= loginMember.getMemberId() %>" id="reg_mb_id"
+=======
+							    <input type="text" name="mb_id" value="<%=m.getMemberId() %>" id="reg_mb_id"
+>>>>>>> refs/remotes/origin/minsu2
 								 class="frm_input half_input required" minlength="3"
+<<<<<<< HEAD
 								maxlength="20" placeholder="아이디" readonly="readonly"><span id="msg_mb_id"></span>
+=======
+								maxlength="20" placeholder="아이디" readonly><span id="msg_mb_id"></span>
+>>>>>>> refs/remotes/origin/minsu2
 								<span class="frm_info">영문자, 숫자, _ 만 입력 가능. 최소 3자이상 입력하세요.</span>
 							</li>
 							<li>
-							    <input type="password" name="mb_password"
+							    <input type="type" name="mb_password"
 								id="reg_mb_password" 
+<<<<<<< HEAD
 								class="frm_input half_input" minlength="3"
 								maxlength="20" placeholder="변경할 비밀번호">
+=======
+								class="frm_input half_input required" minlength="3" value=""
+								maxlength="20" placeholder="비밀번호">
+>>>>>>> refs/remotes/origin/minsu2
 								<input
 								type="password" name="mb_password_re" id="reg_mb_password_re"
+<<<<<<< HEAD
 								 class="frm_input half_input right_input"
 								minlength="3" maxlength="20" placeholder="변경할 비밀번호 확인"></li>
+=======
+								 class="frm_input half_input right_input required"
+								minlength="3" maxlength="20" placeholder="비밀번호 확인" value=""></li>
+>>>>>>> refs/remotes/origin/minsu2
 						</ul>
 					</div>
 
@@ -62,12 +80,22 @@
 
 						<ul>
 							<li><input type="text" name="mb_name" id="reg_mb_name" 
+<<<<<<< HEAD
 								value="<%= loginMember.getMemberName() %>"  class="frm_input half_input required "
+=======
+								value="<%=m.getMemberName()%>"  class="frm_input half_input required "
+>>>>>>> refs/remotes/origin/minsu2
 								size="10" placeholder="이름"></li>
 							
+<<<<<<< HEAD
 							<!-- <li><input type="hidden" name="mb_nick_default" value="">
 								<input type="text" name="mb_nick" value="" id="reg_mb_nick"
+=======
+							<li><input type="hidden" name="mb_nick_default" value="">
+								<input type="text" name="mb_class" value="" id="reg_mb_nick"
+>>>>>>> refs/remotes/origin/minsu2
 								 class="frm_input required nospace half_input"
+<<<<<<< HEAD
 								size="10" maxlength="20" placeholder="닉네임"> <span
 								id="msg_mb_nick"></span> <span class="frm_info"> 공백없이
 									한글,영문,숫자만 입력 가능 </span></li> -->
@@ -75,17 +103,33 @@
 								id="reg_mb_khNum" 
 								class="frm_input half_input required" size="5"
 								maxlength="5" placeholder="KH학생번호" readonly="readonly"><span class="frm_info">5자리 학생번호 입력</span></li>
+=======
+								size="10" maxlength="20" placeholder="반"> <span
+								id="msg_mb_nick" value="<%=m.getClass1()%>"></span> </li>
+>>>>>>> refs/remotes/origin/minsu2
 
+<<<<<<< HEAD
 							<li><input type="text" name="mb_email" value="<%= loginMember.getEmail() %>"
+=======
+							<li><input type="text" name="mb_email" value="<%=m.getEmail() %>"
+>>>>>>> refs/remotes/origin/minsu2
 								id="reg_mb_email" 
 								class="frm_input email half_input required" size="70"
 								maxlength="100" placeholder="E-mail"></li>
+							<li><input type="text" name="mb_khNum" value="<%=m.getKhno() %>"
+								id="reg_mb_khNum" 
+								class="frm_input half_input required" size="5"
+								maxlength="5" placeholder="KH학생번호"><span class="frm_info">5자리 학생번호 입력</span></li>
 
 						</ul>
 					</div>
 				</div>
 				<div class="btn_confirm">
+<<<<<<< HEAD
 					<input type="submit" value="회원수정" id="btn_submit" class="btn_submit"> 
+=======
+					<input type="submit" value="정보수정" id="btn_submit" class="btn_submit"> 
+>>>>>>> refs/remotes/origin/minsu2
 					<a href="<%=request.getContextPath()%>/index.jsp" class="btn_cancel">취소</a>
 				</div>
 			</form>

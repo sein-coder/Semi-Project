@@ -114,8 +114,13 @@ margin:15% 0 20% 28%;
 <form id="slick-login" name="login" method="post"  >
 <h1 >로그인</h1>
 <label for="id">아이디</label><input type="text" name="userId" class="placeholder" placeholder="아이디작성하세요">
+<<<<<<< HEAD
 <label for="password">password</label><input type="password" name="pw" class="placeholder" placeholder="password">
 
+=======
+<label for="password">password</label><input type="password" name="mb_password" class="placeholder" placeholder="password">
+<<<<<<< HEAD
+>>>>>>> refs/remotes/origin/minsu2
 <input type="submit" id="logcheck" value="Log In" style="margin-top:13px;" onclick="return logincheck();"  formaction="<%=request.getContextPath()%>/loginCh?"  >
 
 
@@ -128,7 +133,7 @@ margin:15% 0 20% 28%;
 <script>
  
 var id=$("input[name='userId']");
-var pw=$("input[name='password']");
+var pw=$("input[name='mb_password']");
 
 function logincheck(){
 if(id.val().length<4||id.val().length>11)
