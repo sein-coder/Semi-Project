@@ -442,3 +442,101 @@ box-shadow: inset 0 2px 5px  rgba(255,255,255,0.3);}
 #bo_sch select{border:0;margin:9px 5px ;height:20px;float:left;border-right:1px solid #ddd;}
 #bo_sch .sch_input{height:38px;border:0;padding:0;background-color:transparent;float:left}
 #bo_sch .sch_btn{height:38px;float:left;background:none;border:0;width:40px;font-size:15px}
+
+/* 쪽지 */
+#memo_list .memo_name,#memo_list .memo_name .sv_wrap{font-weight:bold}
+#memo_list .memo_datetime{float:right;font-size:0.92em;color:#777;font-style:italic}
+#memo_list .memo_del{margin-left: 5px; color: #49857c;font-size: 15px;}
+
+#memo_view_contents {margin:10px 0;border:1px solid #ddd;}
+#memo_view_contents h2 {position:absolute;font-size:0;line-height:0;overflow:hidden}
+#memo_view_ul {margin:0;border-bottom:1px solid #eee;list-style:none;background:#f3f3f3;}
+#memo_view_ul:after {display:block;visibility:hidden;clear:both;content:""}
+.memo_view_li {position:relative;padding:10px;float:left;width:50%;}
+.memo_view_name strong,.memo_view_name .sv_wrap{font-weight:bold !important}
+.memo_view_subj{display: inline-block;height: 20px;line-height: 18px;border: 1px solid #3497d9;color: #3497d9;padding: 0 5px;border-radius: 15px;font-size: 11px;}
+.memo_view_li .profile_img img{border-radius:50%}
+.memo_view_date{text-align:right;color:#555;font-style:italic}
+.memo_view_date strong{font-weight:normal}
+#memo_view .btn_b02{float:right}
+#memo_view .btn_b02.reply_btn{margin-left:4px}
+#memo_view p {padding:10px;border-top:1px solid #ddd;min-height:150px;height:auto !important;height:150px;background:#fff;line-height:1.8em}
+
+#memo_write textarea {height:100px}
+
+/*포인트*/
+#point .point_top{line-height:15px;margin:0 0 5px}
+#point .point_top:after {display:block;visibility:hidden;clear:both;content:""}
+#point .point_tit{font-weight:bold;float:left;font-size:1.083em;display:block;}
+#point .point_num{font-size:1.25em;color:#00c4ac;font-weight:bold;float:right;}
+#point .point_date1{float:left;color:#555;font-style:italic}
+#point .point_date{float:right;color:#555;font-style:italic}
+#point .txt_expired {color:#aaa;}
+#point .point_all{background:#ae99da;border:0;border-bottom:2px solid #9781c5;color:#fff;font-weight:bold;font-size:1.083em}
+#point .point_all span,#point .point_status span{float:right;}
+#point .point_status{background:#737373;border:0;color:#fff;font-weight:bold;font-size:1.083em}
+#point .point_status  span{margin-left:10px}
+
+/* 게시판 댓글 */
+#bo_vc {}
+#bo_vc h2 {position:absolute;font-size:0;line-height:0;overflow:hidden}
+#bo_vc article {margin:20px 0;position:relative}
+#bo_vc article .profile_img img{border-radius:50%}
+#bo_vc header {}
+#bo_vc header:after {display:block;visibility:hidden;clear:both;content:""}
+#bo_vc header .icon_reply {position:absolute;top:15px;left:-20px}
+#bo_vc .member, #bo_vc .guest, #bo_vc .sv_member, #bo_vc .sv_guest {font-weight:bold}
+.bo_vc_hdinfo{float:right;font-style:italic;color:#777}
+#bo_vc h1 {position:absolute;font-size:0;line-height:0;overflow:hidden}
+#bo_vc .cmt_contents {padding:15px  ;margin:10px 0 0;background: #f8fafb;border-radius:5px;border: 1px solid #e8e8e8;line-height:1.8em}
+#bo_vc p a {text-decoration:underline}
+#bo_vc p a.s_cmt {text-decoration:underline;color:#ed6479}
+#bo_vc_empty {margin:0;padding:80px 0 !important;color:#777;text-align:center}
+#bo_vc #bo_vc_winfo {float:left}
+
+.bo_vc_act {text-align:right;margin:0;list-style:none;zoom:1}
+.bo_vc_act:after {display:block;visibility:hidden;clear:both;content:""}
+.bo_vc_act li {display:inline-block;}
+.bo_vc_act li a{padding:0 5px;line-height:23px}
+.bo_vc_act button{padding:0 5px;line-height:23px}
+
+.bo_vc_w {position:relative;margin:10px 0;display:block;}
+.bo_vc_w:after {display:block;visibility:hidden;clear:both;content:""}
+.bo_vc_w h2 {position:absolute;font-size:0;line-height:0;overflow:hidden}
+.bo_vc_w #char_cnt {display:block;margin:0 0 5px}
+.bo_vc_w textarea{border:1px solid #ccc;background:#fff;color:#000;vertical-align:middle;border-radius:3px;padding:5px;width:100%;height:120px;
+-webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+-moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);}
+#wr_secret{}
+.bo_vc_w_info{margin:10px 0;float:left}
+.bo_vc_w_info:after {display:block;visibility:hidden;clear:both;content:""}
+.bo_vc_w_info .frm_input{float:left;margin-right:5px}
+.bo_vc_w_info #captcha{padding-top:10px;display:block;clear:both}
+.bo_vc_w .btn_confirm{float:right;margin-top:10px}
+.bo_vc_w .btn_confirm label{display:inline-block;margin-right:10px;border-radius:3px;font-size:1.5em;text-align:center;}
+.bo_vc_w .btn_submit{height:45px;padding:0 20px;border-radius:3px;font-weight:bold;font-size:1.083em;}
+.bo_vc_w_wr:after {display:block;visibility:hidden;clear:both;content:""}
+
+#bo_vc_send_sns{display:inline-block;float:left}
+#bo_vc_sns {display:inline-block;margin:0;padding:0;list-style:none;zoom:1}
+#bo_vc_sns:after {display:block;visibility:hidden;clear:both;content:""}
+#bo_vc_sns li {float:left;margin:0 5px 0 0}
+#bo_vc_sns .sns_li_f{border-radius:3px;background:#3a589b;height:40px;line-height:40px;padding:0 0 0 10px}
+#bo_vc_sns .sns_li_t{border-radius:3px;background:#00aced;height:40px;line-height:40px;padding:0 0 0 10px}
+#bo_vc_sns .sns_li_off{background:#bbb}
+#bo_vc_sns a{display:inline-block;padding:0 15px 0 5px;}
+#bo_vc_sns input {margin:0 5px 0 0 }
+
+/* 게시판용 버튼 */
+a.btn_b01,.btn_b01 {display:inline-block;background:#4c4f6f;color:#fff;text-decoration:none;vertical-align:middle}
+.btn_b01:hover, .btn_b01:hover {background:#54598c}
+a.btn_b02,.btn_b02 {display:inline-block;background:#253dbe;padding:0 10px;color:#fff;text-decoration:none;border:0;vertical-align:middle;}
+a.btn_b02:hover, .btn_b02:hover {background:#0025eb}
+a.btn_b03, .btn_b03 {display:inline-block;background:#fff;border:1px solid #b9bdd3;color:#646982;text-decoration:none;vertical-align:middle}
+a.btn_b03:hover, .btn_b03:hover {background:#ebedf6}
+a.btn_b04, .btn_b04 {display:inline-block;background:#fff;border:1px solid #ccc;color:#707070;text-decoration:none;vertical-align:middle}
+a.btn_b04:hover, .btn_b04:hover {color:#333;background:#f9f9f9}
+a.btn_admin,.btn_admin {display:inline-block;background:#d13f4a;color:#fff;text-decoration:none;vertical-align:middle} /* 관리자 전용 버튼 */
+.btn_admin:hover, a.btn_admin:hover {background:#ff3746}
+

@@ -129,8 +129,7 @@
                 <ul id="ol_after_private">
                 
                     <li>
-                        <a href="" target="_blank" id="ol_after_memo" class="win_memo">
-                            <span class="sound_only">안 읽은 </span>쪽지<br>
+                        <a href="" target="_blank" id="ol_after_memo" class="win_memo">쪽지<br>
                             <strong><i class="fa fa-envelope-o" aria-hidden="true"></i> 0</strong>
                         </a>
                     </li>
