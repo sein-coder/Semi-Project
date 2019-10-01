@@ -40,6 +40,7 @@ public class FoodListServlet extends HttpServlet {
 		}
 		
 		int cPage;
+		
 		try {
 			cPage=Integer.parseInt(request.getParameter("cPage"));
 		}catch(NumberFormatException e) {

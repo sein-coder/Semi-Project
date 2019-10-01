@@ -1,7 +1,6 @@
 package com.umo.inquery.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -12,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.umo.inquery.model.service.InqueryService;
 import com.umo.model.vo.Inquery;
-import com.umo.model.vo.Member;
 
 /**
  * Servlet implementation class InqueryBoardServlet
@@ -43,6 +41,13 @@ public class InqueryBoardServlet extends HttpServlet {
 		
 		int cPage;
 		int numPerPage;
+		String orderType;
+		
+		try {
+			orderType = request.getParameter("orderType").toString();
+		}catch(NullPointerException e) {
+			orderType = "default";
+		}
 		
 		try {
 			cPage=Integer.parseInt(request.getParameter("cPage"));
@@ -65,7 +70,7 @@ public class InqueryBoardServlet extends HttpServlet {
 		int totalData = service.selectBoardCount(sfl,stx);
 		String name="";
 		String userId="";
-		List<Inquery> list = service.selectInqueryBoardList(cPage,numPerPage,name,userId,sfl,stx);
+		List<Inquery> list = service.selectInqueryBoardList(cPage,numPerPage,name,userId,sfl,stx,orderType);
 		
 		String pageBar = "";
 		int totalPage = (int)Math.ceil((double)totalData/numPerPage);
@@ -77,7 +82,7 @@ public class InqueryBoardServlet extends HttpServlet {
 			pageBar += "<strong class='pg_page pg_start'>이전</strong>";
 		}else {
 			pageBar += "<a class='pg_page pg_start' href='"+request.getContextPath()
-			+"/inquery/inqueryBoard?cPage="+(pageNo-1)+"&numPerPage="+numPerPage+"'>이전</a>";
+			+"/inquery/inqueryBoard?cPage="+(pageNo-1)+"&numPerPage="+numPerPage+"&orderType="+orderType+"'>이전</a>";
 		}
 		
 		while(!(pageNo>pageEnd||pageNo>totalPage)) {
@@ -85,7 +90,7 @@ public class InqueryBoardServlet extends HttpServlet {
 				pageBar += "<strong class='pg_current'>"+pageNo+"</strong>";
 			}else {
 				pageBar += "<a class='pg_page' href='"+request.getContextPath()
-				+"/inquery/inqueryBoard?cPage="+pageNo+"&numPerPage="+numPerPage+"'> "+pageNo+" </a>";
+				+"/inquery/inqueryBoard?cPage="+pageNo+"&numPerPage="+numPerPage+"&orderType="+orderType+"'> "+pageNo+" </a>";
 			}
 			pageNo++;
 		}
@@ -94,13 +99,14 @@ public class InqueryBoardServlet extends HttpServlet {
 			pageBar += "<strong class='pg_page pg_end'>다음</strong>";
 		}else {
 			pageBar += "<a class='pg_page pg_end' href='"+request.getContextPath()
-			+"/inquery/inqueryBoard?cPage="+pageNo+"&numPerPage="+numPerPage+"'>다음</a>";
+			+"/inquery/inqueryBoard?cPage="+pageNo+"&numPerPage="+numPerPage+"&orderType="+orderType+"'>다음</a>";
 		}
 		
 		request.setAttribute("pageBar", pageBar);
 		request.setAttribute("list", list);
 		request.setAttribute("cPage", cPage);
-		request.setAttribute("numPerPage", numPerPage);	 
+		request.setAttribute("numPerPage", numPerPage);	
+	    request.setAttribute("orderType", orderType);
 		
 		request.getSession().setAttribute("board_path", "upload/inquery/contentimg");
 		

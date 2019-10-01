@@ -58,37 +58,56 @@ public class FreeBoardDao {
 
 	}
 
-	public List<Board> selectFreeBoardList(Connection conn, int cPage, int numPerPage,String name,String userId,String sfl,String stx) {
+	public List<Board> selectFreeBoardList(Connection conn, int cPage, int numPerPage,String name,String userId,String sfl,String stx,String orderType) {
 		Statement stmt = null;
 		ResultSet rs = null;
 		List<Board> list = new ArrayList<Board>();
 
 		String sql="";
 		int start=(cPage-1)*numPerPage+1;
-		int end=cPage*numPerPage;
-
+		int end=cPage*numPerPage;	
+		String order;
+		
+		switch (orderType) {
+		case "count_asc":
+			order = "ORDER BY  Free_count ASC,free_No desc";
+			break;
+		case "count_desc":
+			order = "ORDER BY  Free_count DESC,free_No desc";
+			break;
+		case "date_asc":
+			order = "ORDER BY  Free_DATE ASC,free_No desc";
+			break;
+		case "date_desc":
+			order = "ORDER BY  Free_DATE DESC,free_No desc";
+			break;
+		default:
+			order = "ORDER BY  Free_no DESC";
+			break;
+		}
+		
 		if(name.equals("myPage")) {
 			if(sfl!=null&&stx!=null) {
 				sql = "select * from  "
 						+ "(select rownum as rnum, a.* from "
-						+ "(select * from free_BOARD where "+sfl+" like '%"+stx+"%' order by Free_DATE desc)a where free_writer='"+userId+"')"
+						+ "(select * from free_BOARD where "+sfl+" like '%"+stx+"%' "+order+")a where free_writer='"+userId+"')"
 						+ " where rnum between "+start+" and "+end;
 			}else {
 				sql = "select * from  "
 						+ "(select rownum as rnum, a.* from "
-						+ "(select * from free_BOARD order by Free_DATE desc)a where free_writer='"+userId+"')"
+						+ "(select * from free_BOARD "+order+")a where free_writer='"+userId+"')"
 						+ " where rnum between "+start+" and "+end;
 			}
 		}else {
 			if(sfl!=null&&stx!=null) {
 				sql = "SELECT * FROM "
 						+ "(SELECT ROWNUM AS RNUM, A.* FROM "
-						+ "(SELECT * FROM free_BOARD where "+sfl+" like '%"+stx+"%' ORDER BY Free_DATE DESC)A ) "
+						+ "(SELECT * FROM free_BOARD where "+sfl+" like '%"+stx+"%' "+order+")A ) "
 						+ "WHERE RNUM BETWEEN "+start+" and "+end;
 			}else {
 				sql = "SELECT * FROM "
 						+ "(SELECT ROWNUM AS RNUM, A.* FROM "
-						+ "(SELECT * FROM free_BOARD ORDER BY Free_DATE DESC)A ) "
+						+ "(SELECT * FROM free_BOARD "+order+")A ) "
 						+ "WHERE RNUM BETWEEN "+start+" and "+end;
 			}
 		}

@@ -87,7 +87,7 @@ public class InqueryDao {
 	}
 
 
-	public List<Inquery> selectInqueryBoardList(Connection conn, int cPage, int numPerPage,String name,String userId,String sfl,String stx) {
+	public List<Inquery> selectInqueryBoardList(Connection conn, int cPage, int numPerPage,String name,String userId,String sfl,String stx,String orderType) {
 		Statement stmt = null;
 		ResultSet rs = null;
 		List<Inquery> list = new ArrayList();
@@ -95,29 +95,49 @@ public class InqueryDao {
 		String sql="";
 		int start=(cPage-1)*numPerPage+1;
 		int end=cPage*numPerPage;
+		String order;
+		
+		switch (orderType) {
+		case "count_asc":
+			order = "ORDER BY  board_Count ASC,board_No desc";
+			break;
+		case "count_desc":
+			order = "ORDER BY  board_Count DESC,board_No desc";
+			break;
+		case "date_asc":
+			order = "ORDER BY  board_date ASC,board_No desc";
+			break;
+		case "date_desc":
+			order = "ORDER BY  board_date DESC,board_No desc";
+			break;
+		default:
+			order = "ORDER BY  Board_No DESC";
+			break;
+		}
+		
 		
 		if(name.equals("myPage")) {
 			if(sfl!=null&&stx!=null) {
 				sql = "select * from  "
 						+ "(select rownum as rnum, a.* from "
-						+ "(select * from Inquery_board where "+sfl+" like '%"+stx+"%' order by board_date desc)a where board_writer='"+userId+"')"
+						+ "(select * from Inquery_board where "+sfl+" like '%"+stx+"%' "+order+")a where board_writer='"+userId+"')"
 						+ " where rnum between "+start+" and "+end;
 			}else {
 				sql = "select * from  "
 						+ "(select rownum as rnum, a.* from "
-						+ "(select * from Inquery_board order by board_date desc)a where board_writer='"+userId+"')"
+						+ "(select * from Inquery_board "+order+")a where board_writer='"+userId+"')"
 						+ " where rnum between "+start+" and "+end;
 			}
 		}else {
 			if(sfl!=null&&stx!=null) {
 				sql = "SELECT * FROM "
 						+ "(SELECT ROWNUM AS RNUM, A.* FROM "
-						+ "(SELECT * FROM Inquery_board where "+sfl+" like '%"+stx+"%' ORDER BY board_date DESC)A ) "
+						+ "(SELECT * FROM Inquery_board where "+sfl+" like '%"+stx+"%' "+order+")A ) "
 						+ "WHERE RNUM BETWEEN "+start+" and "+end;
 			}else {
 				sql = "SELECT * FROM "
 						+ "(SELECT ROWNUM AS RNUM, A.* FROM "
-						+ "(SELECT * FROM Inquery_board ORDER BY board_date DESC)A ) "
+						+ "(SELECT * FROM Inquery_board "+order+")A ) "
 						+ "WHERE RNUM BETWEEN "+start+" and "+end;
 			}
 		}

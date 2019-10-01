@@ -34,6 +34,13 @@ public class AnonymousboardServlert extends HttpServlet {
 
 		int cPage;
 		int numPerPage;
+		String orderType;
+		
+		try {
+			orderType = request.getParameter("orderType").toString();
+		}catch(NullPointerException e) {
+			orderType = "default";
+		}
 		
 		try {
 			cPage=Integer.parseInt(request.getParameter("cPage"));
@@ -55,7 +62,7 @@ public class AnonymousboardServlert extends HttpServlet {
 	    int totalData=service.countanonymousList(sfl,stx);
 	    String name="";
 	    String userId="";
-	    List<Board> list =service.selectanonymousBoardList(cPage,numPerPage,name,userId,sfl,stx);
+	    List<Board> list =service.selectanonymousBoardList(cPage,numPerPage,name,userId,sfl,stx,orderType);
 	    
 	    String pageBar="";
 	    int totalPage=(int)Math.ceil((double)totalData/numPerPage);
@@ -69,7 +76,7 @@ public class AnonymousboardServlert extends HttpServlet {
 			pageBar+="<strong class='pg_page pg_start'>이전</strong>";
 		}else {
 			pageBar+="<a class='pg_page pg_start' href='"+request.getContextPath()
-			+"/anonymousBoard?cPage="+(pageNo-1)+"&numPerPage="+numPerPage+"'>이전</a>";
+			+"/anonymousBoard?cPage="+(pageNo-1)+"&numPerPage="+numPerPage+"&orderType="+orderType+"'>이전</a>";
 		}
 		//중간 클릭한 페이지(숫자) 만들기
 		while(!(pageNo>pageEnd||pageNo>totalPage)) {
@@ -77,7 +84,7 @@ public class AnonymousboardServlert extends HttpServlet {
 				pageBar+="<strong class='pg_current'>"+pageNo+"</strong>";
 			}else {
 				pageBar+="<a class='pg_page' href='"+request.getContextPath()
-				+"/anonymousBoard?cPage="+pageNo+"&numPerPage="+numPerPage+"'>"+pageNo+"</a>";
+				+"/anonymousBoard?cPage="+pageNo+"&numPerPage="+numPerPage+"&orderType="+orderType+"'>"+pageNo+"</a>";
 			}
 			pageNo++;
 		}
@@ -87,7 +94,7 @@ public class AnonymousboardServlert extends HttpServlet {
 		}
 		else {
 			pageBar+="<a class='pg_page pg_end' href='"+request.getContextPath()
-			+"/anonymousBoard?cPage="+pageNo+"&numPerPage="+numPerPage+"'>다음</a>";
+			+"/anonymousBoard?cPage="+pageNo+"&numPerPage="+numPerPage+"&orderType="+orderType+"'>다음</a>";
 			
 		}
 		
@@ -97,6 +104,7 @@ public class AnonymousboardServlert extends HttpServlet {
 	    request.setAttribute("board_type", "anonymous");
 	    request.setAttribute("titlename", "익명");
 	    request.setAttribute("numPerPage", numPerPage);
+	    request.setAttribute("orderType", orderType);
 	    
 	    request.getSession().setAttribute("board_path", "upload/anonymous/contentimg");
 	    

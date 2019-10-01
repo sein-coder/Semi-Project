@@ -7,6 +7,29 @@
 	String pageBar = request.getAttribute("pageBar").toString();
 	String cPage = request.getAttribute("cPage").toString();
 	String numPerPage = request.getAttribute("numPerPage").toString();
+	
+	String orderType = request.getAttribute("orderType").toString();
+	String orderDate = "date_desc";
+	String orderCount = "count_desc";
+	
+	switch (orderType) {
+	case "count_asc":
+		orderCount = "count_desc";
+		break;
+	case "count_desc":
+		orderCount = "count_asc";
+		break;
+	case "date_asc":
+		orderDate = "date_desc";
+		break;
+	case "date_desc":
+		orderDate = "date_asc";
+		break;
+	default:
+		orderDate = "date_desc";
+		orderCount = "count_desc";
+		break;
+	}
 %>
 
 <%@ include file = "/views/common/header.jsp" %>
@@ -40,9 +63,11 @@
 									<th width="10%" style="text-align: left;">코드 타입</th>
 									<th width="50%">제목</th>
 									<th width="10%">글쓴이</th>
-									<th width="10%"><a href="">조회 <i class="fa fa-sort"
+									<th width="10%"><a href="<%= request.getContextPath() %>/inquery/inqueryBoard?cPage=<%= cPage %>
+									&numPerPage=<%= numPerPage %>&orderType=<%= orderCount %>">조회 <i class="fa fa-sort"
 											aria-hidden="true"></i></a></th>
-									<th width="10%"><a href="">날짜 <i class="fa fa-sort"
+									<th width="10%"><a href="<%= request.getContextPath() %>/inquery/inqueryBoard?cPage=<%= cPage %>
+									&numPerPage=<%= numPerPage %>&orderType=<%= orderDate %>">날짜 <i class="fa fa-sort"
 											aria-hidden="true"></i></a></th>
 								</tr>
 							</thead>

@@ -54,7 +54,7 @@
 	
 setInterval(function(){
 	$("#login-visit").load(window.location.href+" #login-visit");
-},5000)
+},2000)
 	
 </script>
 

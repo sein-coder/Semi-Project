@@ -40,9 +40,9 @@ public class InqueryService {
 		return result;
 	}
 
-	public List<Inquery> selectInqueryBoardList(int cPage, int numPerPage,String name,String userId,String sfl,String stx) {
+	public List<Inquery> selectInqueryBoardList(int cPage, int numPerPage,String name,String userId,String sfl,String stx,String orderType) {
 		Connection conn = getConnection();
-		List<Inquery> list = dao.selectInqueryBoardList(conn,cPage,numPerPage,name,userId,sfl,stx);
+		List<Inquery> list = dao.selectInqueryBoardList(conn,cPage,numPerPage,name,userId,sfl,stx,orderType);
 		close(conn);
 		return list;
 	}

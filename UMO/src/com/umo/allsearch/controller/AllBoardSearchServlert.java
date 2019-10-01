@@ -60,17 +60,17 @@ public class AllBoardSearchServlert extends HttpServlet {
 	    String name="";
 	    String userId="";
 	    String noticesfl="notice_title||notice_contents";
-	    List<NoticeBoard> noticelist =new NoticeBoardService().selectNoticeBoardList(cPage, numPerPage,noticesfl,stx);
+	    List<NoticeBoard> noticelist =new NoticeBoardService().selectNoticeBoardList(cPage, numPerPage,noticesfl,stx,"default");
 	    String freesfl="free_title||free_contents";
-	    List<Board> freelist =new FreeBoardService().selectFreeBoardList(cPage, numPerPage,name,userId,freesfl,stx);
+	    List<Board> freelist =new FreeBoardService().selectFreeBoardList(cPage, numPerPage,name,userId,freesfl,stx,"default");
 	    String foodsfl="food_board.BOARD_TITLE||food_board.BOARD_CONTENTS";
 	    List<Food> foodlist = new FoodService().selectFoodList(cPage,numPerPage,name,userId,foodsfl,stx);
 	    String inquerysfl="inquery_board.BOARD_TITLE||inquery_board.BOARD_CONTENTS";
-	    List<Inquery> inquerylist = new InqueryService().selectInqueryBoardList(cPage,numPerPage,name,userId,inquerysfl,stx);
+	    List<Inquery> inquerylist = new InqueryService().selectInqueryBoardList(cPage,numPerPage,name,userId,inquerysfl,stx,"default");
 	    String anonymoussfl="Anonymous_board.BOARD_TITLE||Anonymous_board.BOARD_CONTENTS";
-	    List<Board> anonymouslist =new AnonymousBoardService().selectanonymousBoardList(cPage,numPerPage,name,userId,anonymoussfl,stx);
+	    List<Board> anonymouslist =new AnonymousBoardService().selectanonymousBoardList(cPage,numPerPage,name,userId,anonymoussfl,stx,"default");
 	    String gradesfl="grade_title||grade_contents";
-	    List<Board> gradelist =new GradeBoardService().selectGradeBoardList(cPage, numPerPage,name,userId,gradesfl,stx);
+	    List<Board> gradelist =new GradeBoardService().selectGradeBoardList(cPage, numPerPage,name,userId,gradesfl,stx,"default");
 	    
 	    
 		

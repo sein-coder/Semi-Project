@@ -25,9 +25,9 @@ public class NoticeBoardService {
 		return result;
 	}
 	//공�? ?���? 리스?�� 불러?���?
-	public List<NoticeBoard> selectNoticeBoardList(int cPage, int numPerPage,String sfl,String stx){
+	public List<NoticeBoard> selectNoticeBoardList(int cPage, int numPerPage,String sfl,String stx,String orderType){
 		Connection conn=getConnection();		
-		List<NoticeBoard> list=dao.selectNoticeBoardList(conn, cPage, numPerPage,sfl,stx);
+		List<NoticeBoard> list=dao.selectNoticeBoardList(conn, cPage, numPerPage,sfl,stx,orderType);
 		close(conn);	
 		return list; 
 	}

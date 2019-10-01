@@ -30,11 +30,18 @@ public class NoticeBoardServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		// TODO Auto-generated method stub
 		int cPage;
 		int numPerPage;
+		String orderType;
 		
+		try {
+			orderType = request.getParameter("orderType").toString();
+		}catch(NullPointerException e) {
+			orderType = "default";
+		}
+
 		try {
 			cPage=Integer.parseInt(request.getParameter("cPage"));
 		} catch (NumberFormatException e) {
@@ -54,7 +61,7 @@ public class NoticeBoardServlet extends HttpServlet {
 	    NoticeBoardService service=new NoticeBoardService();
 	    int totalData=service.countNoticeList(sfl,stx);
 	    
-	    List<NoticeBoard> list =service.selectNoticeBoardList(cPage, numPerPage,sfl,stx);
+	    List<NoticeBoard> list =service.selectNoticeBoardList(cPage, numPerPage,sfl,stx,orderType);
 	    
 	    String pageBar="";
 	    int totalPage=(int)Math.ceil((double)totalData/numPerPage);
@@ -68,7 +75,7 @@ public class NoticeBoardServlet extends HttpServlet {
 			pageBar+="<strong class='pg_page pg_start'>다음</strong>";
 		}else {
 			pageBar+="<a class='pg_page pg_start' href='"+request.getContextPath()
-			+"/noticeBoard?cPage="+(pageNo-1)+"&numPerPage="+numPerPage+"'>이전</a>";
+			+"/noticeBoard?cPage="+(pageNo-1)+"&numPerPage="+numPerPage+"&orderType="+orderType+"'>이전</a>";
 		}
 		//중간 클릭한 페이지(숫자) 만들기
 		while(!(pageNo>pageEnd||pageNo>totalPage)) {
@@ -76,7 +83,7 @@ public class NoticeBoardServlet extends HttpServlet {
 				pageBar+="<strong class='pg_current'>"+pageNo+"</strong>";
 			}else {
 				pageBar+="<a class='pg_page' href='"+request.getContextPath()
-				+"/noticeBoard?cPage="+pageNo+"&numPerPage="+numPerPage+"'>"+pageNo+"</a>";
+				+"/noticeBoard?cPage="+pageNo+"&numPerPage="+numPerPage+"&orderType="+orderType+"'>"+pageNo+"</a>";
 			}
 			pageNo++;
 		}
@@ -86,14 +93,15 @@ public class NoticeBoardServlet extends HttpServlet {
 		}
 		else {
 			pageBar+="<a class='pg_page pg_end' href='"+request.getContextPath()
-			+"/noticeBoard?cPage="+pageNo+"&numPerPage="+numPerPage+"'>다음</a>";
+			+"/noticeBoard?cPage="+pageNo+"&numPerPage="+numPerPage+"&orderType="+orderType+"'>다음</a>";
 			
 		}
 		
 		request.setAttribute("cPage",cPage);
 		request.setAttribute("pageBar",pageBar);
 	    request.setAttribute("list", list);
-	    request.setAttribute("numPerPage", numPerPage);	    
+	    request.setAttribute("numPerPage", numPerPage);
+	    request.setAttribute("orderType", orderType);
 	    
 	    request.getSession().setAttribute("board_path", "upload/notice/contentimg");
 	    

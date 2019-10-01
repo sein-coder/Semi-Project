@@ -40,7 +40,7 @@
 						<h2>사이트 이용정보 입력</h2>
 						<ul>
 							<li>
-							    <input type="text" name="mb_id" value="<%= loginMember.getMemberId() %>" id="reg_mb_id"
+							    <input type="text" name="mb_id" value="<%= m.getMemberId() %>" id="reg_mb_id"
 								 class="frm_input half_input required" minlength="3"
 								maxlength="20" placeholder="아이디" readonly="readonly"><span id="msg_mb_id"></span>
 								<span class="frm_info">영문자, 숫자, _ 만 입력 가능. 최소 3자이상 입력하세요.</span>
@@ -62,7 +62,7 @@
 
 						<ul>
 							<li><input type="text" name="mb_name" id="reg_mb_name" 
-								value="<%= loginMember.getMemberName() %>"  class="frm_input half_input required "
+								value="<%= m.getMemberName() %>"  class="frm_input half_input required "
 								size="10" placeholder="이름"></li>
 							
 							<!-- <li><input type="hidden" name="mb_nick_default" value="">
@@ -71,12 +71,12 @@
 								size="10" maxlength="20" placeholder="닉네임"> <span
 								id="msg_mb_nick"></span> <span class="frm_info"> 공백없이
 									한글,영문,숫자만 입력 가능 </span></li> -->
-							<li><input type="text" name="mb_khNum" value="<%= loginMember.getKhno() %>"
+							<li><input type="text" name="mb_khNum" value="<%= m.getKhno() %>"
 								id="reg_mb_khNum" 
 								class="frm_input half_input required" size="5"
 								maxlength="5" placeholder="KH학생번호" readonly="readonly"><span class="frm_info">5자리 학생번호 입력</span></li>
 
-							<li><input type="text" name="mb_email" value="<%= loginMember.getEmail() %>"
+							<li><input type="text" name="mb_email" value="<%= m.getEmail() %>"
 								id="reg_mb_email" 
 								class="frm_input email half_input required" size="70"
 								maxlength="100" placeholder="E-mail"></li>

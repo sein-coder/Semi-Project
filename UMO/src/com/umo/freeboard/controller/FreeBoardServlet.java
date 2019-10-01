@@ -42,6 +42,14 @@ public class FreeBoardServlet extends HttpServlet {
 		
 		int cPage;
 		int numPerPage;
+		String orderType;
+		
+		try {
+			orderType = request.getParameter("orderType").toString();
+		}catch(NullPointerException e) {
+			orderType = "default";
+		}
+		
 		try {
 			cPage=Integer.parseInt(request.getParameter("cPage"));
 		} catch (NumberFormatException e) {
@@ -65,7 +73,7 @@ public class FreeBoardServlet extends HttpServlet {
 	    int totalData=service.countFreeList(sfl,stx);
 	    String name="";
 	    String userId="";
-	    List<Board> list =service.selectFreeBoardList(cPage, numPerPage,name,userId,sfl,stx);
+	    List<Board> list =service.selectFreeBoardList(cPage, numPerPage,name,userId,sfl,stx,orderType);
 	    
 	    String pageBar="";
 	    int totalPage=(int)Math.ceil((double)totalData/numPerPage);
@@ -79,7 +87,7 @@ public class FreeBoardServlet extends HttpServlet {
 			pageBar+="<strong class='pg_page pg_start'>다음</strong>";
 		}else {
 			pageBar+="<a class='pg_page pg_start' href='"+request.getContextPath()
-			+"/freeBoard?cPage="+(pageNo-1)+"&numPerPage="+numPerPage+"'>이전</a>";
+			+"/freeBoard?cPage="+(pageNo-1)+"&numPerPage="+numPerPage+"&orderType="+orderType+"'>이전</a>";
 		}
 		//중간 클릭한 페이지(숫자) 만들기
 		while(!(pageNo>pageEnd||pageNo>totalPage)) {
@@ -87,7 +95,7 @@ public class FreeBoardServlet extends HttpServlet {
 				pageBar+="<strong class='pg_current'>"+pageNo+"</strong>";
 			}else {
 				pageBar+="<a class='pg_page' href='"+request.getContextPath()
-				+"/freeBoard?cPage="+pageNo+"&numPerPage="+numPerPage+"'>"+pageNo+"</a>";
+				+"/freeBoard?cPage="+pageNo+"&numPerPage="+numPerPage+"&orderType="+orderType+"'>"+pageNo+"</a>";
 			}
 			pageNo++;
 		}
@@ -97,7 +105,7 @@ public class FreeBoardServlet extends HttpServlet {
 		}
 		else {
 			pageBar+="<a class='pg_page pg_end' href='"+request.getContextPath()
-			+"/freeBoard?cPage="+pageNo+"&numPerPage="+numPerPage+"'>다음</a>";
+			+"/freeBoard?cPage="+pageNo+"&numPerPage="+numPerPage+"&orderType="+orderType+"'>다음</a>";
 			
 		}
 		
@@ -107,6 +115,7 @@ public class FreeBoardServlet extends HttpServlet {
 	    request.setAttribute("numPerPage", numPerPage);
 	    request.setAttribute("board_type", "free");
 	    request.setAttribute("titlename", "자유");
+	    request.setAttribute("orderType", orderType);
 	    
 	    request.getSession().setAttribute("board_path", "upload/free/contentimg");
 	    

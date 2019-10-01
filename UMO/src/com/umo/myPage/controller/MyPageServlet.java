@@ -53,10 +53,10 @@ public class MyPageServlet extends HttpServlet {
 		int numPerPage=3;
 		String name="myPage";
 		List<Food> foodlist = new FoodService().selectFoodList(cPage,numPerPage,name,userId,null,null);
-		List<Board> anonymousBoardList=new AnonymousBoardService().selectanonymousBoardList(cPage,numPerPage,name,userId,null,null);
-		List<Inquery> inquerylist=new InqueryService().selectInqueryBoardList(cPage,numPerPage,name,userId,null,null);
-		List<Board> freelist =new FreeBoardService().selectFreeBoardList(cPage, numPerPage,name,userId,null,null);	
-		 List<Board> gradelist =new GradeBoardService().selectGradeBoardList(cPage, numPerPage,name,userId,null,null);
+		List<Board> anonymousBoardList=new AnonymousBoardService().selectanonymousBoardList(cPage,numPerPage,name,userId,null,null,"default");
+		List<Inquery> inquerylist=new InqueryService().selectInqueryBoardList(cPage,numPerPage,name,userId,null,null,"default");
+		List<Board> freelist =new FreeBoardService().selectFreeBoardList(cPage, numPerPage,name,userId,null,null,"default");	
+		 List<Board> gradelist =new GradeBoardService().selectGradeBoardList(cPage, numPerPage,name,userId,null,null,"default");
 		
 		int attendance=0; 
 		attendance=new MyPageService().selectAttendance(userId,attendance);

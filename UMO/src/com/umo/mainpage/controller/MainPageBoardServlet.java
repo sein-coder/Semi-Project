@@ -53,28 +53,28 @@ public class MainPageBoardServlet extends HttpServlet {
 
 		switch (type) {
 		case "inquery":
-			List<Inquery> inquerylist = new InqueryService().selectInqueryBoardList(1, 6, "", "",sfl,stx);
+			List<Inquery> inquerylist = new InqueryService().selectInqueryBoardList(1, 6, "", "",sfl,stx,"default");
 
 			response.setContentType("application/json; charset=UTF-8");
 			new Gson().toJson(inquerylist,response.getWriter());
 			
 			break;
 		case "anonymous":
-			List<Board> anonymouslist = new AnonymousBoardService().selectanonymousBoardList(1, 6, "", "",sfl,stx);
+			List<Board> anonymouslist = new AnonymousBoardService().selectanonymousBoardList(1, 6, "", "",sfl,stx,"default");
 
 			response.setContentType("application/json; charset=UTF-8");
 			new Gson().toJson(anonymouslist,response.getWriter());
 			
 			break;
 		case "grade":
-			List<Board> gradelist = new GradeBoardService().selectGradeBoardList(1, 6, "", "",sfl,stx);
+			List<Board> gradelist = new GradeBoardService().selectGradeBoardList(1, 6, "", "",sfl,stx,"default");
 
 			response.setContentType("application/json; charset=UTF-8");
 			new Gson().toJson(gradelist,response.getWriter());
 			
 			break;
 		case "free":
-			List<Board> freelist = new FreeBoardService().selectFreeBoardList(1, 6, "", "",sfl,stx);
+			List<Board> freelist = new FreeBoardService().selectFreeBoardList(1, 6, "", "",sfl,stx,"default");
 
 			response.setContentType("application/json; charset=UTF-8");
 			new Gson().toJson(freelist,response.getWriter());

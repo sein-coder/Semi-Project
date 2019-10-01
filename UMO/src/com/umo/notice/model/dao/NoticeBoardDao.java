@@ -61,7 +61,7 @@ public class NoticeBoardDao {
 	}
 
 	// 공�??��?�� ?���? 리스?�� 불러?���?
-	public List<NoticeBoard> selectNoticeBoardList(Connection conn, int cPage, int numPerPage,String sfl,String stx) {
+	public List<NoticeBoard> selectNoticeBoardList(Connection conn, int cPage, int numPerPage,String sfl,String stx, String orderType) {
 		Statement stmt = null;
 		ResultSet rs = null;
 		List<NoticeBoard> list = new ArrayList<NoticeBoard>();
@@ -69,16 +69,35 @@ public class NoticeBoardDao {
 		String sql="";
 		int start=(cPage-1)*numPerPage+1;
 		int end=cPage*numPerPage;
+		String order;
+		
+		switch (orderType) {
+		case "count_asc":
+			order = "ORDER BY  NOTICE_COUNT ASC,NOTICE_NO DESC";
+			break;
+		case "count_desc":
+			order = "ORDER BY  NOTICE_COUNT DESC,NOTICE_NO DESC";
+			break;
+		case "date_asc":
+			order = "ORDER BY  NOTICE_DATE ASC,NOTICE_NO DESC";
+			break;
+		case "date_desc":
+			order = "ORDER BY  NOTICE_DATE DESC,NOTICE_NO DESC";
+			break;
+		default:
+			order = "ORDER BY  NOTICE_NO DESC";
+			break;
+		}
 		
 		if(sfl!=null&&stx!=null) { //검색용
 			sql="SELECT * FROM "
 					+ "(SELECT ROWNUM AS RNUM, A.* FROM "
-					+ "(SELECT * FROM NOTICE_BOARD where "+sfl+" like '%"+stx+"%' ORDER BY NOTICE_DATE DESC)A ) "
+					+ "(SELECT * FROM NOTICE_BOARD where "+sfl+" like '%"+stx+"%' "+order+ " )A ) "
 					+ "WHERE RNUM BETWEEN "+ start+" AND "+end;
 		}else { //전체검색
 			sql="SELECT * FROM "
 					+ "(SELECT ROWNUM AS RNUM, A.* FROM "
-					+ "(SELECT * FROM NOTICE_BOARD ORDER BY NOTICE_DATE DESC)A ) "
+					+ "(SELECT * FROM NOTICE_BOARD "+order+")A ) "
 					+ "WHERE RNUM BETWEEN "+start+" AND "+end;
 		}
 		

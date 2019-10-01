@@ -58,7 +58,7 @@ public class GradeBoardDao {
 
 	}
 
-	public List<Board> selectGradeBoardList(Connection conn, int cPage, int numPerPage,String name,String userId,String sfl,String stx) {
+	public List<Board> selectGradeBoardList(Connection conn, int cPage, int numPerPage,String name,String userId,String sfl,String stx,String orderType) {
 		Statement stmt = null;
 		ResultSet rs = null;
 		List<Board> list = new ArrayList<Board>();
@@ -66,29 +66,46 @@ public class GradeBoardDao {
 		String sql="";
 		int start=(cPage-1)*numPerPage+1;
 		int end=cPage*numPerPage;
-		
+		String order;
+		switch (orderType) {
+		case "count_asc":
+			order = "ORDER BY  grade_count ASC,grade_No desc";
+			break;
+		case "count_desc":
+			order = "ORDER BY  grade_count DESC,grade_No desc";
+			break;
+		case "date_asc":
+			order = "ORDER BY  grade_date ASC,grade_No desc";
+			break;
+		case "date_desc":
+			order = "ORDER BY  grade_date DESC,grade_No desc";
+			break;
+		default:
+			order = "ORDER BY  grade_no DESC";
+			break;
+		}
 		if(name.equals("myPage")) {
 			if(sfl!=null&&stx!=null) {
 				sql = "select * from  "
 						+ "(select rownum as rnum, a.* from "
-						+ "(select * from grade_BOARD where "+sfl+" like '%"+stx+"%' order by grade_DATE desc)a where grade_writer='"+userId+"')"
+						+ "(select * from grade_BOARD where "+sfl+" like '%"+stx+"%' "+order+")a where grade_writer='"+userId+"')"
 						+ " where rnum between "+start+" and "+end;
 			}else {
 				sql = "select * from  "
 						+ "(select rownum as rnum, a.* from "
-						+ "(select * from grade_BOARD order by grade_DATE desc)a where grade_writer='"+userId+"')"
+						+ "(select * from grade_BOARD "+order+")a where grade_writer='"+userId+"')"
 						+ " where rnum between "+start+" and "+end;
 			}
 		}else {
 			if(sfl!=null&&stx!=null) {
 				sql = "SELECT * FROM "
 						+ "(SELECT ROWNUM AS RNUM, A.* FROM "
-						+ "(SELECT * FROM grade_BOARD where "+sfl+" like '%"+stx+"%' ORDER BY grade_DATE DESC)A ) "
+						+ "(SELECT * FROM grade_BOARD where "+sfl+" like '%"+stx+"%' "+order+")A ) "
 						+ "WHERE RNUM BETWEEN "+start+" and "+end;
 			}else {
 				sql = "SELECT * FROM "
 						+ "(SELECT ROWNUM AS RNUM, A.* FROM "
-						+ "(SELECT * FROM grade_BOARD ORDER BY grade_DATE DESC)A ) "
+						+ "(SELECT * FROM grade_BOARD "+order+")A ) "
 						+ "WHERE RNUM BETWEEN "+start+" and "+end;
 			}
 		}
