@@ -71,6 +71,7 @@
 		$("html").animate({scrollTop : (answertag.offset().top)}, 1500);
 		$(this).off();
 	});
+	
 </script>
 
 <!-- 하단 시작  -->

@@ -28,7 +28,7 @@ box-shadow:0 1px 2px rgba(0,0,0,0.1)}
 #ol_after_hd strong{display:block;margin:5px 0}
 #ol_after_hd .profile_img{position:absolute;top:15px;left:15px;display:inline-block;}
 #ol_after_hd .profile_img img{border:1px solid #bbb;border-radius:50%;width:50px;height:50px}
-#ol_after_hd .profile_img  a{display:block;position:absolute;bottom:-5px;right:-5px;background: #fff;text-align:center;font-size:17px;width:30px;line-height:30px;border-radius:50%;color:#777;
+#ol_after_hd .profile_img  a{display:block;position:absolute;bottom:-20px;right:30px;background: #fff;text-align:center;font-size:17px;width:30px;line-height:30px;border-radius:50%;color:#777;
 -webkit-box-shadow: -2px -2px 5px rgba(0,0,0,0.1);
 -moz-box-shadow:  -2px -2px 5px rgba(0,0,0,0.1);
 box-shadow: -2px -2px 5px rgba(0,0,0,0.1);}

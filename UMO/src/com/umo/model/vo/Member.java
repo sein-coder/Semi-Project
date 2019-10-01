@@ -113,6 +113,14 @@ public void setPoint(int point) {
 	this.point = point;
 }
 
+@Override
+public String toString() {
+	return "Member [memberId=" + memberId + ", memberPw=" + memberPw + ", memberName=" + memberName + ", class1="
+			+ class1 + ", email=" + email + ", khno=" + khno + ", join_date=" + join_date + ", attendance_count="
+			+ attendance_count + ", grade=" + grade + ", point=" + point + "]";
+}
+
+
 
 
 }
