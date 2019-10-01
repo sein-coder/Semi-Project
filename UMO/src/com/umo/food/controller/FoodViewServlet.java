@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.umo.food.model.service.FoodService;
 import com.umo.model.vo.Food;
 import com.umo.model.vo.FoodComment;
+import com.umo.model.vo.Scrap;
 
 /**
  * Servlet implementation class FoodViewServlet
@@ -70,7 +71,11 @@ public class FoodViewServlet extends HttpServlet {
 			c.setMaxAge(-1);
 			response.addCookie(c);
 		}
-		
+		String board_type;
+		String memberId;
+
+				
+				
 		Food f = new FoodService().selectFoodView(board_no,hasRead);
 		List<FoodComment> list = new FoodService().selectComment(board_no);
 		
@@ -78,6 +83,10 @@ public class FoodViewServlet extends HttpServlet {
 		request.setAttribute("list", list);
 		request.setAttribute("cPage", cPage);
 		request.setAttribute("tag", tag);
+		
+		
+		
+		
 		
 		request.getRequestDispatcher("/views/food/foodView.jsp").forward(request, response);
 	}

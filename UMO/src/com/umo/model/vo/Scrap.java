@@ -3,16 +3,26 @@ package com.umo.model.vo;
 import java.sql.Date;
 
 public class Scrap {
+	public String member_id;
 	public int board_no;
 	public String board_type;
 	public String board_title;
 	public String board_writer;
 	public Date board_date;
-	public char board_status;
 	
 
 	public Scrap() {
 		// TODO Auto-generated constructor stub
+	}
+
+
+	public String getMember_id() {
+		return member_id;
+	}
+
+
+	public void setMember_id(String member_id) {
+		this.member_id = member_id;
 	}
 
 
@@ -65,35 +75,29 @@ public class Scrap {
 		this.board_date = board_date;
 	}
 
-
-	public char getBoard_status() {
-		return board_status;
-	}
-
-
-	public void setBoard_status(char board_status) {
-		this.board_status = board_status;
-	}
-
-
-	public Scrap(int board_no, String board_type, String board_title, String board_writer, Date board_date,
-			char board_status) {
+	public Scrap(String member_id, int board_no, String board_type, String board_title, String board_writer,
+			Date board_date) {
 		super();
+		this.member_id = member_id;
 		this.board_no = board_no;
 		this.board_type = board_type;
 		this.board_title = board_title;
 		this.board_writer = board_writer;
 		this.board_date = board_date;
-		this.board_status = board_status;
 	}
 
 
 	@Override
 	public String toString() {
-		return "Scrap [board_no=" + board_no + ", board_type=" + board_type + ", board_title=" + board_title
-				+ ", board_writer=" + board_writer + ", board_date=" + board_date + ", board_status=" + board_status
+		return "Scrap [member_id=" + member_id + ", board_no=" + board_no + ", board_type=" + board_type
+				+ ", board_title=" + board_title + ", board_writer=" + board_writer + ", board_date=" + board_date
 				+ "]";
 	}
+
+	
+	
+
+	
 	
 	
 	

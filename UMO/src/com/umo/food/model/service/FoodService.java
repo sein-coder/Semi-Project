@@ -138,12 +138,7 @@ public class FoodService {
 		return result;
 	}
 	
-	public int insertFoodScrap(String board_type,int board_no,String memberId) {
-		Connection conn=getConnection();
-		int result=dao.insertFoodScrap(conn,board_type,board_no,memberId);
-		close(conn);
-		return result;
-	}
+
 	
 	
 }	

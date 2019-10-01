@@ -206,7 +206,7 @@
 						</tr>
 						<tr>
 							<td>
-								<input id="savebutton" type="submit" value="완료" style="margin-left: 40%; display:inline;"/>
+								<input id="savebutton" type="submit" value="완료" style="margin-left: 40%; display:inline;" onclick="location.href='<%=request.getContextPath()%>/food/foodList'"/>
 								<input type="button" value="취소"  id="btn_cancel;" onclick="location.href='<%=request.getContextPath()%>/food/foodView?board_no=<%= f.getBoard_No() %>&cPage=<%= cPage %>&tag=<%=tag%>'"/>
 							</td>
 						</tr>
