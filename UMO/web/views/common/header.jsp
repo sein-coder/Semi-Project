@@ -64,7 +64,7 @@ setInterval(function(){
 	<a href="<%=request.getContextPath()%>/index.jsp"><img
 		src="<%=request.getContextPath()%>/images/umoLogo.png" alt="우마오"
 		width="200px" height="115px"
-		style="position: relative; left: 120px;"></a>
+		style="position: relative; left: 50px;"></a>
 
 	<div class="hd_sch_wr">
 		<fieldset id="hd_sch">
@@ -116,17 +116,13 @@ setInterval(function(){
 				
 				<li class="gnb_al_li"><a href="<%=request.getContextPath() %>/freeBoard" class="gnb_al_a">자유게시판</a>
 					<ul>
-						<li><a href="" target="_self"><i
-								class="fa fa-caret-right" aria-hidden="true"></i>1</a></li>
-						<li><a href="" target="_self"><i
-								class="fa fa-caret-right" aria-hidden="true"></i>2</a></li>
+
 					</ul></li>
 				<li class="gnb_al_li"><a href="<%=request.getContextPath() %>/gradeBoard" class="gnb_al_a">반별게시판</a>
 					<ul>
 						<li><a href="" target="_self"><i
 								class="fa fa-caret-right" aria-hidden="true"></i>R클래스</a></li>
-						<li><a href="" target="_self"><i
-								class="fa fa-caret-right" aria-hidden="true"></i>?클래스</a></li>
+					
 					</ul></li>
 				<li class="gnb_al_li"><a href="<%=request.getContextPath() %>/inquery/inqueryBoard" class="gnb_al_a">코딩게시판</a>
 					<ul>
@@ -137,10 +133,7 @@ setInterval(function(){
 					</ul></li>
 				<li class="gnb_al_li"><a href="<%=request.getContextPath() %>/food/foodList" class="gnb_al_a">맛집게시판</a>
 					<ul>
-						<li><a href="" target="_self"><i
-								class="fa fa-caret-right" aria-hidden="true"></i>1</a></li>
-						<li><a href="" target="_self"><i
-								class="fa fa-caret-right" aria-hidden="true"></i>2</a></li>
+
 					</ul></li>
 
 			</ul>

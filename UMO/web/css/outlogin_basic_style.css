@@ -1,7 +1,7 @@
 @charset "utf-8";
 
 /* 아웃로그인 스킨 */
-.ol {position:relative;margin:20px;}
+.ol {position:relative;margin:10px;}
 .ol h2 {margin:0;padding:0;width:1px;height:1px;font-size:0;line-height:0;overflow:hidden}
 
 .ol a.btn_admin {display:inline-block;padding:0 10px;height:25px;text-decoration:none;line-height:25px;vertical-align:middle} /* 관리자 전용 버튼 */

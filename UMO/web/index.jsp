@@ -14,7 +14,7 @@
                 <div style="float:left;" class="lt_wr">
             
                     <div class="lat">
-                        <h2 class="lat_title"><a href="<%=request.getContextPath()%>/views/board/boardListView.jsp">익명게시판</a></h2>
+                        <h2 class="lat_title"><a href="<%=request.getContextPath()%>/anonymousBoard">익명게시판</a></h2>
                         
                         <ul id="anonymousBoard">
                         </ul>
@@ -22,10 +22,10 @@
                                 aria-hidden="true"></i></a>
                     </div>
                 </div>
-                <div style="float:left; margin-left: 44px; margin-right: 0%;" class="lt_wr">
+                <div style="float:left; margin-left: 15px; margin-right: 0%;" class="lt_wr">
                     <div class="lat">
                         <h2 class=
-                        "lat_title"><a href="">반별게시판</a></h2>
+                        "lat_title"><a href="<%=request.getContextPath()%>/gradeBoard">반별게시판</a></h2>
                         <ul id="gradeBoard">						
 						</ul>
                         <a href="<%=request.getContextPath()%>/gradeBoard" class="lt_more"><i class="fa fa-plus"
@@ -36,7 +36,7 @@
                 <div style="float:left;" class="lt_wr">
             
                     <div class="lat">
-                        <h2 class="lat_title"><a href="">코딩게시판</a></h2>
+                        <h2 class="lat_title"><a href="<%=request.getContextPath()%>/inquery/inqueryBoard">코딩게시판</a></h2>
                         <ul id="inqueryBoard">
                         </ul>
                         <a href="<%=request.getContextPath()%>/inquery/inqueryBoard" class="lt_more"><i class="fa fa-plus"
@@ -44,9 +44,9 @@
             
                     </div>
                 </div>
-                <div style="float:left; margin-left: 44px; margin-right: 0%;" class="lt_wr">
+                <div style="float:left; margin-left: 15px; margin-right: 0%;" class="lt_wr">
                     <div class="lat">
-                        <h2 class="lat_title"><a href="">자유게시판</a></h2>
+                        <h2 class="lat_title"><a href="<%=request.getContextPath()%>/freeBoard">자유게시판</a></h2>
                         <ul id="freeBoard">
                         </ul>
                         <a href="<%=request.getContextPath()%>/freeBoard" class="lt_more"><i class="fa fa-plus"
@@ -62,7 +62,7 @@
             <div class="latest_wr">
                 <!--  사진 최신글1 { -->
                 <div class="pic_lt">
-                    <h2 class="lat_title"><a href="">맛집게시판</a></h2>
+                    <h2 class="lat_title"><a href="<%=request.getContextPath()%>/food/foodList">맛집게시판</a></h2>
                     <ul id="foodBoard">
                     </ul>
 
