@@ -97,11 +97,7 @@ public class FreeWriteEndServlet extends HttpServlet {
 				request.setAttribute("loc", loc);
 				
 				request.getRequestDispatcher(view).forward(request, response);
-				
-				
-				
-		
-		
+
 	}
 
 	/**

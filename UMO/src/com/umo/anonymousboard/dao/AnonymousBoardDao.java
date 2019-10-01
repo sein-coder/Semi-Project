@@ -168,9 +168,6 @@ public class AnonymousBoardDao {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String sql = prop.getProperty("anonymousWrite");
-		
-		System.out.println("sql확인"+sql);
-
 		try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, ab.getWriter());

@@ -15,7 +15,7 @@
 	<script>
 		alert('<%=msg%>');
 		<%=script!=null?script:""%>
-		location.href="<%=request.getContextPath()%><%=loc%>";//localhost:9090/	
+		location.href="<%=request.getContextPath()%><%=loc%>";
 	</script>
 </body>
 </html>

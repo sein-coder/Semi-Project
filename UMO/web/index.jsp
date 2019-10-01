@@ -143,12 +143,13 @@
                         </a>
                     </li>
                     <li>
-                        <a href="<%=request.getContextPath() %>/scrap/scrapViewServlet" target="_blank" id="ol_after_scrap" class="win_scrap">스크랩<br>
+                        <a href="<%=request.getContextPath() %>/scrap/scrapViewServlet" id="ol_after_scrap" class="win_scrap">스크랩<br>
                             <strong class="scrap"><i class="fa fa-thumb-tack" aria-hidden="true"></i></strong>
                         </a>
 
                     </li>
                 </ul> 
+                
 
             </section>
 			<% } %>

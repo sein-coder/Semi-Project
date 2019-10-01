@@ -46,8 +46,6 @@ public class ScrapButtonServlet extends HttpServlet {
 			String board_type=request.getParameter("board_type");
 			int board_no=Integer.parseInt(request.getParameter("board_no"));
 			String memberId = ((Member)request.getSession().getAttribute("loginMember")).getMemberId();
-
-			System.out.println(board_no+" "+board_type+" "+memberId);
 			
 			String board_title="";
 			String board_writer="";
@@ -92,24 +90,40 @@ public class ScrapButtonServlet extends HttpServlet {
 				break;
 			}
 			
-			int result = new ScrapService().insertScrapButton(board_type, memberId, board_no, board_title, board_writer, board_date);
+			int result = 0;
 			
+			System.out.println(new ScrapService().selectScrap(board_type,board_no,memberId).getBoard_no());
+			
+			if(new ScrapService().selectScrap(board_type,board_no,memberId).getBoard_no()==0) {
+				result = new ScrapService().insertScrapButton(board_type, memberId, board_no, board_title, board_writer, board_date);
+			}
 			
 			String msg="";
 			String loc="";
+			String view="/views/common/msg.jsp";//index.jsp
 			
 			if(result>0) {
 				msg="글 등록을 성공하였습니다.";
 				loc = "/"+board_type+"ContentView?"+board_type+"No="+board_no;
+				if(board_type.equals("inquery")) {
+					loc = "/"+board_type+"/"+board_type+"View?Board_No="+board_no;
+				}else if(board_type.equals("food")) {
+					loc = "/"+board_type+"/"+board_type+"View?board_no="+board_no;
+				}
 			}else {
-				msg="공지사항 수정 실패";
-				loc = "/";
+				msg="글 등록을 실패하였습니다.";
+				loc = "/"+board_type+"ContentView?"+board_type+"No="+board_no;
+				if(board_type.equals("inquery")) {
+					loc = "/"+board_type+"/"+board_type+"View?Board_No="+board_no;
+				}else if(board_type.equals("food")) {
+					loc = "/"+board_type+"/"+board_type+"View?board_no="+board_no;
+				}
 			}
 			
 			request.setAttribute("msg", msg);
 			request.setAttribute("loc", loc);
 			
-			request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
+			request.getRequestDispatcher(view).forward(request, response);
 	}
 
 	/**

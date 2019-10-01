@@ -7,7 +7,7 @@
     NoticeBoard nb=(NoticeBoard)request.getAttribute("nb");
 	NoticeBoard prenb=(NoticeBoard)request.getAttribute("prenb");
 	NoticeBoard nextnb=(NoticeBoard)request.getAttribute("nextnb");
-
+	String board_type = request.getParameter("board_type")!=null?request.getParameter("board_type").toString():"";
 	List<BoardComment> list=(List)request.getAttribute("comments");
 %>
 
@@ -29,13 +29,11 @@
 				<h2 id="bo_v_title">
 					<span class="bo_v_tit"><%=nb.getTitle()%></span>
 				</h2>
-				<tr>
-					<td>
-                       	<a href="<%=request.getContextPath() %>/scrap/scrapButtonServlet?board_type=notice&board_no=<%=nb.getNo()%>" target="_blank" id="ol_after_scrap" class="win_scrap">스크랩<br>
-                        <strong class="scrap"><i class="fa fa-thumb-tack" aria-hidden="true"></i></strong>
-                        </a>
-                  	</td>
-				</tr>
+		
+               	<a href="<%=request.getContextPath() %>/scrap/scrapButtonServlet?board_type=notice&board_no=<%=nb.getNo()%>" id="ol_after_scrap" class="win_scrap">스크랩
+                <strong class="scrap"><i class="fa fa-thumb-tack" aria-hidden="true"></i></strong>
+                </a>
+
 			</header>
 
 			<section id="bo_v_info">
@@ -75,8 +73,16 @@
 				</ul>
 
 				<ul class="bo_v_com">
-					<li><a href="<%=request.getContextPath()%>/noticeBoard" class="btn_b01 btn"><i class="fa fa-list" aria-hidden="true"></i>
-							목록</a></li>
+					<li>
+					<% if(board_type.equals("scrap")) { %>
+					<a href="<%=request.getContextPath()%>/scrap/scrapViewServlet"
+						class="btn_b01 btn"><i class="fa fa-list" aria-hidden="true"></i>
+							목록</a>
+					<% } else { %>
+					<a href="<%=request.getContextPath()%>/noticeBoard" class="btn_b01 btn"><i class="fa fa-list" aria-hidden="true"></i>
+							목록</a>
+					<% } %>		
+					</li>
 					
 					
 					<li><a href="" class="btn_b02 btn"><i

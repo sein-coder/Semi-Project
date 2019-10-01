@@ -29,13 +29,10 @@
 			<header>
 				<h2 id="bo_v_title">
 					<span class="bo_v_tit"><%=b.getTitle()%></span>
-					<tr>
-						<td>
-                       		<a href="<%=request.getContextPath() %>/scrap/scrapViewServlet?board_type=board&board_no=<%=b.getNo()%>" target="_blank" id="ol_after_scrap" class="win_scrap">스크랩<br>
-                           	<strong class="scrap"><i class="fa fa-thumb-tack" aria-hidden="true"></i></strong>
-                        	</a>
-                  	 	</td>				
-					</tr>
+					
+                     <a href="<%=request.getContextPath() %>/scrap/scrapButtonServlet?board_type=<%= board_type %>&board_no=<%=b.getNo()%>" id="ol_after_scrap" class="win_scrap">스크랩
+	                <strong class="scrap"><i class="fa fa-thumb-tack" aria-hidden="true"></i></strong>
+	                </a>
 				</h2>
 			</header>
 
@@ -80,9 +77,17 @@
 				</ul>
 
 				<ul class="bo_v_com">
-					<li><a href="<%=request.getContextPath()%>/<%= board_type %>Board"
+					<li>
+					<% if(board_type.equals("scrap")) { %>
+					<a href="<%=request.getContextPath()%>/scrap/scrapViewServlet"
 						class="btn_b01 btn"><i class="fa fa-list" aria-hidden="true"></i>
-							목록</a></li>
+							목록</a>
+					<% } else { %>
+					<a href="<%=request.getContextPath()%>/<%= board_type %>Board"
+						class="btn_b01 btn"><i class="fa fa-list" aria-hidden="true"></i>
+							목록</a>
+					<% } %>
+					</li>
 					<li><a href="" class="btn_b02 btn"><i
 							class="fa fa-pencil" aria-hidden="true"></i> 글쓰기</a></li>
 				</ul>

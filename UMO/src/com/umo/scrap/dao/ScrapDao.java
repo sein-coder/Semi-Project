@@ -9,6 +9,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -46,26 +47,91 @@ public class ScrapDao {
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
+			
 			close(pstmt);
 		}return result;
 	
 	}
 
 
-	public List<Scrap> selectScrapList(Connection conn, String member_id) {
+	public List<Scrap> selectScrapList(Connection conn, int cPage, int numPerPage, String member_id) {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		List<Scrap> list=new ArrayList();
 		String sql=prop.getProperty("selectScrapList");
+		int start=(cPage-1)*numPerPage+1;
+		int end=cPage*numPerPage;
 		try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, member_id);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
 			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Scrap sc = new Scrap();
+				sc.setMember_id(rs.getString("member_id"));
+				sc.setBoard_no(rs.getInt("board_no"));
+				sc.setBoard_type(rs.getString("board_type"));
+				sc.setBoard_title(rs.getString("board_title"));
+				sc.setBoard_writer(rs.getString("board_writer"));
+				sc.setBoard_date(rs.getDate("board_date"));
+				list.add(sc);
+			}
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			close(rs);
+			close(pstmt);
 		}return list;
+	}
+
+
+	public Scrap selectScrap(Connection conn, String board_type, int board_no,String memberId) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql=prop.getProperty("selectScrap");
+		Scrap sc = new Scrap();
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, board_type);
+			pstmt.setInt(2, board_no);
+			pstmt.setString(3, memberId);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				sc = new Scrap();
+				sc.setMember_id(rs.getString("member_id"));
+				sc.setBoard_no(rs.getInt("board_no"));
+				sc.setBoard_type(rs.getString("board_type"));
+				sc.setBoard_title(rs.getString("board_title"));
+				sc.setBoard_writer(rs.getString("board_writer"));
+				sc.setBoard_date(rs.getDate("board_date"));
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return sc;
+	}
+
+
+	public int selectScrapCount(Connection conn) {
+		Statement stmt = null;
+		ResultSet rs = null;
+		String sql = "select count(*) from Scrap_board";
+		int result = 0;
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+		}
+		return result;
 	}
 		
 	}

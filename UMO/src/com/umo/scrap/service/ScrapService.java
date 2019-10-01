@@ -29,12 +29,26 @@ public class ScrapService {
 		return result;
 	}
 
-	public List<Scrap> selectScrapList(String member_id) {
+	public List<Scrap> selectScrapList(int cPage, int numPerPage, String member_id) {
 		Connection conn = getConnection();
-		List<Scrap> list=dao.selectScrapList(conn,member_id);
+		List<Scrap> list=dao.selectScrapList(conn,cPage,numPerPage,member_id);
 		close(conn);
 		return list;
 		
+	}
+
+	public Scrap selectScrap(String board_type, int board_no,String memberId) {
+		Connection conn = getConnection();
+		Scrap sc =dao.selectScrap(conn,board_type,board_no,memberId);
+		close(conn);
+		return sc;
+	}
+
+	public int selectScrapCount() {
+		Connection conn = getConnection();
+		int result =dao.selectScrapCount(conn);
+		close(conn);
+		return result;
 	}
 
 	

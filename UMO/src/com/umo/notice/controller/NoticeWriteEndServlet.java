@@ -76,9 +76,7 @@ public class NoticeWriteEndServlet extends HttpServlet {
 				nb.setOriginal_filename(fileName);
 				
 				int result=new NoticeBoardService().noticeWrite(nb,writer);
-				int noticeNo=new NoticeBoardService().lastNoticeContentNo(writer);
-				System.out.println("최신공�??��?�� no:"+noticeNo);
-				
+				int noticeNo=new NoticeBoardService().lastNoticeContentNo(writer);				
 						
 				String msg="";
 				String loc="";
@@ -86,19 +84,15 @@ public class NoticeWriteEndServlet extends HttpServlet {
 				String view="/views/common/msg.jsp";//index.jsp
 				
 				if(result>0) {
-					msg="공�??��?�� ?���? ?���?"; loc="/noticeContentView?noticeNo="+noticeNo;
+					msg="공지사항 등록 성공"; loc="/noticeContentView?noticeNo="+noticeNo;
 				}else {
-					msg="공�??��?�� ?���? ?��?��"; loc="/noticeWriteEnd";
+					msg="공지사항 등록 실패"; loc="/noticeWriteEnd";
 				}
 				
 				request.setAttribute("msg", msg);
 				request.setAttribute("loc", loc);
 				
 				request.getRequestDispatcher(view).forward(request, response);
-				
-				
-				
-				System.out.println("?��록완�?");
 		
 		
 	}

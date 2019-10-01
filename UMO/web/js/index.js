@@ -121,7 +121,7 @@ $(document).ready(function(){
 
 				img.attr({
 					"src":"./upload/food/thumnail/"+data[i]["board_Thumbnail"],
-					"width":"180px",
+					"width":"120px",
 					"height":"180px"
 				});
 
