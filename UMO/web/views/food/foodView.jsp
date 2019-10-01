@@ -100,12 +100,16 @@
 			<tr>
 				<td colspan="5">
 						
-						
 						<table id="sml-table">
 							<tr>
 								<td>
 									<span>제목:<%=f.getBoard_Title() %></span>
 								</td>
+							<td>
+                       			 <a href="<%=request.getContextPath() %>/scrap/ScrapViewServlet?type=food" target="_blank" id="ol_after_scrap" class="win_scrap">스크랩<br>
+                           	 	<strong class="scrap"><i class="fa fa-thumb-tack" aria-hidden="true"></i></strong>
+                        		</a>
+                  	 			</td>
 							</tr>
 							<tr>
 								<td>
@@ -254,6 +258,13 @@
 	</section> -->
 
 	<script>
+<%-- 	//스크랩
+	var scrap="<%=s.get_%>"
+	$("#ol_after_scrap").on("click",function(){
+	}); --%>
+	
+	
+	
 	//해시태그 표시 및 추가
 	var tags = "<%=f.getBoard_tag()%>".split(",")
 

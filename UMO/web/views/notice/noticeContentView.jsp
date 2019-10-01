@@ -207,10 +207,7 @@
 <!-- } 콘텐츠 끝 -->
 
 <script>
-	//목록
-	$("#btn_b01 btn").on("click",function(){
-		location.href="<%=request.getContextPath()%>/noticeBoard";
-	});
+	
 
 	$("[name=content]").focus(function(){
 		if(<%=loginMember==null%>){
