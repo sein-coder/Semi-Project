@@ -188,7 +188,7 @@ public class AdminDao {
 		int result=0;
 		ResultSet rs=null;
 		String sql="";
-		sql="select count(*) from member "+ " where "+type+" like '%"+word+"%'";
+		sql="select count(*) from MEMBER "+ " where "+type+" like '%"+word+"%'";
 		
 		try {
 			stmt=conn.createStatement();
@@ -218,10 +218,10 @@ public class AdminDao {
 		String sql="";
 		int start=(cPage-1)*numPerPage+1;
 		int end=cPage*numPerPage;
-		
-		sql="select * from (select rownum as rnum, a.* "+ "from (select * from member "
+		sql="select * from (select rownum as rnum, a.*"+"from (select * from MEMBER "
 				+ "where "+type+" like '%"+word+"%')a)  where rnum between "+start+" and "+end;
 		try {
+			
 			stmt=conn.createStatement();
 			rs=stmt.executeQuery(sql);
 			while(rs.next())

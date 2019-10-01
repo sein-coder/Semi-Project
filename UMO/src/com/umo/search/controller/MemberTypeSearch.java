@@ -34,6 +34,7 @@ public class MemberTypeSearch extends HttpServlet {
 		// TODO Auto-generated method stub
 		String type=request.getParameter("searchType");
 		String word=request.getParameter("searchKeyword");
+		System.out.println(type+":"+word);
 		int cPage;
 		try {
 			cPage=Integer.parseInt(request.getParameter("cPage"));
@@ -44,7 +45,6 @@ public class MemberTypeSearch extends HttpServlet {
 		AdminService service=new AdminService();
 		int totalcount=service.selectMemberco(type,word);
 		List<Member> list=service.findmembertype(cPage,numPerPage,type,word);
-		request.setAttribute("list", list);
 		String pageBar="";
 		int totalPage=(int)Math.ceil((double)totalcount/numPerPage);
 		int pageBarSize=5;
@@ -79,8 +79,7 @@ public class MemberTypeSearch extends HttpServlet {
 		}
 		request.setAttribute("cPage", cPage);
 		request.setAttribute("pageBar",pageBar);
-		request.setAttribute("searchType", type);
-		request.setAttribute("searchKeyword", word);
+		request.setAttribute("list", list);
 		request.getRequestDispatcher("/views/admin/memberList2.jsp")
 		.forward(request, response);
 		
