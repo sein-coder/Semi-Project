@@ -42,16 +42,12 @@ public class MemberService {
 	      close(conn);
 	      return result;
 	   }
-
-	public Boolean idCheck(String id)
-	{
-	Connection conn=getConnection();
-	Boolean m=dao.idCheck(conn,id);
-	
-	close(conn);
-	return m;
-	
-}
+	public Member selectOne(String userId) {
+		Connection conn=getConnection();
+		Member m=dao.selectOne(conn,userId);
+		close(conn);
+		return m;
+	}
 
 
 

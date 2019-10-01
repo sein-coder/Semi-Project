@@ -51,7 +51,9 @@
 								<input
 								type="password" name="mb_password_re" id="reg_mb_password_re"
 								 class="frm_input half_input right_input required"
-								minlength="3" maxlength="20" placeholder="비밀번호 확인"></li>
+								minlength="3" maxlength="20" placeholder="비밀번호 확인">
+								<div id="pwcheck" style="width:23%;,height:10%;"></div>
+								</li>
 						</ul>
 					</div>
 
@@ -132,7 +134,7 @@ var reg3=/^[가-힣]{2,4}$/; */
 var studentNum=$("#reg_mb_khNum");
 
 
-var pwcheck=$("#pwcheck");
+
 var namecheck=$("#namecheck");
 var emailcheck=$("#emailcheck");
 
@@ -229,39 +231,90 @@ else if (!reg4.test(email.val())) {
 
     }) */
 
-    /* ${pageContext.request.ContextPath}/member/idcheck?memberId="+id */
     var id=$("#reg_mb_id");
-    var idcheck=$("#idcheck"); 
-    $(document).ready(function(){
-    	
-    });
-    function idduplicate()
+   /*  var idcheck=$("#idcheck");  */
+    var reg= /^[a-zA-Z][a-zA-Z0-9]{3,10}$/;
+    
+     function idduplicate()
     {
     	$.ajax({
-    		url:"/idcheck",
-    		type:post,
-    		data:{"id":id},
+    		url:"./idcheck",
+    		type:"post",
+    		data:{"id":id.val()},
     		success:(function(data)
     	{
-    		if(data==1)
+    			console.log("1 = 중복o / 0 = 중복x : "+data);
+    		
+    		 if(data=="true")
     			{
-    			idcheck.text("아이디가 존재합니다.");
+    			alert("아이디가 존재합니다");
     			id.focus();
     			return false;
-    			}
+    			    		 
+    		 }
     		else{
-    			idcheck.text("사용가능합니다.");
-    			
-    		}
-    			
+    			 if(id.val()==""){
+        			 alert("아이디를 입력하시오.");
+         			id.focus();
+        			 }	else if(!reg.test(id.val())){
+        				 alert("4자리이상,단.앞글자는 영문자여야 합니다.");
+        				 }
+        			 
+        			 else if(data=="false"){
+        					 alert("아이디사용가능."); 
+        				 }
+        			 }
+    			 
+    			 
+    		
     	})
     	
     	});
-    	}
+    	} 
     	
+  
+	   var reg2=/^[a-zA-z][a-zA-z0-9]{5,12}$/;
+		 var pw=$("#reg_mb_password"); 
+		var pw2=$("#reg_mb_password_re");
+		var pwcheck=$("#pwcheck");
+		pw.on("keyup",function(){
+			if(pw.val() =='') {
+		        pwcheck.text("비밀번호를 입력하세요!");
+		        pw.focus();
+		        return false;
+		    }
+		    else if(!reg2.test(pw.val())){
+		        pwcheck.text("첫글자는 영문자이며 6~12자이내로 입력");
+		        pw.focus();
+		        return false;
+		    }
+		    else{
+		    	pwcheck.text("");
+		    }
+		});
+		    
+		pw2.on("keyup",function(){
+		    if(pw2.val() =='') {
+		        pwcheck.text("비밀번호확인란에 비밀번호를 다시 한번 더 입력하세요!");
+		        pw2.focus();
+		        return false;
+		    }
+		    else if(pw.val()!= pw2.val()){
+		        pwcheck.text('입력한 두 개의 비밀번호가 일치하지 않습니다');
+		        pw2.focus();
+		        return false;
+		    }
+		    else{
+		    	pwcheck.text("비밀번호가 일치합니다");
+		    }
+			
+			});
+		
+			
+		
+		
    
-    	
-    
+			
     
 
     <%-- 	$(document).ready(function(){
