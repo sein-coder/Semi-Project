@@ -78,5 +78,12 @@ public class MemberService {
 		close(conn);
 		return m;
 	}
+	public Member numCheck(int khnum,String name) {
+		Connection conn=getConnection();
+		Member m=dao.numCheck(conn,khnum,name);
+
+		close(conn);
+		return m;
+	}
 
 }

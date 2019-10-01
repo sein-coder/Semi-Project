@@ -39,7 +39,7 @@
 							    <input type="text" name="mb_id" value="" id="reg_mb_id"
 								 class="frm_input half_input required" minlength="3"
 								maxlength="20" placeholder="아이디"><span id="msg_mb_id">
-								<input class="btn_b02 btn" type="button" onclick="idduplicate();" value="중복확인" style="width:7%; height:13%;"/>
+								<input class="btn_b02 btn" type="button" onclick="idduplicate();" value="중복확인" />
 								</span>
 								<span class="frm_info">영문자, 숫자, _ 만 입력 가능. 최소 3자이상 입력하세요.</span>
 							</li>
@@ -61,8 +61,8 @@
 						<h2>개인정보 입력</h2>
 
 						<ul>
-							<li><input type="text" name="mb_name" id="reg_mb_name" 
-								value=""  class="frm_input half_input required "
+							<li><input type="text" name="mb_name" id="reg_mb_name"
+							value=""  class="frm_input half_input required "
 								size="10" placeholder="이름"></li>
 							
 							<li><input type="hidden" name="mb_nick_default" value="">
@@ -74,7 +74,9 @@
 							<li><input type="text" name="mb_khNum" value=""
 								id="reg_mb_khNum" 
 								class="frm_input half_input required" size="5"
-								maxlength="5" placeholder="KH학생번호"><span class="frm_info">5자리 학생번호 입력</span></li>
+								maxlength="5" placeholder="KH학생번호">
+								<input class="btn_b02 btn" type="button" onclick="khnnumduplicate();" value="중복확인" />
+								<span class="frm_info">5자리 학생번호 입력</span></li>
 							<li><input type="text" name="mb_email" value=""
 								id="reg_mb_email" 
 								class="frm_input email half_input required" size="70"
@@ -123,9 +125,6 @@ var reg3=/^[가-힣]{2,4}$/; */
 	frm.action="/index.jsp";
 
 	} */
-
-
-
 	
 
 </script>
@@ -219,14 +218,8 @@ else if (!reg4.test(email.val())) {
     email.focus();
     return false;
 }
-	
-
-
 
 	});
-	
-	
-	
 	
 
     }) */
@@ -234,7 +227,43 @@ else if (!reg4.test(email.val())) {
     var id=$("#reg_mb_id");
    /*  var idcheck=$("#idcheck");  */
     var reg= /^[a-zA-Z][a-zA-Z0-9]{3,10}$/;
-    
+   function khnnumduplicate(){
+   var khnum=$("#reg_mb_khNum");
+   var name=$("#reg_mb_name");
+    if(khnum.val()==""){
+		 alert("학생번호를 확인해주십시오."); 
+		 return false;
+    }else{
+	    $.ajax({
+   		url:"./khnumcheck",
+   		type:"post",
+   		data:{"khnum":khnum.val(),"name":name.val()},
+   		success:(function(data)
+   	{
+   			console.log("1 = 중복o / 0 = 중복x : "+data);
+   		
+   		 if(data=="true")
+   			{
+   			alert("학생번호 확인");
+   		 }
+   		else{
+   			
+   		if(name.val()==""){
+   		 alert("이름을 확인해주십시오."); 
+   			return false;
+   		}
+   		else if(data=="false"){
+      		alert("이름과 학생번호를 확인해주십시오."); 
+			return false;
+      		}
+        }
+   			 
+   	})
+   	
+   	});
+   }
+   	}  
+   
      function idduplicate()
     {
     	$.ajax({
@@ -264,8 +293,6 @@ else if (!reg4.test(email.val())) {
         					 alert("아이디사용가능."); 
         				 }
         			 }
-    			 
-    			 
     		
     	})
     	
@@ -277,19 +304,28 @@ else if (!reg4.test(email.val())) {
 		 var pw=$("#reg_mb_password"); 
 		var pw2=$("#reg_mb_password_re");
 		var pwcheck=$("#pwcheck");
+		
 		pw.on("keyup",function(){
 			if(pw.val() =='') {
 		        pwcheck.text("비밀번호를 입력하세요!");
 		        pw.focus();
+		        pwcheck.css('color','red');
 		        return false;
 		    }
 		    else if(!reg2.test(pw.val())){
 		        pwcheck.text("첫글자는 영문자이며 6~12자이내로 입력");
 		        pw.focus();
+		        pwcheck.css('color','red');
+		        return false;
+		    }else if(pw.val()!= pw2.val()){
+		        pwcheck.text('입력한 두 개의 비밀번호가 일치하지 않습니다');
+		        pw.focus();
+		        pwcheck.css('color','red');
 		        return false;
 		    }
 		    else{
-		    	pwcheck.text("");
+		    	pwcheck.text("비밀번호가 일치합니다");
+		    	pwcheck.css('color','BLUE');
 		    }
 		});
 		    
@@ -297,24 +333,27 @@ else if (!reg4.test(email.val())) {
 		    if(pw2.val() =='') {
 		        pwcheck.text("비밀번호확인란에 비밀번호를 다시 한번 더 입력하세요!");
 		        pw2.focus();
+		        pwcheck.css('color','red');
+		        return false;
+		    }else if(!reg2.test(pw.val())){
+		        pwcheck.text("첫글자는 영문자이며 6~12자이내로 입력");
+		        pw2.focus();
+		        pwcheck.css('color','red');
 		        return false;
 		    }
 		    else if(pw.val()!= pw2.val()){
 		        pwcheck.text('입력한 두 개의 비밀번호가 일치하지 않습니다');
 		        pw2.focus();
+		        pwcheck.css('color','red');
 		        return false;
 		    }
 		    else{
 		    	pwcheck.text("비밀번호가 일치합니다");
+		    	pwcheck.css('color','BLUE');
 		    }
 			
 			});
 		
-			
-		
-		
-   
-			
     
 
     <%-- 	$(document).ready(function(){
@@ -346,8 +385,6 @@ else if (!reg4.test(email.val())) {
   		        			id.focus()
   		        			return false;
     		        	 }
-    		        	
-    		              
     		              
     			 });
     			   	

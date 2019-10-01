@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ page import="com.umo.model.vo.Member"%>
 
 <%@ include file="/views/common/header.jsp"%>
 
 <%
-	Member m = (Member)request.getAttribute("member");
+   Member m = (Member)request.getAttribute("member");
 %>
 
 <style>
@@ -24,77 +24,130 @@
 
 <!-- 컨텐츠  -->
 <div id="wrapper">
-	<div id="container_wr">
-		<div id="container">
-			<h2 id="container_title">
-				<span title="회원 정보 수정">회원 정보 수정</span>
-			</h2>
+   <div id="container_wr">
+      <div id="container">
+         <h2 id="container_title">
+            <span title="회원 가입">회원 가입</span>
+         </h2>
 
-			<!-- 회원정보 입력/수정 시작 { -->
+         <!-- 회원정보 입력/수정 시작 { -->
 
 
-			<form id="fregisterform" name="fregisterform" action="<%=request.getContextPath()%>/infoUpdateEnd" onsubmit="return fregisterform_submit(this);"
-				method="post" autocomplete="off">
-				<div id="register_form" class="form_01">
-					<div>
-						<h2>사이트 이용정보 입력</h2>
-						<ul>
-							<li>
-							    <input type="text" name="mb_id" value="<%= m.getMemberId() %>" id="reg_mb_id"
-								 class="frm_input half_input required" minlength="3"
-								maxlength="20" placeholder="아이디" readonly="readonly"><span id="msg_mb_id"></span>
-								<span class="frm_info">영문자, 숫자, _ 만 입력 가능. 최소 3자이상 입력하세요.</span>
-							</li>
-							<li>
-							    <input type="password" name="mb_password"
-								id="reg_mb_password" 
-								class="frm_input half_input" minlength="3"
-								maxlength="20" placeholder="변경할 비밀번호">
-								<input
-								type="password" name="mb_password_re" id="reg_mb_password_re"
-								 class="frm_input half_input right_input"
-								minlength="3" maxlength="20" placeholder="변경할 비밀번호 확인"></li>
-						</ul>
-					</div>
+         <form id="fregisterform" name="fregisterform" action="<%=request.getContextPath()%>/infoUpdateEnd" onsubmit="return fregisterform_submit(this);"
+            method="post" autocomplete="off">
+            <div id="register_form" class="form_01">
+               <div>
+                  <h2>사이트 이용정보 입력</h2>
+                  <ul>
+                     <li>
+                         <input type="text" name="mb_id" value="<%= loginMember.getMemberId() %>" id="reg_mb_id"
+                         class="frm_input half_input required" minlength="3"
+                        maxlength="20" placeholder="아이디" readonly="readonly"><span id="msg_mb_id"></span>
+                        <span class="frm_info">영문자, 숫자, _ 만 입력 가능. 최소 3자이상 입력하세요.</span>
+                     </li>
+                     <li>
+                         <input type="password" name="mb_password"
+                        id="reg_mb_password" 
+                        class="frm_input half_input" minlength="3"
+                        maxlength="20" placeholder="변경할 비밀번호">
+                        <input
+                        type="password" name="mb_password_re" id="reg_mb_password_re"
+                         class="frm_input half_input right_input"
+                        minlength="3" maxlength="20" placeholder="변경할 비밀번호 확인"></li>
+                        <div id="pwcheck" style="width:23%;,height:10%;"></div>
+                  </ul>
+               </div>
 
-					<div class="tbl_frm01 tbl_wrap">
-						<h2>개인정보 입력</h2>
+               <div class="tbl_frm01 tbl_wrap">
+                  <h2>개인정보 입력</h2>
 
-						<ul>
-							<li><input type="text" name="mb_name" id="reg_mb_name" 
-								value="<%= m.getMemberName() %>"  class="frm_input half_input required "
-								size="10" placeholder="이름"></li>
-							
-							<!-- <li><input type="hidden" name="mb_nick_default" value="">
-								<input type="text" name="mb_nick" value="" id="reg_mb_nick"
-								 class="frm_input required nospace half_input"
-								size="10" maxlength="20" placeholder="닉네임"> <span
-								id="msg_mb_nick"></span> <span class="frm_info"> 공백없이
-									한글,영문,숫자만 입력 가능 </span></li> -->
-							<li><input type="text" name="mb_khNum" value="<%= m.getKhno() %>"
-								id="reg_mb_khNum" 
-								class="frm_input half_input required" size="5"
-								maxlength="5" placeholder="KH학생번호" readonly="readonly"><span class="frm_info">5자리 학생번호 입력</span></li>
+                  <ul>
+                     <li><input type="text" name="mb_name" id="reg_mb_name" 
+                        value="<%= loginMember.getMemberName() %>"  class="frm_input half_input required "
+                        size="10" placeholder="이름" readonly="readonly"></li>
+                     
+                     <!-- <li><input type="hidden" name="mb_nick_default" value="">
+                        <input type="text" name="mb_nick" value="" id="reg_mb_nick"
+                         class="frm_input required nospace half_input"
+                        size="10" maxlength="20" placeholder="닉네임"> <span
+                        id="msg_mb_nick"></span> <span class="frm_info"> 공백없이
+                           한글,영문,숫자만 입력 가능 </span></li> -->
+                     <li><input type="text" name="mb_khNum" value="<%= loginMember.getKhno() %>"
+                        id="reg_mb_khNum" 
+                        class="frm_input half_input required" size="5"
+                        maxlength="5" placeholder="KH학생번호" readonly="readonly"><span class="frm_info">5자리 학생번호 입력</span></li>
 
-							<li><input type="text" name="mb_email" value="<%= m.getEmail() %>"
-								id="reg_mb_email" 
-								class="frm_input email half_input required" size="70"
-								maxlength="100" placeholder="E-mail"></li>
+                     <li><input type="text" name="mb_email" value="<%= loginMember.getEmail() %>"
+                        id="reg_mb_email" 
+                        class="frm_input email half_input required" size="70"
+                        maxlength="100" placeholder="E-mail"></li>
 
-						</ul>
-					</div>
-				</div>
-				<div class="btn_confirm">
-					<input type="submit" value="회원수정" id="btn_submit" class="btn_submit"> 
-					<a href="<%=request.getContextPath()%>/index.jsp" class="btn_cancel">취소</a>
-				</div>
-			</form>
-		</div>
-	</div>
-	<script>
-	
-	
-	</script>
+                  </ul>
+               </div>
+            </div>
+            <div class="btn_confirm">
+               <input type="submit" value="회원수정" id="btn_submit" class="btn_submit"> 
+               <a href="<%=request.getContextPath()%>/index.jsp" class="btn_cancel">취소</a>
+            </div>
+         </form>
+      </div>
+   </div>
+   <script>
+     var reg2=/^[a-zA-z][a-zA-z0-9]{5,12}$/;
+       var pw=$("#reg_mb_password"); 
+      var pw2=$("#reg_mb_password_re");
+      var pwcheck=$("#pwcheck");
+      
+      pw.on("keyup",function(){
+         if(pw.val() =='') {
+              pwcheck.text("비밀번호를 입력하세요!");
+              pw.focus();
+              pwcheck.css('color','red');
+              return false;
+          }
+          else if(!reg2.test(pw.val())){
+              pwcheck.text("첫글자는 영문자이며 6~12자이내로 입력");
+              pw.focus();
+              pwcheck.css('color','red');
+              return false;
+          }else if(pw.val()!= pw2.val()){
+              pwcheck.text('입력한 두 개의 비밀번호가 일치하지 않습니다');
+              pw.focus();
+              pwcheck.css('color','red');
+              return false;
+          }
+          else{
+             pwcheck.text("비밀번호가 일치합니다");
+             pwcheck.css('color','BLUE');
+          }
+      });
+          
+      pw2.on("keyup",function(){
+          if(pw2.val() =='') {
+              pwcheck.text("비밀번호확인란에 비밀번호를 다시 한번 더 입력하세요!");
+              pw2.focus();
+              pwcheck.css('color','red');
+              return false;
+          }else if(!reg2.test(pw.val())){
+              pwcheck.text("첫글자는 영문자이며 6~12자이내로 입력");
+              pw2.focus();
+              pwcheck.css('color','red');
+              return false;
+          }
+          else if(pw.val()!= pw2.val()){
+              pwcheck.text('입력한 두 개의 비밀번호가 일치하지 않습니다');
+              pw2.focus();
+              pwcheck.css('color','red');
+              return false;
+          }
+          else{
+             pwcheck.text("비밀번호가 일치합니다");
+             pwcheck.css('color','BLUE');
+          }
+         
+         });
+   
+   </script>
 </div>
 
 
