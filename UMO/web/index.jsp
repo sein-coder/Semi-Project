@@ -134,12 +134,14 @@
                          id="ol_after_memo" class="win_memo" 
                          onclick="window.open(this.href,'_blank','width=400px, height=400px, top=5, left=20, scrollbars=no'); return false">
                             <span class="sound_only">안 읽은 </span>쪽지<br>
-                            <strong><i class="fa fa-envelope-o" aria-hidden="true"></i> 0</strong>
+                            <strong><i class="fa fa-envelope-o" aria-hidden="true"></i> </strong>
                         </a>
                     </li>
                     <li>
-                        <a href="" target="_blank" id="ol_after_pt" class="win_point">포인트<br>
-                            <strong><i class="fa fa-database" aria-hidden="true"></i> <%= loginMember !=null ? loginMember.getPoint() : "" %></strong>
+                        <a href="<%=request.getContextPath()%>/views/point/pointView.jsp?userId=<%= loginMember.getMemberId() %>" 
+                        target="_blank" id="ol_after_pt" class="win_point"
+                        onclick="window.open(this.href,'_blank','width=400px, height=400px, top=5, left=20, scrollbars=no'); return false">포인트<br>
+                            <strong><i class="fa fa-database" aria-hidden="true"></i> </strong>
                         </a>
                     </li>
                     <li>
