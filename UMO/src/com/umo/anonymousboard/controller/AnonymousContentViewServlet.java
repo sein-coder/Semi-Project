@@ -98,7 +98,11 @@ public class AnonymousContentViewServlet extends HttpServlet {
 		request.setAttribute("nextb", nextb);
 		
 		request.setAttribute("comments", list);
-	    request.setAttribute("board_type", "anonymous");
+		if(request.getParameter("board_type")!=null && request.getParameter("board_type").equals("scrap")) {
+			request.setAttribute("board_type", "scrap");
+		}else {
+	    	request.setAttribute("board_type", "anonymous");
+		}
 	    request.setAttribute("titlename", "익명");
 	    
 		request.getRequestDispatcher("/views/board/boardContentView.jsp").forward(request, response);

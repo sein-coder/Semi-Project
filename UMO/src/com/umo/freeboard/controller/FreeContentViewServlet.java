@@ -94,7 +94,11 @@ public class FreeContentViewServlet extends HttpServlet {
 		request.setAttribute("nextb", nextb);
 		
 		request.setAttribute("comments", list);
-	    request.setAttribute("board_type", "free");
+		if(request.getParameter("board_type")!=null && request.getParameter("board_type").equals("scrap")) {
+			request.setAttribute("board_type", "scrap");
+		}else {
+	    	request.setAttribute("board_type", "free");
+		}
 	    request.setAttribute("titlename", "자유");
 	    
 		request.getRequestDispatcher("/views/board/boardContentView.jsp").forward(request, response);

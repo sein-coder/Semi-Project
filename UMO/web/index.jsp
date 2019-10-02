@@ -100,8 +100,8 @@
                         </div>
                         <div class="ol_auto_wr">
                             <div id="ol_auto">
-                                <input type="checkbox" name="autoCom_login" value="1" id="autoCom_login">
-                                <label for="autoCom_login" id="autoCom_login_label">아이디기억</label>
+<!--                                 <input type="checkbox" name="autoCom_login" value="1" id="autoCom_login">
+                                <label for="autoCom_login" id="autoCom_login_label">아이디기억</label> -->
                             </div>
                             <div id="ol_svc">
                                 <a href="<%=request.getContextPath() %>/memberJoin"><b>회원가입</b></a> /

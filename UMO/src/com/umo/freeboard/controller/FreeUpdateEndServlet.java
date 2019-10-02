@@ -89,7 +89,7 @@ public class FreeUpdateEndServlet extends HttpServlet {
 			msg="자유게시판 수정실패";
 		}
 		System.out.println(mr.getParameter("no"));
-		loc="/freeUpdate?freeNo="+mr.getParameter("no");
+		loc="/freeContentView?freeNo="+mr.getParameter("no");
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc",loc);
 		request.getRequestDispatcher(views)

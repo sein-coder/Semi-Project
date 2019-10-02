@@ -87,7 +87,7 @@ public class AnonymousUpdateEndServlet extends HttpServlet {
 			msg="익명게시판 수정실패";
 		}
 		System.out.println(mr.getParameter("no"));
-		loc="/anonymousUpdate?anonymousNo="+mr.getParameter("no");
+		loc="/anonymousContentView?anonymousNo="+mr.getParameter("no");
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc",loc);
 		request.getRequestDispatcher(views)

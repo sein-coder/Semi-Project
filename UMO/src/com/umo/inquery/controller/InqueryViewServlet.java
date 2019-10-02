@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.umo.inquery.model.service.InqueryService;
+import com.umo.model.vo.Board;
+import com.umo.model.vo.BoardComment;
 import com.umo.model.vo.Inquery;
 import com.umo.model.vo.InqueryComment;
 import com.umo.model.vo.Member;
@@ -37,7 +39,34 @@ public class InqueryViewServlet extends HttpServlet {
 		int Board_No = Integer.parseInt(request.getParameter("Board_No"));
 		
 		Inquery inquery = new InqueryService().selectBoardView(Board_No);
-		List<InqueryComment> list = new InqueryService().selectComment(Board_No);
+		InqueryService service = new InqueryService();
+		List<InqueryComment> list = service.selectComment(Board_No);
+		
+		Inquery preb= null;
+		Inquery nextb = null;
+		
+		
+		int i = 1;
+		int count = service.selectBoardCount(null, null);
+		
+		while(true) { preb = service.selectBoardView(Board_No-i);
+		if((preb.getBoard_No()!=0 ) || i > count) { 
+			break;
+			} 
+		i=i+1; 
+		}
+		
+		i = 1;
+		
+		while(true) { nextb = service.selectBoardView(Board_No+i);
+		if((nextb.getBoard_No()!=0) || i > count) { 
+			break;
+			} 
+		i=i+1; 
+		}
+
+		request.setAttribute("preb", preb);
+		request.setAttribute("nextb", nextb);
 		
 		request.setAttribute("inquery", inquery);
 		request.setAttribute("list", list);

@@ -95,7 +95,11 @@ public class GradeContentViewServlet extends HttpServlet {
 		request.setAttribute("nextb", nextb);
 		
 		request.setAttribute("comments", list);
-	    request.setAttribute("board_type", "grade");
+		if(request.getParameter("board_type")!=null && request.getParameter("board_type").equals("scrap")) {
+			request.setAttribute("board_type", "scrap");
+		}else {
+	    	request.setAttribute("board_type", "grade");
+		}
 	    request.setAttribute("titlename", "반별");
 		
 		request.getRequestDispatcher("/views/board/boardContentView.jsp").forward(request, response);

@@ -11,7 +11,11 @@
 <% 
 	Inquery inquery = (Inquery)request.getAttribute("inquery");
 	List<InqueryComment> list = (List<InqueryComment>)request.getAttribute("list");
-
+	String board_type = request.getAttribute("board_type")!=null?request.getAttribute("board_type").toString():"";
+	
+	Inquery preb = (Inquery)request.getAttribute("preb")!=null?(Inquery)request.getAttribute("preb"):null;
+	Inquery nextb = (Inquery)request.getAttribute("nextb")!=null?(Inquery)request.getAttribute("nextb"):null;
+	
 	String inputCode = "";
 	String outputCode = "";
 	if(inquery!=null && inquery.getInputCode()!=null && inquery.getOutputCode()!=null ) {
@@ -23,153 +27,284 @@
 	}
 %>
 
-<%@ include file = "/views/common/header.jsp" %>
-	
-<style>
-	button.btn {margin-left: auto; margin-right: auto; margin-top: 5px; }
-    section#inquery-container h2{text-align: center; margin-top: 10px;}
-    table#tbl-inquery{width:500px; margin:0 auto; border:1px solid black; border-collapse:collapse; clear:both; }
-    table#tbl-inquery th {width: 125px; border:1px solid; padding: 5px 0; text-align:center;} 
-    table#tbl-inquery td {border:1px solid; padding: 5px 0 5px 10px; text-align:left;}
-</style>
-<style>
-	table#tbl-comment{width:580px; margin:0 auto; border-collapse:collapse; clear:both;} 
-	table#tbl-comment tr td{border-bottom:1px solid; border-top:1px solid; padding:5px; text-align:left; line-height:100%;}
-	table#tbl-comment tr td:first-of-type{padding: 5px 5px 5px 50px;}
-	table#tbl-comment tr td:last-of-type {text-align:right; width: 100px;}
-	table#tbl-comment button.btn-reply{display:none;}
-	table#tbl-comment tr:hover {background:lightgray;}
-	table#tbl-comment tr:hover button.btn-reply{display:inline;}
-	table#tbl-comment tr.level2 {color:gray; font-size: 14px;}
-	table#tbl-comment sub.comment-writer {color:navy; font-size:14px}
-	table#tbl-comment sub.comment-date {color:tomato; font-size:10px}
-	table#tbl-comment tr.level2 td:first-of-type{padding-left:100px;}
-	table#tbl-comment tr.level2 sub.comment-writer {color:#8e8eff; font-size:14px}
-	table#tbl-comment tr.level2 sub.comment-date {color:#ff9c8a; font-size:10px}
-</style>
-	
-	<section id="inquery-container">
-		<div align="center">
-		<h2 style="text-align: center;"><%= inquery.getBoard_Title()%></h2>
-		<table id="tbl-inquery" style="border: 1px solid red; margin-left: auto; margin-right: auto; font-size: 18px;">
-		<tr>
-			<td colspan="5">
-                <a href="<%=request.getContextPath() %>/scrap/scrapViewServlet?board_type=inquery&board_no=<%=inquery.getBoard_No()%>" target="_blank" id="ol_after_scrap" class="win_scrap">스크랩<br>
-                <strong class="scrap"><i class="fa fa-thumb-tack" aria-hidden="true"></i></strong>
-                </a>
-            </td>
-		</tr>	
-			<tr>
-				<th style="width: 10%;">
-					<%= inquery.getBoard_No() %>
-				</th>
-				<th>
-					<%= inquery.getCode_Type() %>
-				</th>
-				<th>
-					작성일 : <%= inquery.getBoard_Date() %>
-				</th>
-				<th style="width: 20%;">
-					조회수 : <%= inquery.getBoard_Count() %>
-				</th>
-			</tr>
-			<tr>
-				<td colspan="4">
-					<%= inquery.getBoard_Contents() %>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="4">
+
+<%@ include file="/views/common/header.jsp"%>
+
+<!-- 컨텐츠 시작-->
+<div id="wrapper">
+	<div id="container_wr">
+		<div id="container">
+		<h2 id="container_title">
+			<span title="질의 게시판">질의 게시판</span>
+		</h2>
+
+		<!-- 게시물 읽기 시작 { -->
+
+		<article id="bo_v" style="width: 100%; height: auto !important;">
+			<header>
+				<h2 id="bo_v_title">
+					<span class="bo_v_tit"><%=inquery.getBoard_Title()%></span>
+					
+                     <a href="<%=request.getContextPath() %>/scrap/scrapButtonServlet?board_type=inquery&board_no=<%=inquery.getBoard_No()%>" id="ol_after_scrap" class="win_scrap">스크랩
+	                <strong class="scrap"><i class="fa fa-thumb-tack" aria-hidden="true"></i></strong>
+	                </a>
+				</h2>
+			</header>
+
+			<section id="bo_v_info">
+				<h2>페이지 정보</h2>
+
+				<strong><span class="sv_member"><%=inquery.getBoard_Writer()%></span></strong>
+					<strong><a
+					href="#bo_vc"> <i class="fa fa-commenting-o" aria-hidden="true"></i>
+						<%=list.size() %>건(댓글)</a></strong>
+					<strong>
+					<i class="fa fa-eye" aria-hidden="true"></i> <%= inquery.getBoard_Count() %>회(조회수)</strong>
+					<strong class="if_date">
+					<i class="fa fa-clock-o" aria-hidden="true"></i> <%= inquery.getBoard_Date() %></strong>
+
+			</section>
+
+			<section id="bo_v_atc">
+				<h2 id="bo_v_atc_title">본문</h2>
+
+				<div id="bo_v_img"></div>
+
+					<!-- 본문 내용 시작 { -->
+					<div id="bo_v_con">
+						<%= inquery.getBoard_Contents() %>
+					</div>
+					<div id="bo_v_con">
 					<h3>입력 코드</h3>
 					<div id="inputeditor"></div>
 					<input type="hidden" id="inputCode" name="inputCode" value="">
-				</td>
-			</tr>
-			<tr>
-				<td colspan="4">
+					</div>
+					<div id="bo_v_con">
 					<h3>출력 내용</h3>
 					<div id="outputeditor"></div>
 					<input type="hidden" id="outputCode" name="outputCode" value="">
-				</td>
-			</tr>
-			<tr>
-				<td style="width: 20%;">
-					업로드 코드
-				</td>
-				<td colspan="3">
-				<% if(inquery.getOriginal_FileName()!=null) { %>
-					<a href="<%=request.getContextPath()%>/inquery/inqueryFileDownload?fileName=<%=inquery.getOriginal_FileName()%>">
-						<img src="<%=request.getContextPath()%>/images/file.png" width="20px"/>
-						<%=inquery.getOriginal_FileName() %>
-					</a>
-				<% } %>
-				</td>
-			</tr>
-		</table>
-		<button class="btn" onclick="location.href='<%= request.getContextPath() %>/inquery/inqueryBoard'">목록</button>
-			<% if(loginMember!=null && loginMember.getMemberId().equals(inquery.getBoard_Writer())) { %>
-				<button class="btn" onclick="location.href='<%= request.getContextPath() %>/inquery/inqueryUpdate?Board_No=<%=inquery.getBoard_No()%>'">수정</button>
-				<button class="btn" onclick="location.href='<%= request.getContextPath() %>/inquery/inqueryDelete?Board_No=<%=inquery.getBoard_No()%>'">삭제</button>
-			<% } %>
-			
-		<div id="comment-container">
-			<div class="comment-editor">
-				<form action="<%=request.getContextPath()%>/inqueryComment/insertComment" method="post" onsubmit="return fn_commentValidate();">
-					<table style="margin-top:20px; margin-left: auto; margin-right: auto;">
-						<tr>
-							<td>
-								<!-- 굳이 클라이언트에게 입력받을 필요가 없는 내용 -->
-								<input type="hidden" name="boardRef" value="<%= inquery.getBoard_No() %>">
-								<input type="hidden" name="boardCommentRef" value="0">
-								<input type="hidden" name="boardCommentLevel" value="1">
-								<input type="hidden" name="boardWriter" value="<%= loginMember!=null?loginMember.getMemberId():"" %>">
-								<!-- 클라이언트에게 입력받아야하는 내용 -->
-								<textarea style="min-height: 100px;" name="content" cols="60" rows="3"></textarea>
-							</td>
-							<td>
-								<input type="submit" value="등록" />
-							</td>
-						</tr>
-					</table>
-				</form>
-			</div>
-		</div>
+					</div>
+					
+					<% if(inquery.getOriginal_FileName()!=null) { %>
+						<a href="<%=request.getContextPath()%>/inquery/inqueryFileDownload?fileName=<%=inquery.getOriginal_FileName()%>">
+							<img src="<%=request.getContextPath()%>/images/file.png" width="20px"/>
+							<%=inquery.getOriginal_FileName() %>
+						</a>
+					<% } %>
 
-		<table id="tbl-comment">
-		<% if(!list.isEmpty()) { 
-			for(InqueryComment comment : list) {
-				if(comment.getComment_level()==1) {
-		%>
-			<tr class="level1">
-				<td>
-					<sub class="comment-writer"><%= comment.getComment_writer() %></sub>
-					<sub class="comment-date"><%= comment.getComment_date() %></sub>
-					<br>
-					<%= comment.getComment_contents() %>
-				</td>
-				<td>
-					<button class="btn-reply" value="<%=comment.getComment_no()%>">답글</button>
-					<button class="btn-delete" value="<%=comment.getComment_no()%>">삭제</button>
-				</td>				
-			</tr>
-		<%		} else { %> 
-					<tr class="level2">
-					<td>
-						<sub class="comment-writer"><%= comment.getComment_writer() %></sub>
-						<sub class="comment-date"><%= comment.getComment_date() %></sub>
-						<br>
-						<%= comment.getComment_contents() %>
-					</td>
-					<td>
-						<button class="btn-reply" value="<%= comment.getComment_no() %>">답글</button>
-					</td>				
-				</tr>
-		<% 		}
-			} 
-		} %>
-		</table>
-		</div>
-		<script>
+					<!-- } 본문 내용 끝 -->
+
+			</section>
+
+			<div id="bo_v_share"></div>
+
+
+
+			<!-- 게시물 상단 버튼 시작 { -->
+			<div id="bo_v_top">
+
+				<ul class="bo_v_left">
+				</ul>
+
+				<ul class="bo_v_com">
+					<li>
+					<% if(board_type.equals("scrap")) { %>
+					<a href="<%=request.getContextPath()%>/scrap/scrapViewServlet"
+						class="btn_b01 btn"><i class="fa fa-list" aria-hidden="true"></i>
+							목록</a>
+					<% } else { %>
+					<a href="<%=request.getContextPath()%>/inquery/inqueryBoard"
+						class="btn_b01 btn"><i class="fa fa-list" aria-hidden="true"></i>
+							목록</a>
+					<% } %>
+					</li>
+					<%if(loginMember!=null&&loginMember.getMemberId().equals(inquery.getBoard_Writer())){ %>
+					<li><a href="<%=request.getContextPath()%>/inquery/inqueryUpdate?Board_No=<%=inquery.getBoard_No() %>" class="btn_b02 btn"><i
+							class="fa fa-pencil" aria-hidden="true"></i> 수정</a></li>
+					<li><a href="<%=request.getContextPath()%>/inquery/inqueryDelete?Board_No=<%=inquery.getBoard_No() %>" class="btn_b02 btn"><i
+							class="fa fa-pencil" aria-hidden="true"></i> 삭제</a></li>
+							<%} %>
+				</ul>
+
+				<ul class="bo_v_nb">
+					<li class="btn_prv"><span class="nb_tit"><i
+						class="fa fa-caret-up" aria-hidden="true"></i> 이전글</span>
+						<% if(preb!=null&&preb.getBoard_Title()!=null) { %>
+						<a href="<%=request.getContextPath()%>/inquery/inqueryView?Board_No=<%=preb.getBoard_No()%>"><%= preb.getBoard_Title() %></a> 
+						<% } else { %>
+						<a href="">이전 글이 없습니다.</a> 
+						<% } %>
+						<span class="nb_date"><%= preb!=null?preb.getBoard_Date():"" %></span></li>
+						
+					<li class="btn_next"><span class="nb_tit"><i
+						class="fa fa-caret-down" aria-hidden="true"></i> 다음글</span>
+						<% if(preb!=null&&nextb.getBoard_Title()!=null) { %>
+						<a href="<%=request.getContextPath()%>/inquery/inqueryView?Board_No=<%=nextb.getBoard_No()%>"><%= nextb.getBoard_Title() %></a> 
+						<% } else { %>
+						<a href="">다음 글이 없습니다.</a> 
+						<% } %>
+						<span class="nb_date"><%= nextb!=null?nextb.getBoard_Date():"" %></span></li>
+				</ul>
+			</div>
+			<!-- } 게시물 상단 버튼 끝 -->
+
+
+			<button type="button" class="cmt_btn">
+				<i class="fa fa-commenting-o" aria-hidden="true"></i> 댓글목록
+			</button>
+			<!-- 댓글 시작 { -->
+			<section id="bo_vc">
+				<h2>댓글목록</h2>
+
+				<article>
+				<% if(!list.isEmpty()) {
+						for(InqueryComment bc : list){
+						if(bc.getComment_level()==1){
+					%>
+					<header style="z-index: 2">
+						<h2><%=bc.getComment_contents() %>님의 댓글</h2>
+						<span class="sv_member"><%=bc.getComment_writer() %>의 댓글</span>
+						<span class="bo_vc_hdinfo"><i class="fa fa-clock-o"
+							aria-hidden="true"></i> <time
+								datetime="2019-09-29T16:47:00+09:00"><%=bc.getComment_date() %></time></span>
+					</header>
+					<!-- 댓글 출력 -->
+					<div class="cmt_contents">
+						<p><%=bc.getComment_contents() %></p>
+						<ul class="bo_vc_act">
+							<li><button id="btn-reply" class="btn_b03" value="<%= bc.getComment_no() %>">답변</button></li>
+							<%if(loginMember!=null&&loginMember.getMemberId().equals(bc.getComment_writer())){ %>
+							<li>
+							<a href='<%=request.getContextPath()%>/<%= board_type %>/deleteComment?<%= board_type %>No=<%=bc.getComment_no()%>'
+								onclick="comment_delete();" class="btn_b03">삭제</a></li>
+								<%} %>
+						</ul>
+					</div>
+					<!-- 레벨2댓글 구현부 -->
+					<% } else { %>
+					<header style="z-index: 2">
+						<h2><%=bc.getComment_contents() %>님의 답변</h2>
+						<span class="sv_member"><%=bc.getComment_writer() %>의 답변</span>
+						<span class="bo_vc_hdinfo"><i class="fa fa-clock-o"
+							aria-hidden="true"></i> <time
+								datetime="2019-09-29T16:47:00+09:00"><%= bc.getComment_date() %></time></span>
+					</header>
+					<!-- 댓글 출력 -->
+					<div class="cmt_contents">
+						<p style="text-align: right;"><%=bc.getComment_contents() %></p>
+						<ul class="bo_vc_act">
+							<!-- <li><button class="btn_b03">답변</button></li> -->
+							<li><a
+								href='<%=request.getContextPath()%>/<%= board_type %>/deleteComment?<%= board_type %>No=<%=bc.getComment_no()%>'
+								onclick="comment_delete();" class="btn_b03">삭제</a></li>
+						</ul>
+					</div>
+					<% 	} 
+						} 
+					} %>
+
+					<input type="hidden" value="" id="">
+					<textarea id="save_comment" style="display: none">123</textarea>
+					<!-- 무슨 의도로 만든지 물어보기 -->
+
+				</article>
+
+			</section>
+			<!-- } 댓글 끝 -->
+
+			<!-- 댓글 쓰기 시작 { -->
+			<aside id="bo_vc_w" class="bo_vc_w">
+				<h2>댓글쓰기</h2>
+				<form name="fviewcomment" id="fviewcomment"
+					action="<%= request.getContextPath() %>/<%= board_type %>/insertComment"
+					onsubmit="" method="post"
+					autocomplete="off">
+
+					<textarea id="wr_content" name="wr_content" maxlength="10000"
+						required class="required" title="내용" placeholder="댓글내용을 입력해주세요"></textarea>
+
+					<div class="bo_vc_w_wr">
+						<div class="bo_vc_w_info">
+<%-- 							 <input type="text" name="wr_name" value="<%= loginMember!=null?loginMember.getMemberId():"" %>" id="wr_name"
+								required class="frm_input required" size="25"
+								placeholder="이름">   --%>
+<!-- 							 <input
+								type="password" name="wr_password" id="wr_password" required
+								class="frm_input required" size="25" placeholder="비밀번호"> -->
+					
+						</div>
+						<div class="btn_confirm">
+							 <input type="submit"
+								id="btn_submit" class="btn_submit" value="댓글등록">
+						</div>
+					</div>
+					<!-- insert용 정보 저장 -->
+					<input type="hidden" name="boardRef" value="<%=inquery.getBoard_No()%>"/>
+					<input type="hidden" name="boardCommentRef" value="0"/>
+					<input type="hidden" name="boardCommentLevel" value="1"/>
+					<input type="hidden" name="boardWriter" value="<%=loginMember!=null?loginMember.getMemberId():""%>"/>
+				</form>
+			</aside>
+          </article>
+
+     </div>
+
+		<!-- } 게시글 읽기 끝 -->
+	</div>
+	</div>
+
+
+
+<!-- } 콘텐츠 끝 -->
+
+<script>
+	$("[name=content]").focus(function(){
+		if(<%=loginMember==null%>){
+			fn_loginAlert();
+		}
+	})
+	$("#btn-reply").click(function(){
+ <%if(!board_type.equals("anonymous")){ %>
+			if(<%=loginMember==null%>){
+    			fn_loginAlert();
+    			return;
+    		}
+			<%}%>
+    		var tr=$("<tr>");
+    		var html="<td style='display:none;text-align:left;' colpsan='2'>";
+    		html+="<form action='<%=request.getContextPath()%>/<%= board_type %>/insertComment' method='post'>";
+       		html+='<input type="hidden" name="boardRef" value="<%=inquery.getBoard_No()%>"/>';
+			html+='<input type="hidden" name="boardCommentRef" value="'+$(this).val()+'"/>';
+			html+='<input type="hidden" name="boardCommentLevel" value="2"/>';
+			html+='<input type="hidden" name="boardWriter" value="<%=loginMember!=null?loginMember.getMemberId():""%>"/>';					
+			html+='<textarea name="wr_content" cols="60" rows="3"></textarea>';
+			html+='<input type="submit" value="등록">';
+			html+='</form></td>';
+			tr.html(html);
+			tr.insertAfter($(this).parent().parent()).children("td").slideDown(800);
+			$(this).off('click');
+    	});
+	
+    function fn_commentValidate(){
+    	if(<%=loginMember==null%>){
+    		fn_loginAlert();
+    		return false;
+    	}
+    	var len=$("[name==wr_content]").val().trim().length;
+    	if(len<1){
+    		alert("내용을 입력하세요!");
+    		return false;
+    	}
+    	return true;
+    }
+	
+	function fn_loginAlert(){
+    	alert("로그인 후 이용하세요!");
+    	$("[name=wr_content]").blur();
+    }
+	
+</script>
+<script>
 		
 		//editor초기화
 		var inputCode = ace.edit('inputeditor');
@@ -269,7 +404,5 @@
 	    
 	    
 		</script>
-		
-	</section>
 
 <%@ include file = "/views/common/footer.jsp" %>

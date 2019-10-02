@@ -86,7 +86,7 @@ public class GradeUpdateEndServlet extends HttpServlet {
 		}else {
 			msg="자유게시판 수정실패";
 		}
-		loc="/gradeUpdate?gradeNo="+mr.getParameter("no");
+		loc="/gradeContentView?gradeNo="+mr.getParameter("no");
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc",loc);
 		request.getRequestDispatcher(views)

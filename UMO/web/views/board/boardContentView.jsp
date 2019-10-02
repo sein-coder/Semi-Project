@@ -4,7 +4,6 @@
 <%@ page import="com.umo.model.vo.BoardComment,java.util.List" %>
 
 <% 
-	String boardid = request.getAttribute("boardid").toString();
     Board b=(Board)request.getAttribute("b");
 	Board preb=(Board)request.getAttribute("preb");
 	Board nextb=(Board)request.getAttribute("nextb");
@@ -89,7 +88,7 @@
 							목록</a>
 					<% } %>
 					</li>
-					<%if(loginMember!=null&&loginMember.getMemberId().equals(boardid)){ %>
+					<%if(loginMember!=null&&loginMember.getMemberId().equals(b.getWriter())){ %>
 					<li><a href="<%=request.getContextPath()%>/<%= board_type %>Update?<%=board_type %>No=<%=b.getNo() %>" class="btn_b02 btn"><i
 							class="fa fa-pencil" aria-hidden="true"></i> 수정</a></li>
 					<li><a href="<%=request.getContextPath()%>/<%= board_type %>Delete?<%=board_type %>No=<%=b.getNo() %>" class="btn_b02 btn"><i
