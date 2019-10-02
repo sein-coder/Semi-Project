@@ -53,10 +53,6 @@
         letter-spacing: -.5px;
     }
     
-    form {
-        padding-top: 16px;
-    }
-
     ul li.tag-item {
         padding: 4px 8px;
         background-color: #777;
@@ -71,14 +67,14 @@
 	<div id="wrapper">
 	<div id="container_wr">
 		<div id="container">
-	<section id="foodview-container">
+	<section id="foodview-container" style="background-color: white;">
 	<input type="hidden" name="writer" value="<%=loginMember!=null?loginMember.getMemberId():""%>"> 
 	
 	<div id="div-container">
-		<div id="thumnail" style="margin-left:auto; margin-right:auto; width: 600px; height: 400px; border: 1px solid black;">
+		<div id="thumnail" style="margin-left:auto; margin-right:auto; width: 600px; height: 400px; border: 1px solid black; zoom:0.8;">
 			<img src="<%=request.getContextPath() %>/upload/food/thumnail/<%= f.getBoard_Thumbnail() %>" style="width: 600px; height: 400px" >
 		</div>
-		<table id="big-table">
+		<table id="big-table" style="zoom:0.7;">
 		
 			<tr>
 				<th style="background-color:black;">  	

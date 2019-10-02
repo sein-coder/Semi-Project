@@ -6,13 +6,12 @@
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.6.8/beautify.js"></script>
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" rel="stylesheet"/>
 	
 	
 	<style>
 		section#webCompiler-container{ text-align: center; margin-bottom: 20px;}
 		section#webCompiler-container textarea#inputcode{ resize: none; font-size: 25px; margin-left: auto; margin-right: auto;}
-		div#language-container { text-align:left; margin-right: 62%; margin-left: 31%; }
+		div#language-container { text-align:left; margin-right: 62%; margin-left: 0%; }
 		select#language-choice { position: relative; margin-top: 5px; margin-left: auto; padding-top: 5px; padding-bottom: 5px;}
 		select#language-choice option { font-size: 18px; }
 		button#btn-compiler{ font-size: 20px; color: red; padding-left: 15%; padding-right: 15%;}
@@ -23,29 +22,35 @@
 	    div.ace_scroller { width: 680px; }
 	    button#question { position: relative; top: 40px; left: 320px;}
 	</style>
-	
-	<section id="webCompiler-container">
-		<button id="question" onclick="fn_question()">질의하기</button>
-		<form action="<%= request.getContextPath() %>/webCompiler/codeInput" method="post">
-		<div id="language-container">
-		언어 선택 :
-		<select name="language-choice" id="language-choice">
-			<option value="Java" selected>Java</option>
-		</select>
+<div id="wrapper">
+	<div id="container_wr">
+		<div id="container">
+			<section id="webCompiler-container" style="background-color: white;">
+				<button id="question" onclick="fn_question()">질의하기</button>
+				<form action="<%= request.getContextPath() %>/webCompiler/codeInput"
+					method="post">
+					<div id="language-container">
+						언어 선택 : <select name="language-choice" id="language-choice">
+							<option value="Java" selected>Java</option>
+						</select>
+					</div>
+
+					<div class="title">코드 입력 창</div>
+					<div id="editor"></div>
+					<br> <input type="hidden" id="inputCode" name="inputCode"
+						value="">
+
+				</form>
+				<button id="btn-compiler" onclick="compile();">C o m p i l
+					e r</button>
+				<input type="hidden" id="outputCode" name="outputCode" value="">
+
+				<div id="result" class="result" style="display: none;"></div>
+			</section>
 		</div>
-		
-		<div class="title">코드 입력 창</div>
-  		<div id="editor"></div>
-		<br>
-		<input type="hidden" id="inputCode" name="inputCode" value="">
-				
-		</form>
-		<button id="btn-compiler" onclick="compile();">C o m p i l e r</button>
-		<input type="hidden" id="outputCode" name="outputCode" value="">
-		
-		<div id="result" class="result" style="display: none;"></div>
-	</section>
-	<script>
+	</div>
+</div>
+<script>
 	//question button event
 		function fn_question() {
 			if($("#result").css("display") == "none") {

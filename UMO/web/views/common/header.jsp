@@ -82,7 +82,9 @@ setInterval(function(){
 	<ul id="hd_qnb">
 		<li><a href="<%= request.getContextPath() %>/faqServlet"><i class="fa fa-question" aria-hidden="true"></i><span>FAQ</span></a></li>
 		<% if(loginMember!=null && loginMember.getMemberId()!=null) { %>
-		<li><a href=""><i class="fa fa-comments" aria-hidden="true"></i><span>쪽지</span></a></li>
+		<li>  <a href="<%=request.getContextPath()%>/memoListServlet?userId=<%= loginMember.getMemberId() %>"
+                         id="ol_after_memo" class="win_memo" 
+                         onclick="window.open(this.href,'_blank','width=400px, height=400px, top=5, left=20, scrollbars=no'); return false"><i class="fa fa-comments" aria-hidden="true"></i><span>쪽지</span></a></li>
 		<li><a href="<%=request.getContextPath()%>/infoUpdate?id=<%=loginMember.getMemberId()%>"><i class="fa fa-user" aria-hidden="true"></i><span>내정보</span></a></li>
 		<% } %>
 	</ul>
