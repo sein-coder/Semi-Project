@@ -42,32 +42,6 @@ public class InqueryViewServlet extends HttpServlet {
 		InqueryService service = new InqueryService();
 		List<InqueryComment> list = service.selectComment(Board_No);
 		
-		Inquery preb= null;
-		Inquery nextb = null;
-		
-		
-		int i = 1;
-		int count = service.selectBoardCount(null, null);
-		
-		while(true) { preb = service.selectBoardView(Board_No-i);
-		if((preb.getBoard_No()!=0 ) || i > count) { 
-			break;
-			} 
-		i=i+1; 
-		}
-		
-		i = 1;
-		
-		while(true) { nextb = service.selectBoardView(Board_No+i);
-		if((nextb.getBoard_No()!=0) || i > count) { 
-			break;
-			} 
-		i=i+1; 
-		}
-
-		request.setAttribute("preb", preb);
-		request.setAttribute("nextb", nextb);
-		
 		request.setAttribute("inquery", inquery);
 		request.setAttribute("list", list);
 		
