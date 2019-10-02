@@ -384,4 +384,24 @@ public class GradeBoardDao {
 		return result3;
 		
 	}
+	public String selectid(Connection conn,int no) {
+		Statement stmt = null;
+		ResultSet rs = null;
+		String result = "";
+		String sql = "SELECT * FROM grade_BOARD where grade_no="+no;
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			if (rs.next()) {
+				result = rs.getString("grade_writer");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(stmt);
+		}
+		return result;
+
+	}
 }

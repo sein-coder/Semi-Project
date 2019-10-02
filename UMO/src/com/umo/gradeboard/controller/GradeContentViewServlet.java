@@ -62,7 +62,7 @@ public class GradeContentViewServlet extends HttpServlet {
 			
 		}
 		GradeBoardService service=new GradeBoardService();		
-		
+		String boardid=service.selectid(no);
 		Board b= service.selectGradeBoard(no,hasRead);
 		
 		Board preb= null;
@@ -89,7 +89,7 @@ public class GradeContentViewServlet extends HttpServlet {
 		}
 		
 		List<BoardComment> list=service.selectGradeBoardComment(no);
-		
+		request.setAttribute("boardid", boardid);
 		request.setAttribute("b", b);
 		request.setAttribute("preb", preb);
 		request.setAttribute("nextb", nextb);

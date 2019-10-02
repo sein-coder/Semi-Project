@@ -34,24 +34,18 @@ public class NoticeWriteEndServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 				if(!ServletFileUpload.isMultipartContent(request)) {
-					request.setAttribute("msg", "공�??��?�� ?��?��?���?![form:enctype �?리자?���? 문의 ?��?��?��]");
+					request.setAttribute("msg", "공지게시판작성실패?![form:enctype 관리자에게 문의 바랍니다.]");
 					request.setAttribute("loc", "/");
 					request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 					return;
 				}
 				
 				String root=getServletContext().getRealPath("/");
-				System.out.println("root : "+root);
 				
 				String saveDir=root+"/upload/notice";
 			    
-				//?��로드 ?��?��?���? ?��?��
 				int maxSize=1024*1024*10;
 				
-				//multipartRequest 객체?��?��
-				
-				//객체?��?��?�� 매개면수�? ?��?�� ?��?��?���? ?��?��
-				//매개�??�� : 1.request 2.?��?��???��경로 3.?��?��최�??���? 4.?��코딩�? 5.rename?���?(?��?��?���?) 중복?���? ?��?��
 				MultipartRequest mr=new MultipartRequest(
 						request,
 						saveDir,
@@ -65,7 +59,6 @@ public class NoticeWriteEndServlet extends HttpServlet {
 				String content=mr.getParameter("content");
 				content=content.replace("\r\n", "<br>");
 				String fileName=mr.getFilesystemName("up_file");
-				
 				NoticeBoard nb=new NoticeBoard();
 				
 				
@@ -76,11 +69,11 @@ public class NoticeWriteEndServlet extends HttpServlet {
 				nb.setOriginal_filename(fileName);
 				
 				int result=new NoticeBoardService().noticeWrite(nb,writer);
+
 				int noticeNo=new NoticeBoardService().lastNoticeContentNo(writer);				
-						
+
 				String msg="";
 				String loc="";
-				//뷰에?�� ?���? 뷰로 ?��?��?��?�� 주소
 				String view="/views/common/msg.jsp";//index.jsp
 				
 				if(result>0) {
@@ -92,8 +85,7 @@ public class NoticeWriteEndServlet extends HttpServlet {
 				request.setAttribute("msg", msg);
 				request.setAttribute("loc", loc);
 				
-				request.getRequestDispatcher(view).forward(request, response);
-		
+				request.getRequestDispatcher(view).forward(request, response);		
 		
 	}
 

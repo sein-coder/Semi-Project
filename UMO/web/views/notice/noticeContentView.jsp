@@ -83,10 +83,12 @@
 							목록</a>
 					<% } %>		
 					</li>
-					
-					
-					<li><a href="" class="btn_b02 btn"><i
-							class="fa fa-pencil" aria-hidden="true"></i> 글쓰기</a></li>
+					<%if(loginMember!=null&&loginMember.getMemberId().equals("admin")){ %>
+					<li><a href="<%=request.getContextPath()%>/noticeUpdate?noticeNo=<%=nb.getNo() %>" class="btn_b02 btn"><i
+							class="fa fa-pencil" aria-hidden="true"></i> 수정</a></li>
+					<li><a href="<%=request.getContextPath()%>/noticeDelete?noticeNo=<%=nb.getNo() %>" class="btn_b02 btn"><i
+							class="fa fa-pencil" aria-hidden="true"></i> 삭제</a></li>
+							<%} %>
 				</ul>
 
 				<ul class="bo_v_nb">
@@ -135,9 +137,11 @@
 						<p><%=bc.getBoardCommentContent() %></p>
 						<ul class="bo_vc_act">
 							<li><button id="btn-reply" class="btn_b03" value="<%= bc.getBoardCommentNo() %>">답변</button></li>
-							<li><a
-								href='<%=request.getContextPath()%>/notice/deleteComment?noticeNo=<%=bc.getBoardCommentNo()%>'
+							<li>
+							<%if(loginMember!=null&&loginMember.getMemberId().equals(bc.getBoardCommentWriter())){ %>
+							<a href='<%=request.getContextPath()%>/notice/deleteComment?noticeNo=<%=bc.getBoardCommentNo()%>&writer=<%=bc.getBoardCommentWriter()%>'
 								onclick="comment_delete();" class="btn_b03">삭제</a></li>
+								<%} %>
 						</ul>
 					</div>
 					</article>
@@ -158,9 +162,10 @@
 						<p><%=bc.getBoardCommentContent() %></p>
 						<ul class="bo_vc_act">
 							<!-- <li><button class="btn_b03">답변</button></li> -->
-							<li><a
-								href='<%=request.getContextPath()%>/notice/deleteComment?noticeNo=<%=bc.getBoardCommentNo()%>'
+							
+							<li><a href='<%=request.getContextPath()%>/notice/deleteComment?noticeNo=<%=bc.getBoardCommentNo()%>'
 								onclick="comment_delete();" class="btn_b03">삭제</a></li>
+								
 						</ul>
 					</div>
 			    	</article>
@@ -220,7 +225,7 @@
 <script>
 	
 
-	$("[name=content]").focus(function(){
+	$("[name=wr_content]").focus(function(){
 		if(<%=loginMember==null%>){
 			fn_loginAlert();
 		}

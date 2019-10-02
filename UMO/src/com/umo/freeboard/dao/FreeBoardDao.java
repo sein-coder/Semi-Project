@@ -384,4 +384,24 @@ public class FreeBoardDao {
 		}
 		return 0;
 	}
+	public String selectid(Connection conn,int no) {
+		Statement stmt = null;
+		ResultSet rs = null;
+		String result = "";
+		String sql = "SELECT * FROM free_BOARD where free_no="+no;
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			if (rs.next()) {
+				result = rs.getString("free_writer");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(stmt);
+		}
+		return result;
+
+	}
 }

@@ -326,6 +326,25 @@ public class AnonymousBoardDao {
 		return result;
 	
 }
+	public String selectid(Connection conn,int no) {
+		Statement stmt = null;
+		ResultSet rs = null;
+		String result = "";
+		String sql = "SELECT * FROM ANONYMOUS_BOARD where board_no="+no;
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			if (rs.next()) {
+				result = rs.getString("board_writer");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(stmt);
+		}
+		return result;
 
+	}
 }
 

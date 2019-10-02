@@ -4,6 +4,7 @@
 <%@ page import="com.umo.model.vo.BoardComment,java.util.List" %>
 
 <% 
+	String boardid = request.getAttribute("boardid").toString();
     Board b=(Board)request.getAttribute("b");
 	Board preb=(Board)request.getAttribute("preb");
 	Board nextb=(Board)request.getAttribute("nextb");
@@ -88,8 +89,12 @@
 							목록</a>
 					<% } %>
 					</li>
-					<li><a href="" class="btn_b02 btn"><i
-							class="fa fa-pencil" aria-hidden="true"></i> 글쓰기</a></li>
+					<%if(loginMember!=null&&loginMember.getMemberId().equals(boardid)){ %>
+					<li><a href="<%=request.getContextPath()%>/<%= board_type %>Update?<%=board_type %>No=<%=b.getNo() %>" class="btn_b02 btn"><i
+							class="fa fa-pencil" aria-hidden="true"></i> 수정</a></li>
+					<li><a href="<%=request.getContextPath()%>/<%= board_type %>Delete?<%=board_type %>No=<%=b.getNo() %>" class="btn_b02 btn"><i
+							class="fa fa-pencil" aria-hidden="true"></i> 삭제</a></li>
+							<%} %>
 				</ul>
 
 				<ul class="bo_v_nb">
@@ -143,9 +148,11 @@
 						<p><%=bc.getBoardCommentContent() %></p>
 						<ul class="bo_vc_act">
 							<li><button id="btn-reply" class="btn_b03" value="<%= bc.getBoardCommentNo() %>">답변</button></li>
-							<li><a
-								href='<%=request.getContextPath()%>/<%= board_type %>/deleteComment?<%= board_type %>No=<%=bc.getBoardCommentNo()%>'
+							<%if(loginMember!=null&&loginMember.getMemberId().equals(bc.getBoardCommentWriter())){ %>
+							<li>
+							<a href='<%=request.getContextPath()%>/<%= board_type %>/deleteComment?<%= board_type %>No=<%=bc.getBoardCommentNo()%>'
 								onclick="comment_delete();" class="btn_b03">삭제</a></li>
+								<%} %>
 						</ul>
 					</div>
 					<!-- 레벨2댓글 구현부 -->
@@ -236,13 +243,13 @@
 			fn_loginAlert();
 		}
 	})
-
 	$("#btn-reply").click(function(){
-    		console.log("실행");
+ <%if(!board_type.equals("anonymous")){ %>
 			if(<%=loginMember==null%>){
     			fn_loginAlert();
     			return;
     		}
+			<%}%>
     		var tr=$("<tr>");
     		var html="<td style='display:none;text-align:left;' colpsan='2'>";
     		html+="<form action='<%=request.getContextPath()%>/<%= board_type %>/insertComment' method='post'>";

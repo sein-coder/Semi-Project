@@ -104,7 +104,7 @@
 								class="btn_b02 btn"><i class="fa fa-pencil"
 									aria-hidden="true"></i> 글쓰기</a></li>
 									<%} %>
-						</ul>
+						</ul>	
 					</div>
 
 				</form>
