@@ -58,8 +58,7 @@
 					<div id="bo_v_con">
 						<%= nb.getContent() %>
 					</div>
-					<!-- } 본문 내용 끝 -->
-
+					<!-- } 본문 내용 끝 -->					
 			</section>
 
 			<div id="bo_v_share"></div>

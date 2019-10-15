@@ -68,14 +68,17 @@ public class InqueryDao {
 		ResultSet rs = null;
 		String sql = "select count(*) from Inquery_board";
 		int result = 0;
+
 		if(sfl!=null&&stx!=null) {
 			sql+=" where "+sfl+" like '%"+stx+"%'";
 		}
+
 		try {
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 			if(rs.next()) {
 				result = rs.getInt(1);
+
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();

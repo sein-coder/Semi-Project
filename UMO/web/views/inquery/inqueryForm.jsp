@@ -1,9 +1,8 @@
-<%@page import="com.umo.model.vo.Inquery"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@page import="com.umo.model.vo.Inquery"%>
 
-<%@ include file = "/views/common/header.jsp" %>
-	
+<%@ include file="/views/common/header.jsp"%>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.6.8/beautify.js"></script>
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" rel="stylesheet"/>
@@ -15,80 +14,89 @@
 	String[] outputCode = ((String)request.getAttribute("outputCode")).split(",");
 	String type = (String)request.getAttribute("type");
 %>
-	
-	
-	<style>
-		section#inqueryForm-container{ width: 100%; margin-bottom: 20px; margin-top: 9em; text-align: center;}
-		div.inquery-form {width:55%; margin-left: auto; margin-right: auto;}
-		input#inquery-title { width: 400px; font-size: 25px; padding: 2px;}
-		textarea#inquery-content { resize: none; margin-left: auto; margin-right: auto; padding: 2px; width: 600px; }
-		div#inputeditor,div#outputeditor { margin-top:20px; margin-left: auto; margin-right: auto; font-size: 15px; height: 600px; width : 600px; }
-		input#submit { margin-top: 10px; }
-		input#type { width: 75px; font-size: 20px; padding: 2px; text-align: center;}
-		table.form-tbl { margin-left: auto; margin-right: auto; padding-bottom: 10px; }
-		table.form-tbl h3{ width: 120px; text-align: center; margin-left: auto; margin-right: auto;}
-		table.form-tbl td,tr{ text-align: left; }
-		table.form-tbl td { margin-left: auto; margin-right: auto; border: 1px solid black; }
-		span#fname{position: absolute; font-size:18px; left:80px; top:28px; width: 285px; background-color: #ffffff;}
-	</style>
 
-	<section id="inqueryForm-container">
-	<div class="inquery-form">
-		<form id="frm" action="<%=request.getContextPath() %>/inquery/inqueryWriteEnd?code-type="+<%= type %> method="post" enctype="multipart/form-data">
+<!-- 컨텐츠 시작-->
+<div id="wrapper">
+	<div id="container_wr">
+		<div id="container">
+			<h2 id="container_title">
+				<span title="공지사항">공지사항</span>
+			</h2>
+
+			<!-- 게시물 읽기 시작 { -->
+          <form id="frm" action="<%=request.getContextPath() %>/inquery/inqueryWriteEnd?code-type=<%= type %>" method="post" enctype="multipart/form-data">  
 			<input type="hidden" name="writer" value='<%=((Member)session.getAttribute("loginMember")).getMemberId()%>'>
-			<table class="form-tbl" style="border: 1px solid black;">
-				<tr>
-					<td>
-						<h3>제목</h3>
-					</td>
-					<td>
-						<input id="inquery-title" name="inquery-title" type="text"/>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<h3>코드 종류</h3>
-					</td>
-					<td>
-						<input id="code-type" name="code-type" type="text" value="<%= type %>">
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<h3>파일 업로드</h3>
-					</td>
-					<td style="position: relative; ">
-						<input type="file" name="up_file">
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						<h3>질의내용</h3>
-						<textarea id="inquery-content" name="inquery-content" rows="10" cols="25"></textarea>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2">
+			<article id="bo_v" style="width: 100%; height: auto !important;">
+				
+				<header>
+					<h2 id="bo_v_title">
+						<input type="text" id="inquery-title" name="inquery-title" class="frm_input full_input_title required" size="50" maxlength="200" required="required" placeholder="제목" autocomplete="off">
+					</h2>
+				</header>
+
+				<section id="bo_v_info">
+					<h2>페이지 정보</h2>
+					<strong><span class="sv_member">작성자 : <%=loginMember.getMemberId()%></span></strong>
+					<br>
+					<br>
+					<h2>코드 타입</h2>
+					<strong><span class="sv_member">코드 타입 : <%= type %></span></strong>
+					<input id="code-type" name="code-type" type="hidden" value="<%= type %>">
+				</section>
+				
+				<section id="bo_v_atc">
+					<h2 id="bo_v_atc_title">본문</h2>
+
+					<!-- 본문 내용 시작 { -->
+					<div id="bo_v_con">
+						<textarea rows="10" cols="89" id="inquery-content" name="inquery-content"></textarea>
+					</div>
+					<!-- } 본문 내용 끝 -->
+					<div>
 						<h3>입력 코드</h3>
 						<div id="inputeditor"></div>
 						<input type="hidden" id="inputCode" name="inputCode" value="">
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2" style="text-align: center;">
+					</div>
+					<div>
 						<h3>출력 내용</h3>
 						<div id="outputeditor"></div>
 						<input type="hidden" id="outputCode" name="outputCode" value="">
-					</td>
-				</tr>
-			</table>
+					</div>
+				</section>
+                
+                <!-- 첨부파일 시작 { -->
+				<div class="bo_w_flie write_div">
+					<div class="file_wr write_div">
+						<label for="bf_file_1" class="lb_icon"><i
+							class="fa fa-download" aria-hidden="true"></i></label>
+							<input type="file"
+							name="up_file" id="up_file"
+							title="파일첨부  : 용량  10mb 이하만 업로드 가능" class="frm_file ">
+					</div>
+				</div>
+				<!-- 첨부파일 시작 { -->
 
-			<input id="submit" type="submit" value="질문올리기">
-			<input id="btn-cancel" type="button" value="되돌아가기" onclick="location.href='<%=request.getContextPath()%>/webCopiler/webCopilerView'">
-		</form>
+				<!-- 게시물 하단 버튼 시작 { -->
+				<div class="btn_confirm write_div">
+					<input
+						type="submit" value="작성완료" id="btn_submit"
+						class="btn_submit btn">
+					<a href='<%=request.getContextPath()%>/webCopiler/webCopilerView' class="btn_cancel btn">되돌아가기</a> 
+				</div>
+				<!-- } 게시물 하단 버튼 끝 -->
+			</article>
+			</form>
+		</div>
+  
+		<!-- } 게시글 읽기 끝 -->
 	</div>
-	
-	<script>
+</div>
+
+
+
+<!-- } 콘텐츠 끝 -->
+
+<script>
 		//에디터 설정부분
 		var oEditors = [];
 		nhn.husky.EZCreator.createInIFrame({
@@ -168,7 +176,5 @@
 		});
 	    
 	</script>
-	
-	</section>
 
-<%@ include file = "/views/common/footer.jsp" %>
+<%@ include file="/views/common/footer.jsp"%>

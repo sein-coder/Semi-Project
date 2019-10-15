@@ -14,7 +14,7 @@
 		div#language-container { text-align:left; margin-right: 62%; margin-left: 0%; }
 		select#language-choice { position: relative; margin-top: 5px; margin-left: auto; padding-top: 5px; padding-bottom: 5px;}
 		select#language-choice option { font-size: 18px; }
-		button#btn-compiler{ font-size: 20px; color: red; padding-left: 15%; padding-right: 15%;}
+		button#btn-compiler{ font-size: 20px; color: white; padding-left: 15%; padding-right: 15%;}
 		div.title { font-size: 1.67em; font-weight: bold; text-align: center; }
 	    div#editor,div#result { margin-top:20px; margin-left: auto; margin-right: auto; font-size: 15px; height:300px; width:700px; border: 1px solid black;}
 	    .as-console-wrapper { display: none !important; }
@@ -26,7 +26,7 @@
 	<div id="container_wr">
 		<div id="container">
 			<section id="webCompiler-container" style="background-color: white;">
-				<button id="question" onclick="fn_question()">질의하기</button>
+				<button id="question" class="btn_b02 btn" onclick="fn_question()">질의하기</button>
 				<form action="<%= request.getContextPath() %>/webCompiler/codeInput"
 					method="post">
 					<div id="language-container">
@@ -41,7 +41,7 @@
 						value="">
 
 				</form>
-				<button id="btn-compiler" onclick="compile();">C o m p i l
+				<button id="btn-compiler" class="btn_b02" onclick="compile();">C o m p i l
 					e r</button>
 				<input type="hidden" id="outputCode" name="outputCode" value="">
 
