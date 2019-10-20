@@ -152,11 +152,11 @@
 			<section id="bo_vc">
 				<h2>댓글목록</h2>
 
-				<article>
 				<% if(!list.isEmpty()) {
 						for(InqueryComment bc : list){
 						if(bc.getComment_level()==1){
 					%>
+				<article>
 					<header style="z-index: 2">
 						<h2><%=bc.getComment_writer() %>님의 댓글</h2>
 						<span class="sv_member"><%=bc.getComment_writer() %>의 댓글</span>
@@ -168,12 +168,15 @@
 					<div class="cmt_contents">
 						<p><%=bc.getComment_contents() %></p>
 						<ul class="bo_vc_act">
-							<li><button id="btn-reply" class="btn_b03" value="<%= bc.getComment_no() %>">답변</button></li>
 							<li>
-							<%if(loginMember!=null&&loginMember.getMemberId().equals(bc.getComment_writer())){ %>
-							<a href='<%=request.getContextPath()%>/inqueryComment/deleteComment?Board_No=<%=bc.getComment_no()%>&writer=<%=bc.getComment_writer()%>'
-								onclick="comment_delete();" class="btn_b03">삭제</a></li>
-								<%} %>
+								<button id="btn-reply" class="btn_b03 btn-reply" value="<%= bc.getComment_no() %>">답변</button>
+							</li>
+							<li>
+								<%if(loginMember!=null&&loginMember.getMemberId().equals(bc.getComment_writer())){ %>
+									<a href='<%=request.getContextPath()%>/inqueryComment/deleteComment?boardRef=<%=bc.getBoard_no_Ref() %>&boardCommentNo=<%=bc.getComment_no()%>'
+								onclick="comment_delete();" class="btn_b03">삭제</a>
+							</li>
+							<%} %>
 						</ul>
 					</div>
 					</article>
@@ -195,7 +198,7 @@
 						<ul class="bo_vc_act">
 							<!-- <li><button class="btn_b03">답변</button></li> -->
 							
-							<li><a href='<%=request.getContextPath()%>/inqueryComment/deleteComment?noticeNo=<%=bc.getComment_no()%>'
+							<li><a href='<%=request.getContextPath()%>/inqueryComment/deleteComment?boardRef=<%=bc.getBoard_no_Ref() %>&boardCommentNo=<%=bc.getComment_no()%>'
 								onclick="comment_delete();" class="btn_b03">삭제</a></li>
 								
 						</ul>
@@ -330,7 +333,7 @@ outputCode.getSession().setMode("ace/mode/java");
 		html+=	'<input type="hidden" name="boardCommentRef" value="'+$(this).val()+'">';
 		html+=	'<input type="hidden" name="boardCommentLevel" value="2">';
 		html+=	'<input type="hidden" name="boardWriter" value="<%= loginMember!=null?loginMember.getMemberId():"" %>">';
-		html+=  '<textarea name="content" cols="60" rows="3"></textarea>';
+		html+=  '<textarea name="wr_content" cols="60" rows="3"></textarea>';
 		html+=  '<input type="submit" value="등록" />';
 		html+=  '</form></td>';
 		tr.html(html);
@@ -344,7 +347,9 @@ outputCode.getSession().setMode("ace/mode/java");
    		if(<%=loginMember==null%>){
    			fn_loginAlert();
    		}
-   		location.href="<%=request.getContextPath()%>/inqueryComment/deleteComment?boardRef=<%=inquery.getBoard_No()%>&boardCommentNo="+$(this).val()+"";
+   		console.log("실행");
+   		console.log(<%=inquery.getBoard_No()%>);
+   		<%-- location.href='<%=request.getContextPath()%>/inqueryComment/deleteComment?boardRef=<%=inquery.getBoard_No()%>&boardCommentNo='+$(this).val()+""; --%>
    	});
    });
 

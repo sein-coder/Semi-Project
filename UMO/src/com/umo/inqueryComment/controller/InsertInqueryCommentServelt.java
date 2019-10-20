@@ -33,8 +33,8 @@ public class InsertInqueryCommentServelt extends HttpServlet {
 		int level = Integer.parseInt(request.getParameter("boardCommentLevel"));
 		int boardCommentRef = Integer.parseInt(request.getParameter("boardCommentRef"));
 		String writer = request.getParameter("boardWriter");
-		String content = request.getParameter("content");
-
+		String content = request.getParameter("wr_content");
+		System.out.println(content);
 		InqueryComment inqueryComment = new InqueryComment();
 		
 		inqueryComment.setBoard_no_Ref(boardRef);
