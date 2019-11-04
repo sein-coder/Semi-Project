@@ -255,7 +255,7 @@
 
 	<script>
 	//해시태그 표시 및 추가
-	var tags = "<%=f.getBoard_menu()%>".split(",")
+	var tags = "<%=f.getBoard_tag()%>".split(",")
 
 	$.each(tags,function(i,item){
 		if(item!='null') {

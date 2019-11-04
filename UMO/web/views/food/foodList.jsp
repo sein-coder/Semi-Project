@@ -85,8 +85,8 @@
 							<div class="content">							
 						        <ul id="tag-list">
 						        	<% 
-						        	if(f.getBoard_menu()!=null) {
-						        	for(String str : f.getBoard_menu().split(",")) { %>
+						        	if(f.getBoard_tag()!=null) {
+						        		for(String str : f.getBoard_tag().split(",")) { %>
 						        		<li class="tag-item"><a href='<%=request.getContextPath()%>/food/foodTagSearch?tag=<%=str%>'>#<%= str %></a></li>
 						        	<% } 
 						        	} else { %>
@@ -114,6 +114,7 @@
 					<option value="board_contents">내용</option>
 					<option value="board_writer">작성자</option>
 					<option value="board_title||board_contents">제목+내용</option>
+					<option value="board_tag">태그명</option>
 				</select> <input type="text" name="stx" value="" id="stx"
 					class="sch_input" size="25" maxlength="20"
 					placeholder="검색어를 입력해주세요">

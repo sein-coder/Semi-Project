@@ -39,11 +39,16 @@ public class FoodListServlet extends HttpServlet {
 		}
 		int numPerPage=8;
 		
+		//sfl는 선택창
+		//stx는 검색어
+		String sfl=request.getParameter("sfl");
+		String stx=request.getParameter("stx");
+		
 		FoodService service = new FoodService();
-		int totalData=service.selectCountFood_Board();
+		int totalData=service.selectCountFood_Board(sfl,stx);
 		String name="";
 		String userId="";
-		List<Food> list = new FoodService().selectFoodList(cPage,numPerPage,name,userId);
+		List<Food> list = new FoodService().selectFoodList(cPage,numPerPage,name,userId,sfl,stx);
 		String pageBar="";
 		int totalPage = (int)Math.ceil((double)totalData/numPerPage);
 		int pageBarSize=5;

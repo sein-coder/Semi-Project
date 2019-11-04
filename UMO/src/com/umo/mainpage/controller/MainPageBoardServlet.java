@@ -82,7 +82,7 @@ public class MainPageBoardServlet extends HttpServlet {
 			
 			break;
 		case "food":
-			List<Food> foodlist = new FoodService().selectFoodList(1, 5, "", "");
+			List<Food> foodlist = new FoodService().selectFoodList(1, 5, "", "",sfl,stx);
 
 			response.setContentType("application/json; charset=UTF-8");
 			new Gson().toJson(foodlist,response.getWriter());

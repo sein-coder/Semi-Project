@@ -219,7 +219,7 @@
 
 <script>
 	//해시태그 초기화
-	var tags = "<%=f.getBoard_menu()%>".split(",")
+	var tags = "<%=f.getBoard_tag()%>".split(",")
 	var counter = 0;
 	var tag = {};
 	

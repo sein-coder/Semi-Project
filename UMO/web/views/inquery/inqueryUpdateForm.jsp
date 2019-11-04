@@ -108,7 +108,7 @@
 	
 		// textArea에 이미지 첨부
 		function pasteHTML(filepath){
-		    var sHTML = '<img src="<%=request.getContextPath()%>/upload/food/contentimg/'+filepath+'">';
+		    var sHTML = '<img src="<%=request.getContextPath()%>/upload/inquery/contentimg/'+filepath+'">';
 		    oEditors.getById["inquery-content"].exec("PASTE_HTML", [sHTML]);
 		}
 		

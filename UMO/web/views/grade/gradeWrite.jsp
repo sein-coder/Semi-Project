@@ -29,7 +29,7 @@
        </tr>
        <tr>
          <th>내용</th>
-         <td><textarea rows="5" cols="50" name="content"></textarea></td>
+         <td><textarea rows="5" cols="50" id="content" name="content"></textarea></td>
        </tr>
        <tr>
        	<td><input type="hidden" name="khno" value="<%=loginMember.getKhno()%>"></td>
@@ -39,9 +39,27 @@
        </tr>  
       </table>
       </form>
-   
-   
-   
    </section>
+   
+   <script>
+ //에디터 설정부분
+   var oEditors = [];
+   nhn.husky.EZCreator.createInIFrame({
+    oAppRef: oEditors,
+    elPlaceHolder: "content",
+    sSkinURI: "<%=request.getContextPath()%>/se2/SmartEditor2Skin.html",
+    fCreator: "createSEditor2"
+   });
+
+   // textArea에 이미지 첨부
+   function pasteHTML(filepath){
+       var sHTML = '<img src="<%=request.getContextPath()%>/upload/grade/contentimg/'+filepath+'">';
+       oEditors.getById["content"].exec("PASTE_HTML", [sHTML]);
+   }
+   $(this).submit(function(){
+   	oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []); 
+   });
+
+   </script>
 
 <%@ include file="/views/common/footer.jsp" %>
