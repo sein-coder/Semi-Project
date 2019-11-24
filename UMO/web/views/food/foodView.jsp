@@ -67,185 +67,182 @@
 	<div id="wrapper">
 	<div id="container_wr">
 		<div id="container">
-	<section id="foodview-container" style="background-color: white;">
-	<input type="hidden" name="writer" value="<%=loginMember!=null?loginMember.getMemberId():""%>"> 
-	
-	<div id="div-container">
-		<div id="thumnail" style="margin-left:auto; margin-right:auto; width: 600px; height: 400px; border: 1px solid black; zoom:0.8;">
-			<img src="<%=request.getContextPath() %>/upload/food/thumnail/<%= f.getBoard_Thumbnail() %>" style="width: 600px; height: 400px" >
-		</div>
-		<table id="big-table" style="zoom:0.7;">
+		<section id="foodview-container" style="background-color: white;">
+		<input type="hidden" name="writer" value="<%=loginMember!=null?loginMember.getMemberId():""%>"> 
 		
-			<tr>
-				<th style="background-color:black;">  	
-					<button type="button" id="img-back" style="border:none;padding:0px;"><img src="<%=request.getContextPath()%>/images/foodpoint/back.jpg" width="50px" height="205px"></button>
-				</th> 
-				<th colspan="3" style="background-color:white;" >
-					<div id="img-container">
-						<img id="img0" style="width: 300px; height:200px" src="<%=request.getContextPath()%>/images/foodpoint/noimg.png">
-						<img id="img1" style="width: 300px; height:200px" src="<%=request.getContextPath()%>/images/foodpoint/noimg.png"> 
-						<img id="img2" style="width: 300px; height:200px" src="<%=request.getContextPath()%>/images/foodpoint/noimg.png">
-					</div>
-				</th>
-				<th style="background-color:white;">
-					<button type="button" id="img-front" style="border: none; padding:0px 0px 0px 0px; " ><img src="<%=request.getContextPath()%>/images/foodpoint/front.jpg" width="50px" height="205px"></button>
-				</th>
-			</tr>
-			<tr>
-				<td colspan="5">
-						
-						<table id="sml-table">
-							<tr>
-								<td>
-									<span>제목:<%=f.getBoard_Title() %></span>
-								</td>
-							<td>
-                       			 <a href="<%=request.getContextPath() %>/scrap/scrapViewServlet?board_type=food&board_no=<%=f.getBoard_No()%>" target="_blank" id="ol_after_scrap" class="win_scrap">스크랩<br>
-                           	 	<strong class="scrap"><i class="fa fa-thumb-tack" aria-hidden="true"></i></strong>
-                        		</a>
-                  	 		</td>
-							</tr>
-							<tr>
-								<td>
-									<div class="content">							
-								        <ul id="tag-list">
-								        	
-								        </ul>
-								    </div>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<span>전화번호 :<%=f.getBoard_tel() %></span>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<span>음식종류 :<%=f.getBoard_foodtype() %></span>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<span>가격(1인기준) :<%=f.getBoard_foodbill() %></span>
-									
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<span>주차여부 :<%=f.getBoard_park() %></span>
-									
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<span>영업시간 :<%=f.getBoard_open() %></span>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<span id="grade">만족도:<%=f.getBoard_Grade() %></span>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<h3>내용</h3>
-									<div>
-										<%=f.getBoard_Contents() %>
-									</div>
-								</td>
-							</tr>
+		<div id="div-container">
+			<div id="thumnail" style="margin-left:auto; margin-right:auto; width: 600px; height: 400px; border: 1px solid black; zoom:0.8;">
+				<img src="<%=request.getContextPath() %>/upload/food/thumnail/<%= f.getBoard_Thumbnail() %>" style="width: 600px; height: 400px" >
+			</div>
+			<table id="big-table" style="zoom:0.7;">
+			
+				<tr>
+					<th style="background-color:black;">  	
+						<button type="button" id="img-back" style="border:none;padding:0px;"><img src="<%=request.getContextPath()%>/images/foodpoint/back.jpg" width="50px" height="205px"></button>
+					</th> 
+					<th colspan="3" style="background-color:white;" >
+						<div id="img-container">
+							<img id="img0" style="width: 300px; height:200px" src="<%=request.getContextPath()%>/images/foodpoint/noimg.png">
+							<img id="img1" style="width: 300px; height:200px" src="<%=request.getContextPath()%>/images/foodpoint/noimg.png"> 
+							<img id="img2" style="width: 300px; height:200px" src="<%=request.getContextPath()%>/images/foodpoint/noimg.png">
+						</div>
+					</th>
+					<th style="background-color:white;">
+						<button type="button" id="img-front" style="border: none; padding:0px 0px 0px 0px; " ><img src="<%=request.getContextPath()%>/images/foodpoint/front.jpg" width="50px" height="205px"></button>
+					</th>
+				</tr>
+				<tr>
+					<td colspan="5">
 							
-							 <tr>
-								<td><!--지도  -->
-									<div id="map" style="width:100%;height:400px;margin-right: auto;margin-left: auto;">
-										 <div class="search" style="position:absolute; z-index:1000; top:20px; left:20px;">
-										 	<input type="hidden" id="road_address" name="road_address" value="<%=f.getBoard_MAP()%>">
-										 </div>
-									</div>
-								</td>
-							</tr>
-							<tr>
+							<table id="sml-table">
+								<tr>
+									<td>
+										<span>제목:<%=f.getBoard_Title() %></span>
+									</td>
 								<td>
-									<% if(request.getAttribute("tag")!=null) { %>
-										<input type="button" value="목록"  id="btn_list" onclick="location.href='<%=request.getContextPath()%>/food/foodTagSearch?cPage=<%=cPage%>&tag=<%=tag%>'"/>
-									<% } else { %>
-										<input type="button" value="목록"  id="btn_list" onclick="location.href='<%=request.getContextPath()%>/food/foodList?cPage=<%=cPage%>'"/>
-									<% } %>
-								</td>
-							</tr>
-						</table>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<input type="button" value="수정" id="btn_update" onclick="location.href='<%=request.getContextPath() %>/food/foodUpdate?board_no=<%=f.getBoard_No()%>&cPage=<%=cPage%>&tag=<%=tag%>'">
-				</td>
-				<td>
-					<input type="button" value="삭제" id="btn_delete" onclick="location.href='<%=request.getContextPath() %>/food/foodBoardDelete?board_no=<%=f.getBoard_No()%>'">
-				</td>
-			</tr>
-		</table>
-	</div>
-	<!-- 댓글  -->
-	<div id="comment-container"></div>
-		<div class="comment-editor">
-			<form action="<%=request.getContextPath()%>/foodComment/insertComment" method="post" onsubmit="return fn_commentValidate();">
-			<table style="margin-top:20px; margin-left:auto; margin-right:auto";>
+	                       			 <a href="<%=request.getContextPath() %>/scrap/scrapViewServlet?board_type=food&board_no=<%=f.getBoard_No()%>" target="_blank" id="ol_after_scrap" class="win_scrap">스크랩<br>
+	                           	 	<strong class="scrap"><i class="fa fa-thumb-tack" aria-hidden="true"></i></strong>
+	                        		</a>
+	                  	 		</td>
+								</tr>
+								<tr>
+									<td>
+										<div class="content">							
+									        <ul id="tag-list">
+									        	
+									        </ul>
+									    </div>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<span>전화번호 :<%=f.getBoard_tel() %></span>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<span>음식종류 :<%=f.getBoard_foodtype() %></span>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<span>가격(1인기준) :<%=f.getBoard_foodbill() %></span>
+										
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<span>주차여부 :<%=f.getBoard_park() %></span>
+										
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<span>영업시간 :<%=f.getBoard_open() %></span>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<span id="grade">만족도:<%=f.getBoard_Grade() %></span>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<h3>내용</h3>
+										<div>
+											<%=f.getBoard_Contents() %>
+										</div>
+									</td>
+								</tr>
+								
+								 <tr>
+									<td><!--지도  -->
+										<div id="map" style="width:100%;height:400px;margin-right: auto;margin-left: auto;">
+											 <div class="search" style="position:absolute; z-index:1000; top:20px; left:20px;">
+											 	<input type="hidden" id="road_address" name="road_address" value="<%=f.getBoard_MAP()%>">
+											 </div>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<% if(request.getAttribute("tag")!=null) { %>
+											<input type="button" value="목록"  id="btn_list" onclick="location.href='<%=request.getContextPath()%>/food/foodTagSearch?cPage=<%=cPage%>&tag=<%=tag%>'"/>
+										<% } else { %>
+											<input type="button" value="목록"  id="btn_list" onclick="location.href='<%=request.getContextPath()%>/food/foodList?cPage=<%=cPage%>'"/>
+										<% } %>
+									</td>
+								</tr>
+							</table>
+					</td>
+				</tr>
 				<tr>
 					<td>
-						<!-- 클라이언트에게 입력받을 필요가 없는 내용이다 -->
-						<input type="hidden" name="boardRef" value="<%=f.getBoard_No() %>">
-						<input type="hidden" name="boardCommentRef" value="0">		
-						<input type="hidden" name="boardCommentLevel" value="1">
-						<input type="hidden" name="boardWriter" value="<%=loginMember!=null?loginMember.getMemberId():"" %>">
-						<!--클라이언트에게 입력을 받아야 하는 내용을 작성을 하기  -->	
-						<textarea style="min-right:100px;" name="content" rows="3" cols="60"></textarea>
+						<input type="button" value="수정" id="btn_update" onclick="location.href='<%=request.getContextPath() %>/food/foodUpdate?board_no=<%=f.getBoard_No()%>&cPage=<%=cPage%>&tag=<%=tag%>'">
 					</td>
-					<td>	
-						<input type="submit" value="등록"/>
-						<input type="submit" value="삭제"/>
+					<td>
+						<input type="button" value="삭제" id="btn_delete" onclick="location.href='<%=request.getContextPath() %>/food/foodBoardDelete?board_no=<%=f.getBoard_No()%>'">
 					</td>
 				</tr>
 			</table>
-			</form>
-		
-		
-		
 		</div>
-	<table id="tbl-comment">
-	<% if(!list.isEmpty()) {
-		for(FoodComment comment : list){
-			if(comment.getComment_Level()==1){
-	%>
-		<tr class="level1">
-			<td>
-				<sub class="comment-writer"><%=comment.getComment_Writer() %></sub>
-				<sub class="comment-date"><%=comment.getDate()%></sub>
-				<br>
-				<%= comment.getComment_Contents() %>
-			</td>
-			<td>
-				<button class="btn-reply" value="<%=comment.getComment_No()%>">답글</button>
-				<button class="btn-delete" value="<%=comment.getComment_No()%>">삭제</button>
-			</td>
-		</tr>
-	<%  } else {%>
-			<tr class="level2">
-			<td>
-				<sub class="comment-writer"><%=comment.getComment_Writer() %></sub>
-				<sub class="comment-date"><%=comment.getDate()%></sub>
-				<br>
-				<%=comment.getComment_Contents() %>
-			</td>
-			<td>
-				<button class="btn-reply" value="<%=comment.getComment_No()%>">답글</button>
-				<button class="btn-delete" value="<%=comment.getComment_No()%>">삭제</button><!--아직 안함  -->
+		<!-- 댓글  -->
+		<div id="comment-container"></div>
+			<div class="comment-editor">
+				<form action="<%=request.getContextPath()%>/foodComment/insertComment" method="post" onsubmit="return fn_commentValidate();">
+				<table style="margin-top:20px; margin-left:auto; margin-right:auto";>
+					<tr>
+						<td>
+							<!-- 클라이언트에게 입력받을 필요가 없는 내용이다 -->
+							<input type="hidden" name="boardRef" value="<%=f.getBoard_No() %>">
+							<input type="hidden" name="boardCommentRef" value="0">		
+							<input type="hidden" name="boardCommentLevel" value="1">
+							<input type="hidden" name="boardWriter" value="<%=loginMember!=null?loginMember.getMemberId():"" %>">
+							<!--클라이언트에게 입력을 받아야 하는 내용을 작성을 하기  -->	
+							<textarea style="min-right:100px;" name="content" rows="3" cols="60"></textarea>
+						</td>
+						<td>	
+							<input type="submit" value="등록"/>
+							<input type="submit" value="삭제"/>
+						</td>
+					</tr>
+				</table>
+				</form>
+			</div>
+		<table id="tbl-comment">
+		<% if(!list.isEmpty()) {
+			for(FoodComment comment : list){
+				if(comment.getComment_Level()==1){
+		%>
+			<tr class="level1">
+				<td>
+					<sub class="comment-writer"><%=comment.getComment_Writer() %></sub>
+					<sub class="comment-date"><%=comment.getDate()%></sub>
+					<br>
+					<%= comment.getComment_Contents() %>
+				</td>
+				<td>
+					<button class="btn-reply" value="<%=comment.getComment_No()%>">답글</button>
+					<button class="btn-delete" value="<%=comment.getComment_No()%>">삭제</button>
 				</td>
 			</tr>
-		<% 		}	
-			}
-		}	%>
-	</table>
+		<%  } else {%>
+				<tr class="level2">
+				<td>
+					<sub class="comment-writer"><%=comment.getComment_Writer() %></sub>
+					<sub class="comment-date"><%=comment.getDate()%></sub>
+					<br>
+					<%=comment.getComment_Contents() %>
+				</td>
+				<td>
+					<button class="btn-reply" value="<%=comment.getComment_No()%>">답글</button>
+					<button class="btn-delete" value="<%=comment.getComment_No()%>">삭제</button><!--아직 안함  -->
+					</td>
+				</tr>
+			<% 		}	
+				}
+			}	%>
+		</table>
 		
 		
 <!-- 		

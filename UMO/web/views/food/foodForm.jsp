@@ -186,7 +186,6 @@
 								<td>
 									<h3>내용</h3>
 										<textarea name="ir1" id="ir1" rows="10" cols="100">
-										
 										</textarea>
 								</td>
 							</tr>
